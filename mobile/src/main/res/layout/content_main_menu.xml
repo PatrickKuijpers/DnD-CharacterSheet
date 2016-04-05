@@ -12,8 +12,55 @@
     tools:context="nl.tcilegnar.dndcharactersheet.MainMenu"
     tools:showIn="@layout/app_bar_main_menu">
 
-    <TextView
+    <ProgressBar
+        android:id="@+id/experience_progressBar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="match_parent"
+        android:layout_height="25dp"
+        android:layout_alignParentTop="true"
+        android:max="100" />
+
+    <LinearLayout
+        android:id="@+id/experience_data_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/experience_progressBar"
+        android:layout_marginTop="16dp"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:id="@+id/experience_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Experience: "
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/experience_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@id/experience_text"
+            android:layout_toRightOf="@id/experience_text"
+            android:textSize="20sp" />
+
+        <Button
+            android:id="@+id/experience_add_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@id/experience_text"
+            android:layout_marginLeft="32dp"
+            android:layout_toRightOf="@id/experience_number"
+            android:padding="0dp"
+            android:text="+" />
+    </LinearLayout>
+
+    <NumberPicker
+        android:id="@+id/numberPicker"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!" />
+        android:layout_below="@id/experience_data_container"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp"
+        android:labelFor="@id/experience_number" />
+
 </RelativeLayout>
