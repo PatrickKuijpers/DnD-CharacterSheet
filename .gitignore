@@ -1,0 +1,41 @@
+# https://github.com/github/gitignore/blob/master/Android.gitignore
+
+# built application files
+*.apk
+*.ap_
+
+# files for the dex VM
+*.dex
+
+# Java class files
+*.class
+
+# generated files
+bin/
+gen/
+
+# Local configuration file (sdk path, etc)
+local.properties
+
+
+
+# Default Android Studio gitignore
+*.iml
+.gradle
+/local.properties
+/.idea/workspace.xml
+/.idea/libraries
+.DS_Store
+/build
+/captures
+
+
+
+### Review onderstaande ###
+# generated files
+# build.xml
+
+# Custom:
+# *.settings/org.eclipse.jdt.core.prefs
+# Voorbeeld:
+# AVKeuzehulp-StadHolland/.settings/org.eclipse.jdt.core.prefs
