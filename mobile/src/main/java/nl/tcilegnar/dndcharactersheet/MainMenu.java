@@ -41,8 +41,6 @@ public class MainMenu extends AppCompatActivity implements View.OnClickListener,
 		NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
 		navigationView.setNavigationItemSelectedListener(this);
 
-		(findViewById(R.id.experience_add_button)).setOnClickListener(this);
-
 		if (savedInstanceState != null) {
 			currentExperience = savedInstanceState.getInt(SavedValues.CURRENT_EXP.name());
 		} else {
@@ -51,6 +49,13 @@ public class MainMenu extends AppCompatActivity implements View.OnClickListener,
 
 		initExperience(currentExperience);
 		initNumberPicker();
+
+		setListeners();
+	}
+
+	private void setListeners() {
+		(findViewById(R.id.experience_plus_button)).setOnClickListener(this);
+		(findViewById(R.id.experience_min_button)).setOnClickListener(this);
 	}
 
 	private void initExperience(int exp) {
@@ -149,16 +154,24 @@ public class MainMenu extends AppCompatActivity implements View.OnClickListener,
 	@Override
 	public void onClick(View v) {
 		int viewId = v.getId();
-		if (viewId == R.id.experience_add_button) {
-			NumberPicker numberPicker = (NumberPicker) findViewById(R.id.numberPicker);
+		NumberPicker numberPicker = (NumberPicker) findViewById(R.id.numberPicker);
+		if (viewId == R.id.experience_plus_button) {
 			addExperience(numberPicker.getValue());
+		}
+		if (viewId == R.id.experience_min_button) {
+			subtractExperience(numberPicker.getValue());
 		}
 	}
 
 	private void addExperience(int addedExperience) {
-		int newExperience = currentExperience + addedExperience;
-		currentExperience = newExperience;
+		currentExperience = currentExperience + addedExperience;
 
-		updateExperienceViews(newExperience);
+		updateExperienceViews(currentExperience);
+	}
+
+	private void subtractExperience(int subtractedExperience) {
+		currentExperience = currentExperience - subtractedExperience;
+
+		updateExperienceViews(currentExperience);
 	}
 }

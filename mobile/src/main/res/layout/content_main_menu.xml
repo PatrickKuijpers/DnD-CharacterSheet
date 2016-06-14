@@ -4,10 +4,10 @@
                 xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:paddingBottom="@dimen/activity_vertical_margin"
-                android:paddingLeft="@dimen/activity_horizontal_margin"
-                android:paddingRight="@dimen/activity_horizontal_margin"
-                android:paddingTop="@dimen/activity_vertical_margin"
+                android:paddingBottom="@dimen/vertical_margin"
+                android:paddingLeft="@dimen/horizontal_margin"
+                android:paddingRight="@dimen/horizontal_margin"
+                android:paddingTop="@dimen/vertical_margin"
                 app:layout_behavior="@string/appbar_scrolling_view_behavior"
                 tools:context="nl.tcilegnar.dndcharactersheet.MainMenu"
                 tools:showIn="@layout/app_bar_main_menu">
@@ -17,8 +17,7 @@
         style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="match_parent"
         android:layout_height="25dp"
-        android:layout_alignParentTop="true"
-        android:max="100"/>
+        android:layout_alignParentTop="true"/>
 
     <LinearLayout
         android:id="@+id/experience_data_container"
@@ -26,8 +25,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_below="@id/experience_progressBar"
-        android:layout_marginRight="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="@dimen/vertical_margin"
         android:layout_toLeftOf="@+id/experience_change_container"
         android:gravity="top">
 
@@ -35,7 +33,7 @@
             android:id="@+id/experience_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Experience: "
+            android:text="Experience: 1.000.000"
             android:textSize="20sp"/>
     </LinearLayout>
 
@@ -44,21 +42,38 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
+        android:layout_alignTop="@id/experience_data_container"
+        android:layout_marginLeft="@dimen/horizontal_margin"
         android:gravity="center_vertical">
 
-        <Button
-            android:id="@+id/experience_add_button"
+        <LinearLayout
+            android:id="@+id/experience_change_button_container"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="0dp"
-            android:text="+"/>
+            android:layout_alignParentRight="true"
+            android:gravity="center_vertical"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/experience_plus_button"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:padding="0dp"
+                android:text="+"/>
+
+            <Button
+                android:id="@+id/experience_min_button"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:padding="0dp"
+                android:text="-"/>
+        </LinearLayout>
 
         <NumberPicker
             android:id="@+id/numberPicker"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="32dp"
-            android:layout_marginTop="16dp"
-            android:layout_toRightOf="@id/experience_add_button"/>
+            android:layout_marginLeft="@dimen/horizontal_margin"
+            android:layout_toRightOf="@id/experience_plus_button"/>
     </LinearLayout>
 </RelativeLayout>
