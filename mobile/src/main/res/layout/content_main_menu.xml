@@ -9,7 +9,7 @@
                 android:paddingRight="@dimen/horizontal_margin"
                 android:paddingTop="@dimen/vertical_margin"
                 app:layout_behavior="@string/appbar_scrolling_view_behavior"
-                tools:context="nl.tcilegnar.dndcharactersheet.MainMenu"
+                tools:context=".Activity.MainMenu"
                 tools:showIn="@layout/app_bar_main_menu">
 
     <ProgressBar

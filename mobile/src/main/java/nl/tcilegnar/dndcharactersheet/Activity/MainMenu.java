@@ -1,4 +1,4 @@
-package nl.tcilegnar.dndcharactersheet;
+package nl.tcilegnar.dndcharactersheet.Activity;
 
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -14,9 +14,11 @@ import android.widget.NumberPicker;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import nl.tcilegnar.dndcharactersheet.R;
+
 public class MainMenu extends AppCompatActivity implements View.OnClickListener, NavigationView.OnNavigationItemSelectedListener {
 	public enum SavedValues {
-		CURRENT_EXP
+		CURRENT_EXP, CURRENT_PICKER_NUMBER
 	}
 
 	private static final int EXP_DEFAULT = 1050;
@@ -25,6 +27,7 @@ public class MainMenu extends AppCompatActivity implements View.OnClickListener,
 	private static final int PICKER_MAX_VALUE = 100;
 
 	private int currentExperience = EXP_DEFAULT;
+	private int currentPickerNumber = 0;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -43,12 +46,14 @@ public class MainMenu extends AppCompatActivity implements View.OnClickListener,
 
 		if (savedInstanceState != null) {
 			currentExperience = savedInstanceState.getInt(SavedValues.CURRENT_EXP.name());
+			currentPickerNumber = savedInstanceState.getInt(SavedValues.CURRENT_PICKER_NUMBER.name());
 		} else {
 			currentExperience = EXP_DEFAULT;
+			currentPickerNumber = 0;
 		}
 
 		initExperience(currentExperience);
-		initNumberPicker();
+		initNumberPicker(currentPickerNumber);
 
 		setListeners();
 	}
@@ -74,14 +79,14 @@ public class MainMenu extends AppCompatActivity implements View.OnClickListener,
 		expProgressBar.setProgress(newExperience);
 	}
 
-	private void initNumberPicker() {
+	private void initNumberPicker(int pickerNumber) {
 		NumberPicker numberPicker = (NumberPicker) findViewById(R.id.numberPicker);
 		//		String[] test = getExperienceValues(PICKER_MIN_VALUE, PICKER_MAX_VALUE);
 		//		numberPicker.setDisplayedValues(test);
 		//		numberPicker.setMaxValue(test.length - 1);
 		numberPicker.setMaxValue(PICKER_MAX_VALUE);
 		numberPicker.setMinValue(PICKER_MIN_VALUE);
-		// numberPicker.setVerticalScrollBarEnabled(true);
+		numberPicker.setValue(pickerNumber);
 	}
 
 	private String[] getExperienceValues(int minValue, int maxValue) {
@@ -106,6 +111,8 @@ public class MainMenu extends AppCompatActivity implements View.OnClickListener,
 	@Override
 	public void onSaveInstanceState(Bundle outState) {
 		super.onSaveInstanceState(outState);
+		int currentPickerNumber = ((NumberPicker) findViewById(R.id.numberPicker)).getValue();
+		outState.putInt(SavedValues.CURRENT_PICKER_NUMBER.name(), currentPickerNumber);
 		outState.putInt(SavedValues.CURRENT_EXP.name(), currentExperience);
 	}
 
