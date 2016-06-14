@@ -14,156 +14,151 @@ import android.widget.NumberPicker;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-public class MainMenu extends AppCompatActivity
-        implements View.OnClickListener, NavigationView.OnNavigationItemSelectedListener
-{
-    @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main_menu);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+public class MainMenu extends AppCompatActivity implements View.OnClickListener, NavigationView.OnNavigationItemSelectedListener {
+	public enum SavedValues {
+		CURRENT_EXP
+	}
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.setDrawerListener(toggle);
-        toggle.syncState();
+	private static final int EXP_DEFAULT = 1050;
+	private static final int EXP_MAX = 2500;
+	private static final int PICKER_MIN_VALUE = 0;
+	private static final int PICKER_MAX_VALUE = 100;
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
+	private int currentExperience = EXP_DEFAULT;
 
-        (findViewById(R.id.experience_add_button)).setOnClickListener(this);
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_main_menu);
+		Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+		setSupportActionBar(toolbar);
 
-        initExperience();
-        initNumberPicker();
-    }
+		DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+		ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+		drawer.setDrawerListener(toggle);
+		toggle.syncState();
 
-    private void initExperience()
-    {
-        int maxExperience = 2500;
-        ProgressBar expProgressBar = (ProgressBar) findViewById(R.id.experience_progressBar);
-        expProgressBar.setMax(maxExperience);
+		NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+		navigationView.setNavigationItemSelectedListener(this);
 
-        int startingExperience = 1050;
-        expProgressBar.setProgress(startingExperience);
+		(findViewById(R.id.experience_add_button)).setOnClickListener(this);
 
-        TextView expTextView = (TextView) findViewById(R.id.experience_number);
-        expTextView.setText(String.valueOf(startingExperience));
-    }
+		if (savedInstanceState != null) {
+			currentExperience = savedInstanceState.getInt(SavedValues.CURRENT_EXP.name());
+		} else {
+			currentExperience = EXP_DEFAULT;
+		}
 
-    private void updateExperience(int experience)
-    {
-        TextView expTextView = (TextView) findViewById(R.id.experience_number);
-        int currentExperience = Integer.valueOf(expTextView.getText().toString());
+		initExperience(currentExperience);
+		initNumberPicker();
+	}
 
-        int newExperience = currentExperience + experience;
-        expTextView.setText(String.valueOf(newExperience));
+	private void initExperience(int exp) {
+		ProgressBar expProgressBar = (ProgressBar) findViewById(R.id.experience_progressBar);
+		expProgressBar.setMax(EXP_MAX);
 
-        ProgressBar expProgressBar = (ProgressBar) findViewById(R.id.experience_progressBar);
-        expProgressBar.setProgress(newExperience);
-    }
+		updateExperienceViews(exp);
+	}
 
-    private void initNumberPicker()
-    {
-        NumberPicker numberPicker = (NumberPicker) findViewById(R.id.numberPicker);
-        int minValue = 0;
-        int maxValue = 100;
-        numberPicker.setMinValue(minValue);
-        numberPicker.setMaxValue(maxValue);
-        // numberPicker.setDisplayedValues(getExperienceValues(minValue, maxValue));
-        // numberPicker.setVerticalScrollBarEnabled(true);
-        numberPicker.setWrapSelectorWheel(false);
-    }
+	private void updateExperienceViews(int newExperience) {
+		TextView expTextView = (TextView) findViewById(R.id.experience_text);
+		String expText = getString(R.string.experience_label) + " " + newExperience;
+		expTextView.setText(expText);
 
-    private String[] getExperienceValues(int minValue, int maxValue)
-    {
-        int stapGrootte = 2;
-        int aantalStappen = ((maxValue - minValue) / stapGrootte) + 1;
-        String[] experienceValues = new String[aantalStappen];
-        int nextValue = minValue;
-        for (int i = 0; i < experienceValues.length; i++)
-        {
-            experienceValues[i] = String.valueOf(nextValue);
-            nextValue = nextValue + stapGrootte;
-        }
-        return experienceValues;
-    }
+		ProgressBar expProgressBar = (ProgressBar) findViewById(R.id.experience_progressBar);
+		expProgressBar.setProgress(newExperience);
+	}
 
-    @Override
-    public void onBackPressed()
-    {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START))
-        {
-            drawer.closeDrawer(GravityCompat.START);
-        }
-        else
-        {
-            super.onBackPressed();
-        }
-    }
+	private void initNumberPicker() {
+		NumberPicker numberPicker = (NumberPicker) findViewById(R.id.numberPicker);
+		//		String[] test = getExperienceValues(PICKER_MIN_VALUE, PICKER_MAX_VALUE);
+		//		numberPicker.setDisplayedValues(test);
+		//		numberPicker.setMaxValue(test.length - 1);
+		numberPicker.setMaxValue(PICKER_MAX_VALUE);
+		numberPicker.setMinValue(PICKER_MIN_VALUE);
+		// numberPicker.setVerticalScrollBarEnabled(true);
+	}
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu)
-    {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main_menu, menu);
-        return true;
-    }
+	private String[] getExperienceValues(int minValue, int maxValue) {
+		int stapGrootte = 2;
+		int aantalStappen = ((maxValue - minValue) / stapGrootte) + 1;
+		String[] experienceValues = new String[aantalStappen];
+		int nextValue = minValue;
+		for (int i = 0; i < experienceValues.length; i++) {
+			experienceValues[i] = String.valueOf(nextValue);
+			nextValue = nextValue + stapGrootte;
+		}
+		return experienceValues;
+	}
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item)
-    {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		// Inflate the menu; this adds items to the action bar if it is present.
+		getMenuInflater().inflate(R.menu.main_menu, menu);
+		return true;
+	}
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings)
-        {
-            return true;
-        }
+	@Override
+	public void onSaveInstanceState(Bundle outState) {
+		super.onSaveInstanceState(outState);
+		outState.putInt(SavedValues.CURRENT_EXP.name(), currentExperience);
+	}
 
-        return super.onOptionsItemSelected(item);
-    }
+	@Override
+	public void onBackPressed() {
+		DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+		if (drawer.isDrawerOpen(GravityCompat.START)) {
+			drawer.closeDrawer(GravityCompat.START);
+		} else {
+			super.onBackPressed();
+		}
+	}
 
-    @SuppressWarnings("StatementWithEmptyBody")
-    @Override
-    public boolean onNavigationItemSelected(MenuItem item)
-    {
-        // Handle navigation view item clicks here.
-        int id = item.getItemId();
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		// Handle action bar item clicks here. The action bar will
+		// automatically handle clicks on the Home/Up button, so long
+		// as you specify a parent activity in AndroidManifest.xml.
+		int id = item.getItemId();
 
-        if (id == R.id.nav_char_A)
-        {
+		//noinspection SimplifiableIfStatement
+		if (id == R.id.action_settings) {
+			return true;
+		}
 
-        }
-        else if (id == R.id.nav_char_B)
-        {
+		return super.onOptionsItemSelected(item);
+	}
 
-        }
+	@SuppressWarnings("StatementWithEmptyBody")
+	@Override
+	public boolean onNavigationItemSelected(MenuItem item) {
+		// Handle navigation view item clicks here.
+		int id = item.getItemId();
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
-        return true;
-    }
+		if (id == R.id.nav_char_A) {
 
-    @Override
-    public void onClick(View v)
-    {
-        int viewId = v.getId();
-        if (viewId == R.id.experience_add_button)
-        {
-            addExperience();
-        }
-    }
+		} else if (id == R.id.nav_char_B) {
 
-    private void addExperience()
-    {
-        NumberPicker numberPicker = (NumberPicker) findViewById(R.id.numberPicker);
-        updateExperience(numberPicker.getValue());
-    }
+		}
+
+		DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+		drawer.closeDrawer(GravityCompat.START);
+		return true;
+	}
+
+	@Override
+	public void onClick(View v) {
+		int viewId = v.getId();
+		if (viewId == R.id.experience_add_button) {
+			NumberPicker numberPicker = (NumberPicker) findViewById(R.id.numberPicker);
+			addExperience(numberPicker.getValue());
+		}
+	}
+
+	private void addExperience(int addedExperience) {
+		int newExperience = currentExperience + addedExperience;
+		currentExperience = newExperience;
+
+		updateExperienceViews(newExperience);
+	}
 }
