@@ -14,20 +14,22 @@ import android.widget.NumberPicker;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import nl.tcilegnar.dndcharactersheet.Manager.Storage;
 import nl.tcilegnar.dndcharactersheet.R;
 
 public class MainMenu extends AppCompatActivity implements View.OnClickListener, NavigationView.OnNavigationItemSelectedListener {
-	public enum SavedValues {
-		CURRENT_EXP, CURRENT_PICKER_NUMBER
-	}
-
 	private static final int EXP_DEFAULT = 1050;
 	private static final int EXP_MAX = 2500;
 	private static final int PICKER_MIN_VALUE = 0;
 	private static final int PICKER_MAX_VALUE = 100;
+	private static final int PICKER_STEP_SIZE = 10;
+
+	public enum SavedValues {
+		CURRENT_PICKER_INDEX
+	}
 
 	private int currentExperience = EXP_DEFAULT;
-	private int currentPickerNumber = 0;
+	private int currentPickerIndex = 0;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -45,17 +47,40 @@ public class MainMenu extends AppCompatActivity implements View.OnClickListener,
 		navigationView.setNavigationItemSelectedListener(this);
 
 		if (savedInstanceState != null) {
-			currentExperience = savedInstanceState.getInt(SavedValues.CURRENT_EXP.name());
-			currentPickerNumber = savedInstanceState.getInt(SavedValues.CURRENT_PICKER_NUMBER.name());
+			currentPickerIndex = savedInstanceState.getInt(SavedValues.CURRENT_PICKER_INDEX.name());
 		} else {
-			currentExperience = EXP_DEFAULT;
-			currentPickerNumber = 0;
+			currentPickerIndex = 0;
 		}
 
-		initExperience(currentExperience);
-		initNumberPicker(currentPickerNumber);
+		initExperienceBar();
+		initNumberPicker();
 
 		setListeners();
+	}
+
+	private void initExperienceBar() {
+		ProgressBar expProgressBar = (ProgressBar) findViewById(R.id.experience_progressBar);
+		expProgressBar.setMax(EXP_MAX);
+	}
+
+	private void initNumberPicker() {
+		NumberPicker numberPicker = (NumberPicker) findViewById(R.id.numberPicker);
+		String[] expValues = getExperienceValues(PICKER_MIN_VALUE, PICKER_MAX_VALUE);
+		numberPicker.setDisplayedValues(expValues);
+		numberPicker.setMaxValue(expValues.length - 1);
+		numberPicker.setMinValue(PICKER_MIN_VALUE);
+		numberPicker.setValue(currentPickerIndex);
+	}
+
+	private String[] getExperienceValues(int minValue, int maxValue) {
+		int numberOfSteps = ((maxValue - minValue) / PICKER_STEP_SIZE) + 1;
+		String[] experienceValues = new String[numberOfSteps];
+		int nextValue = minValue;
+		for (int i = 0; i < experienceValues.length; i++) {
+			experienceValues[i] = String.valueOf(nextValue);
+			nextValue = nextValue + PICKER_STEP_SIZE;
+		}
+		return experienceValues;
 	}
 
 	private void setListeners() {
@@ -63,11 +88,18 @@ public class MainMenu extends AppCompatActivity implements View.OnClickListener,
 		(findViewById(R.id.experience_min_button)).setOnClickListener(this);
 	}
 
-	private void initExperience(int exp) {
-		ProgressBar expProgressBar = (ProgressBar) findViewById(R.id.experience_progressBar);
-		expProgressBar.setMax(EXP_MAX);
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		// Inflate the menu; this adds items to the action bar if it is present.
+		getMenuInflater().inflate(R.menu.main_menu, menu);
+		return true;
+	}
 
-		updateExperienceViews(exp);
+	@Override
+	protected void onResume() {
+		super.onResume();
+		currentExperience = Storage.getSharedPreference(Storage.Key.CURRENT_EXP);
+		updateExperienceViews(currentExperience);
 	}
 
 	private void updateExperienceViews(int newExperience) {
@@ -79,41 +111,17 @@ public class MainMenu extends AppCompatActivity implements View.OnClickListener,
 		expProgressBar.setProgress(newExperience);
 	}
 
-	private void initNumberPicker(int pickerNumber) {
-		NumberPicker numberPicker = (NumberPicker) findViewById(R.id.numberPicker);
-		//		String[] test = getExperienceValues(PICKER_MIN_VALUE, PICKER_MAX_VALUE);
-		//		numberPicker.setDisplayedValues(test);
-		//		numberPicker.setMaxValue(test.length - 1);
-		numberPicker.setMaxValue(PICKER_MAX_VALUE);
-		numberPicker.setMinValue(PICKER_MIN_VALUE);
-		numberPicker.setValue(pickerNumber);
-	}
-
-	private String[] getExperienceValues(int minValue, int maxValue) {
-		int stapGrootte = 2;
-		int aantalStappen = ((maxValue - minValue) / stapGrootte) + 1;
-		String[] experienceValues = new String[aantalStappen];
-		int nextValue = minValue;
-		for (int i = 0; i < experienceValues.length; i++) {
-			experienceValues[i] = String.valueOf(nextValue);
-			nextValue = nextValue + stapGrootte;
-		}
-		return experienceValues;
-	}
-
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.main_menu, menu);
-		return true;
-	}
-
 	@Override
 	public void onSaveInstanceState(Bundle outState) {
 		super.onSaveInstanceState(outState);
-		int currentPickerNumber = ((NumberPicker) findViewById(R.id.numberPicker)).getValue();
-		outState.putInt(SavedValues.CURRENT_PICKER_NUMBER.name(), currentPickerNumber);
-		outState.putInt(SavedValues.CURRENT_EXP.name(), currentExperience);
+		int currentPickerIndex = ((NumberPicker) findViewById(R.id.numberPicker)).getValue();
+		outState.putInt(SavedValues.CURRENT_PICKER_INDEX.name(), currentPickerIndex);
+	}
+
+	@Override
+	protected void onPause() {
+		Storage.saveSharedPreference(Storage.Key.CURRENT_EXP, currentExperience);
+		super.onPause();
 	}
 
 	@Override
@@ -161,24 +169,27 @@ public class MainMenu extends AppCompatActivity implements View.OnClickListener,
 	@Override
 	public void onClick(View v) {
 		int viewId = v.getId();
-		NumberPicker numberPicker = (NumberPicker) findViewById(R.id.numberPicker);
 		if (viewId == R.id.experience_plus_button) {
-			addExperience(numberPicker.getValue());
+			addExperience(getCurrentNumberPickerValue());
 		}
 		if (viewId == R.id.experience_min_button) {
-			subtractExperience(numberPicker.getValue());
+			subtractExperience(getCurrentNumberPickerValue());
 		}
+	}
+
+	public int getCurrentNumberPickerValue() {
+		NumberPicker numberPicker = (NumberPicker) findViewById(R.id.numberPicker);
+		int currentIndex = numberPicker.getValue();
+		return Integer.valueOf(numberPicker.getDisplayedValues()[currentIndex]);
 	}
 
 	private void addExperience(int addedExperience) {
 		currentExperience = currentExperience + addedExperience;
-
 		updateExperienceViews(currentExperience);
 	}
 
 	private void subtractExperience(int subtractedExperience) {
 		currentExperience = currentExperience - subtractedExperience;
-
 		updateExperienceViews(currentExperience);
 	}
 }
