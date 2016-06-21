@@ -56,16 +56,12 @@
 
             <Button
                 android:id="@+id/experience_plus_button"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:padding="0dp"
+                style="@style/button_square"
                 android:text="+"/>
 
             <Button
                 android:id="@+id/experience_min_button"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:padding="0dp"
+                style="@style/button_square"
                 android:text="-"/>
         </LinearLayout>
 
