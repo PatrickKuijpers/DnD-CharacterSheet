@@ -1,7 +1,9 @@
 package nl.tcilegnar.dndcharactersheet.Activity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -22,8 +24,7 @@ public class Experience extends AppCompatActivity implements View.OnClickListene
 	private static final int EXP_DEFAULT = 1050;
 	private static final int EXP_MAX = 2500;
 	private static final int PICKER_MIN_VALUE = 0;
-	private static final int PICKER_MAX_VALUE = 100;
-	private static final int PICKER_STEP_SIZE = 10;
+	private static final int PICKER_MAX_VALUE = 1000;
 
 	public enum SavedValues {
 		CURRENT_PICKER_INDEX
@@ -74,14 +75,21 @@ public class Experience extends AppCompatActivity implements View.OnClickListene
 	}
 
 	private String[] getExperienceValues(int minValue, int maxValue) {
-		int numberOfSteps = ((maxValue - minValue) / PICKER_STEP_SIZE) + 1;
+		int pickerStepSize = getPickerStepSize();
+		int numberOfSteps = ((maxValue - minValue) / pickerStepSize) + 1;
 		String[] experienceValues = new String[numberOfSteps];
 		int nextValue = minValue;
 		for (int i = 0; i < experienceValues.length; i++) {
 			experienceValues[i] = String.valueOf(nextValue);
-			nextValue = nextValue + PICKER_STEP_SIZE;
+			nextValue = nextValue + pickerStepSize;
 		}
 		return experienceValues;
+	}
+
+	private int getPickerStepSize() {
+		SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
+		String experiencePickerStepSize = sharedPref.getString("experience_update", "1");
+		return Integer.valueOf(experiencePickerStepSize);
 	}
 
 	private void setListeners() {

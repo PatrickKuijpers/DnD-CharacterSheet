@@ -5,4 +5,13 @@
         android:key="setting_test"
         android:summary="@string/setting_summary_test"
         android:title="@string/setting_title_test"/>
+    <ListPreference
+        android:defaultValue="@string/setting_defaultvalue_experience_update"
+        android:dependency="setting_test"
+        android:dialogTitle="@string/setting_dialogtitle_experience_update_steps"
+        android:entries="@array/setting_entries_experience_update_steps"
+        android:entryValues="@array/setting_entryvalues_experience_update_steps"
+        android:key="experience_update"
+        android:summary="@string/setting_summary_experience_update_steps"
+        android:title="@string/setting_title_experience_update_steps"/>
 </PreferenceScreen>

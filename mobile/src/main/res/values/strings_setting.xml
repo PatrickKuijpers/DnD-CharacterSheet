@@ -10,7 +10,7 @@
 
     <string name="setting_defaultvalue_experience_update">100</string>
 
-    <array name="setting_array_experience_update_steps">
+    <string-array name="setting_entries_experience_update_steps">
         <item>1</item>
         <item>5</item>
         <item>10</item>
@@ -19,5 +19,16 @@
         <item>250</item>
         <item>500</item>
         <item>1000</item>
-    </array>
+    </string-array>
+
+    <string-array name="setting_entryvalues_experience_update_steps">
+        <item>"1"</item>
+        <item>"5"</item>
+        <item>"10"</item>
+        <item>"25"</item>
+        <item>"100"</item>
+        <item>"250"</item>
+        <item>"500"</item>
+        <item>"1000"</item>
+    </string-array>
 </resources>
