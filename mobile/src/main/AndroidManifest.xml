@@ -27,5 +27,10 @@
             android:label="@string/title_experience"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
+        <activity
+            android:name=".Activity.Settings"
+            android:label="@string/title_settings"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
     </application>
 </manifest>

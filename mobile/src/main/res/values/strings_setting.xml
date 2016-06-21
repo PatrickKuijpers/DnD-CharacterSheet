@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="setting_title_test">CheckboxTest</string>
+    <string name="setting_title_experience_update_steps">Experience update</string>
+
+    <string name="setting_summary_test">Summary of this checkbox</string>
+    <string name="setting_summary_experience_update_steps">Stappen waarmee je experience kan updaten</string>
+
+    <string name="setting_dialogtitle_experience_update_steps">Experience update dialog</string>
+
+    <string name="setting_defaultvalue_experience_update">100</string>
+
+    <array name="setting_array_experience_update_steps">
+        <item>1</item>
+        <item>5</item>
+        <item>10</item>
+        <item>25</item>
+        <item>100</item>
+        <item>250</item>
+        <item>500</item>
+        <item>1000</item>
+    </array>
+</resources>
