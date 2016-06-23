@@ -64,6 +64,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/horizontal_margin"
-            android:layout_toRightOf="@id/experience_plus_button"/>
+            android:layout_toRightOf="@id/experience_plus_button"
+            android:descendantFocusability="blocksDescendants"/>
     </LinearLayout>
 </RelativeLayout>
