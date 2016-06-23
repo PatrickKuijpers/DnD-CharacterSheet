@@ -29,7 +29,7 @@ public class MainMenu extends AppCompatActivity implements NavigationView.OnNavi
 		NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
 		navigationView.setNavigationItemSelectedListener(this);
 
-		Intent experienceActivity = new Intent(this, Experience.class);
+		Intent experienceActivity = new Intent(this, ExperienceActivity.class);
 		startActivity(experienceActivity);
 	}
 

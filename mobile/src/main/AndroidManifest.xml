@@ -23,12 +23,12 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".Activity.Experience"
+            android:name=".Activity.ExperienceActivity"
             android:label="@string/title_experience"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
         <activity
-            android:name=".Activity.Settings"
+            android:name=".Activity.SettingsActivity"
             android:label="@string/title_settings"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>

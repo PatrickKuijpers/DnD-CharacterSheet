@@ -1,15 +1,15 @@
 package nl.tcilegnar.dndcharactersheet.Activity;
 
+import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.AttributeSet;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -19,8 +19,9 @@ import android.widget.TextView;
 
 import nl.tcilegnar.dndcharactersheet.Manager.Storage;
 import nl.tcilegnar.dndcharactersheet.R;
+import nl.tcilegnar.dndcharactersheet.SharedPreference.SettingCollector;
 
-public class Experience extends AppCompatActivity implements View.OnClickListener, NavigationView.OnNavigationItemSelectedListener {
+public class ExperienceActivity extends AppCompatActivity implements View.OnClickListener, NavigationView.OnNavigationItemSelectedListener {
 	private static final int EXP_DEFAULT = 1050;
 	private static final int EXP_MAX = 2500;
 	private static final int PICKER_MIN_VALUE = 0;
@@ -53,11 +54,15 @@ public class Experience extends AppCompatActivity implements View.OnClickListene
 		} else {
 			currentPickerIndex = 0;
 		}
-
 		initExperienceBar();
 		initNumberPicker();
 
 		setListeners();
+	}
+
+	@Override
+	public View onCreateView(String name, Context context, AttributeSet attrs) {
+		return super.onCreateView(name, context, attrs);
 	}
 
 	private void initExperienceBar() {
@@ -75,7 +80,7 @@ public class Experience extends AppCompatActivity implements View.OnClickListene
 	}
 
 	private String[] getExperienceValues(int minValue, int maxValue) {
-		int pickerStepSize = getPickerStepSize();
+		int pickerStepSize = SettingCollector.getExperiencePickerStepSize();
 		int numberOfSteps = ((maxValue - minValue) / pickerStepSize) + 1;
 		String[] experienceValues = new String[numberOfSteps];
 		int nextValue = minValue;
@@ -84,12 +89,6 @@ public class Experience extends AppCompatActivity implements View.OnClickListene
 			nextValue = nextValue + pickerStepSize;
 		}
 		return experienceValues;
-	}
-
-	private int getPickerStepSize() {
-		SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
-		String experiencePickerStepSize = sharedPref.getString("experience_update", "1");
-		return Integer.valueOf(experiencePickerStepSize);
 	}
 
 	private void setListeners() {
@@ -152,7 +151,7 @@ public class Experience extends AppCompatActivity implements View.OnClickListene
 
 		//noinspection SimplifiableIfStatement
 		if (id == R.id.action_settings) {
-			Intent settingsActivity = new Intent(this, Settings.class);
+			Intent settingsActivity = new Intent(this, SettingsActivity.class);
 			startActivity(settingsActivity);
 			return true;
 		}
