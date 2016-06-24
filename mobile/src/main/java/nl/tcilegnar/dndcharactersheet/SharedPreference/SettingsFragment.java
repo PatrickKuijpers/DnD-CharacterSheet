@@ -1,4 +1,4 @@
-package nl.tcilegnar.dndcharactersheet.Fragment;
+package nl.tcilegnar.dndcharactersheet.SharedPreference;
 
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
@@ -13,7 +13,6 @@ import java.util.Set;
 
 import nl.tcilegnar.dndcharactersheet.App;
 import nl.tcilegnar.dndcharactersheet.R;
-import nl.tcilegnar.dndcharactersheet.SharedPreference.SettingCollector;
 
 public class SettingsFragment extends PreferenceFragment implements OnPreferenceChangeListener {
 

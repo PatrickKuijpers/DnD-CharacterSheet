@@ -1,4 +1,4 @@
-package nl.tcilegnar.dndcharactersheet.Manager;
+package nl.tcilegnar.dndcharactersheet.FileStorage;
 
 import android.content.Context;
 import android.content.SharedPreferences;

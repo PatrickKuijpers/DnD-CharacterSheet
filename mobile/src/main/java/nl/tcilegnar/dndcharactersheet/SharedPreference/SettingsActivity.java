@@ -1,9 +1,7 @@
-package nl.tcilegnar.dndcharactersheet.Activity;
+package nl.tcilegnar.dndcharactersheet.SharedPreference;
 
 import android.os.Bundle;
 import android.preference.PreferenceActivity;
-
-import nl.tcilegnar.dndcharactersheet.Fragment.SettingsFragment;
 
 public class SettingsActivity extends PreferenceActivity {
 

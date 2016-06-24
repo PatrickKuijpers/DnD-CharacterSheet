@@ -1,10 +1,12 @@
-package nl.tcilegnar.dndcharactersheet.Activity;
+package nl.tcilegnar.dndcharactersheet.MainMenu;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
-public class MainMenu extends AppCompatActivity {
+import nl.tcilegnar.dndcharactersheet.Experience.ExperienceActivity;
+
+public class MainMenuActivity extends AppCompatActivity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {

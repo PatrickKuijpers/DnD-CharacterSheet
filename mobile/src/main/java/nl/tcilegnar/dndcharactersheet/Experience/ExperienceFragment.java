@@ -1,4 +1,4 @@
-package nl.tcilegnar.dndcharactersheet.Fragment;
+package nl.tcilegnar.dndcharactersheet.Experience;
 
 import android.app.Fragment;
 import android.os.Bundle;
@@ -9,7 +9,7 @@ import android.widget.NumberPicker;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import nl.tcilegnar.dndcharactersheet.Manager.Storage;
+import nl.tcilegnar.dndcharactersheet.FileStorage.Storage;
 import nl.tcilegnar.dndcharactersheet.R;
 import nl.tcilegnar.dndcharactersheet.SharedPreference.SettingCollector;
 
