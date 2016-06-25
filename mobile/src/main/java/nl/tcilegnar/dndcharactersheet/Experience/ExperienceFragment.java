@@ -8,6 +8,8 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import nl.tcilegnar.dndcharactersheet.Experience.View.ExperienceInput;
+import nl.tcilegnar.dndcharactersheet.Experience.View.ExperiencePicker;
 import nl.tcilegnar.dndcharactersheet.R;
 
 public class ExperienceFragment extends Fragment implements View.OnClickListener {
@@ -16,7 +18,8 @@ public class ExperienceFragment extends Fragment implements View.OnClickListener
 	private ProgressBar expProgressBar;
 	private TextView expTextView;
 	private ExperiencePicker expPicker;
-	
+	private ExperienceInput expInput;
+
 	private int currentPickerIndex = 0;
 
 	public enum SavedValues {
@@ -35,7 +38,8 @@ public class ExperienceFragment extends Fragment implements View.OnClickListener
 		}
 
 		initExperienceViews(view);
-		initNumberPicker(view);
+		initExperiencePicker(view);
+		initExperienceInput(view);
 
 		setListeners(view);
 
@@ -57,9 +61,13 @@ public class ExperienceFragment extends Fragment implements View.OnClickListener
 		expProgressBar.setProgress(newExperience);
 	}
 
-	private void initNumberPicker(View view) {
-		expPicker = (ExperiencePicker) view.findViewById(R.id.experiencePicker);
+	private void initExperiencePicker(View view) {
+		expPicker = (ExperiencePicker) view.findViewById(R.id.experience_picker);
 		expPicker.setValue(currentPickerIndex);
+	}
+
+	private void initExperienceInput(View view) {
+		expInput = (ExperienceInput) view.findViewById(R.id.experience_input);
 	}
 
 	private void setListeners(View view) {
@@ -86,13 +94,22 @@ public class ExperienceFragment extends Fragment implements View.OnClickListener
 	@Override
 	public void onClick(View v) {
 		int viewId = v.getId();
+
 		if (viewId == R.id.experience_plus_button) {
-			exp.addExperience(expPicker.getCurrentSelectedExpValue());
+			exp.addExperience(getExpValue());
 			updateExperienceViewValues(exp.getCurrentExp());
 		}
 		if (viewId == R.id.experience_min_button) {
-			exp.subtractExperience(expPicker.getCurrentSelectedExpValue());
+			exp.subtractExperience(getExpValue());
 			updateExperienceViewValues(exp.getCurrentExp());
+		}
+	}
+
+	private int getExpValue() {
+		if (expInput.hasInput()) {
+			return expInput.getExpValue();
+		} else {
+			return expPicker.getCurrentSelectedExpValue();
 		}
 	}
 }

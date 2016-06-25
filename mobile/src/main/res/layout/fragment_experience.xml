@@ -7,44 +7,51 @@
                 android:paddingRight="@dimen/horizontal_margin"
                 android:paddingTop="@dimen/vertical_margin">
 
-    <ProgressBar
-        android:id="@+id/experience_progressBar"
-        style="?android:attr/progressBarStyleHorizontal"
-        android:layout_width="match_parent"
-        android:layout_height="25dp"
-        android:layout_alignParentTop="true"/>
-
     <LinearLayout
-        android:id="@+id/experience_data_container"
-        android:layout_width="wrap_content"
+        android:id="@+id/experience_container"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@id/experience_progressBar"
-        android:layout_marginTop="@dimen/vertical_margin"
-        android:layout_toLeftOf="@+id/experience_change_container"
-        android:gravity="top">
+        android:layout_alignParentTop="true"
+        android:gravity="center_vertical">
 
         <TextView
             android:id="@+id/experience_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_toLeftOf="@+id/experience_progressBar"
             android:textSize="20sp"/>
+
+        <ProgressBar
+            android:id="@+id/experience_progressBar"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/horizontal_margin"
+            android:layout_toRightOf="@+id/experience_text"/>
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/experience_change_container"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_alignTop="@id/experience_data_container"
-        android:layout_marginLeft="@dimen/horizontal_margin"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@id/experience_container"
+        android:layout_marginTop="@dimen/vertical_margin"
+        android:focusableInTouchMode="true"
         android:gravity="center_vertical">
+
+        <nl.tcilegnar.dndcharactersheet.Experience.View.ExperiencePicker
+            android:id="@+id/experience_picker"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:descendantFocusability="blocksDescendants"/>
 
         <LinearLayout
             android:id="@+id/experience_change_button_container"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
+            android:layout_marginLeft="@dimen/horizontal_margin"
+            android:layout_marginRight="@dimen/horizontal_margin"
             android:gravity="center_vertical"
             android:orientation="vertical">
 
@@ -59,12 +66,18 @@
                 android:text="-"/>
         </LinearLayout>
 
-        <nl.tcilegnar.dndcharactersheet.Experience.ExperiencePicker
-            android:id="@+id/experiencePicker"
+        <nl.tcilegnar.dndcharactersheet.Experience.View.ExperienceInput
+            android:id="@+id/experience_input"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/horizontal_margin"
-            android:layout_toRightOf="@id/experience_plus_button"
-            android:descendantFocusability="blocksDescendants"/>
+            android:background="@color/grey_light"
+            android:hint="00000"
+            android:inputType="number"
+            android:paddingBottom="@dimen/edittext_padding_vertical"
+            android:paddingLeft="@dimen/edittext_padding_horizontal"
+            android:paddingRight="@dimen/edittext_padding_horizontal"
+            android:paddingTop="@dimen/edittext_padding_vertical"
+            android:textColorHint="@color/transparent"/>
     </LinearLayout>
 </RelativeLayout>

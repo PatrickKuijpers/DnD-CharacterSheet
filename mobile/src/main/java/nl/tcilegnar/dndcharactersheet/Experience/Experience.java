@@ -17,15 +17,15 @@ public class Experience implements Serializable {
 		return currentExp;
 	}
 
-	public void saveExp() {
-		Storage.saveSharedPreference(Storage.Key.CURRENT_EXP, currentExp);
-	}
-
 	public void addExperience(int addedExperience) {
 		currentExp = currentExp + addedExperience;
 	}
 
 	public void subtractExperience(int subtractedExperience) {
 		currentExp = currentExp - subtractedExperience;
+	}
+
+	public void saveExp() {
+		Storage.saveSharedPreference(Storage.Key.CURRENT_EXP, currentExp);
 	}
 }

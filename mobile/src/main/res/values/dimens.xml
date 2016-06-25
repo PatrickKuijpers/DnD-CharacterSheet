@@ -5,4 +5,7 @@
     <!-- Default screen margins, per the Android Design guidelines. -->
     <dimen name="horizontal_margin">16dp</dimen>
     <dimen name="vertical_margin">16dp</dimen>
+
+    <dimen name="edittext_padding_vertical">4dp</dimen>
+    <dimen name="edittext_padding_horizontal">8dp</dimen>
 </resources>
