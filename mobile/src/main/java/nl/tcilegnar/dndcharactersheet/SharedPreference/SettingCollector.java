@@ -24,10 +24,13 @@ public class SettingCollector {
 		}
 	}
 
-	public static int getExperienceUpdateType() {
+	public static boolean isExperienceUpdateTypeInput() {
+		return getExperienceUpdateType().equals(getString(R.string.setting_entry_experience_update_type_input));
+	}
+
+	public static String getExperienceUpdateType() {
 		String key = getKey(R.string.setting_key_experience_update_type);
-		String experiencePickerStepSize = getPreference(key, DefaultValue.EXP_UPDATE_TYPE);
-		return Integer.valueOf(experiencePickerStepSize);
+		return getPreference(key, DefaultValue.EXP_UPDATE_TYPE);
 	}
 
 	public static int getExperiencePickerStepSize() {

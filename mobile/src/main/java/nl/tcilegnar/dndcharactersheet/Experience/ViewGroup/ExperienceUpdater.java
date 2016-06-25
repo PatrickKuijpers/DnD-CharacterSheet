@@ -9,6 +9,7 @@ import android.widget.LinearLayout;
 import nl.tcilegnar.dndcharactersheet.Experience.View.ExperienceInput;
 import nl.tcilegnar.dndcharactersheet.Experience.View.ExperiencePicker;
 import nl.tcilegnar.dndcharactersheet.R;
+import nl.tcilegnar.dndcharactersheet.SharedPreference.SettingCollector;
 
 public class ExperienceUpdater extends LinearLayout implements OnClickListener {
 	private ExperiencePicker expPicker;
@@ -29,6 +30,18 @@ public class ExperienceUpdater extends LinearLayout implements OnClickListener {
 
 		(findViewById(R.id.experience_plus_button)).setOnClickListener(this);
 		(findViewById(R.id.experience_min_button)).setOnClickListener(this);
+
+		showCorrectUpdateType();
+	}
+
+	private void showCorrectUpdateType() {
+		if (SettingCollector.isExperienceUpdateTypeInput()) {
+			expPicker.setVisibility(View.GONE);
+			expInput.setVisibility(View.VISIBLE);
+		} else {
+			expPicker.setVisibility(View.VISIBLE);
+			expInput.setVisibility(View.GONE);
+		}
 	}
 
 	public int getExpValue() {

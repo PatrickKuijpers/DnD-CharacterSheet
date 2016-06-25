@@ -25,10 +25,11 @@
     </string-array>
 
     <string-array name="setting_entryvalues_experience_update_type">
-        <item>input</item>
+        <item>@string/setting_entry_experience_update_type_input</item>
         <item>@string/setting_entry_experience_update_type_numberpicker</item>
     </string-array>
 
+    <string name="setting_entry_experience_update_type_input">input</string>
     <string name="setting_entry_experience_update_type_numberpicker">numberpicker</string>
 
     <string-array name="setting_entries_experience_update_picker_steps">
