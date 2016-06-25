@@ -27,8 +27,6 @@ public class Storage {
 		SharedPreferences settings = App.getContext().getSharedPreferences(Settings.Experience.name(), 0);
 		SharedPreferences.Editor editor = settings.edit();
 		editor.putInt(key.name(), value);
-
-		// Apply the edits!
 		editor.apply();
 	}
 

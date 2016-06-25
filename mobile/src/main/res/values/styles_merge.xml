@@ -1,0 +1,12 @@
+<resources>
+
+    <style name="expCurrentLvlStyle">
+        <item name="android:gravity">center_vertical</item>
+    </style>
+
+    <style name="expUpdaterStyle">
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:focusableInTouchMode">true</item>
+    </style>
+
+</resources>

@@ -6,6 +6,10 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+
+        <!-- Styles voor merged views -->
+        <item name="expCurrentLvlStyle">@style/expCurrentLvlStyle</item>
+        <item name="expUpdaterStyle">@style/expUpdaterStyle</item>
     </style>
 
     <style name="AppTheme.NoActionBar">

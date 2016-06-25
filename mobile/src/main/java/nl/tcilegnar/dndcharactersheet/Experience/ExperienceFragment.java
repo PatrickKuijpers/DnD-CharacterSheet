@@ -20,8 +20,8 @@ public class ExperienceFragment extends Fragment {
 
 	@Override
 	public void onViewCreated(View view, Bundle savedInstanceState) {
-		initExperienceViews(view);
 		super.onViewCreated(view, savedInstanceState);
+		initExperienceViews(view);
 	}
 
 	private void initExperienceViews(View view) {
