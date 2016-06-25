@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:id="@+id/experience_updater"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:focusableInTouchMode="true"
+    android:gravity="center_vertical"
+    tools:showIn="@layout/fragment_experience">
+
+    <nl.tcilegnar.dndcharactersheet.Experience.View.ExperiencePicker
+        android:id="@+id/experience_picker"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:descendantFocusability="blocksDescendants"/>
+
+    <LinearLayout
+        android:id="@+id/experience_change_button_container"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/horizontal_margin"
+        android:layout_marginRight="@dimen/horizontal_margin"
+        android:gravity="center_vertical"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/experience_plus_button"
+            style="@style/button_square"
+            android:text="+"/>
+
+        <Button
+            android:id="@+id/experience_min_button"
+            style="@style/button_square"
+            android:text="-"/>
+    </LinearLayout>
+
+    <nl.tcilegnar.dndcharactersheet.Experience.View.ExperienceInput
+        android:id="@+id/experience_input"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/horizontal_margin"
+        android:background="@color/grey_light"
+        android:hint="00000"
+        android:inputType="number"
+        android:paddingBottom="@dimen/edittext_padding_vertical"
+        android:paddingLeft="@dimen/edittext_padding_horizontal"
+        android:paddingRight="@dimen/edittext_padding_horizontal"
+        android:paddingTop="@dimen/edittext_padding_vertical"
+        android:textColorHint="@color/transparent"/>
+</LinearLayout>

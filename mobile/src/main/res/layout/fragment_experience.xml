@@ -1,83 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:paddingBottom="@dimen/vertical_margin"
-                android:paddingLeft="@dimen/horizontal_margin"
-                android:paddingRight="@dimen/horizontal_margin"
-                android:paddingTop="@dimen/vertical_margin">
+<RelativeLayout
+    style="@style/fragment_full_screen"
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <LinearLayout
-        android:id="@+id/experience_container"
+    <include
+        layout="@layout/experience_current"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:gravity="center_vertical">
+        android:layout_alignParentTop="true"/>
 
-        <TextView
-            android:id="@+id/experience_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_toLeftOf="@+id/experience_progressBar"
-            android:textSize="20sp"/>
-
-        <ProgressBar
-            android:id="@+id/experience_progressBar"
-            style="?android:attr/progressBarStyleHorizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/horizontal_margin"
-            android:layout_toRightOf="@+id/experience_text"/>
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/experience_change_container"
+    <include
+        layout="@layout/experience_updater"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_below="@id/experience_container"
-        android:layout_marginTop="@dimen/vertical_margin"
-        android:focusableInTouchMode="true"
-        android:gravity="center_vertical">
+        android:layout_below="@id/experience_current"
+        android:layout_marginTop="@dimen/vertical_margin"/>
 
-        <nl.tcilegnar.dndcharactersheet.Experience.View.ExperiencePicker
-            android:id="@+id/experience_picker"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:descendantFocusability="blocksDescendants"/>
-
-        <LinearLayout
-            android:id="@+id/experience_change_button_container"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/horizontal_margin"
-            android:layout_marginRight="@dimen/horizontal_margin"
-            android:gravity="center_vertical"
-            android:orientation="vertical">
-
-            <Button
-                android:id="@+id/experience_plus_button"
-                style="@style/button_square"
-                android:text="+"/>
-
-            <Button
-                android:id="@+id/experience_min_button"
-                style="@style/button_square"
-                android:text="-"/>
-        </LinearLayout>
-
-        <nl.tcilegnar.dndcharactersheet.Experience.View.ExperienceInput
-            android:id="@+id/experience_input"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/horizontal_margin"
-            android:background="@color/grey_light"
-            android:hint="00000"
-            android:inputType="number"
-            android:paddingBottom="@dimen/edittext_padding_vertical"
-            android:paddingLeft="@dimen/edittext_padding_horizontal"
-            android:paddingRight="@dimen/edittext_padding_horizontal"
-            android:paddingTop="@dimen/edittext_padding_vertical"
-            android:textColorHint="@color/transparent"/>
-    </LinearLayout>
 </RelativeLayout>
