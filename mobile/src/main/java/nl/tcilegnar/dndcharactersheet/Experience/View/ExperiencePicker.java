@@ -3,6 +3,8 @@ package nl.tcilegnar.dndcharactersheet.Experience.View;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.drawable.ColorDrawable;
+import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
 import android.widget.NumberPicker;
@@ -14,6 +16,10 @@ import nl.tcilegnar.dndcharactersheet.SharedPreference.SettingCollector;
 public class ExperiencePicker extends NumberPicker {
 	private static final int MIN_VALUE = 0;
 	private static final int MAX_VALUE = 1000;
+
+	public enum SavedValues {
+		SAVED_INSTANCE, CURRENT_PICKER_INDEX
+	}
 
 	public ExperiencePicker(Context context, AttributeSet attrs) {
 		super(context, attrs);
@@ -27,7 +33,6 @@ public class ExperiencePicker extends NumberPicker {
 		super.setMinValue(MIN_VALUE);
 		super.setMaxValue(displayedValues.length - 1);
 		super.setValue(0);
-		//		expPicker.setOnValueChangedListener(this);
 	}
 
 	private String[] generateDisplayedValues() {
@@ -42,17 +47,9 @@ public class ExperiencePicker extends NumberPicker {
 		return experienceValues;
 	}
 
-	public int getCurrentSelectedIndex() {
-		return getValue();
-	}
-
-	public int getCurrentSelectedExpValue() {
-		return Integer.valueOf(getDisplayedValues()[getCurrentSelectedIndex()]);
-	}
-
 	private void setDividerColorTransparent() {
-		//		int color = App.getAppResources().getColor(R.color.transparent);
 		int color = ContextCompat.getColor(App.getContext(), R.color.transparent);
+
 		java.lang.reflect.Field[] pickerFields = NumberPicker.class.getDeclaredFields();
 		for (java.lang.reflect.Field pf : pickerFields) {
 			if (pf.getName().equals("mSelectionDivider")) {
@@ -60,15 +57,33 @@ public class ExperiencePicker extends NumberPicker {
 				try {
 					ColorDrawable colorDrawable = new ColorDrawable(color);
 					pf.set(this, colorDrawable);
-				} catch (IllegalArgumentException e) {
-					e.printStackTrace();
-				} catch (Resources.NotFoundException e) {
-					e.printStackTrace();
-				} catch (IllegalAccessException e) {
+				} catch (IllegalArgumentException | Resources.NotFoundException | IllegalAccessException e) {
 					e.printStackTrace();
 				}
 				break;
 			}
 		}
+	}
+
+	@Override
+	public Parcelable onSaveInstanceState() {
+		Bundle bundle = new Bundle();
+		bundle.putParcelable(SavedValues.SAVED_INSTANCE.name(), super.onSaveInstanceState());
+		bundle.putInt(SavedValues.CURRENT_PICKER_INDEX.name(), getValue());
+		return bundle;
+	}
+
+	@Override
+	public void onRestoreInstanceState(Parcelable state) {
+		if (state instanceof Bundle) {
+			Bundle bundle = (Bundle) state;
+			setValue(bundle.getInt(SavedValues.CURRENT_PICKER_INDEX.name()));
+			state = bundle.getParcelable(SavedValues.SAVED_INSTANCE.name());
+		}
+		super.onRestoreInstanceState(state);
+	}
+
+	public int getCurrentSelectedExpValue() {
+		return Integer.valueOf(getDisplayedValues()[getValue()]);
 	}
 }

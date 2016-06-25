@@ -8,23 +8,15 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import nl.tcilegnar.dndcharactersheet.Experience.View.ExperienceInput;
-import nl.tcilegnar.dndcharactersheet.Experience.View.ExperiencePicker;
+import nl.tcilegnar.dndcharactersheet.Experience.ViewGroup.ExperienceUpdater;
 import nl.tcilegnar.dndcharactersheet.R;
 
-public class ExperienceFragment extends Fragment implements View.OnClickListener {
+public class ExperienceFragment extends Fragment implements Experience.ExperienceUpdateFinishedListener {
 	private Experience exp = new Experience();
 
 	private ProgressBar expProgressBar;
 	private TextView expTextView;
-	private ExperiencePicker expPicker;
-	private ExperienceInput expInput;
-
-	private int currentPickerIndex = 0;
-
-	public enum SavedValues {
-		CURRENT_PICKER_INDEX
-	}
+	private ExperienceUpdater expUpdater;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -33,25 +25,20 @@ public class ExperienceFragment extends Fragment implements View.OnClickListener
 
 	@Override
 	public void onViewCreated(View view, Bundle savedInstanceState) {
-		if (savedInstanceState != null) {
-			currentPickerIndex = savedInstanceState.getInt(SavedValues.CURRENT_PICKER_INDEX.name());
-		}
-
-		initExperienceViews(view);
-		initExperiencePicker(view);
-		initExperienceInput(view);
-
-		setListeners(view);
+		initExperienceCurrentLevel(view);
+		initExperienceUpdater(view);
 
 		super.onViewCreated(view, savedInstanceState);
 	}
 
-	private void initExperienceViews(View view) {
+	private void initExperienceCurrentLevel(View view) {
 		expTextView = (TextView) view.findViewById(R.id.experience_text);
 		expProgressBar = (ProgressBar) view.findViewById(R.id.experience_progressBar);
 		expProgressBar.setMax(exp.getMax());
 
 		updateExperienceViewValues(exp.getCurrentExp());
+
+		exp.setExperienceUpdateFinishedListener(this);
 	}
 
 	private void updateExperienceViewValues(int newExperience) {
@@ -61,18 +48,9 @@ public class ExperienceFragment extends Fragment implements View.OnClickListener
 		expProgressBar.setProgress(newExperience);
 	}
 
-	private void initExperiencePicker(View view) {
-		expPicker = (ExperiencePicker) view.findViewById(R.id.experience_picker);
-		expPicker.setValue(currentPickerIndex);
-	}
-
-	private void initExperienceInput(View view) {
-		expInput = (ExperienceInput) view.findViewById(R.id.experience_input);
-	}
-
-	private void setListeners(View view) {
-		(view.findViewById(R.id.experience_plus_button)).setOnClickListener(this);
-		(view.findViewById(R.id.experience_min_button)).setOnClickListener(this);
+	private void initExperienceUpdater(View view) {
+		expUpdater = (ExperienceUpdater) view.findViewById(R.id.experience_updater);
+		expUpdater.setExperienceUpdateListener(exp);
 	}
 
 	@Override
@@ -86,30 +64,7 @@ public class ExperienceFragment extends Fragment implements View.OnClickListener
 	}
 
 	@Override
-	public void onSaveInstanceState(Bundle outState) {
-		super.onSaveInstanceState(outState);
-		outState.putInt(SavedValues.CURRENT_PICKER_INDEX.name(), expPicker.getCurrentSelectedIndex());
-	}
-
-	@Override
-	public void onClick(View v) {
-		int viewId = v.getId();
-
-		if (viewId == R.id.experience_plus_button) {
-			exp.addExperience(getExpValue());
-			updateExperienceViewValues(exp.getCurrentExp());
-		}
-		if (viewId == R.id.experience_min_button) {
-			exp.subtractExperience(getExpValue());
-			updateExperienceViewValues(exp.getCurrentExp());
-		}
-	}
-
-	private int getExpValue() {
-		if (expInput.hasInput()) {
-			return expInput.getExpValue();
-		} else {
-			return expPicker.getCurrentSelectedExpValue();
-		}
+	public void onExperienceUpdated(int newExp) {
+		updateExperienceViewValues(newExp);
 	}
 }

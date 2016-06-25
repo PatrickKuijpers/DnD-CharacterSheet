@@ -9,8 +9,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"/>
 
-    <include
-        layout="@layout/experience_updater"
+    <nl.tcilegnar.dndcharactersheet.Experience.ViewGroup.ExperienceUpdater
+        android:id="@+id/experience_updater"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
