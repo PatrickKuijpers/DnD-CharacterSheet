@@ -3,13 +3,14 @@ package nl.tcilegnar.dndcharactersheet.Experience.ViewGroup;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.View;
-import android.widget.LinearLayout;
+import android.view.View.OnClickListener;
+import android.widget.FrameLayout;
 
 import nl.tcilegnar.dndcharactersheet.Experience.View.ExperienceInput;
 import nl.tcilegnar.dndcharactersheet.Experience.View.ExperiencePicker;
 import nl.tcilegnar.dndcharactersheet.R;
 
-public class ExperienceUpdater extends LinearLayout implements View.OnClickListener {
+public class ExperienceUpdater extends FrameLayout implements OnClickListener {
 	private ExperiencePicker expPicker;
 	private ExperienceInput expInput;
 
@@ -39,8 +40,8 @@ public class ExperienceUpdater extends LinearLayout implements View.OnClickListe
 	}
 
 	@Override
-	public void onClick(View v) {
-		int viewId = v.getId();
+	public void onClick(View view) {
+		int viewId = view.getId();
 		int expUpdateValue = getExpValue();
 		if (viewId == R.id.experience_plus_button) {
 			experienceUpdateListener.onUpdateExperience(expUpdateValue);
