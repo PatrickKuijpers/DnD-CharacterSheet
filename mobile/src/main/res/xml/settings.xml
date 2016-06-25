@@ -2,18 +2,20 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
     <PreferenceCategory
         android:title="@string/setting_category_title_experience">
-        <CheckBoxPreference
-            android:defaultValue="true"
-            android:key="@string/setting_key_test"
-            android:summary="@string/setting_summary_test"
-            android:title="@string/setting_title_test"/>
         <ListPreference
-            android:defaultValue="@string/setting_defaultvalue_experience_update"
-            android:dialogTitle="@string/setting_dialogtitle_experience_update_steps"
-            android:entries="@array/setting_entries_experience_update_steps"
-            android:entryValues="@array/setting_entryvalues_experience_update_steps"
-            android:key="@string/setting_key_experience_update_steps"
-            android:summary="@string/setting_summary_experience_update_steps"
-            android:title="@string/setting_title_experience_update_steps"/>
+            android:defaultValue="@string/setting_defaultvalue_experience_update_type"
+            android:dialogTitle="@string/setting_dialogtitle_experience_update_type"
+            android:entries="@array/setting_entries_experience_update_type"
+            android:entryValues="@array/setting_entryvalues_experience_update_type"
+            android:key="@string/setting_key_experience_update_type"
+            android:summary="@string/setting_summary_experience_update_type"
+            android:title="@string/setting_title_experience_update_type"/>
+        <ListPreference
+            android:dialogTitle="@string/setting_dialogtitle_experience_update_picker_steps"
+            android:entries="@array/setting_entries_experience_update_picker_steps"
+            android:entryValues="@array/setting_entryvalues_experience_update_picker_steps"
+            android:key="@string/setting_key_experience_update_picker_steps"
+            android:summary="@string/setting_summary_experience_update_picker_steps"
+            android:title="@string/setting_title_experience_update_picker_steps"/>
     </PreferenceCategory>
 </PreferenceScreen>

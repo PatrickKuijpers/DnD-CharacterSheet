@@ -24,14 +24,14 @@ public class Storage {
 	}
 
 	public static void saveSharedPreference(Key key, int value) {
-		SharedPreferences settings = App.getContext().getSharedPreferences(Settings.Experience.name(), 0);
+		SharedPreferences settings = App.getContext().getSharedPreferences(Settings.Experience.name(), Context.MODE_PRIVATE);
 		SharedPreferences.Editor editor = settings.edit();
 		editor.putInt(key.name(), value);
 		editor.apply();
 	}
 
 	public static int getSharedPreference(Key key) {
-		SharedPreferences settings = App.getContext().getSharedPreferences(Settings.Experience.name(), 0);
+		SharedPreferences settings = App.getContext().getSharedPreferences(Settings.Experience.name(), Context.MODE_PRIVATE);
 		return settings.getInt(key.name(), DEF_VALUE);
 	}
 
