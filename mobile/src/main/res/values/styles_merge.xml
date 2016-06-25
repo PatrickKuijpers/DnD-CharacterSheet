@@ -5,8 +5,9 @@
     </style>
 
     <style name="expUpdaterStyle">
-        <item name="android:gravity">center_vertical</item>
         <item name="android:focusableInTouchMode">true</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:orientation">horizontal</item>
     </style>
 
 </resources>

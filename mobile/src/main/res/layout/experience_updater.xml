@@ -1,18 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <merge xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <nl.tcilegnar.dndcharactersheet.Experience.View.ExperiencePicker
-        android:id="@+id/experience_picker"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:descendantFocusability="blocksDescendants"
-        android:visibility="visible"/>
-
     <LinearLayout
         android:id="@+id/experience_change_button_container"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/horizontal_margin"
         android:layout_marginRight="@dimen/horizontal_margin"
         android:gravity="center_vertical"
         android:orientation="vertical">
@@ -28,6 +20,13 @@
             android:text="-"/>
     </LinearLayout>
 
+    <nl.tcilegnar.dndcharactersheet.Experience.View.ExperiencePicker
+        android:id="@+id/experience_picker"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:descendantFocusability="blocksDescendants"
+        android:visibility="visible"/>
+
     <nl.tcilegnar.dndcharactersheet.Experience.View.ExperienceInput
         android:id="@+id/experience_input"
         android:layout_width="wrap_content"
@@ -40,5 +39,6 @@
         android:paddingLeft="@dimen/edittext_padding_horizontal"
         android:paddingRight="@dimen/edittext_padding_horizontal"
         android:paddingTop="@dimen/edittext_padding_vertical"
-        android:textColorHint="@color/transparent"/>
+        android:textColorHint="@color/transparent"
+        android:visibility="gone"/>
 </merge>
