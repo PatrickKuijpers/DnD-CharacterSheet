@@ -14,7 +14,7 @@ import android.view.MenuItem;
 
 import nl.tcilegnar.dndcharactersheet.SharedPreference.SettingsActivity;
 
-public class BaseActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public abstract class BaseActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
