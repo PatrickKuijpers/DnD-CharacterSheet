@@ -1,5 +1,6 @@
 package nl.tcilegnar.dndcharactersheet.Experience;
 
+import android.app.ActivityOptions;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -11,8 +12,9 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import nl.tcilegnar.dndcharactersheet.SharedPreference.SettingsActivity;
+import nl.tcilegnar.dndcharactersheet.App;
 import nl.tcilegnar.dndcharactersheet.R;
+import nl.tcilegnar.dndcharactersheet.SharedPreference.SettingsActivity;
 
 public class ExperienceActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -62,12 +64,17 @@ public class ExperienceActivity extends AppCompatActivity implements NavigationV
 
 		//noinspection SimplifiableIfStatement
 		if (id == R.id.action_settings) {
-			Intent settingsActivity = new Intent(this, SettingsActivity.class);
-			startActivity(settingsActivity);
+			startSettingsActivity();
 			return true;
 		}
 
 		return super.onOptionsItemSelected(item);
+	}
+
+	private void startSettingsActivity() {
+		Intent settingsActivity = new Intent(this, SettingsActivity.class);
+		Bundle animation = ActivityOptions.makeCustomAnimation(App.getContext(), R.anim.anim_enter_from_right, R.anim.anim_exit_to_left).toBundle();
+		startActivity(settingsActivity, animation);
 	}
 
 	@SuppressWarnings("StatementWithEmptyBody")
