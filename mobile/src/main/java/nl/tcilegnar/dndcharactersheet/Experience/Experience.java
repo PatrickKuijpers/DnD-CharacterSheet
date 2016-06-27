@@ -6,8 +6,17 @@ import nl.tcilegnar.dndcharactersheet.FileStorage.Storage;
 
 public class Experience implements Serializable {
 	private static final int EXP_MAX = 2500;
+	private Storage storage;
+	private int currentExp = 0;
 
-	private int currentExp = Storage.getSharedPreference(Storage.Key.CURRENT_EXP);
+	public Experience() {
+		this(new Storage());
+	}
+
+	protected Experience(Storage storage) {
+		this.storage = storage;
+		this.currentExp = storage.getSharedPreference(Storage.Key.CURRENT_EXP);
+	}
 
 	public int getMax() {
 		return EXP_MAX;
@@ -17,12 +26,35 @@ public class Experience implements Serializable {
 		return currentExp;
 	}
 
-	public int updateExperience(int expUpdateValue) {
-		currentExp += expUpdateValue;
+	public int updateExperience(int expUpdateValue) throws ExpTooLowException, ExpTooHighException {
+		int newExp = currentExp + expUpdateValue;
+		validateUpdate(expUpdateValue, newExp);
+		currentExp = newExp;
 		return currentExp;
 	}
 
+	private void validateUpdate(int expUpdateValue, int newExp) throws ExpTooLowException, ExpTooHighException {
+		if (newExp < 0) {
+			throw new ExpTooLowException("Nieuwe exp-waarde is te laag: " + currentExp + " + " + expUpdateValue + " = " + newExp);
+		}
+		if (newExp > EXP_MAX) {
+			throw new ExpTooHighException("Nieuwe exp-waarde is te hoog: " + currentExp + " + " + expUpdateValue + " = " + newExp);
+		}
+	}
+
 	public void saveExp() {
-		Storage.saveSharedPreference(Storage.Key.CURRENT_EXP, currentExp);
+		storage.saveSharedPreference(Storage.Key.CURRENT_EXP, currentExp);
+	}
+
+	public class ExpTooLowException extends Exception {
+		public ExpTooLowException(String message) {
+			super(message);
+		}
+	}
+
+	public class ExpTooHighException extends Exception {
+		public ExpTooHighException(String message) {
+			super(message);
+		}
 	}
 }

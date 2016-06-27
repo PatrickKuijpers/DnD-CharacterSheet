@@ -5,6 +5,7 @@ import android.util.AttributeSet;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import nl.tcilegnar.dndcharactersheet.App;
 import nl.tcilegnar.dndcharactersheet.Experience.Experience;
@@ -47,7 +48,12 @@ public class ExperienceCurrentLevel extends LinearLayout implements ExperienceUp
 
 	@Override
 	public void onUpdateExperience(int expUpdateValue) {
-		int newExp = exp.updateExperience(expUpdateValue);
-		updateViewValues(newExp);
+		try {
+			int newExp = exp.updateExperience(expUpdateValue);
+			updateViewValues(newExp);
+		} catch (Experience.ExpTooLowException | Experience.ExpTooHighException e) {
+			e.printStackTrace();
+			Toast.makeText(App.getContext(), e.getMessage().toString(), Toast.LENGTH_LONG).show();
+		}
 	}
 }

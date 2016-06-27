@@ -23,19 +23,19 @@ public class Storage {
 		TEST_FILE
 	}
 
-	public static void saveSharedPreference(Key key, int value) {
+	public void saveSharedPreference(Key key, int value) {
 		SharedPreferences settings = App.getContext().getSharedPreferences(Settings.Experience.name(), Context.MODE_PRIVATE);
 		SharedPreferences.Editor editor = settings.edit();
 		editor.putInt(key.name(), value);
 		editor.apply();
 	}
 
-	public static int getSharedPreference(Key key) {
+	public int getSharedPreference(Key key) {
 		SharedPreferences settings = App.getContext().getSharedPreferences(Settings.Experience.name(), Context.MODE_PRIVATE);
 		return settings.getInt(key.name(), DEF_VALUE);
 	}
 
-	public static void saveFileDataTest() throws IOException {
+	public void saveFileDataTest() throws IOException {
 		int homeScore = 0;
 		byte[] homeScoreBytes = new byte[0];
 
