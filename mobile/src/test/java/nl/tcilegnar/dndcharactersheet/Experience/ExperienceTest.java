@@ -11,7 +11,7 @@ import java.io.IOException;
 import nl.tcilegnar.dndcharactersheet.BuildConfig;
 import nl.tcilegnar.dndcharactersheet.Experience.Experience.ExpTooHighException;
 import nl.tcilegnar.dndcharactersheet.Experience.Experience.ExpTooLowException;
-import nl.tcilegnar.dndcharactersheet.FileStorage.Storage;
+import nl.tcilegnar.dndcharactersheet.Storage.Storage;
 
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertNotSame;
@@ -38,13 +38,13 @@ public class ExperienceTest {
 		// Arrange
 		Storage storageMock = mock(Storage.class);
 		int expectedSavedExp = 0;
-		doReturn(expectedSavedExp).when(storageMock).getSharedPreference(Storage.Key.CURRENT_EXP);
+		doReturn(expectedSavedExp).when(storageMock).getExperience();
 
 		// Act
 		exp = new Experience(storageMock);
 
 		// Assert
-		verify(storageMock, times(1)).getSharedPreference(eq(Storage.Key.CURRENT_EXP));
+		verify(storageMock, times(1)).getExperience();
 		assertEquals(expectedSavedExp, exp.getCurrentExp());
 	}
 
@@ -53,13 +53,13 @@ public class ExperienceTest {
 		// Arrange
 		Storage storageMock = mock(Storage.class);
 		int expectedSavedExp = 10;
-		doReturn(expectedSavedExp).when(storageMock).getSharedPreference(Storage.Key.CURRENT_EXP);
+		doReturn(expectedSavedExp).when(storageMock).getExperience();
 
 		// Act
 		exp = new Experience(storageMock);
 
 		// Assert
-		verify(storageMock, times(1)).getSharedPreference(eq(Storage.Key.CURRENT_EXP));
+		verify(storageMock, times(1)).getExperience();
 		assertEquals(expectedSavedExp, exp.getCurrentExp());
 	}
 
@@ -171,7 +171,7 @@ public class ExperienceTest {
 
 		// Assert
 		int expectedSavedExp = 0;
-		verify(storageMock, times(1)).saveSharedPreference(eq(Storage.Key.CURRENT_EXP), eq(expectedSavedExp));
+		verify(storageMock, times(1)).saveExperience(eq(expectedSavedExp));
 	}
 
 	@Test
@@ -179,46 +179,13 @@ public class ExperienceTest {
 		// Arrange
 		Storage storageMock = mock(Storage.class);
 		int expectedSavedExp = 10;
-		doReturn(expectedSavedExp).when(storageMock).getSharedPreference(Storage.Key.CURRENT_EXP);
+		doReturn(expectedSavedExp).when(storageMock).getExperience();
 		exp = new Experience(storageMock);
 
 		// Act
 		exp.saveExp();
 
 		// Assert
-		verify(storageMock, times(1)).saveSharedPreference(eq(Storage.Key.CURRENT_EXP), eq(expectedSavedExp));
+		verify(storageMock, times(1)).saveExperience(eq(expectedSavedExp));
 	}
-
-	// TODO: werkt niet!
-	//	@Test
-	//	public void testSaveExp_NoExpSet_StorageCalled() {
-	//		// Arrange
-	//		PowerMockito.mockStatic(Storage.class);
-	//
-	//		// Act
-	//		exp.saveExp();
-	//
-	//		// Assert
-	//		PowerMockito.verifyStatic(Mockito.times(1));
-	//		Storage.saveSharedPreference(Storage.Key.CURRENT_EXP, exp.getCurrentExp());
-	//		Storage.saveSharedPreference(Storage.Key.CURRENT_EXP, exp.getCurrentExp() + 1);
-	//		PowerMockito.verifyStatic(Mockito.times(1));
-	//	}
-
-	//	@Test // Poging 2
-	//	public void testSaveExp_NoExpSet_StorageCalled() {
-	//		// Arrange
-	//		PowerMockito.mockStatic(Storage.class);
-	//		PowerMockito.doNothing().when(Storage.class);
-	//		Storage.saveSharedPreference(Matchers.any(Storage.Key.class), anyInt());
-	//
-	//		// Act
-	//		exp.saveExp();
-	//
-	//		// Assert
-	//		PowerMockito.verifyStatic(times(1));
-	//		Storage.saveSharedPreference(Storage.Key.CURRENT_EXP, anyInt());
-	//		PowerMockito.verifyStatic(times(5));
-	//		Storage.saveSharedPreference(Storage.Key.CURRENT_EXP, anyInt());
-	//	}
 }

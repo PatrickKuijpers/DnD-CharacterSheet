@@ -11,11 +11,12 @@ import android.widget.NumberPicker;
 
 import nl.tcilegnar.dndcharactersheet.App;
 import nl.tcilegnar.dndcharactersheet.R;
-import nl.tcilegnar.dndcharactersheet.SharedPreference.SettingCollector;
+import nl.tcilegnar.dndcharactersheet.Storage.Settings;
 
 public class ExperiencePicker extends NumberPicker {
 	private static final int MIN_VALUE = 0;
 	private static final int MAX_VALUE = 1000;
+	private Settings settings = new Settings();
 
 	public enum SavedValues {
 		SAVED_INSTANCE, CURRENT_PICKER_INDEX
@@ -36,7 +37,7 @@ public class ExperiencePicker extends NumberPicker {
 	}
 
 	private String[] generateDisplayedValues() {
-		int pickerStepSize = SettingCollector.getExperiencePickerStepSize();
+		int pickerStepSize = settings.getExperiencePickerStepSize();
 		int numberOfSteps = ((MAX_VALUE - MIN_VALUE) / pickerStepSize) + 1;
 		String[] experienceValues = new String[numberOfSteps];
 		int nextValue = MIN_VALUE;

@@ -1,4 +1,4 @@
-package nl.tcilegnar.dndcharactersheet.SharedPreference;
+package nl.tcilegnar.dndcharactersheet.Settings;
 
 import android.os.Bundle;
 import android.preference.PreferenceActivity;

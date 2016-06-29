@@ -12,7 +12,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import nl.tcilegnar.dndcharactersheet.SharedPreference.SettingsActivity;
+import nl.tcilegnar.dndcharactersheet.Settings.SettingsActivity;
 
 public abstract class BaseActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 

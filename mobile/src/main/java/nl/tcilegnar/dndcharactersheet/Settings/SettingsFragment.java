@@ -1,22 +1,18 @@
-package nl.tcilegnar.dndcharactersheet.SharedPreference;
+package nl.tcilegnar.dndcharactersheet.Settings;
 
-import android.content.Context;
-import android.content.SharedPreferences;
-import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.PreferenceFragment;
 
-import java.util.Set;
-
-import nl.tcilegnar.dndcharactersheet.App;
 import nl.tcilegnar.dndcharactersheet.R;
+import nl.tcilegnar.dndcharactersheet.Storage.Settings;
 
 public class SettingsFragment extends PreferenceFragment implements OnPreferenceChangeListener {
 	private ListPreference expUpdateType;
 	private ListPreference expUpdatePickerSteps;
+	private Settings settings = new Settings();
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -49,14 +45,12 @@ public class SettingsFragment extends PreferenceFragment implements OnPreference
 
 	@Override
 	public boolean onPreferenceChange(Preference preference, Object newValue) {
-
 		if (preference.equals(expUpdateType)) {
 			String selectedValue = newValue.toString();
 			handleDependencyOfExpUpdateType(selectedValue);
 		}
 
-		String key = preference.getKey();
-		return savePreferenceValue(key, newValue);
+		return settings.savePreferenceValue(preference, newValue);
 	}
 
 	private void handleDependencyOfExpUpdateType(String selectedValue) {
@@ -65,32 +59,5 @@ public class SettingsFragment extends PreferenceFragment implements OnPreference
 		} else {
 			expUpdatePickerSteps.setEnabled(false);
 		}
-	}
-
-	private boolean savePreferenceValue(String key, Object newValue) {
-		SharedPreferences settings = App.getContext().getSharedPreferences(key, Context.MODE_PRIVATE);
-		Editor editor = settings.edit();
-
-		boolean saved = true;
-		if (newValue instanceof Boolean) {
-			editor.putBoolean(key, (Boolean) newValue);
-		} else if (newValue instanceof String) {
-			editor.putString(key, (String) newValue);
-		} else if (newValue instanceof Integer) {
-			editor.putInt(key, (Integer) newValue);
-		} else if (newValue instanceof Float) {
-			editor.putFloat(key, (Float) newValue);
-		} else if (newValue instanceof Long) {
-			editor.putLong(key, (Long) newValue);
-		} else if (newValue instanceof Set<?>) {
-			//editor.putStringSet(key, (Set<String>) newValue);
-			saved = false;
-		} else {
-			saved = false;
-		}
-
-		editor.apply();
-
-		return saved;
 	}
 }

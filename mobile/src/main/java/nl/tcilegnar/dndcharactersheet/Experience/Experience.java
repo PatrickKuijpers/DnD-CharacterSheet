@@ -2,7 +2,7 @@ package nl.tcilegnar.dndcharactersheet.Experience;
 
 import java.io.Serializable;
 
-import nl.tcilegnar.dndcharactersheet.FileStorage.Storage;
+import nl.tcilegnar.dndcharactersheet.Storage.Storage;
 
 public class Experience implements Serializable {
 	private static final int EXP_MAX = 2500;
@@ -15,7 +15,7 @@ public class Experience implements Serializable {
 
 	protected Experience(Storage storage) {
 		this.storage = storage;
-		this.currentExp = storage.getSharedPreference(Storage.Key.CURRENT_EXP);
+		this.currentExp = storage.getExperience();
 	}
 
 	public int getMax() {
@@ -43,7 +43,7 @@ public class Experience implements Serializable {
 	}
 
 	public void saveExp() {
-		storage.saveSharedPreference(Storage.Key.CURRENT_EXP, currentExp);
+		storage.saveExperience(currentExp);
 	}
 
 	public class ExpTooLowException extends Exception {
