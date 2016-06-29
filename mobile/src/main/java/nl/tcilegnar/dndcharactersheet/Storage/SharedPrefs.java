@@ -2,6 +2,7 @@ package nl.tcilegnar.dndcharactersheet.Storage;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.preference.PreferenceManager;
 import android.support.annotation.StringRes;
 
@@ -23,13 +24,13 @@ public abstract class SharedPrefs {
 		}
 	}
 
-	private SharedPreferences.Editor getPrefsEdit() {
+	private Editor prefsEdit() {
 		return getPrefs().edit();
 	}
 
 	// Booleans
 	protected void save(String key, boolean value) {
-		getPrefsEdit().putBoolean(key, value).apply();
+		prefsEdit().putBoolean(key, value).apply();
 	}
 
 	protected boolean loadBoolean(String key) {
@@ -42,7 +43,7 @@ public abstract class SharedPrefs {
 
 	// Strings
 	protected void save(String key, String value) {
-		getPrefsEdit().putString(key, value).apply();
+		prefsEdit().putString(key, value).apply();
 	}
 
 	protected String loadString(String key) {
@@ -55,7 +56,7 @@ public abstract class SharedPrefs {
 
 	// Integers
 	protected void save(String key, int value) {
-		getPrefsEdit().putInt(key, value).apply();
+		prefsEdit().putInt(key, value).apply();
 	}
 
 	protected int loadInt(String key) {
@@ -68,7 +69,7 @@ public abstract class SharedPrefs {
 
 	// Floats
 	protected void save(String key, float value) {
-		getPrefsEdit().putFloat(key, value).apply();
+		prefsEdit().putFloat(key, value).apply();
 	}
 
 	protected float loadFloat(String key) {
@@ -81,7 +82,7 @@ public abstract class SharedPrefs {
 
 	// Longs
 	protected void save(String key, long value) {
-		getPrefsEdit().putLong(key, value).apply();
+		prefsEdit().putLong(key, value).apply();
 	}
 
 	protected long loadLong(String key) {
@@ -94,7 +95,7 @@ public abstract class SharedPrefs {
 
 	// StringSets
 	protected void save(String key, Set<String> value) {
-		getPrefsEdit().putStringSet(key, value).apply();
+		prefsEdit().putStringSet(key, value).apply();
 	}
 
 	protected Set<String> loadStringSet(String key) {
@@ -105,11 +106,11 @@ public abstract class SharedPrefs {
 		return getPrefs().getStringSet(key, defaultValue);
 	}
 
-	protected static String getKey(@StringRes int resId) {
+	protected String getKey(@StringRes int resId) {
 		return getString(resId);
 	}
 
-	protected static String getString(@StringRes int resId) {
+	protected String getString(@StringRes int resId) {
 		return App.getContext().getString(resId);
 	}
 }

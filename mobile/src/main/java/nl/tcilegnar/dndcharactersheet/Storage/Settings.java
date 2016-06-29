@@ -5,6 +5,7 @@ import android.support.annotation.StringRes;
 
 import java.util.Set;
 
+import nl.tcilegnar.dndcharactersheet.App;
 import nl.tcilegnar.dndcharactersheet.R;
 
 public class Settings extends SharedPrefs {
@@ -20,7 +21,7 @@ public class Settings extends SharedPrefs {
 		private final String value;
 
 		DefaultValue(@StringRes int resId) {
-			value = getString(resId);
+			value = App.getContext().getString(resId);
 		}
 	}
 
