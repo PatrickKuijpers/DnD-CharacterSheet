@@ -29,6 +29,10 @@ public class Settings extends SharedPrefs {
 		return getExperienceUpdateType().equals(getString(R.string.setting_entry_experience_update_type_input));
 	}
 
+	public boolean isExperienceUpdateTypeNumberPicker() {
+		return getExperienceUpdateType().equals(getString(R.string.setting_entry_experience_update_type_numberpicker));
+	}
+
 	public String getExperienceUpdateType() {
 		String key = getKey(R.string.setting_key_experience_update_type);
 		return loadString(key, DefaultValue.EXP_UPDATE_TYPE.value);

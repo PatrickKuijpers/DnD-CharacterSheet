@@ -31,25 +31,15 @@ public class ExperienceUpdater extends LinearLayout implements OnClickListener {
 
 		(findViewById(R.id.experience_plus_button)).setOnClickListener(this);
 		(findViewById(R.id.experience_min_button)).setOnClickListener(this);
-
-		showCorrectUpdateType();
-	}
-
-	private void showCorrectUpdateType() {
-		if (settings.isExperienceUpdateTypeInput()) {
-			expPicker.setVisibility(View.GONE);
-			expInput.setVisibility(View.VISIBLE);
-		} else {
-			expPicker.setVisibility(View.VISIBLE);
-			expInput.setVisibility(View.GONE);
-		}
 	}
 
 	public int getExpValue() {
-		if (expInput.hasInput()) {
+		if (settings.isExperienceUpdateTypeInput()) {
 			return expInput.getExpValue();
-		} else {
+		} else if (settings.isExperienceUpdateTypeNumberPicker()) {
 			return expPicker.getCurrentSelectedExpValue();
+		} else {
+			return 0;
 		}
 	}
 

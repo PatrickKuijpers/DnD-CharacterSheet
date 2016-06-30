@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
+import android.view.View;
 import android.widget.NumberPicker;
 
 import nl.tcilegnar.dndcharactersheet.App;
@@ -23,12 +24,27 @@ public class ExperiencePicker extends NumberPicker {
 	}
 
 	public ExperiencePicker(Context context, AttributeSet attrs) {
+		this(context, attrs, new Settings());
+	}
+
+	public ExperiencePicker(Context context, AttributeSet attrs, Settings settings) {
 		super(context, attrs);
-		init();
-		setDividerColorTransparent();
+		this.settings = settings;
+		boolean shouldBeVisible = settings.isExperienceUpdateTypeNumberPicker();
+		if (shouldBeVisible) {
+			init();
+			setVisibility(View.VISIBLE);
+		} else {
+			setVisibility(View.GONE);
+		}
 	}
 
 	private void init() {
+		initPickerValues();
+		setDividerColorTransparent();
+	}
+
+	private void initPickerValues() {
 		String[] displayedValues = generateDisplayedValues();
 		super.setDisplayedValues(displayedValues);
 		super.setMinValue(MIN_VALUE);
