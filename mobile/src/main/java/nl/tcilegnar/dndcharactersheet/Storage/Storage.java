@@ -7,7 +7,7 @@ public class Storage extends SharedPrefs {
 	}
 
 	protected enum Key {
-		CURRENT_EXP(0);
+		CURRENT_EXP(0), CURRENT_LEVEL(0);
 
 		protected final int defaultValue;
 
@@ -22,6 +22,14 @@ public class Storage extends SharedPrefs {
 
 	public int loadExperience() {
 		return getIntFromKey(Key.CURRENT_EXP);
+	}
+
+	public void saveLevel(int value) {
+		saveIntFromKey(Key.CURRENT_LEVEL, value);
+	}
+
+	public int loadLevel() {
+		return getIntFromKey(Key.CURRENT_LEVEL);
 	}
 
 	protected void saveIntFromKey(Key key, int value) {

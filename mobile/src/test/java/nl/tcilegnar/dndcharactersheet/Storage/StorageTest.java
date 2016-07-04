@@ -55,4 +55,17 @@ public class StorageTest {
 		// Assert
 		assertEquals(expectedExperience, experience);
 	}
+
+	@Test
+	public void testSaveAndLoadLevel() {
+		// Arrange
+		int expectedLevel = 12;
+
+		// Act
+		storage.saveLevel(expectedLevel);
+		int experience = storage.loadLevel();
+
+		// Assert
+		assertEquals(expectedLevel, experience);
+	}
 }
