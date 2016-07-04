@@ -9,8 +9,9 @@ import org.robolectric.annotation.Config;
 import java.io.IOException;
 
 import nl.tcilegnar.dndcharactersheet.BuildConfig;
-import nl.tcilegnar.dndcharactersheet.Experience.Experience.ExpTooHighException;
 import nl.tcilegnar.dndcharactersheet.Experience.Experience.ExpTooLowException;
+import nl.tcilegnar.dndcharactersheet.Experience.Experience.ExperienceEdgeListener;
+import nl.tcilegnar.dndcharactersheet.Level.Level;
 import nl.tcilegnar.dndcharactersheet.Storage.Storage;
 
 import static junit.framework.Assert.assertEquals;
@@ -21,7 +22,6 @@ import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
-
 
 @RunWith(RobolectricGradleTestRunner.class)
 @Config(constants = BuildConfig.class)
@@ -86,7 +86,7 @@ public class ExperienceTest {
 	}
 
 	@Test
-	public void testUpdateCurrentExp_With0Exp_ExpSameAsInitialExp() throws ExpTooLowException, ExpTooHighException {
+	public void testUpdateCurrentExp_With0Exp_ExpSameAsInitialExp() throws ExpTooLowException {
 		// Arrange
 		int initialExp = exp.getCurrentExp();
 
@@ -98,7 +98,7 @@ public class ExperienceTest {
 	}
 
 	@Test
-	public void testUpdateCurrentExp_StartWith10Add10Exp_NotSameAsInitialExpAndIncreased() throws ExpTooLowException, ExpTooHighException {
+	public void testUpdateCurrentExp_StartWith10Add10Exp_NotSameAsInitialExpAndIncreased() throws ExpTooLowException {
 		// Arrange
 		int initialExp = exp.getCurrentExp();
 
@@ -111,7 +111,7 @@ public class ExperienceTest {
 	}
 
 	@Test
-	public void testUpdateCurrentExp_StartWith10Add5Exp_NotSameAsInitialExpAndIncreased() throws ExpTooLowException, ExpTooHighException {
+	public void testUpdateCurrentExp_StartWith10Add5Exp_NotSameAsInitialExpAndIncreased() throws ExpTooLowException {
 		// Arrange
 		int initialExp = exp.updateExperience(10);
 
@@ -124,7 +124,7 @@ public class ExperienceTest {
 	}
 
 	@Test
-	public void testUpdateCurrentExp_StartWith10Substract5Exp_NotSameAsInitialExpAndDecreased() throws ExpTooLowException, ExpTooHighException {
+	public void testUpdateCurrentExp_StartWith10Substract5Exp_NotSameAsInitialExpAndDecreased() throws ExpTooLowException {
 		// Arrange
 		int initialExp = exp.updateExperience(10);
 
@@ -136,20 +136,48 @@ public class ExperienceTest {
 		assertEquals(5, newExp);
 	}
 
-	@Test(expected = ExpTooHighException.class)
-	public void testUpdateCurrentExp_StartWith10AddMaxExp_ExpTooHighException() throws ExpTooLowException, ExpTooHighException {
+	@Test
+	public void testUpdateCurrentExp_StartWith10AddMaxExp_NewExpIsLeftoverExp() throws ExpTooLowException {
 		// Arrange
+		ExperienceEdgeListener mockLevel = mock(Level.class);
+		exp.setExperienceEdgeListener(mockLevel);
 		exp.updateExperience(10);
 
 		// Act
-		exp.updateExperience(exp.getMax());
+		int newExp = exp.updateExperience(exp.getMax());
 
 		// Assert
-		// Verwacht ExpTooHighException
+		assertEquals(10, newExp);
+	}
+
+	@Test
+	public void testUpdateCurrentExp_AddOverMaxExp_OnExperienceMaxReached() throws ExpTooLowException {
+		// Arrange
+		ExperienceEdgeListener mockLevel = mock(Level.class);
+		exp.setExperienceEdgeListener(mockLevel);
+
+		// Act
+		exp.updateExperience(exp.getMax() + 1);
+
+		// Assert
+		verify(mockLevel, times(1)).onExperienceMaxReached();
+	}
+
+	@Test
+	public void testUpdateCurrentExp_AddOverMaxExp_NotOnExperienceMaxReached() throws ExpTooLowException {
+		// Arrange
+		ExperienceEdgeListener mockLevel = mock(Level.class);
+		exp.setExperienceEdgeListener(mockLevel);
+
+		// Act
+		exp.updateExperience(exp.getMax() - 1);
+
+		// Assert
+		verify(mockLevel, times(0)).onExperienceMaxReached();
 	}
 
 	@Test(expected = ExpTooLowException.class)
-	public void testUpdateCurrentExp_StartWith10Substract25Exp_ExpTooLowException() throws ExpTooLowException, ExpTooHighException {
+	public void testUpdateCurrentExp_StartWith10Substract25Exp_ExpTooLowException() throws ExpTooLowException {
 		// Arrange
 		exp.updateExperience(10);
 

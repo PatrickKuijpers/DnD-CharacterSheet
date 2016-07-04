@@ -9,6 +9,7 @@ import android.widget.Toast;
 
 import nl.tcilegnar.dndcharactersheet.App;
 import nl.tcilegnar.dndcharactersheet.Experience.Experience;
+import nl.tcilegnar.dndcharactersheet.Experience.Experience.ExpTooLowException;
 import nl.tcilegnar.dndcharactersheet.Experience.ViewGroup.ExperienceUpdater.ExperienceUpdateListener;
 import nl.tcilegnar.dndcharactersheet.R;
 
@@ -51,9 +52,9 @@ public class ExperienceCurrentLevel extends LinearLayout implements ExperienceUp
 		try {
 			int newExp = exp.updateExperience(expUpdateValue);
 			updateViewValues(newExp);
-		} catch (Experience.ExpTooLowException | Experience.ExpTooHighException e) {
+		} catch (ExpTooLowException e) {
 			e.printStackTrace();
-			Toast.makeText(App.getContext(), e.getMessage().toString(), Toast.LENGTH_LONG).show();
+			Toast.makeText(App.getContext(), e.getMessage(), Toast.LENGTH_LONG).show();
 		}
 	}
 }
