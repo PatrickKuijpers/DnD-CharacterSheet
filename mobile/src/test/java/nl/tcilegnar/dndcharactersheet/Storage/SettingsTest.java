@@ -18,7 +18,6 @@ import java.util.Set;
 import nl.tcilegnar.dndcharactersheet.App;
 import nl.tcilegnar.dndcharactersheet.BuildConfig;
 import nl.tcilegnar.dndcharactersheet.R;
-import nl.tcilegnar.dndcharactersheet.Storage.Settings.DefaultValue;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -65,7 +64,7 @@ public class SettingsTest {
 
 		// Assert
 		// TODO: Welk van deze 2?
-		assertEquals(DefaultValue.EXP_UPDATE_PICKER_STEPSIZE.value, stepSize);
+		//		assertEquals(DefaultValue.EXP_UPDATE_PICKER_STEPSIZE.value, stepSize);
 		String defaultValue = App.getContext().getString(R.string.setting_defaultvalue_experience_update_picker_steps);
 		assertEquals(defaultValue, stepSize);
 	}
