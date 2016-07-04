@@ -8,9 +8,11 @@ import android.view.ViewGroup;
 import nl.tcilegnar.dndcharactersheet.BaseFragment;
 import nl.tcilegnar.dndcharactersheet.Experience.ViewGroup.ExperienceCurrentLevel;
 import nl.tcilegnar.dndcharactersheet.Experience.ViewGroup.ExperienceUpdater;
+import nl.tcilegnar.dndcharactersheet.Level.Level;
 import nl.tcilegnar.dndcharactersheet.R;
 
 public class ExperienceFragment extends BaseFragment {
+	private Level level;
 	private ExperienceCurrentLevel expCurrentLevel;
 
 	@Override
@@ -21,15 +23,21 @@ public class ExperienceFragment extends BaseFragment {
 	@Override
 	public void onViewCreated(View view, Bundle savedInstanceState) {
 		super.onViewCreated(view, savedInstanceState);
-		initExperienceViews(view);
+		initViews(view);
 	}
 
-	private void initExperienceViews(View view) {
+	private void initViews(View view) {
+		level = new Level();
+
 		expCurrentLevel = (ExperienceCurrentLevel) view.findViewById(R.id.experience_current_level);
-		((ExperienceUpdater) view.findViewById(R.id.experience_updater)).setExperienceUpdateListener(expCurrentLevel);
+		expCurrentLevel.setExperienceEdgeListener(level);
+
+		ExperienceUpdater expUpdater = (ExperienceUpdater) view.findViewById(R.id.experience_updater);
+		expUpdater.setExperienceUpdateListener(expCurrentLevel);
 	}
 
 	protected void onSaveData() {
 		expCurrentLevel.saveExp();
+		level.saveLevel();
 	}
 }

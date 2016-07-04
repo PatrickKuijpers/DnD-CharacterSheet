@@ -1,6 +1,7 @@
 package nl.tcilegnar.dndcharactersheet.Experience.ViewGroup;
 
 import android.content.Context;
+import android.support.annotation.VisibleForTesting;
 import android.util.AttributeSet;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -10,22 +11,27 @@ import android.widget.Toast;
 import nl.tcilegnar.dndcharactersheet.App;
 import nl.tcilegnar.dndcharactersheet.Experience.Experience;
 import nl.tcilegnar.dndcharactersheet.Experience.Experience.ExpTooLowException;
+import nl.tcilegnar.dndcharactersheet.Experience.Experience.ExperienceEdgeListener;
 import nl.tcilegnar.dndcharactersheet.Experience.ViewGroup.ExperienceUpdater.ExperienceUpdateListener;
 import nl.tcilegnar.dndcharactersheet.R;
 
 public class ExperienceCurrentLevel extends LinearLayout implements ExperienceUpdateListener {
-	private Experience exp = new Experience();
-
+	private Experience exp;
 	private ProgressBar expProgressBar;
 
 	public ExperienceCurrentLevel(Context context, AttributeSet attrs) {
+		this(context, attrs, new Experience());
+	}
+
+	@VisibleForTesting
+	protected ExperienceCurrentLevel(Context context, AttributeSet attrs, Experience experience) {
 		super(context, attrs, R.attr.expCurrentLvlStyle);
+		exp = experience;
 		init(context);
 	}
 
 	private void init(Context context) {
 		inflate(context, R.layout.experience_current_lvl, this);
-
 		initViews();
 		updateViewValues(exp.getCurrentExp());
 	}
@@ -56,5 +62,9 @@ public class ExperienceCurrentLevel extends LinearLayout implements ExperienceUp
 			e.printStackTrace();
 			Toast.makeText(App.getContext(), e.getMessage(), Toast.LENGTH_LONG).show();
 		}
+	}
+
+	public void setExperienceEdgeListener(ExperienceEdgeListener experienceEdgeListener) {
+		exp.setExperienceEdgeListener(experienceEdgeListener);
 	}
 }
