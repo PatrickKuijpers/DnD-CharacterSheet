@@ -21,6 +21,10 @@ public class Level implements ExperienceEdgeListener {
 		this.currentLevel = storage.loadLevel();
 	}
 
+	public int getCurrentLevel() {
+		return currentLevel;
+	}
+
 	@Override
 	public void onExperienceMaxReached() {
 		currentLevel++;

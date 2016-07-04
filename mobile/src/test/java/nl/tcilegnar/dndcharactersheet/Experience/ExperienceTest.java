@@ -34,21 +34,6 @@ public class ExperienceTest {
 	}
 
 	@Test
-	public void testConstructor_StorageValueZero_IsSetAsCurrentExp() throws IOException {
-		// Arrange
-		Storage storageMock = mock(Storage.class);
-		int expectedSavedExp = 0;
-		doReturn(expectedSavedExp).when(storageMock).loadExperience();
-
-		// Act
-		exp = new Experience(storageMock);
-
-		// Assert
-		verify(storageMock, times(1)).loadExperience();
-		assertEquals(expectedSavedExp, exp.getCurrentExp());
-	}
-
-	@Test
 	public void testConstructor_StorageValuePositive_IsSetAsCurrentExp() throws IOException {
 		// Arrange
 		Storage storageMock = mock(Storage.class);
@@ -189,10 +174,10 @@ public class ExperienceTest {
 	}
 
 	@Test
-	public void testSaveExp_SaveZeroExp_StorageMethodCalledWithZeroExp() throws IOException {
+	public void testSaveExp_SaveZeroExp_StorageMethodCalledWithZero() {
 		// Arrange
 		Storage storageMock = mock(Storage.class);
-		exp = new Experience(storageMock);
+		Experience exp = new Experience(storageMock);
 
 		// Act
 		exp.saveExp();
@@ -203,12 +188,12 @@ public class ExperienceTest {
 	}
 
 	@Test
-	public void testSaveExp_SavePositiveExp_StorageMethodCalledWithSameExp() throws IOException {
+	public void testSaveExp_SavePositiveExp_StorageMethodCalledWithSameValue() {
 		// Arrange
 		Storage storageMock = mock(Storage.class);
 		int expectedSavedExp = 10;
 		doReturn(expectedSavedExp).when(storageMock).loadExperience();
-		exp = new Experience(storageMock);
+		Experience exp = new Experience(storageMock);
 
 		// Act
 		exp.saveExp();
