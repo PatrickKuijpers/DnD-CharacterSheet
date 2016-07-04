@@ -355,7 +355,7 @@ public class SharedPrefsTest {
 	public void testSaveAndLoadStringSet_SeveralString_ValueSaved() {
 		// Arrange
 		String key = "testKey2";
-		Set<String> expectedSavedValue = new HashSet<>(Arrays.asList("A", "B", "X"));
+		Set<String> expectedSavedValue = new HashSet<>(Arrays.asList("T", "E", "S", "T"));
 
 		// Act
 		settings.save(key, expectedSavedValue);
@@ -382,7 +382,7 @@ public class SharedPrefsTest {
 	public void testLoadStringSet_DefaultOverride() {
 		// Arrange
 		String key = "testKey4";
-		Set<String> expectedDefaultValue = new HashSet<>(Arrays.asList("A", "B", "X"));
+		Set<String> expectedDefaultValue = new HashSet<>(Arrays.asList("T", "E", "S", "T"));
 
 		// Act
 		Set<String> defaultValue = settings.loadStringSet(key, expectedDefaultValue);
