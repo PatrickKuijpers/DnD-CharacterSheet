@@ -9,7 +9,7 @@ public class Storage extends SharedPrefs {
 	protected enum Key {
 		CURRENT_EXP(0);
 
-		private final int defaultValue;
+		protected final int defaultValue;
 
 		Key(int defaultValue) {
 			this.defaultValue = defaultValue;
@@ -20,7 +20,7 @@ public class Storage extends SharedPrefs {
 		saveIntFromKey(Key.CURRENT_EXP, value);
 	}
 
-	public int getExperience() {
+	public int loadExperience() {
 		return getIntFromKey(Key.CURRENT_EXP);
 	}
 

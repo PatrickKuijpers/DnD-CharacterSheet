@@ -15,7 +15,7 @@ public class Experience implements Serializable {
 
 	protected Experience(Storage storage) {
 		this.storage = storage;
-		this.currentExp = storage.getExperience();
+		this.currentExp = storage.loadExperience();
 	}
 
 	public int getMax() {

@@ -42,4 +42,17 @@ public class StorageTest {
 		// Assert
 		assertEquals("Als de filename veranderd is kunnen gegevens mogelijk niet meer correct worden geladen", "Storage", fileName);
 	}
+
+	@Test
+	public void testSaveAndLoadExperience() {
+		// Arrange
+		int expectedExperience = 1234;
+
+		// Act
+		storage.saveExperience(expectedExperience);
+		int experience = storage.loadExperience();
+
+		// Assert
+		assertEquals(expectedExperience, experience);
+	}
 }

@@ -38,13 +38,13 @@ public class ExperienceTest {
 		// Arrange
 		Storage storageMock = mock(Storage.class);
 		int expectedSavedExp = 0;
-		doReturn(expectedSavedExp).when(storageMock).getExperience();
+		doReturn(expectedSavedExp).when(storageMock).loadExperience();
 
 		// Act
 		exp = new Experience(storageMock);
 
 		// Assert
-		verify(storageMock, times(1)).getExperience();
+		verify(storageMock, times(1)).loadExperience();
 		assertEquals(expectedSavedExp, exp.getCurrentExp());
 	}
 
@@ -53,13 +53,13 @@ public class ExperienceTest {
 		// Arrange
 		Storage storageMock = mock(Storage.class);
 		int expectedSavedExp = 10;
-		doReturn(expectedSavedExp).when(storageMock).getExperience();
+		doReturn(expectedSavedExp).when(storageMock).loadExperience();
 
 		// Act
 		exp = new Experience(storageMock);
 
 		// Assert
-		verify(storageMock, times(1)).getExperience();
+		verify(storageMock, times(1)).loadExperience();
 		assertEquals(expectedSavedExp, exp.getCurrentExp());
 	}
 
@@ -179,7 +179,7 @@ public class ExperienceTest {
 		// Arrange
 		Storage storageMock = mock(Storage.class);
 		int expectedSavedExp = 10;
-		doReturn(expectedSavedExp).when(storageMock).getExperience();
+		doReturn(expectedSavedExp).when(storageMock).loadExperience();
 		exp = new Experience(storageMock);
 
 		// Act
