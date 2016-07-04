@@ -1,10 +1,10 @@
 package nl.tcilegnar.dndcharactersheet;
 
-import android.app.Application;
 import android.content.Context;
 import android.content.res.Resources;
+import android.support.multidex.MultiDexApplication;
 
-public class App extends Application {
+public class App extends MultiDexApplication {
 	private static Context context;
 
 	public void onCreate() {
