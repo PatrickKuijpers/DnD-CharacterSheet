@@ -16,7 +16,7 @@ public class Level implements ExperienceEdgeListener {
 	}
 
 	@VisibleForTesting
-	public Level(Storage storage) {
+	protected Level(Storage storage) {
 		this.storage = storage;
 		this.currentLevel = storage.loadLevel();
 	}
@@ -28,6 +28,6 @@ public class Level implements ExperienceEdgeListener {
 	}
 
 	public void saveLevel() {
-		//		storage.saveLevel(currentLevel);
+		storage.saveLevel(currentLevel);
 	}
 }
