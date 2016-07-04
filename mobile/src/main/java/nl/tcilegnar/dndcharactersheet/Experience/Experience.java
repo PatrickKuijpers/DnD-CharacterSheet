@@ -1,9 +1,12 @@
 package nl.tcilegnar.dndcharactersheet.Experience;
 
 import android.support.annotation.VisibleForTesting;
+import android.widget.Toast;
 
 import java.io.Serializable;
 
+import nl.tcilegnar.dndcharactersheet.App;
+import nl.tcilegnar.dndcharactersheet.Level.Level.MaxLevelReachedException;
 import nl.tcilegnar.dndcharactersheet.Storage.Storage;
 
 public class Experience implements Serializable {
@@ -32,7 +35,7 @@ public class Experience implements Serializable {
 
 	public int updateExperience(int expUpdateValue) throws ExpTooLowException {
 		int newExp = currentExp + expUpdateValue;
-		validateUpdate(expUpdateValue, newExp);
+		validate(expUpdateValue, newExp);
 
 		newExp = correctExperienceWhenMaxIsReached(newExp);
 
@@ -40,7 +43,7 @@ public class Experience implements Serializable {
 		return currentExp;
 	}
 
-	private void validateUpdate(int expUpdateValue, int newExp) throws ExpTooLowException {
+	private void validate(int expUpdateValue, int newExp) throws ExpTooLowException {
 		if (newExp < 0) {
 			throw new ExpTooLowException("Nieuwe exp-waarde is te laag: " + currentExp + " + " + expUpdateValue + " = " + newExp);
 		}
@@ -48,8 +51,13 @@ public class Experience implements Serializable {
 
 	private int correctExperienceWhenMaxIsReached(int newExp) {
 		if (isMaxExperienceReached(newExp)) {
-			experienceEdgeListener.onExperienceMaxReached();
-			newExp = newExp - EXP_MAX;
+			try {
+				experienceEdgeListener.onExperienceMaxReached();
+				newExp = newExp - EXP_MAX;
+			} catch (MaxLevelReachedException e) {
+				newExp = EXP_MAX;
+				Toast.makeText(App.getContext(), e.getMessage(), Toast.LENGTH_LONG).show();
+			}
 		}
 		return newExp;
 	}
@@ -67,7 +75,7 @@ public class Experience implements Serializable {
 	}
 
 	public interface ExperienceEdgeListener {
-		void onExperienceMaxReached();
+		void onExperienceMaxReached() throws MaxLevelReachedException;
 	}
 
 	public class ExpTooLowException extends Exception {

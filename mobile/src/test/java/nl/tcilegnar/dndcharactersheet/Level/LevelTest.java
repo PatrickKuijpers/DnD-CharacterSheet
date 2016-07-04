@@ -9,6 +9,7 @@ import org.robolectric.annotation.Config;
 import java.io.IOException;
 
 import nl.tcilegnar.dndcharactersheet.BuildConfig;
+import nl.tcilegnar.dndcharactersheet.Level.Level.MaxLevelReachedException;
 import nl.tcilegnar.dndcharactersheet.Storage.Storage;
 
 import static junit.framework.Assert.assertEquals;
@@ -55,7 +56,7 @@ public class LevelTest {
 	}
 
 	@Test
-	public void testOnExperienceMaxReached_WithStartingLevel_LevelIncreasedBy1() {
+	public void testOnExperienceMaxReached_WithStartingLevel_LevelIncreasedBy1() throws MaxLevelReachedException {
 		// Arrange
 		Storage storageMock = mock(Storage.class);
 		int initialSavedLevel = 12;
@@ -67,6 +68,39 @@ public class LevelTest {
 
 		// Assert
 		assertEquals(initialSavedLevel + 1, level.getCurrentLevel());
+	}
+
+	@Test(expected = MaxLevelReachedException.class)
+	public void testOnExperienceMaxReached_WithMaxStartingLevel_MaxLevelReachedException() throws MaxLevelReachedException {
+		// Arrange
+		Storage storageMock = mock(Storage.class);
+		int initialSavedLevel = level.getMaxLevel();
+		doReturn(initialSavedLevel).when(storageMock).loadLevel();
+		Level level = new Level(storageMock);
+
+		// Act
+		level.onExperienceMaxReached();
+
+		// Assert
+	}
+
+	@Test
+	public void testOnExperienceMaxReached_WithMaxStartingLevel_LevelNotIncreased() {
+		// Arrange
+		Storage storageMock = mock(Storage.class);
+		int initialSavedLevel = level.getMaxLevel();
+		doReturn(initialSavedLevel).when(storageMock).loadLevel();
+		Level level = new Level(storageMock);
+
+		// Act
+		try {
+			level.onExperienceMaxReached();
+		} catch (MaxLevelReachedException e) {
+			// Doe niets
+		}
+
+		// Assert
+		assertEquals(initialSavedLevel, level.getCurrentLevel());
 	}
 
 	@Test

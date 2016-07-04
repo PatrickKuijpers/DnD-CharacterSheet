@@ -12,6 +12,7 @@ import nl.tcilegnar.dndcharactersheet.BuildConfig;
 import nl.tcilegnar.dndcharactersheet.Experience.Experience.ExpTooLowException;
 import nl.tcilegnar.dndcharactersheet.Experience.Experience.ExperienceEdgeListener;
 import nl.tcilegnar.dndcharactersheet.Level.Level;
+import nl.tcilegnar.dndcharactersheet.Level.Level.MaxLevelReachedException;
 import nl.tcilegnar.dndcharactersheet.Storage.Storage;
 
 import static junit.framework.Assert.assertEquals;
@@ -19,6 +20,7 @@ import static junit.framework.Assert.assertNotSame;
 import static junit.framework.Assert.assertTrue;
 import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.doReturn;
+import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -136,7 +138,7 @@ public class ExperienceTest {
 	}
 
 	@Test
-	public void testUpdateCurrentExp_AddOverMaxExp_OnExperienceMaxReached() throws ExpTooLowException {
+	public void testUpdateCurrentExp_AddOverMaxExp_OnExperienceMaxReached() throws ExpTooLowException, MaxLevelReachedException {
 		// Arrange
 		ExperienceEdgeListener mockLevel = mock(Level.class);
 		exp.setExperienceEdgeListener(mockLevel);
@@ -149,7 +151,7 @@ public class ExperienceTest {
 	}
 
 	@Test
-	public void testUpdateCurrentExp_AddOverMaxExp_NotOnExperienceMaxReached() throws ExpTooLowException {
+	public void testUpdateCurrentExp_AddOverMaxExp_NotOnExperienceMaxReached() throws ExpTooLowException, MaxLevelReachedException {
 		// Arrange
 		ExperienceEdgeListener mockLevel = mock(Level.class);
 		exp.setExperienceEdgeListener(mockLevel);
@@ -161,6 +163,21 @@ public class ExperienceTest {
 		verify(mockLevel, times(0)).onExperienceMaxReached();
 	}
 
+	@Test
+	public void testUpdateCurrentExp_AddOverMaxExp_NewExpIsMax() throws ExpTooLowException, MaxLevelReachedException {
+		// Arrange
+		ExperienceEdgeListener mockLevel = mock(Level.class);
+		doThrow(new Level().new MaxLevelReachedException()).when(mockLevel).onExperienceMaxReached();
+		exp.setExperienceEdgeListener(mockLevel);
+
+		// Act
+		int newExp = exp.updateExperience(exp.getMax() + 1);
+
+		// Assert
+		verify(mockLevel, times(1)).onExperienceMaxReached();
+		assertEquals(exp.getMax(), newExp);
+	}
+
 	@Test(expected = ExpTooLowException.class)
 	public void testUpdateCurrentExp_StartWith10Substract25Exp_ExpTooLowException() throws ExpTooLowException {
 		// Arrange
@@ -170,7 +187,23 @@ public class ExperienceTest {
 		exp.updateExperience(-25);
 
 		// Assert
-		// Verwacht ExpTooLowException
+	}
+
+	@Test
+	public void testUpdateCurrentExp_StartWith10Substract25Exp_ExpNotUpdated() throws ExpTooLowException {
+		// Arrange
+		int initialExp = 10;
+		exp.updateExperience(initialExp);
+
+		// Act
+		try {
+			exp.updateExperience(-25);
+		} catch (ExpTooLowException e) {
+			// Doe niets
+		}
+
+		// Assert
+		assertEquals(initialExp, exp.getCurrentExp());
 	}
 
 	@Test
