@@ -9,7 +9,7 @@
 
         <!-- Styles voor merged views -->
         <item name="expCurrentLvlStyle">@style/expCurrentLvlStyle</item>
-        <item name="expUpdaterStyle">@style/expUpdaterStyle</item>
+        <item name="expEditorStyle">@style/expEditorStyle</item>
     </style>
 
     <style name="AppTheme.NoActionBar">

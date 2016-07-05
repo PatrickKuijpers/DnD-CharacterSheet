@@ -24,7 +24,7 @@ public class ExperienceEditor extends LinearLayout implements OnClickListener {
     }
 
     private void init(Context context) {
-        inflate(context, R.layout.experience_updater, this);
+        inflate(context, R.layout.experience_editor, this);
 
         expPicker = (ExperiencePicker) findViewById(R.id.experience_picker);
         expInput = (ExperienceInput) findViewById(R.id.experience_input);
