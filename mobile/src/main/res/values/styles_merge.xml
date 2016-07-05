@@ -1,5 +1,10 @@
 <resources>
 
+    <style name="levelStyle">
+        <item name="android:gravity">bottom</item>
+        <item name="android:orientation">horizontal</item>
+    </style>
+
     <style name="expCurrentLvlStyle">
         <item name="android:gravity">center_vertical</item>
     </style>

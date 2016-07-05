@@ -6,4 +6,9 @@
 
     <color name="transparent">@android:color/transparent</color>
     <color name="grey_light">#EEE</color>
+    <color name="white">#FFF</color>
+
+    <color name="red">#F00</color>
+
+    <color name="level">@color/white</color>
 </resources>

@@ -8,6 +8,7 @@
         <item name="colorAccent">@color/colorAccent</item>
 
         <!-- Styles voor merged views -->
+        <item name="levelStyle">@style/levelStyle</item>
         <item name="expCurrentLvlStyle">@style/expCurrentLvlStyle</item>
         <item name="expEditorStyle">@style/expEditorStyle</item>
     </style>
