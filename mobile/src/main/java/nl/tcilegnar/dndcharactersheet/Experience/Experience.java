@@ -45,7 +45,8 @@ public class Experience implements Serializable {
 
 	private void validate(int expUpdateValue, int newExp) throws ExpTooLowException {
 		if (newExp < 0) {
-			throw new ExpTooLowException("Nieuwe exp-waarde is te laag: " + currentExp + " + " + expUpdateValue + " = " + newExp);
+			String message = "Nieuwe exp-waarde is te laag: " + currentExp + " + " + expUpdateValue + " = " + newExp;
+			throw new ExpTooLowException(message);
 		}
 	}
 
