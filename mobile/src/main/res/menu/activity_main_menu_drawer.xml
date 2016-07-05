@@ -5,11 +5,11 @@
         <item
             android:id="@+id/nav_char_A"
             android:icon="@drawable/ic_menu_manage"
-            android:title="Character A" />
+            android:title="Character A"/>
         <item
             android:id="@+id/nav_char_B"
             android:icon="@drawable/ic_menu_manage"
-            android:title="Character B" />
+            android:title="Character B"/>
     </group>
 
     <!--

@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest
-    package="nl.tcilegnar.dndcharactersheet"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="nl.tcilegnar.dndcharactersheet">
 
     <uses-permission android:name="android.permission.WAKE_LOCK"/>
 
@@ -25,12 +24,10 @@
         <activity
             android:name=".Experience.ExperienceActivity"
             android:label="@string/title_experience"
-            android:theme="@style/AppTheme.NoActionBar">
-        </activity>
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name=".Settings.SettingsActivity"
             android:label="@string/title_settings"
-            android:theme="@style/AppTheme.NoActionBar">
-        </activity>
+            android:theme="@style/AppTheme.NoActionBar"/>
     </application>
 </manifest>
