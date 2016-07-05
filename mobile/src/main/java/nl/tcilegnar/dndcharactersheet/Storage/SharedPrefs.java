@@ -11,7 +11,8 @@ import java.util.Set;
 import nl.tcilegnar.dndcharactersheet.App;
 
 public abstract class SharedPrefs {
-	private SharedPreferences extendedSharedPrefs = App.getContext().getSharedPreferences(fileName(), Context.MODE_PRIVATE);
+	private SharedPreferences extendedSharedPrefs = App.getContext().getSharedPreferences(fileName(), Context
+			.MODE_PRIVATE);
 	private SharedPreferences defaultPrefs = PreferenceManager.getDefaultSharedPreferences(App.getContext());
 
 	protected abstract String fileName();

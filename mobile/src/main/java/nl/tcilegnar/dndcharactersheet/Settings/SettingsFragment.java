@@ -24,7 +24,8 @@ public class SettingsFragment extends PreferenceFragment implements OnPreference
 
 	private void initPreferences() {
 		expUpdateType = (ListPreference) findPreference(getString(R.string.setting_key_experience_update_type));
-		expUpdatePickerSteps = (ListPreference) findPreference(getString(R.string.setting_key_experience_update_picker_steps));
+		expUpdatePickerSteps = (ListPreference) findPreference(getString(R.string
+				.setting_key_experience_update_picker_steps));
 
 		// TODO: setting defaults setten? Hoe / kan dit?
 
