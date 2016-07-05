@@ -1,14 +1,14 @@
 package nl.tcilegnar.dndcharactersheet;
 
-import android.content.Context;
-import android.content.res.Resources;
-
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricGradleTestRunner;
 import org.robolectric.RuntimeEnvironment;
 import org.robolectric.annotation.Config;
+
+import android.content.Context;
+import android.content.res.Resources;
 
 import static org.junit.Assert.assertEquals;
 

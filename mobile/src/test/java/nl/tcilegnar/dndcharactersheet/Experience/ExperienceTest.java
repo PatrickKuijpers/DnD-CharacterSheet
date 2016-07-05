@@ -111,7 +111,8 @@ public class ExperienceTest {
 	}
 
 	@Test
-	public void testUpdateCurrentExp_StartWith10Substract5Exp_NotSameAsInitialExpAndDecreased() throws ExpTooLowException {
+	public void testUpdateCurrentExp_StartWith10Substract5Exp_NotSameAsInitialExpAndDecreased() throws
+			ExpTooLowException {
 		// Arrange
 		int initialExp = exp.updateExperience(10);
 
@@ -138,7 +139,8 @@ public class ExperienceTest {
 	}
 
 	@Test
-	public void testUpdateCurrentExp_AddOverMaxExp_OnExperienceMaxReached() throws ExpTooLowException, MaxLevelReachedException {
+	public void testUpdateCurrentExp_AddOverMaxExp_OnExperienceMaxReached() throws ExpTooLowException,
+			MaxLevelReachedException {
 		// Arrange
 		ExperienceEdgeListener mockLevel = mock(Level.class);
 		exp.setExperienceEdgeListener(mockLevel);
@@ -151,7 +153,8 @@ public class ExperienceTest {
 	}
 
 	@Test
-	public void testUpdateCurrentExp_AddOverMaxExp_NotOnExperienceMaxReached() throws ExpTooLowException, MaxLevelReachedException {
+	public void testUpdateCurrentExp_AddOverMaxExp_NotOnExperienceMaxReached() throws ExpTooLowException,
+			MaxLevelReachedException {
 		// Arrange
 		ExperienceEdgeListener mockLevel = mock(Level.class);
 		exp.setExperienceEdgeListener(mockLevel);

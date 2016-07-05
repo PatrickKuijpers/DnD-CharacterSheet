@@ -1,16 +1,16 @@
 package nl.tcilegnar.dndcharactersheet.Storage;
 
-import android.content.Context;
-import android.content.SharedPreferences;
-import android.content.res.Resources;
-import android.preference.PreferenceManager;
-
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricGradleTestRunner;
 import org.robolectric.annotation.Config;
+
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.content.res.Resources;
+import android.preference.PreferenceManager;
 
 import java.util.Arrays;
 import java.util.HashSet;
@@ -47,7 +47,8 @@ public class SharedPrefsTest {
 		// Assert
 		SharedPreferences defaultSharedPrefs = PreferenceManager.getDefaultSharedPreferences(App.getContext());
 		assertNotSame(defaultSharedPrefs, prefs);
-		SharedPreferences extendedPrefs = App.getContext().getSharedPreferences(settings.fileName(), Context.MODE_PRIVATE);
+		SharedPreferences extendedPrefs = App.getContext().getSharedPreferences(settings.fileName(), Context
+				.MODE_PRIVATE);
 		assertEquals(extendedPrefs, prefs);
 	}
 
@@ -63,7 +64,8 @@ public class SharedPrefsTest {
 		// Assert
 		SharedPreferences defaultSharedPrefs = PreferenceManager.getDefaultSharedPreferences(App.getContext());
 		assertEquals(defaultSharedPrefs, prefs);
-		SharedPreferences extendedPrefs = App.getContext().getSharedPreferences(this.settings.fileName(), Context.MODE_PRIVATE);
+		SharedPreferences extendedPrefs = App.getContext().getSharedPreferences(this.settings.fileName(), Context
+				.MODE_PRIVATE);
 		assertNotSame(extendedPrefs, prefs);
 	}
 

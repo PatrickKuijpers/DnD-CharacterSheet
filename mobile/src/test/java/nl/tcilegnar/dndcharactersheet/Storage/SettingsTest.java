@@ -1,7 +1,5 @@
 package nl.tcilegnar.dndcharactersheet.Storage;
 
-import android.preference.Preference;
-
 import junit.framework.Assert;
 
 import org.junit.Before;
@@ -10,6 +8,8 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricGradleTestRunner;
 import org.robolectric.annotation.Config;
+
+import android.preference.Preference;
 
 import java.util.Arrays;
 import java.util.HashSet;
@@ -51,7 +51,8 @@ public class SettingsTest {
 		String fileName = settings.fileName();
 
 		// Assert
-		assertEquals("Als de filename veranderd is kunnen gegevens mogelijk niet meer correct worden geladen", "Settings", fileName);
+		assertEquals("Als de filename veranderd is kunnen gegevens mogelijk niet meer correct worden geladen",
+				"Settings", fileName);
 	}
 
 	@Test

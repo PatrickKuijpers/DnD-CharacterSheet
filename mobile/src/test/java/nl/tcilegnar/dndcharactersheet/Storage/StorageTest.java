@@ -40,7 +40,8 @@ public class StorageTest {
 		String fileName = storage.fileName();
 
 		// Assert
-		assertEquals("Als de filename veranderd is kunnen gegevens mogelijk niet meer correct worden geladen", "Storage", fileName);
+		assertEquals("Als de filename veranderd is kunnen gegevens mogelijk niet meer correct worden geladen",
+				"Storage", fileName);
 	}
 
 	@Test

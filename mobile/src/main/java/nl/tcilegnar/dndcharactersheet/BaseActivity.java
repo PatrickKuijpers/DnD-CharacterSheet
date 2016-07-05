@@ -14,17 +14,20 @@ import android.view.MenuItem;
 
 import nl.tcilegnar.dndcharactersheet.Settings.SettingsActivity;
 
-public abstract class BaseActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public abstract class BaseActivity extends AppCompatActivity implements NavigationView
+		.OnNavigationItemSelectedListener {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_default);
+		setContentView(R.layout.activity_default);
 		Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 		setSupportActionBar(toolbar);
 
 		DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-		ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+		ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string
+				.navigation_drawer_open, R.string.navigation_drawer_close);
 		drawer.setDrawerListener(toggle);
 		toggle.syncState();
 
@@ -67,7 +70,8 @@ public abstract class BaseActivity extends AppCompatActivity implements Navigati
 
 	private void startSettingsActivity() {
 		Intent settingsActivity = new Intent(this, SettingsActivity.class);
-		Bundle animation = ActivityOptions.makeCustomAnimation(App.getContext(), R.anim.anim_enter_from_right, R.anim.anim_exit_to_left).toBundle();
+		Bundle animation = ActivityOptions.makeCustomAnimation(App.getContext(), R.anim.anim_enter_from_right, R.anim
+				.anim_exit_to_left).toBundle();
 		startActivity(settingsActivity, animation);
 	}
 

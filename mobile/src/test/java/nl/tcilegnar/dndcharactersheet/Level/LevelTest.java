@@ -71,7 +71,8 @@ public class LevelTest {
 	}
 
 	@Test(expected = MaxLevelReachedException.class)
-	public void testOnExperienceMaxReached_WithMaxStartingLevel_MaxLevelReachedException() throws MaxLevelReachedException {
+	public void testOnExperienceMaxReached_WithMaxStartingLevel_MaxLevelReachedException() throws
+			MaxLevelReachedException {
 		// Arrange
 		Storage storageMock = mock(Storage.class);
 		int initialSavedLevel = level.getMaxLevel();
