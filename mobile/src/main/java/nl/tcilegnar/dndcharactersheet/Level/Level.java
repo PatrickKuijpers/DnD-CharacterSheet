@@ -6,7 +6,7 @@ import nl.tcilegnar.dndcharactersheet.Experience.Experience.ExperienceEdgeListen
 import nl.tcilegnar.dndcharactersheet.Storage.Storage;
 
 public class Level implements ExperienceEdgeListener {
-    private static final int MAX_LEVEL = 20;
+    private static final int MAX_LEVEL = 30;
     private final Storage storage;
     private int currentLevel;
     private LevelUpListener levelUpListener;
