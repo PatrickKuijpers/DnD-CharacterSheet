@@ -1,9 +1,7 @@
 package nl.tcilegnar.dndcharactersheet.Level;
 
 import android.support.annotation.VisibleForTesting;
-import android.widget.Toast;
 
-import nl.tcilegnar.dndcharactersheet.App;
 import nl.tcilegnar.dndcharactersheet.Experience.Experience.ExperienceEdgeListener;
 import nl.tcilegnar.dndcharactersheet.Storage.Storage;
 
@@ -11,6 +9,7 @@ public class Level implements ExperienceEdgeListener {
     private static final int MAX_LEVEL = 20;
     private final Storage storage;
     private int currentLevel;
+    private LevelUpListener levelUpListener;
 
     public Level() {
         this(new Storage());
@@ -35,7 +34,7 @@ public class Level implements ExperienceEdgeListener {
         validate();
 
         currentLevel++;
-        Toast.makeText(App.getContext(), "Level up: " + currentLevel, Toast.LENGTH_LONG).show();
+        levelUpListener.onLevelUp();
     }
 
     private void validate() throws MaxLevelReachedException {
@@ -48,9 +47,17 @@ public class Level implements ExperienceEdgeListener {
         storage.saveLevel(currentLevel);
     }
 
+    public void setLevelUpListener(LevelUpListener levelUpListener) {
+        this.levelUpListener = levelUpListener;
+    }
+
     public class MaxLevelReachedException extends Exception {
         public MaxLevelReachedException() {
             super("Maximum level bereikt: " + MAX_LEVEL);
         }
+    }
+
+    public interface LevelUpListener {
+        void onLevelUp();
     }
 }

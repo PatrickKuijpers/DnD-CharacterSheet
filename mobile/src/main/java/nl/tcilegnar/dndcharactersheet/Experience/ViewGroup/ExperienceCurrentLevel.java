@@ -11,12 +11,11 @@ import android.widget.Toast;
 import nl.tcilegnar.dndcharactersheet.App;
 import nl.tcilegnar.dndcharactersheet.Experience.Experience;
 import nl.tcilegnar.dndcharactersheet.Experience.Experience.ExpTooLowException;
-import nl.tcilegnar.dndcharactersheet.Experience.Experience.ExperienceEdgeListener;
 import nl.tcilegnar.dndcharactersheet.Experience.ViewGroup.ExperienceEditor.ExperienceUpdateListener;
 import nl.tcilegnar.dndcharactersheet.R;
 
 public class ExperienceCurrentLevel extends LinearLayout implements ExperienceUpdateListener {
-    private Experience exp;
+    private final Experience experience;
     private ProgressBar expProgressBar;
 
     public ExperienceCurrentLevel(Context context, AttributeSet attrs) {
@@ -26,19 +25,19 @@ public class ExperienceCurrentLevel extends LinearLayout implements ExperienceUp
     @VisibleForTesting
     protected ExperienceCurrentLevel(Context context, AttributeSet attrs, Experience experience) {
         super(context, attrs, R.attr.expCurrentLvlStyle);
-        exp = experience;
+        this.experience = experience;
         init(context);
     }
 
     private void init(Context context) {
         inflate(context, R.layout.experience_current_lvl, this);
         initViews();
-        updateViewValues(exp.getCurrentExp());
+        updateViewValues(experience.getCurrentExp());
     }
 
     private void initViews() {
         expProgressBar = (ProgressBar) findViewById(R.id.experience_progressBar);
-        expProgressBar.setMax(exp.getMax());
+        expProgressBar.setMax(experience.getMax());
     }
 
     private void updateViewValues(int newExp) {
@@ -49,22 +48,18 @@ public class ExperienceCurrentLevel extends LinearLayout implements ExperienceUp
         expProgressBar.setProgress(newExp);
     }
 
-    public void saveExp() {
-        exp.saveExp();
+    public Experience getExperience() {
+        return experience;
     }
 
     @Override
     public void onUpdateExperience(int expUpdateValue) {
         try {
-            int newExp = exp.updateExperience(expUpdateValue);
+            int newExp = experience.updateExperience(expUpdateValue);
             updateViewValues(newExp);
         } catch (ExpTooLowException e) {
             e.printStackTrace();
             Toast.makeText(App.getContext(), e.getMessage(), Toast.LENGTH_LONG).show();
         }
-    }
-
-    public void setExperienceEdgeListener(ExperienceEdgeListener experienceEdgeListener) {
-        exp.setExperienceEdgeListener(experienceEdgeListener);
     }
 }
