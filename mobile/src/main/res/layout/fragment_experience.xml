@@ -8,8 +8,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"/>
 
-    <nl.tcilegnar.dndcharactersheet.Experience.ViewGroup.ExperienceUpdater
-        android:id="@+id/experience_updater"
+    <nl.tcilegnar.dndcharactersheet.Experience.ViewGroup.ExperienceEditor
+        android:id="@+id/experience_editor"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"

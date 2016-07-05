@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 
 import nl.tcilegnar.dndcharactersheet.BaseFragment;
 import nl.tcilegnar.dndcharactersheet.Experience.ViewGroup.ExperienceCurrentLevel;
-import nl.tcilegnar.dndcharactersheet.Experience.ViewGroup.ExperienceUpdater;
+import nl.tcilegnar.dndcharactersheet.Experience.ViewGroup.ExperienceEditor;
 import nl.tcilegnar.dndcharactersheet.Level.Level;
 import nl.tcilegnar.dndcharactersheet.R;
 
@@ -32,8 +32,8 @@ public class ExperienceFragment extends BaseFragment {
         expCurrentLevel = (ExperienceCurrentLevel) view.findViewById(R.id.experience_current_level);
         expCurrentLevel.setExperienceEdgeListener(level);
 
-        ExperienceUpdater expUpdater = (ExperienceUpdater) view.findViewById(R.id.experience_updater);
-        expUpdater.setExperienceUpdateListener(expCurrentLevel);
+        ExperienceEditor expEditor = (ExperienceEditor) view.findViewById(R.id.experience_editor);
+        expEditor.setExperienceUpdateListener(expCurrentLevel);
     }
 
     protected void onSaveData() {

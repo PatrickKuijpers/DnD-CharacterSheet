@@ -3,7 +3,7 @@
     <declare-styleable name="ExperienceCurrentLevel">
         <attr name="expCurrentLvlStyle" format="reference"/>
     </declare-styleable>
-    <declare-styleable name="ExperienceUpdater">
-        <attr name="expUpdaterStyle" format="reference"/>
+    <declare-styleable name="ExperienceEditor">
+        <attr name="expEditorStyle" format="reference"/>
     </declare-styleable>
 </resources>

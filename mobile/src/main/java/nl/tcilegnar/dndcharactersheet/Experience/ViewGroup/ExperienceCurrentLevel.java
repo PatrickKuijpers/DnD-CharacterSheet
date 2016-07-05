@@ -12,7 +12,7 @@ import nl.tcilegnar.dndcharactersheet.App;
 import nl.tcilegnar.dndcharactersheet.Experience.Experience;
 import nl.tcilegnar.dndcharactersheet.Experience.Experience.ExpTooLowException;
 import nl.tcilegnar.dndcharactersheet.Experience.Experience.ExperienceEdgeListener;
-import nl.tcilegnar.dndcharactersheet.Experience.ViewGroup.ExperienceUpdater.ExperienceUpdateListener;
+import nl.tcilegnar.dndcharactersheet.Experience.ViewGroup.ExperienceEditor.ExperienceUpdateListener;
 import nl.tcilegnar.dndcharactersheet.R;
 
 public class ExperienceCurrentLevel extends LinearLayout implements ExperienceUpdateListener {

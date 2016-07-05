@@ -11,15 +11,15 @@ import nl.tcilegnar.dndcharactersheet.Experience.View.ExperiencePicker;
 import nl.tcilegnar.dndcharactersheet.R;
 import nl.tcilegnar.dndcharactersheet.Storage.Settings;
 
-public class ExperienceUpdater extends LinearLayout implements OnClickListener {
+public class ExperienceEditor extends LinearLayout implements OnClickListener {
     private ExperiencePicker expPicker;
     private ExperienceInput expInput;
     private Settings settings = new Settings();
 
     private ExperienceUpdateListener experienceUpdateListener;
 
-    public ExperienceUpdater(Context context, AttributeSet attrs) {
-        super(context, attrs, R.attr.expUpdaterStyle);
+    public ExperienceEditor(Context context, AttributeSet attrs) {
+        super(context, attrs, R.attr.expEditorStyle);
         init(context);
     }
 
