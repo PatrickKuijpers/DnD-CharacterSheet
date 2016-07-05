@@ -20,35 +20,35 @@ import static org.mockito.Mockito.verify;
 @Config(constants = BuildConfig.class)
 @Ignore("Kan App resources niet vinden")
 public class ExperienceCurrentLevelTest {
-	private ExperienceCurrentLevel experienceCurrentLevel;
-	private Experience experienceMock;
+    private ExperienceCurrentLevel experienceCurrentLevel;
+    private Experience experienceMock;
 
-	@Before
-	public void setUp() {
-		experienceMock = mock(Experience.class);
-		experienceCurrentLevel = new ExperienceCurrentLevel(App.getContext(), null, experienceMock);
-	}
+    @Before
+    public void setUp() {
+        experienceMock = mock(Experience.class);
+        experienceCurrentLevel = new ExperienceCurrentLevel(App.getContext(), null, experienceMock);
+    }
 
-	@Test
-	public void testSaveExp() {
-		// Arrange
+    @Test
+    public void testSaveExp() {
+        // Arrange
 
-		// Act
-		experienceCurrentLevel.saveExp();
+        // Act
+        experienceCurrentLevel.saveExp();
 
-		// Assert
-		verify(experienceMock, times(1)).saveExp();
-	}
+        // Assert
+        verify(experienceMock, times(1)).saveExp();
+    }
 
-	@Test
-	public void testSetExperienceEdgeListener() {
-		// Arrange
-		Experience.ExperienceEdgeListener mockLevel = mock(Level.class);
+    @Test
+    public void testSetExperienceEdgeListener() {
+        // Arrange
+        Experience.ExperienceEdgeListener mockLevel = mock(Level.class);
 
-		// Act
-		experienceCurrentLevel.setExperienceEdgeListener(mockLevel);
+        // Act
+        experienceCurrentLevel.setExperienceEdgeListener(mockLevel);
 
-		// Assert
-		verify(experienceMock, times(1)).setExperienceEdgeListener(mockLevel);
-	}
+        // Assert
+        verify(experienceMock, times(1)).setExperienceEdgeListener(mockLevel);
+    }
 }

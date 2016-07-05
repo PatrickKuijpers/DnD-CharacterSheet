@@ -14,59 +14,59 @@ import static org.junit.Assert.assertNotNull;
 @RunWith(RobolectricGradleTestRunner.class)
 @Config(constants = BuildConfig.class)
 public class StorageTest {
-	private Storage storage;
+    private Storage storage;
 
-	@Before
-	public void setUp() {
-		storage = new Storage();
-	}
+    @Before
+    public void setUp() {
+        storage = new Storage();
+    }
 
-	@Test
-	public void testFileName_NotNull() {
-		// Arrange
+    @Test
+    public void testFileName_NotNull() {
+        // Arrange
 
-		// Act
-		String fileName = storage.fileName();
+        // Act
+        String fileName = storage.fileName();
 
-		// Assert
-		assertNotNull(fileName.isEmpty());
-	}
+        // Assert
+        assertNotNull(fileName.isEmpty());
+    }
 
-	@Test
-	public void testFileName_Storage() {
-		// Arrange
+    @Test
+    public void testFileName_Storage() {
+        // Arrange
 
-		// Act
-		String fileName = storage.fileName();
+        // Act
+        String fileName = storage.fileName();
 
-		// Assert
-		assertEquals("Als de filename veranderd is kunnen gegevens mogelijk niet meer correct worden geladen",
-				"Storage", fileName);
-	}
+        // Assert
+        assertEquals("Als de filename veranderd is kunnen gegevens mogelijk niet meer correct worden geladen",
+                "Storage", fileName);
+    }
 
-	@Test
-	public void testSaveAndLoadExperience() {
-		// Arrange
-		int expectedExperience = 1234;
+    @Test
+    public void testSaveAndLoadExperience() {
+        // Arrange
+        int expectedExperience = 1234;
 
-		// Act
-		storage.saveExperience(expectedExperience);
-		int experience = storage.loadExperience();
+        // Act
+        storage.saveExperience(expectedExperience);
+        int experience = storage.loadExperience();
 
-		// Assert
-		assertEquals(expectedExperience, experience);
-	}
+        // Assert
+        assertEquals(expectedExperience, experience);
+    }
 
-	@Test
-	public void testSaveAndLoadLevel() {
-		// Arrange
-		int expectedLevel = 12;
+    @Test
+    public void testSaveAndLoadLevel() {
+        // Arrange
+        int expectedLevel = 12;
 
-		// Act
-		storage.saveLevel(expectedLevel);
-		int experience = storage.loadLevel();
+        // Act
+        storage.saveLevel(expectedLevel);
+        int experience = storage.loadLevel();
 
-		// Assert
-		assertEquals(expectedLevel, experience);
-	}
+        // Assert
+        assertEquals(expectedLevel, experience);
+    }
 }

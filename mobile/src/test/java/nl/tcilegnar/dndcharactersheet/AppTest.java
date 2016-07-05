@@ -15,29 +15,29 @@ import static org.junit.Assert.assertEquals;
 @RunWith(RobolectricGradleTestRunner.class)
 @Config(constants = BuildConfig.class)
 public class AppTest {
-	@Test
-	public void testContext() {
-		// Arrange
-		Context expectedContext = RuntimeEnvironment.application.getApplicationContext();
+    @Test
+    public void testContext() {
+        // Arrange
+        Context expectedContext = RuntimeEnvironment.application.getApplicationContext();
 
-		// Act
-		Context actualContext = App.getContext();
-		//		Context actualContext = RuntimeEnvironment.application;
+        // Act
+        Context actualContext = App.getContext();
+        //		Context actualContext = RuntimeEnvironment.application;
 
-		// Assert
-		assertEquals(expectedContext, actualContext);
-	}
+        // Assert
+        assertEquals(expectedContext, actualContext);
+    }
 
-	@Test
-	@Ignore("Kan App resources niet vinden")
-	public void testGetAppResources() {
-		// Arrange
-		Resources expectedResources = RuntimeEnvironment.application.getApplicationContext().getResources();
+    @Test
+    @Ignore("Kan App resources niet vinden")
+    public void testGetAppResources() {
+        // Arrange
+        Resources expectedResources = RuntimeEnvironment.application.getApplicationContext().getResources();
 
-		// Act
-		Resources actualResources = App.getAppResources();
+        // Act
+        Resources actualResources = App.getAppResources();
 
-		// Assert
-		assertEquals(expectedResources.getString(R.string.app_name), actualResources.getString(R.string.app_name));
-	}
+        // Assert
+        assertEquals(expectedResources.getString(R.string.app_name), actualResources.getString(R.string.app_name));
+    }
 }

@@ -125,9 +125,6 @@
           <option name="FOR_BRACE_FORCE" value="3" />
           <option name="WRAP_LONG_LINES" value="true" />
           <option name="WRAP_ON_TYPING" value="0" />
-          <indentOptions>
-            <option name="USE_TAB_CHARACTER" value="true" />
-          </indentOptions>
         </codeStyleSettings>
         <codeStyleSettings language="XML">
           <option name="RIGHT_MARGIN" value="250" />

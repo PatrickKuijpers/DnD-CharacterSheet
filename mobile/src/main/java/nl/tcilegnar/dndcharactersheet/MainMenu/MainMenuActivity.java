@@ -8,12 +8,12 @@ import nl.tcilegnar.dndcharactersheet.Experience.ExperienceActivity;
 
 public class MainMenuActivity extends AppCompatActivity {
 
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
 
-		Intent experienceActivity = new Intent(this, ExperienceActivity.class);
-		startActivity(experienceActivity);
-		finish();
-	}
+        Intent experienceActivity = new Intent(this, ExperienceActivity.class);
+        startActivity(experienceActivity);
+        finish();
+    }
 }

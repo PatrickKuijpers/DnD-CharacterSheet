@@ -12,53 +12,53 @@ import nl.tcilegnar.dndcharactersheet.R;
 import nl.tcilegnar.dndcharactersheet.Storage.Settings;
 
 public class ExperienceUpdater extends LinearLayout implements OnClickListener {
-	private ExperiencePicker expPicker;
-	private ExperienceInput expInput;
-	private Settings settings = new Settings();
+    private ExperiencePicker expPicker;
+    private ExperienceInput expInput;
+    private Settings settings = new Settings();
 
-	private ExperienceUpdateListener experienceUpdateListener;
+    private ExperienceUpdateListener experienceUpdateListener;
 
-	public ExperienceUpdater(Context context, AttributeSet attrs) {
-		super(context, attrs, R.attr.expUpdaterStyle);
-		init(context);
-	}
+    public ExperienceUpdater(Context context, AttributeSet attrs) {
+        super(context, attrs, R.attr.expUpdaterStyle);
+        init(context);
+    }
 
-	private void init(Context context) {
-		inflate(context, R.layout.experience_updater, this);
+    private void init(Context context) {
+        inflate(context, R.layout.experience_updater, this);
 
-		expPicker = (ExperiencePicker) findViewById(R.id.experience_picker);
-		expInput = (ExperienceInput) findViewById(R.id.experience_input);
+        expPicker = (ExperiencePicker) findViewById(R.id.experience_picker);
+        expInput = (ExperienceInput) findViewById(R.id.experience_input);
 
-		(findViewById(R.id.experience_plus_button)).setOnClickListener(this);
-		(findViewById(R.id.experience_min_button)).setOnClickListener(this);
-	}
+        (findViewById(R.id.experience_plus_button)).setOnClickListener(this);
+        (findViewById(R.id.experience_min_button)).setOnClickListener(this);
+    }
 
-	public int getExpValue() {
-		if (settings.isExperienceUpdateTypeInput()) {
-			return expInput.getExpValue();
-		} else if (settings.isExperienceUpdateTypeNumberPicker()) {
-			return expPicker.getCurrentSelectedExpValue();
-		} else {
-			return 0;
-		}
-	}
+    public int getExpValue() {
+        if (settings.isExperienceUpdateTypeInput()) {
+            return expInput.getExpValue();
+        } else if (settings.isExperienceUpdateTypeNumberPicker()) {
+            return expPicker.getCurrentSelectedExpValue();
+        } else {
+            return 0;
+        }
+    }
 
-	@Override
-	public void onClick(View view) {
-		int viewId = view.getId();
-		if (viewId == R.id.experience_plus_button) {
-			experienceUpdateListener.onUpdateExperience(getExpValue());
-		}
-		if (viewId == R.id.experience_min_button) {
-			experienceUpdateListener.onUpdateExperience(-getExpValue());
-		}
-	}
+    @Override
+    public void onClick(View view) {
+        int viewId = view.getId();
+        if (viewId == R.id.experience_plus_button) {
+            experienceUpdateListener.onUpdateExperience(getExpValue());
+        }
+        if (viewId == R.id.experience_min_button) {
+            experienceUpdateListener.onUpdateExperience(-getExpValue());
+        }
+    }
 
-	public void setExperienceUpdateListener(ExperienceUpdateListener experienceUpdateListener) {
-		this.experienceUpdateListener = experienceUpdateListener;
-	}
+    public void setExperienceUpdateListener(ExperienceUpdateListener experienceUpdateListener) {
+        this.experienceUpdateListener = experienceUpdateListener;
+    }
 
-	public interface ExperienceUpdateListener {
-		void onUpdateExperience(int expUpdateValue);
-	}
+    public interface ExperienceUpdateListener {
+        void onUpdateExperience(int expUpdateValue);
+    }
 }

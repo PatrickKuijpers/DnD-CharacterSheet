@@ -22,114 +22,114 @@ import static org.mockito.Mockito.verify;
 @RunWith(RobolectricGradleTestRunner.class)
 @Config(constants = BuildConfig.class)
 public class LevelTest {
-	private Level level;
+    private Level level;
 
-	@Before
-	public void setUp() {
-		level = new Level();
-	}
+    @Before
+    public void setUp() {
+        level = new Level();
+    }
 
-	@Test
-	public void testConstructor_StorageValuePositive_IsSetAsCurrentLevel() throws IOException {
-		// Arrange
-		Storage storageMock = mock(Storage.class);
-		int expectedSavedLevel = 12;
-		doReturn(expectedSavedLevel).when(storageMock).loadLevel();
+    @Test
+    public void testConstructor_StorageValuePositive_IsSetAsCurrentLevel() throws IOException {
+        // Arrange
+        Storage storageMock = mock(Storage.class);
+        int expectedSavedLevel = 12;
+        doReturn(expectedSavedLevel).when(storageMock).loadLevel();
 
-		// Act
-		level = new Level(storageMock);
+        // Act
+        level = new Level(storageMock);
 
-		// Assert
-		verify(storageMock, times(1)).loadLevel();
-		assertEquals(expectedSavedLevel, level.getCurrentLevel());
-	}
+        // Assert
+        verify(storageMock, times(1)).loadLevel();
+        assertEquals(expectedSavedLevel, level.getCurrentLevel());
+    }
 
-	@Test
-	public void testGetCurrentLevel_NoValueSet_ValueIsZero() {
-		// Arrange
+    @Test
+    public void testGetCurrentLevel_NoValueSet_ValueIsZero() {
+        // Arrange
 
-		// Act
-		int currentLevel = level.getCurrentLevel();
+        // Act
+        int currentLevel = level.getCurrentLevel();
 
-		// Assert
-		assertEquals(0, currentLevel);
-	}
+        // Assert
+        assertEquals(0, currentLevel);
+    }
 
-	@Test
-	public void testOnExperienceMaxReached_WithStartingLevel_LevelIncreasedBy1() throws MaxLevelReachedException {
-		// Arrange
-		Storage storageMock = mock(Storage.class);
-		int initialSavedLevel = 12;
-		doReturn(initialSavedLevel).when(storageMock).loadLevel();
-		Level level = new Level(storageMock);
+    @Test
+    public void testOnExperienceMaxReached_WithStartingLevel_LevelIncreasedBy1() throws MaxLevelReachedException {
+        // Arrange
+        Storage storageMock = mock(Storage.class);
+        int initialSavedLevel = 12;
+        doReturn(initialSavedLevel).when(storageMock).loadLevel();
+        Level level = new Level(storageMock);
 
-		// Act
-		level.onExperienceMaxReached();
+        // Act
+        level.onExperienceMaxReached();
 
-		// Assert
-		assertEquals(initialSavedLevel + 1, level.getCurrentLevel());
-	}
+        // Assert
+        assertEquals(initialSavedLevel + 1, level.getCurrentLevel());
+    }
 
-	@Test(expected = MaxLevelReachedException.class)
-	public void testOnExperienceMaxReached_WithMaxStartingLevel_MaxLevelReachedException() throws
-			MaxLevelReachedException {
-		// Arrange
-		Storage storageMock = mock(Storage.class);
-		int initialSavedLevel = level.getMaxLevel();
-		doReturn(initialSavedLevel).when(storageMock).loadLevel();
-		Level level = new Level(storageMock);
+    @Test(expected = MaxLevelReachedException.class)
+    public void testOnExperienceMaxReached_WithMaxStartingLevel_MaxLevelReachedException() throws
+            MaxLevelReachedException {
+        // Arrange
+        Storage storageMock = mock(Storage.class);
+        int initialSavedLevel = level.getMaxLevel();
+        doReturn(initialSavedLevel).when(storageMock).loadLevel();
+        Level level = new Level(storageMock);
 
-		// Act
-		level.onExperienceMaxReached();
+        // Act
+        level.onExperienceMaxReached();
 
-		// Assert
-	}
+        // Assert
+    }
 
-	@Test
-	public void testOnExperienceMaxReached_WithMaxStartingLevel_LevelNotIncreased() {
-		// Arrange
-		Storage storageMock = mock(Storage.class);
-		int initialSavedLevel = level.getMaxLevel();
-		doReturn(initialSavedLevel).when(storageMock).loadLevel();
-		Level level = new Level(storageMock);
+    @Test
+    public void testOnExperienceMaxReached_WithMaxStartingLevel_LevelNotIncreased() {
+        // Arrange
+        Storage storageMock = mock(Storage.class);
+        int initialSavedLevel = level.getMaxLevel();
+        doReturn(initialSavedLevel).when(storageMock).loadLevel();
+        Level level = new Level(storageMock);
 
-		// Act
-		try {
-			level.onExperienceMaxReached();
-		} catch (MaxLevelReachedException e) {
-			// Doe niets
-		}
+        // Act
+        try {
+            level.onExperienceMaxReached();
+        } catch (MaxLevelReachedException e) {
+            // Doe niets
+        }
 
-		// Assert
-		assertEquals(initialSavedLevel, level.getCurrentLevel());
-	}
+        // Assert
+        assertEquals(initialSavedLevel, level.getCurrentLevel());
+    }
 
-	@Test
-	public void testSaveLevel_SaveZeroLevel_StorageMethodCalledWithZero() {
-		// Arrange
-		Storage storageMock = mock(Storage.class);
-		Level level = new Level(storageMock);
+    @Test
+    public void testSaveLevel_SaveZeroLevel_StorageMethodCalledWithZero() {
+        // Arrange
+        Storage storageMock = mock(Storage.class);
+        Level level = new Level(storageMock);
 
-		// Act
-		level.saveLevel();
+        // Act
+        level.saveLevel();
 
-		// Assert
-		int expectedSavedLevel = 0;
-		verify(storageMock, times(1)).saveLevel(eq(expectedSavedLevel));
-	}
+        // Assert
+        int expectedSavedLevel = 0;
+        verify(storageMock, times(1)).saveLevel(eq(expectedSavedLevel));
+    }
 
-	@Test
-	public void testSaveLevel_SavePositiveLevel_StorageMethodCalledWithSameValue() {
-		// Arrange
-		Storage storageMock = mock(Storage.class);
-		int expectedSavedLevel = 10;
-		doReturn(expectedSavedLevel).when(storageMock).loadLevel();
-		Level level = new Level(storageMock);
+    @Test
+    public void testSaveLevel_SavePositiveLevel_StorageMethodCalledWithSameValue() {
+        // Arrange
+        Storage storageMock = mock(Storage.class);
+        int expectedSavedLevel = 10;
+        doReturn(expectedSavedLevel).when(storageMock).loadLevel();
+        Level level = new Level(storageMock);
 
-		// Act
-		level.saveLevel();
+        // Act
+        level.saveLevel();
 
-		// Assert
-		verify(storageMock, times(1)).saveLevel(eq(expectedSavedLevel));
-	}
+        // Assert
+        verify(storageMock, times(1)).saveLevel(eq(expectedSavedLevel));
+    }
 }
