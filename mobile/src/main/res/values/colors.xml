@@ -9,6 +9,11 @@
     <color name="white">#FFF</color>
 
     <color name="red">#F00</color>
+    <color name="green">#0F0</color>
+    <color name="blue">#00F</color>
+    <color name="yellow">#FF0</color>
+    <color name="purple">#F0F</color>
+    <color name="cyan">#0FF</color>
 
     <color name="level">@color/white</color>
 </resources>
