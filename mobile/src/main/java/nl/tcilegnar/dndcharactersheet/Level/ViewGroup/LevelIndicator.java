@@ -12,10 +12,11 @@ import android.widget.Toast;
 
 import nl.tcilegnar.dndcharactersheet.App;
 import nl.tcilegnar.dndcharactersheet.Level.Level;
+import nl.tcilegnar.dndcharactersheet.Level.Level.LevelDownListener;
 import nl.tcilegnar.dndcharactersheet.Level.Level.LevelUpListener;
 import nl.tcilegnar.dndcharactersheet.R;
 
-public class LevelIndicator extends LinearLayout implements OnClickListener, LevelUpListener {
+public class LevelIndicator extends LinearLayout implements OnClickListener, LevelUpListener, LevelDownListener {
     private TextView levelIndicator;
     private ImageButton levelUpButton;
     private TextView experiernceRemainder;
@@ -65,5 +66,10 @@ public class LevelIndicator extends LinearLayout implements OnClickListener, Lev
     public void onLevelUp() {
         setLevelText();
         levelUpButton.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void onLevelDown() {
+        setLevelText();
     }
 }

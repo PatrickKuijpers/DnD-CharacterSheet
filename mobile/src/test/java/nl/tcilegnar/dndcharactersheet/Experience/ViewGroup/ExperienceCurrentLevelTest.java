@@ -2,7 +2,6 @@ package nl.tcilegnar.dndcharactersheet.Experience.ViewGroup;
 
 import org.junit.Before;
 import org.junit.Ignore;
-import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricGradleTestRunner;
 import org.robolectric.annotation.Config;
@@ -10,11 +9,8 @@ import org.robolectric.annotation.Config;
 import nl.tcilegnar.dndcharactersheet.App;
 import nl.tcilegnar.dndcharactersheet.BuildConfig;
 import nl.tcilegnar.dndcharactersheet.Experience.Experience;
-import nl.tcilegnar.dndcharactersheet.Level.Level;
 
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
 
 @RunWith(RobolectricGradleTestRunner.class)
 @Config(constants = BuildConfig.class)
@@ -29,26 +25,26 @@ public class ExperienceCurrentLevelTest {
         experienceCurrentLevel = new ExperienceCurrentLevel(App.getContext(), null, experienceMock);
     }
 
-    @Test
-    public void testSaveExp() {
-        // Arrange
+    //    @Test
+    //    public void testSaveExp() {
+    //        // Arrange
+    //
+    //        // Act
+    //        experienceCurrentLevel.saveExp();
+    //
+    //        // Assert
+    //        verify(experienceMock, times(1)).saveExp();
+    //    }
 
-        // Act
-        experienceCurrentLevel.saveExp();
-
-        // Assert
-        verify(experienceMock, times(1)).saveExp();
-    }
-
-    @Test
-    public void testSetExperienceEdgeListener() {
-        // Arrange
-        Experience.ExperienceEdgeListener mockLevel = mock(Level.class);
-
-        // Act
-        experienceCurrentLevel.setExperienceEdgeListener(mockLevel);
-
-        // Assert
-        verify(experienceMock, times(1)).setExperienceEdgeListener(mockLevel);
-    }
+    //    @Test
+    //    public void testSetExperienceEdgeListener() {
+    //        // Arrange
+    //        Experience.ExperienceEdgeListener mockLevel = mock(Level.class);
+    //
+    //        // Act
+    //        experienceCurrentLevel.setExperienceEdgeListener(mockLevel);
+    //
+    //        // Assert
+    //        verify(experienceMock, times(1)).setExperienceEdgeListener(mockLevel);
+    //    }
 }

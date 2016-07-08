@@ -10,6 +10,7 @@ import java.io.IOException;
 
 import nl.tcilegnar.dndcharactersheet.BuildConfig;
 import nl.tcilegnar.dndcharactersheet.Level.Level.MaxLevelReachedException;
+import nl.tcilegnar.dndcharactersheet.Level.ViewGroup.LevelIndicator;
 import nl.tcilegnar.dndcharactersheet.Storage.Storage;
 
 import static junit.framework.Assert.assertEquals;
@@ -61,7 +62,7 @@ public class LevelTest {
         Storage storageMock = mock(Storage.class);
         int initialSavedLevel = 12;
         doReturn(initialSavedLevel).when(storageMock).loadLevel();
-        Level level = new Level(storageMock);
+        Level level = getLevelWithMocks(storageMock);
 
         // Act
         level.onExperienceMaxReached();
@@ -77,7 +78,7 @@ public class LevelTest {
         Storage storageMock = mock(Storage.class);
         int initialSavedLevel = level.getMaxLevel();
         doReturn(initialSavedLevel).when(storageMock).loadLevel();
-        Level level = new Level(storageMock);
+        Level level = getLevelWithMocks(storageMock);
 
         // Act
         level.onExperienceMaxReached();
@@ -91,7 +92,7 @@ public class LevelTest {
         Storage storageMock = mock(Storage.class);
         int initialSavedLevel = level.getMaxLevel();
         doReturn(initialSavedLevel).when(storageMock).loadLevel();
-        Level level = new Level(storageMock);
+        Level level = getLevelWithMocks(storageMock);
 
         // Act
         try {
@@ -131,5 +132,12 @@ public class LevelTest {
 
         // Assert
         verify(storageMock, times(1)).saveLevel(eq(expectedSavedLevel));
+    }
+
+    private Level getLevelWithMocks(Storage storageMock) {
+        Level level = new Level(storageMock);
+        LevelIndicator levelIndicatorMock = mock(LevelIndicator.class);
+        level.setLevelUpListener(levelIndicatorMock);
+        return level;
     }
 }

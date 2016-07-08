@@ -9,6 +9,7 @@ import org.robolectric.annotation.Config;
 import java.io.IOException;
 
 import nl.tcilegnar.dndcharactersheet.BuildConfig;
+import nl.tcilegnar.dndcharactersheet.BuildType;
 import nl.tcilegnar.dndcharactersheet.Experience.Experience.ExpTooLowException;
 import nl.tcilegnar.dndcharactersheet.Experience.Experience.ExperienceEdgeListener;
 import nl.tcilegnar.dndcharactersheet.Level.Level;
@@ -29,24 +30,30 @@ import static org.mockito.Mockito.verify;
 @Config(constants = BuildConfig.class)
 public class ExperienceTest {
     private static Experience exp;
+    private Storage storageMock;
+    private BuildType buildTypeMock;
 
     @Before
     public void setUp() {
-        exp = new Experience();
+        storageMock = mock(Storage.class);
+        buildTypeMock = mock(BuildType.class);
+        doReturn(false).when(buildTypeMock).isDebug();
+        exp = new Experience(storageMock, buildTypeMock);
     }
 
     @Test
     public void testConstructor_StorageValuePositive_IsSetAsCurrentExp() throws IOException {
         // Arrange
-        Storage storageMock = mock(Storage.class);
+        final int CALLED_IN_CONSTRUCTOR = 1;
         int expectedSavedExp = 10;
         doReturn(expectedSavedExp).when(storageMock).loadExperience();
+        verify(storageMock, times(CALLED_IN_CONSTRUCTOR)).loadExperience();
 
         // Act
-        exp = new Experience(storageMock);
+        Experience exp = new Experience(storageMock, buildTypeMock);
 
         // Assert
-        verify(storageMock, times(1)).loadExperience();
+        verify(storageMock, times(CALLED_IN_CONSTRUCTOR + 1)).loadExperience();
         assertEquals(expectedSavedExp, exp.getCurrentExp());
     }
 
@@ -153,7 +160,7 @@ public class ExperienceTest {
     }
 
     @Test
-    public void testUpdateCurrentExp_AddOverMaxExp_NotOnExperienceMaxReached() throws ExpTooLowException,
+    public void testUpdateCurrentExp_AddNotOverMaxExp_NotOnExperienceMaxReached() throws ExpTooLowException,
             MaxLevelReachedException {
         // Arrange
         ExperienceEdgeListener mockLevel = mock(Level.class);
@@ -167,7 +174,8 @@ public class ExperienceTest {
     }
 
     @Test
-    public void testUpdateCurrentExp_AddOverMaxExp_NewExpIsMax() throws ExpTooLowException, MaxLevelReachedException {
+    public void testUpdateCurrentExp_AddOverMaxExpAndMaxLevelReached_NewExpIsMax() throws ExpTooLowException,
+            MaxLevelReachedException {
         // Arrange
         ExperienceEdgeListener mockLevel = mock(Level.class);
         doThrow(new Level().new MaxLevelReachedException()).when(mockLevel).onExperienceMaxReached();
@@ -182,7 +190,7 @@ public class ExperienceTest {
     }
 
     @Test(expected = ExpTooLowException.class)
-    public void testUpdateCurrentExp_StartWith10Substract25Exp_ExpTooLowException() throws ExpTooLowException {
+    public void testUpdateCurrentExp_SubstractOverMinExp_ExpTooLowException() throws ExpTooLowException {
         // Arrange
         exp.updateExperience(10);
 
@@ -193,7 +201,7 @@ public class ExperienceTest {
     }
 
     @Test
-    public void testUpdateCurrentExp_StartWith10Substract25Exp_ExpNotUpdated() throws ExpTooLowException {
+    public void testUpdateCurrentExp_SubstractOverMinExp_ExpNotUpdated() throws ExpTooLowException {
         // Arrange
         int initialExp = 10;
         exp.updateExperience(initialExp);
@@ -209,11 +217,49 @@ public class ExperienceTest {
         assertEquals(initialExp, exp.getCurrentExp());
     }
 
+    @Test // TODO
+    public void testUpdateCurrentExp_DebugSubstractOverMinExp_NewExpIsLeftoverExp() throws ExpTooLowException {
+        // Arrange
+        doReturn(true).when(buildTypeMock).isDebug();
+        Experience exp = new Experience(storageMock, buildTypeMock);
+
+        ExperienceEdgeListener mockLevel = mock(Level.class);
+        exp.setExperienceEdgeListener(mockLevel);
+
+        exp.updateExperience(10);
+
+        // Act
+        int newExp = exp.updateExperience(-exp.getMax());
+
+        // Assert
+        assertEquals(10, newExp);
+    }
+
+    @Test // TODO
+    public void testUpdateCurrentExp_DebugSubstractOverMinExpAndMinLevelReached_NewExpIsMin() throws
+            ExpTooLowException, Level.MinLevelReachedException {
+        // Arrange
+        doReturn(true).when(buildTypeMock).isDebug();
+        Experience exp = new Experience(storageMock, buildTypeMock);
+
+        ExperienceEdgeListener mockLevel = mock(Level.class);
+        doThrow(new Level().new MinLevelReachedException()).when(mockLevel).onExperienceMinReached();
+        exp.setExperienceEdgeListener(mockLevel);
+
+        exp.updateExperience(10);
+
+        // Act
+        int newExp = exp.updateExperience(-25);
+
+        // Assert
+        verify(mockLevel, times(1)).onExperienceMinReached();
+        assertEquals(exp.getMin(), newExp);
+    }
+
     @Test
     public void testSaveExp_SaveZeroExp_StorageMethodCalledWithZero() {
         // Arrange
-        Storage storageMock = mock(Storage.class);
-        Experience exp = new Experience(storageMock);
+        Experience exp = new Experience(storageMock, buildTypeMock);
 
         // Act
         exp.saveExp();
@@ -226,10 +272,9 @@ public class ExperienceTest {
     @Test
     public void testSaveExp_SavePositiveExp_StorageMethodCalledWithSameValue() {
         // Arrange
-        Storage storageMock = mock(Storage.class);
         int expectedSavedExp = 10;
         doReturn(expectedSavedExp).when(storageMock).loadExperience();
-        Experience exp = new Experience(storageMock);
+        Experience exp = new Experience(storageMock, buildTypeMock);
 
         // Act
         exp.saveExp();

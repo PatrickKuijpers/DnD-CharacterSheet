@@ -6,23 +6,32 @@ import android.widget.Toast;
 import java.io.Serializable;
 
 import nl.tcilegnar.dndcharactersheet.App;
+import nl.tcilegnar.dndcharactersheet.BuildType;
 import nl.tcilegnar.dndcharactersheet.Level.Level.MaxLevelReachedException;
+import nl.tcilegnar.dndcharactersheet.Level.Level.MinLevelReachedException;
 import nl.tcilegnar.dndcharactersheet.Storage.Storage;
 
 public class Experience implements Serializable {
+    private static final int EXP_MIN = 0;
     private static final int EXP_MAX = 2500;
     private Storage storage;
     private int currentExp = 0;
     private ExperienceEdgeListener experienceEdgeListener;
+    private BuildType buildType;
 
     public Experience() {
-        this(new Storage());
+        this(new Storage(), new BuildType());
     }
 
     @VisibleForTesting
-    protected Experience(Storage storage) {
+    protected Experience(Storage storage, BuildType buildType) {
         this.storage = storage;
+        this.buildType = buildType;
         this.currentExp = storage.loadExperience();
+    }
+
+    public int getMin() {
+        return EXP_MIN;
     }
 
     public int getMax() {
@@ -37,21 +46,29 @@ public class Experience implements Serializable {
         int newExp = currentExp + expUpdateValue;
         validate(expUpdateValue, newExp);
 
-        newExp = correctExperienceWhenMaxIsReached(newExp);
+        newExp = correctExperienceWhenEdgeIsReached(newExp);
 
         currentExp = newExp;
         return currentExp;
     }
 
     private void validate(int expUpdateValue, int newExp) throws ExpTooLowException {
-        if (newExp < 0) {
+        if (newExp < 0 && !buildType.isDebug()) {
             String message = "Nieuwe exp-waarde is te laag: " + currentExp + " + " + expUpdateValue + " = " + newExp;
             throw new ExpTooLowException(message);
         }
     }
 
-    private int correctExperienceWhenMaxIsReached(int newExp) {
-        if (isMaxExperienceReached(newExp)) {
+    private int correctExperienceWhenEdgeIsReached(int newExp) {
+        if (isMinExperienceReached(newExp)) {
+            try {
+                experienceEdgeListener.onExperienceMinReached();
+                newExp = newExp + EXP_MAX;
+            } catch (MinLevelReachedException e) {
+                newExp = EXP_MIN;
+                Toast.makeText(App.getContext(), e.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        } else if (isMaxExperienceReached(newExp)) {
             try {
                 experienceEdgeListener.onExperienceMaxReached();
                 newExp = newExp - EXP_MAX;
@@ -61,6 +78,10 @@ public class Experience implements Serializable {
             }
         }
         return newExp;
+    }
+
+    private boolean isMinExperienceReached(int newExp) {
+        return newExp < 0;
     }
 
     private boolean isMaxExperienceReached(int newExp) {
@@ -76,6 +97,8 @@ public class Experience implements Serializable {
     }
 
     public interface ExperienceEdgeListener {
+        void onExperienceMinReached() throws MinLevelReachedException;
+
         void onExperienceMaxReached() throws MaxLevelReachedException;
     }
 

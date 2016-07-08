@@ -6,9 +6,11 @@ import nl.tcilegnar.dndcharactersheet.Experience.Experience.ExperienceEdgeListen
 import nl.tcilegnar.dndcharactersheet.Storage.Storage;
 
 public class Level implements ExperienceEdgeListener {
+    private static final int MIN_LEVEL = 1;
     private static final int MAX_LEVEL = 30;
     private final Storage storage;
     private int currentLevel;
+    private LevelDownListener levelDownListener;
     private LevelUpListener levelUpListener;
 
     public Level() {
@@ -30,14 +32,28 @@ public class Level implements ExperienceEdgeListener {
     }
 
     @Override
+    public void onExperienceMinReached() throws MinLevelReachedException {
+        validateMinReached();
+
+        currentLevel--;
+        levelDownListener.onLevelDown();
+    }
+
+    private void validateMinReached() throws MinLevelReachedException {
+        if (currentLevel == MIN_LEVEL) {
+            throw new MinLevelReachedException();
+        }
+    }
+
+    @Override
     public void onExperienceMaxReached() throws MaxLevelReachedException {
-        validate();
+        validateMaxReached();
 
         currentLevel++;
         levelUpListener.onLevelUp();
     }
 
-    private void validate() throws MaxLevelReachedException {
+    private void validateMaxReached() throws MaxLevelReachedException {
         if (currentLevel == MAX_LEVEL) {
             throw new MaxLevelReachedException();
         }
@@ -47,8 +63,18 @@ public class Level implements ExperienceEdgeListener {
         storage.saveLevel(currentLevel);
     }
 
+    public void setLevelDownListener(LevelDownListener levelDownListener) {
+        this.levelDownListener = levelDownListener;
+    }
+
     public void setLevelUpListener(LevelUpListener levelUpListener) {
         this.levelUpListener = levelUpListener;
+    }
+
+    public class MinLevelReachedException extends Exception {
+        public MinLevelReachedException() {
+            super("Minimum level bereikt: " + MIN_LEVEL);
+        }
     }
 
     public class MaxLevelReachedException extends Exception {
@@ -59,5 +85,9 @@ public class Level implements ExperienceEdgeListener {
 
     public interface LevelUpListener {
         void onLevelUp();
+    }
+
+    public interface LevelDownListener {
+        void onLevelDown();
     }
 }
