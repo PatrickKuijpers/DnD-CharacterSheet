@@ -7,7 +7,7 @@ public class Storage extends SharedPrefs {
     }
 
     protected enum Key {
-        CURRENT_EXP(0), CURRENT_LEVEL(0);
+        CURRENT_EXP(0), CURRENT_LEVEL(1);
 
         protected final int defaultValue;
 
