@@ -10,7 +10,7 @@ import java.io.IOException;
 
 import nl.tcilegnar.dndcharactersheet.BuildConfig;
 import nl.tcilegnar.dndcharactersheet.Level.Level.MaxLevelReachedException;
-import nl.tcilegnar.dndcharactersheet.Level.ViewGroup.LevelIndicatorView;
+import nl.tcilegnar.dndcharactersheet.Level.Level.ReadyForLevelUpListener;
 import nl.tcilegnar.dndcharactersheet.Storage.Storage;
 
 import static junit.framework.Assert.assertEquals;
@@ -24,6 +24,7 @@ import static org.mockito.Mockito.verify;
 @Config(constants = BuildConfig.class)
 public class LevelTest {
     private Level level;
+    private ReadyForLevelUpListener readyForLevelUpListenerMock;
 
     @Before
     public void setUp() {
@@ -57,7 +58,8 @@ public class LevelTest {
     }
 
     @Test
-    public void testOnExperienceMaxReached_WithStartingLevel_LevelIncreasedBy1() throws MaxLevelReachedException {
+    public void testOnExperienceMaxReached_WithStartingLevel_LevelNotIncreasedYetButReadyToLevelUp() throws
+            MaxLevelReachedException {
         // Arrange
         Storage storageMock = mock(Storage.class);
         int initialSavedLevel = 12;
@@ -68,7 +70,8 @@ public class LevelTest {
         level.onExperienceMaxReached();
 
         // Assert
-        assertEquals(initialSavedLevel + 1, level.getCurrentLevel());
+        assertEquals(initialSavedLevel, level.getCurrentLevel()); // Ga nog niet lvl up
+        verify(readyForLevelUpListenerMock, times(1)).onReadyForLevelUp();
     }
 
     @Test(expected = MaxLevelReachedException.class)
@@ -87,7 +90,7 @@ public class LevelTest {
     }
 
     @Test
-    public void testOnExperienceMaxReached_WithMaxStartingLevel_LevelNotIncreased() {
+    public void testOnExperienceMaxReached_WithMaxStartingLevel_LevelNotIncreasedAndNotReadyForLevelUp() {
         // Arrange
         Storage storageMock = mock(Storage.class);
         int initialSavedLevel = level.getMaxLevel();
@@ -103,6 +106,7 @@ public class LevelTest {
 
         // Assert
         assertEquals(initialSavedLevel, level.getCurrentLevel());
+        verify(readyForLevelUpListenerMock, times(0)).onReadyForLevelUp();
     }
 
     @Test
@@ -136,8 +140,8 @@ public class LevelTest {
 
     private Level getLevelWithMocks(Storage storageMock) {
         Level level = new Level(storageMock);
-        LevelIndicatorView levelIndicatorViewMock = mock(LevelIndicatorView.class);
-        level.setReadyForLevelUpListener(levelIndicatorViewMock);
+        readyForLevelUpListenerMock = mock(ReadyForLevelUpListener.class);
+        level.setReadyForLevelUpListener(readyForLevelUpListenerMock);
         return level;
     }
 }
