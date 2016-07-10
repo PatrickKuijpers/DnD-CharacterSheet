@@ -46,14 +46,14 @@ public class LevelTest {
     }
 
     @Test
-    public void testGetCurrentLevel_NoValueSet_ValueIsZero() {
+    public void testGetCurrentLevel_NoValueSet_ValueIsDefault() {
         // Arrange
 
         // Act
         int currentLevel = level.getCurrentLevel();
 
         // Assert
-        assertEquals(0, currentLevel);
+        assertEquals(1, currentLevel);
     }
 
     @Test
