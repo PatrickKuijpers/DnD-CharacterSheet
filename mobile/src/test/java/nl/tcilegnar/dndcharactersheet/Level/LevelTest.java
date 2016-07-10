@@ -10,7 +10,7 @@ import java.io.IOException;
 
 import nl.tcilegnar.dndcharactersheet.BuildConfig;
 import nl.tcilegnar.dndcharactersheet.Level.Level.MaxLevelReachedException;
-import nl.tcilegnar.dndcharactersheet.Level.ViewGroup.LevelIndicator;
+import nl.tcilegnar.dndcharactersheet.Level.ViewGroup.LevelIndicatorView;
 import nl.tcilegnar.dndcharactersheet.Storage.Storage;
 
 import static junit.framework.Assert.assertEquals;
@@ -112,7 +112,7 @@ public class LevelTest {
         Level level = new Level(storageMock);
 
         // Act
-        level.saveLevel();
+        level.save();
 
         // Assert
         int expectedSavedLevel = 0;
@@ -128,7 +128,7 @@ public class LevelTest {
         Level level = new Level(storageMock);
 
         // Act
-        level.saveLevel();
+        level.save();
 
         // Assert
         verify(storageMock, times(1)).saveLevel(eq(expectedSavedLevel));
@@ -136,8 +136,8 @@ public class LevelTest {
 
     private Level getLevelWithMocks(Storage storageMock) {
         Level level = new Level(storageMock);
-        LevelIndicator levelIndicatorMock = mock(LevelIndicator.class);
-        level.setLevelUpListener(levelIndicatorMock);
+        LevelIndicatorView levelIndicatorViewMock = mock(LevelIndicatorView.class);
+        level.setReadyForLevelUpListener(levelIndicatorViewMock);
         return level;
     }
 }

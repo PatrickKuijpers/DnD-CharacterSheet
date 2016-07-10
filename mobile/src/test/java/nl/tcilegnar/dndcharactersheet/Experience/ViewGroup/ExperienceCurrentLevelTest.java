@@ -30,10 +30,10 @@ public class ExperienceCurrentLevelTest {
     //        // Arrange
     //
     //        // Act
-    //        experienceCurrentLevel.saveExp();
+    //        experienceCurrentLevel.save();
     //
     //        // Assert
-    //        verify(experienceMock, times(1)).saveExp();
+    //        verify(experienceMock, times(1)).save();
     //    }
 
     //    @Test

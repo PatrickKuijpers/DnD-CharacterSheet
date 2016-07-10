@@ -2,8 +2,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     style="@style/fragment_full_screen">
 
-    <nl.tcilegnar.dndcharactersheet.Level.ViewGroup.LevelIndicator
-        android:id="@+id/level"
+    <nl.tcilegnar.dndcharactersheet.Level.ViewGroup.LevelIndicatorView
+        android:id="@+id/level_indicator_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
@@ -14,7 +14,7 @@
         android:id="@+id/experience_current_level"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/level"
+        android:layout_below="@id/level_indicator_view"
         android:layout_marginTop="@dimen/vertical_margin"/>
 
     <nl.tcilegnar.dndcharactersheet.Experience.ViewGroup.ExperienceEditor

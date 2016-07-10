@@ -9,12 +9,12 @@ import nl.tcilegnar.dndcharactersheet.BaseFragment;
 import nl.tcilegnar.dndcharactersheet.Experience.ViewGroup.ExperienceCurrentLevel;
 import nl.tcilegnar.dndcharactersheet.Experience.ViewGroup.ExperienceEditor;
 import nl.tcilegnar.dndcharactersheet.Level.Level;
-import nl.tcilegnar.dndcharactersheet.Level.ViewGroup.LevelIndicator;
+import nl.tcilegnar.dndcharactersheet.Level.ViewGroup.LevelIndicatorView;
 import nl.tcilegnar.dndcharactersheet.R;
 
 public class ExperienceFragment extends BaseFragment {
     private ExperienceCurrentLevel expCurrentLevel;
-    private LevelIndicator levelIndicator;
+    private LevelIndicatorView levelIndicatorView;
     private Level level;
     private Experience experience;
 
@@ -30,22 +30,19 @@ public class ExperienceFragment extends BaseFragment {
     }
 
     private void initViews(View view) {
-        levelIndicator = (LevelIndicator) view.findViewById(R.id.level);
-        level = levelIndicator.getLevel();
+        levelIndicatorView = (LevelIndicatorView) view.findViewById(R.id.level_indicator_view);
+        level = levelIndicatorView.getLevel();
 
         expCurrentLevel = (ExperienceCurrentLevel) view.findViewById(R.id.experience_current_level);
         experience = expCurrentLevel.getExperience();
         experience.setExperienceEdgeListener(level);
-
-        level.setLevelDownListener(levelIndicator);
-        level.setLevelUpListener(levelIndicator);
 
         ExperienceEditor expEditor = (ExperienceEditor) view.findViewById(R.id.experience_editor);
         expEditor.setExperienceUpdateListener(expCurrentLevel);
     }
 
     protected void onSaveData() {
-        experience.saveExp();
-        level.saveLevel();
+        expCurrentLevel.save();
+        levelIndicatorView.save();
     }
 }

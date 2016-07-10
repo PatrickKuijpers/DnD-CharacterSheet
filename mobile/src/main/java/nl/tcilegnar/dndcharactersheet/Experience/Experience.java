@@ -88,7 +88,7 @@ public class Experience implements Serializable {
         return newExp > EXP_MAX;
     }
 
-    public void saveExp() {
+    public void save() {
         storage.saveExperience(currentExp);
     }
 

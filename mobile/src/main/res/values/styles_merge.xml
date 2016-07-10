@@ -1,6 +1,11 @@
 <resources>
 
-    <style name="levelStyle">
+    <style name="levelIndicatorStyle">
+        <item name="android:gravity">bottom</item>
+        <item name="android:orientation">horizontal</item>
+    </style>
+
+    <style name="levelUpStyle">
         <item name="android:gravity">bottom</item>
         <item name="android:orientation">horizontal</item>
     </style>

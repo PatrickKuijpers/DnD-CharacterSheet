@@ -262,7 +262,7 @@ public class ExperienceTest {
         Experience exp = new Experience(storageMock, buildTypeMock);
 
         // Act
-        exp.saveExp();
+        exp.save();
 
         // Assert
         int expectedSavedExp = 0;
@@ -277,7 +277,7 @@ public class ExperienceTest {
         Experience exp = new Experience(storageMock, buildTypeMock);
 
         // Act
-        exp.saveExp();
+        exp.save();
 
         // Assert
         verify(storageMock, times(1)).saveExperience(eq(expectedSavedExp));

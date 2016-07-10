@@ -52,6 +52,10 @@ public class ExperienceCurrentLevel extends LinearLayout implements ExperienceUp
         return experience;
     }
 
+    public void save() {
+        experience.save();
+    }
+
     @Override
     public void onUpdateExperience(int expUpdateValue) {
         try {

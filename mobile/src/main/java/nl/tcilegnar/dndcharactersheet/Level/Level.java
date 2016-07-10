@@ -3,24 +3,35 @@ package nl.tcilegnar.dndcharactersheet.Level;
 import android.support.annotation.VisibleForTesting;
 
 import nl.tcilegnar.dndcharactersheet.Experience.Experience.ExperienceEdgeListener;
+import nl.tcilegnar.dndcharactersheet.Level.LevelUp.LevelChange.ChangeLevelListener;
 import nl.tcilegnar.dndcharactersheet.Storage.Storage;
+import nl.tcilegnar.dndcharactersheet.StorageObject;
 
-public class Level implements ExperienceEdgeListener {
+public class Level extends StorageObject implements ExperienceEdgeListener, ChangeLevelListener {
     private static final int MIN_LEVEL = 1;
     private static final int MAX_LEVEL = 30;
-    private final Storage storage;
     private int currentLevel;
-    private LevelDownListener levelDownListener;
-    private LevelUpListener levelUpListener;
+    private ReadyForLevelDownListener readyForLevelDownListener;
+    private ReadyForLevelUpListener readyForLevelUpListener;
+    private LevelChangedListener levelChangedListener;
 
     public Level() {
-        this(new Storage());
+        super();
     }
 
     @VisibleForTesting
     protected Level(Storage storage) {
-        this.storage = storage;
+        super(storage);
+    }
+
+    @Override
+    protected void init() {
         this.currentLevel = storage.loadLevel();
+    }
+
+    @Override
+    public void save() {
+        storage.saveLevel(currentLevel);
     }
 
     public int getMaxLevel() {
@@ -34,9 +45,7 @@ public class Level implements ExperienceEdgeListener {
     @Override
     public void onExperienceMinReached() throws MinLevelReachedException {
         validateMinReached();
-
-        currentLevel--;
-        levelDownListener.onLevelDown();
+        readyForLevelDownListener.onReadyForLevelDown();
     }
 
     private void validateMinReached() throws MinLevelReachedException {
@@ -48,9 +57,7 @@ public class Level implements ExperienceEdgeListener {
     @Override
     public void onExperienceMaxReached() throws MaxLevelReachedException {
         validateMaxReached();
-
-        currentLevel++;
-        levelUpListener.onLevelUp();
+        readyForLevelUpListener.onReadyForLevelUp();
     }
 
     private void validateMaxReached() throws MaxLevelReachedException {
@@ -59,16 +66,22 @@ public class Level implements ExperienceEdgeListener {
         }
     }
 
-    public void saveLevel() {
-        storage.saveLevel(currentLevel);
+    @Override
+    public void onChangeLevel(int levelChangeValue) {
+        currentLevel = currentLevel + levelChangeValue;
+        levelChangedListener.onLevelChanged();
     }
 
-    public void setLevelDownListener(LevelDownListener levelDownListener) {
-        this.levelDownListener = levelDownListener;
+    public void setReadyForLevelDownListener(ReadyForLevelDownListener readyForLevelDownListener) {
+        this.readyForLevelDownListener = readyForLevelDownListener;
     }
 
-    public void setLevelUpListener(LevelUpListener levelUpListener) {
-        this.levelUpListener = levelUpListener;
+    public void setReadyForLevelUpListener(ReadyForLevelUpListener readyForLevelUpListener) {
+        this.readyForLevelUpListener = readyForLevelUpListener;
+    }
+
+    public void setLevelChangedListener(LevelChangedListener levelChangedListener) {
+        this.levelChangedListener = levelChangedListener;
     }
 
     public class MinLevelReachedException extends Exception {
@@ -83,11 +96,15 @@ public class Level implements ExperienceEdgeListener {
         }
     }
 
-    public interface LevelUpListener {
-        void onLevelUp();
+    public interface ReadyForLevelDownListener {
+        void onReadyForLevelDown();
     }
 
-    public interface LevelDownListener {
-        void onLevelDown();
+    public interface ReadyForLevelUpListener {
+        void onReadyForLevelUp();
+    }
+
+    public interface LevelChangedListener {
+        void onLevelChanged();
     }
 }
