@@ -7,15 +7,6 @@ import android.content.res.Resources;
 public class App extends Application {
     private static Context context;
 
-    //	@Override
-    //	protected void attachBaseContext(Context base) {
-    //		try {
-    //			super.attachBaseContext(base);
-    //		} catch (RuntimeException ignored) {
-    //			// Multidex support doesn't play well with Robolectric yet
-    //		}
-    //	}
-
     @Override
     public void onCreate() {
         super.onCreate();
