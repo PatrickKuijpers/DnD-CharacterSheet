@@ -3,13 +3,13 @@ package nl.tcilegnar.dndcharactersheet.Storage;
 import junit.framework.Assert;
 
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricGradleTestRunner;
 import org.robolectric.annotation.Config;
 
 import android.preference.Preference;
+import android.support.annotation.StringRes;
 
 import java.util.Arrays;
 import java.util.HashSet;
@@ -56,7 +56,6 @@ public class SettingsTest {
     }
 
     @Test
-    @Ignore("Kan App resources niet vinden")
     public void testGetExperiencePickerStepSize_NotSaved_GetDefault() {
         // Arrange
 
@@ -66,16 +65,16 @@ public class SettingsTest {
         // Assert
         // TODO: Welk van deze 2?
         //		assertEquals(DefaultValue.EXP_UPDATE_PICKER_STEPSIZE.value, stepSize);
-        String defaultValue = App.getContext().getString(R.string.setting_defaultvalue_experience_update_picker_steps);
+        int defaultValue = Integer.valueOf(App.getContext().getString(R.string
+                .setting_defaultvalue_experience_update_picker_steps));
         assertEquals(defaultValue, stepSize);
     }
 
     @Test
-    @Ignore("Opslaan van settings nog niet geimplementeerd")
     public void testGetExperiencePickerStepSize_Saved_GetSavedValue() {
         // Arrange
-        int expectedStepSize = 100;
-        //		settings.saveStepSize(expectedStepSize)
+        int expectedStepSize = 250;
+        savePreference(R.string.setting_key_experience_update_picker_steps, String.valueOf(expectedStepSize));
 
         // Act
         int stepSize = settings.getExperiencePickerStepSize();
@@ -178,6 +177,11 @@ public class SettingsTest {
 
         // Assert
         Assert.assertEquals(expectedSavedValue, savedValue);
+    }
+
+    private void savePreference(@StringRes int keyId, String value) {
+        String key = settings.getKey(keyId);
+        settings.save(key, value);
     }
 
     private Preference getPreference(String key) {

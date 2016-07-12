@@ -1,7 +1,7 @@
 package nl.tcilegnar.dndcharactersheet.Experience.ViewGroup;
 
 import org.junit.Before;
-import org.junit.Ignore;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricGradleTestRunner;
 import org.robolectric.annotation.Config;
@@ -11,10 +11,11 @@ import nl.tcilegnar.dndcharactersheet.BuildConfig;
 import nl.tcilegnar.dndcharactersheet.Experience.Experience;
 
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 
 @RunWith(RobolectricGradleTestRunner.class)
 @Config(constants = BuildConfig.class)
-@Ignore("Kan App resources niet vinden")
 public class ExperienceCurrentLevelTest {
     private ExperienceCurrentLevel experienceCurrentLevel;
     private Experience experienceMock;
@@ -25,16 +26,16 @@ public class ExperienceCurrentLevelTest {
         experienceCurrentLevel = new ExperienceCurrentLevel(App.getContext(), null, experienceMock);
     }
 
-    //    @Test
-    //    public void testSaveExp() {
-    //        // Arrange
-    //
-    //        // Act
-    //        experienceCurrentLevel.save();
-    //
-    //        // Assert
-    //        verify(experienceMock, times(1)).save();
-    //    }
+    @Test
+    public void testSaveExp() {
+        // Arrange
+
+        // Act
+        experienceCurrentLevel.save();
+
+        // Assert
+        verify(experienceMock, times(1)).save();
+    }
 
     //    @Test
     //    public void testSetExperienceEdgeListener() {

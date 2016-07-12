@@ -394,7 +394,6 @@ public class SharedPrefsTest {
     }
 
     @Test
-    @Ignore("Kan App resources niet vinden")
     public void testGetKey() {
         // Arrange
         String expectedKey = App.getContext().getString(R.string.app_name);
@@ -417,7 +416,6 @@ public class SharedPrefsTest {
     }
 
     @Test
-    @Ignore("Kan App resources niet vinden")
     public void testGetString() {
         // Arrange
         String expectedString = App.getContext().getString(R.string.app_name);

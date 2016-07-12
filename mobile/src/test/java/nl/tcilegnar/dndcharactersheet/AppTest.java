@@ -1,6 +1,5 @@
 package nl.tcilegnar.dndcharactersheet;
 
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricGradleTestRunner;
@@ -29,7 +28,7 @@ public class AppTest {
     }
 
     @Test
-    @Ignore("Kan App resources niet vinden")
+    //    @Ignore("Kan App resources niet vinden")
     public void testGetAppResources() {
         // Arrange
         Resources expectedResources = RuntimeEnvironment.application.getApplicationContext().getResources();
