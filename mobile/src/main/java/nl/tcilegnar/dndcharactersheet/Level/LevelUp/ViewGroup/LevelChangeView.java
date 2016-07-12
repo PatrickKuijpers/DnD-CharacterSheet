@@ -9,28 +9,24 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import nl.tcilegnar.dndcharactersheet.Level.LevelUp.ExperienceRemainder;
 import nl.tcilegnar.dndcharactersheet.Level.LevelUp.LevelChange;
 import nl.tcilegnar.dndcharactersheet.Level.LevelUp.LevelChange.ChangeLevelListener;
 import nl.tcilegnar.dndcharactersheet.R;
 
 public class LevelChangeView extends LinearLayout implements OnClickListener {
     private ImageButton changeLevelButton;
-    private TextView experienceRemainderText;
+    private TextView changeLevelTimes;
 
     private LevelChange levelChange;
-    private ExperienceRemainder experienceRemainder;
 
     public LevelChangeView(Context context, AttributeSet attrs) {
-        this(context, attrs, new LevelChange(), new ExperienceRemainder());
+        this(context, attrs, new LevelChange());
     }
 
     @VisibleForTesting
-    protected LevelChangeView(Context context, AttributeSet attrs, LevelChange levelChange, ExperienceRemainder
-            experienceRemainder) {
+    protected LevelChangeView(Context context, AttributeSet attrs, LevelChange levelChange) {
         super(context, attrs, R.attr.levelUpStyle);
         this.levelChange = levelChange;
-        this.experienceRemainder = experienceRemainder;
         init(context);
     }
 
@@ -39,12 +35,11 @@ public class LevelChangeView extends LinearLayout implements OnClickListener {
         initViews();
 
         handleChangeLevelButtonVisibility();
-        setExperienceRemainderText();
     }
 
     private void initViews() {
         changeLevelButton = (ImageButton) findViewById(R.id.change_level_button);
-        experienceRemainderText = (TextView) findViewById(R.id.experience_remainder);
+        changeLevelTimes = (TextView) findViewById(R.id.change_level_times);
 
         changeLevelButton.setOnClickListener(this);
     }
@@ -52,17 +47,18 @@ public class LevelChangeView extends LinearLayout implements OnClickListener {
     private void handleChangeLevelButtonVisibility() {
         if (levelChange.isReadyForLevelDown() || levelChange.isReadyForLevelUp()) {
             changeLevelButton.setVisibility(View.VISIBLE);
-            experienceRemainderText.setVisibility(View.VISIBLE);
+            if (levelChange.showNumberOfLevelsReadyForChange()) {
+                changeLevelTimes.setVisibility(View.VISIBLE);
+                setChangeLevelTimesText();
+            }
         } else {
-            changeLevelButton.setVisibility(View.INVISIBLE);
-            experienceRemainderText.setVisibility(View.INVISIBLE);
+            changeLevelButton.setVisibility(View.GONE);
+            changeLevelTimes.setVisibility(View.GONE);
         }
     }
 
-    private void setExperienceRemainderText() {
-        if (experienceRemainderText.getVisibility() == View.VISIBLE) {
-            experienceRemainderText.setText(experienceRemainder.getExperienceRemainder());
-        }
+    private void setChangeLevelTimesText() {
+        changeLevelTimes.setText("x " + levelChange.getNumberOfLevelsReadyForChange());
     }
 
     @Override
@@ -80,7 +76,6 @@ public class LevelChangeView extends LinearLayout implements OnClickListener {
 
     public void save() {
         levelChange.save();
-        experienceRemainder.save();
     }
 
     public void onReadyForLevelUp() {

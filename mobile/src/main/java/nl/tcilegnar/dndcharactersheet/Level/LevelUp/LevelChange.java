@@ -35,6 +35,14 @@ public class LevelChange extends StorageObject {
         changeLevelListener.onChangeLevel(levelChangeValue);
     }
 
+    public int getNumberOfLevelsReadyForChange() {
+        return readyForLevelChange;
+    }
+
+    public boolean showNumberOfLevelsReadyForChange() {
+        return readyForLevelChange != 0 && readyForLevelChange != 1;
+    }
+
     public boolean isReadyForLevelUp() {
         return readyForLevelChange > 0;
     }

@@ -9,8 +9,7 @@ public class Storage extends SharedPrefs {
     protected enum Key {
         CURRENT_EXP(0),
         CURRENT_LEVEL(1),
-        READY_FOR_LEVEL_CHANGE(0),
-        EXPERIENCE_REMAINDER(0);
+        READY_FOR_LEVEL_CHANGE(0);
 
         protected final int defaultValue;
 
@@ -46,16 +45,6 @@ public class Storage extends SharedPrefs {
 
     public int loadReadyForLevelChange() {
         Key key = Key.READY_FOR_LEVEL_CHANGE;
-        return loadInt(key.name(), key.defaultValue);
-    }
-
-    public void saveExperienceRemainder(int value) {
-        Key key = Key.EXPERIENCE_REMAINDER;
-        save(key.name(), value);
-    }
-
-    public int loadExperienceRemainder() {
-        Key key = Key.EXPERIENCE_REMAINDER;
         return loadInt(key.name(), key.defaultValue);
     }
 }
