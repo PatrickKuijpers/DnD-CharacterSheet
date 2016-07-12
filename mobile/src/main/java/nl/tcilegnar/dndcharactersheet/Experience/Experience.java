@@ -3,19 +3,17 @@ package nl.tcilegnar.dndcharactersheet.Experience;
 import android.support.annotation.VisibleForTesting;
 import android.widget.Toast;
 
-import java.io.Serializable;
-
 import nl.tcilegnar.dndcharactersheet.App;
 import nl.tcilegnar.dndcharactersheet.BuildType;
 import nl.tcilegnar.dndcharactersheet.Level.Level.MaxLevelReachedException;
 import nl.tcilegnar.dndcharactersheet.Level.Level.MinLevelReachedException;
 import nl.tcilegnar.dndcharactersheet.Storage.Storage;
+import nl.tcilegnar.dndcharactersheet.StorageObject;
 
-public class Experience implements Serializable {
+public class Experience extends StorageObject {
     private static final int EXP_MIN = 0;
     private static final int EXP_MAX = 2500;
-    private Storage storage;
-    private int currentExp = 0;
+    private int currentExp = storage.loadExperience();
     private ExperienceEdgeListener experienceEdgeListener;
     private BuildType buildType;
 
@@ -25,9 +23,13 @@ public class Experience implements Serializable {
 
     @VisibleForTesting
     protected Experience(Storage storage, BuildType buildType) {
-        this.storage = storage;
+        super(storage);
         this.buildType = buildType;
-        this.currentExp = storage.loadExperience();
+    }
+
+    @Override
+    public void save() {
+        storage.saveExperience(currentExp);
     }
 
     public int getMin() {
@@ -86,10 +88,6 @@ public class Experience implements Serializable {
 
     private boolean isMaxExperienceReached(int newExp) {
         return newExp > EXP_MAX;
-    }
-
-    public void save() {
-        storage.saveExperience(currentExp);
     }
 
     public void setExperienceEdgeListener(ExperienceEdgeListener experienceEdgeListener) {

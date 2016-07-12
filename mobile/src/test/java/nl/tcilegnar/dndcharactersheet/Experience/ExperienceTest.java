@@ -6,8 +6,6 @@ import org.junit.runner.RunWith;
 import org.robolectric.RobolectricGradleTestRunner;
 import org.robolectric.annotation.Config;
 
-import java.io.IOException;
-
 import nl.tcilegnar.dndcharactersheet.BuildConfig;
 import nl.tcilegnar.dndcharactersheet.BuildType;
 import nl.tcilegnar.dndcharactersheet.Experience.Experience.ExpTooLowException;
@@ -42,18 +40,17 @@ public class ExperienceTest {
     }
 
     @Test
-    public void testConstructor_StorageValuePositive_IsSetAsCurrentExp() throws IOException {
+    public void testConstructor_StorageValuePositive_IsSetAsCurrentExp() {
         // Arrange
-        final int CALLED_IN_CONSTRUCTOR = 1;
         int expectedSavedExp = 10;
+        Storage storageMock = mock(Storage.class);
         doReturn(expectedSavedExp).when(storageMock).loadExperience();
-        verify(storageMock, times(CALLED_IN_CONSTRUCTOR)).loadExperience();
 
         // Act
         Experience exp = new Experience(storageMock, buildTypeMock);
 
         // Assert
-        verify(storageMock, times(CALLED_IN_CONSTRUCTOR + 1)).loadExperience();
+        verify(storageMock, times(1)).loadExperience();
         assertEquals(expectedSavedExp, exp.getCurrentExp());
     }
 
@@ -259,7 +256,6 @@ public class ExperienceTest {
     @Test
     public void testSaveExp_SaveZeroExp_StorageMethodCalledWithZero() {
         // Arrange
-        Experience exp = new Experience(storageMock, buildTypeMock);
 
         // Act
         exp.save();

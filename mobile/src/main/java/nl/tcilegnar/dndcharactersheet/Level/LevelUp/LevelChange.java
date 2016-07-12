@@ -6,22 +6,17 @@ import nl.tcilegnar.dndcharactersheet.Storage.Storage;
 import nl.tcilegnar.dndcharactersheet.StorageObject;
 
 public class LevelChange extends StorageObject {
-    private int readyForLevelChange;
+    private int readyForLevelChange = storage.loadReadyForLevelChange();
 
     private ChangeLevelListener changeLevelListener;
 
     public LevelChange() {
-        super();
+        this(new Storage());
     }
 
     @VisibleForTesting
     protected LevelChange(Storage storage) {
         super(storage);
-    }
-
-    @Override
-    protected void init() {
-        this.readyForLevelChange = storage.loadReadyForLevelChange();
     }
 
     @Override

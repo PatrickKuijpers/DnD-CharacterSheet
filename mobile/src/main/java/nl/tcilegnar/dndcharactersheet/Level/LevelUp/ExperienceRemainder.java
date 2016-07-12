@@ -6,20 +6,15 @@ import nl.tcilegnar.dndcharactersheet.Storage.Storage;
 import nl.tcilegnar.dndcharactersheet.StorageObject;
 
 public class ExperienceRemainder extends StorageObject {
-    private int experienceRemainder;
+    private int experienceRemainder = storage.loadExperienceRemainder();
 
     public ExperienceRemainder() {
-        super();
+        this(new Storage());
     }
 
     @VisibleForTesting
     protected ExperienceRemainder(Storage storage) {
         super(storage);
-    }
-
-    @Override
-    protected void init() {
-        this.experienceRemainder = storage.loadExperienceRemainder();
     }
 
     @Override

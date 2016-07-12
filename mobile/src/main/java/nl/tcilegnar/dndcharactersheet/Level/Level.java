@@ -10,23 +10,18 @@ import nl.tcilegnar.dndcharactersheet.StorageObject;
 public class Level extends StorageObject implements ExperienceEdgeListener, ChangeLevelListener {
     private static final int MIN_LEVEL = 1;
     private static final int MAX_LEVEL = 30;
-    private int currentLevel;
+    private int currentLevel = storage.loadLevel();
     private ReadyForLevelDownListener readyForLevelDownListener;
     private ReadyForLevelUpListener readyForLevelUpListener;
     private LevelChangedListener levelChangedListener;
 
     public Level() {
-        super();
+        this(new Storage());
     }
 
     @VisibleForTesting
     protected Level(Storage storage) {
         super(storage);
-    }
-
-    @Override
-    protected void init() {
-        this.currentLevel = storage.loadLevel();
     }
 
     @Override

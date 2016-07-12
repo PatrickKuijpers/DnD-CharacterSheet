@@ -14,10 +14,7 @@ public abstract class StorageObject {
     @VisibleForTesting
     protected StorageObject(Storage storage) {
         this.storage = storage;
-        init();
     }
-
-    protected abstract void init();
 
     public abstract void save();
 }
