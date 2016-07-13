@@ -9,11 +9,14 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import nl.tcilegnar.dndcharactersheet.Level.Level.ReadyForLevelDownListener;
+import nl.tcilegnar.dndcharactersheet.Level.Level.ReadyForLevelUpListener;
 import nl.tcilegnar.dndcharactersheet.Level.LevelUp.LevelChange;
 import nl.tcilegnar.dndcharactersheet.Level.LevelUp.LevelChange.ChangeLevelListener;
 import nl.tcilegnar.dndcharactersheet.R;
 
-public class LevelChangeView extends LinearLayout implements OnClickListener {
+public class LevelChangeView extends LinearLayout implements OnClickListener, ReadyForLevelUpListener,
+        ReadyForLevelDownListener {
     private ImageButton changeLevelButton;
     private TextView changeLevelTimes;
 
@@ -80,13 +83,15 @@ public class LevelChangeView extends LinearLayout implements OnClickListener {
         levelChange.save();
     }
 
-    public void onReadyForLevelUp() {
-        levelChange.onReadyForLevelUp();
+    @Override
+    public void onReadyForLevelDown() {
+        levelChange.onReadyForLevelDown();
         handleViews();
     }
 
-    public void onReadyForLevelDown() {
-        levelChange.onReadyForLevelDown();
+    @Override
+    public void onReadyForLevelUp() {
+        levelChange.onReadyForLevelUp();
         handleViews();
     }
 

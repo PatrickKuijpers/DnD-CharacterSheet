@@ -8,13 +8,10 @@ import android.widget.TextView;
 
 import nl.tcilegnar.dndcharactersheet.Level.Level;
 import nl.tcilegnar.dndcharactersheet.Level.Level.LevelChangedListener;
-import nl.tcilegnar.dndcharactersheet.Level.Level.ReadyForLevelDownListener;
-import nl.tcilegnar.dndcharactersheet.Level.Level.ReadyForLevelUpListener;
 import nl.tcilegnar.dndcharactersheet.Level.LevelUp.ViewGroup.LevelChangeView;
 import nl.tcilegnar.dndcharactersheet.R;
 
-public class LevelIndicatorView extends LinearLayout implements ReadyForLevelUpListener, ReadyForLevelDownListener,
-        LevelChangedListener {
+public class LevelIndicatorView extends LinearLayout implements LevelChangedListener {
     private TextView levelView;
 
     private final Level level;
@@ -49,8 +46,8 @@ public class LevelIndicatorView extends LinearLayout implements ReadyForLevelUpL
     }
 
     private void setListeners() {
-        level.setReadyForLevelDownListener(this);
-        level.setReadyForLevelUpListener(this);
+        level.setReadyForLevelDownListener(levelChangeView);
+        level.setReadyForLevelUpListener(levelChangeView);
         levelChangeView.setChangeLevelListener(level);
         level.setLevelChangedListener(this);
     }
@@ -62,16 +59,6 @@ public class LevelIndicatorView extends LinearLayout implements ReadyForLevelUpL
     public void save() {
         level.save();
         levelChangeView.save();
-    }
-
-    @Override
-    public void onReadyForLevelUp() {
-        levelChangeView.onReadyForLevelUp();
-    }
-
-    @Override
-    public void onReadyForLevelDown() {
-        levelChangeView.onReadyForLevelDown();
     }
 
     @Override
