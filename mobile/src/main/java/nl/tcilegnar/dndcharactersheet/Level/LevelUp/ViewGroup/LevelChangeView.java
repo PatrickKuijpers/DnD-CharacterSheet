@@ -34,7 +34,7 @@ public class LevelChangeView extends LinearLayout implements OnClickListener {
         inflate(context, R.layout.level_change, this);
         initViews();
 
-        handleChangeLevelButtonVisibility();
+        handleViews();
     }
 
     private void initViews() {
@@ -44,12 +44,14 @@ public class LevelChangeView extends LinearLayout implements OnClickListener {
         changeLevelButton.setOnClickListener(this);
     }
 
-    private void handleChangeLevelButtonVisibility() {
+    private void handleViews() {
         if (levelChange.isReadyForLevelDown() || levelChange.isReadyForLevelUp()) {
             changeLevelButton.setVisibility(View.VISIBLE);
             if (levelChange.showNumberOfLevelsReadyForChange()) {
-                changeLevelTimes.setVisibility(View.VISIBLE);
                 setChangeLevelTimesText();
+                changeLevelTimes.setVisibility(View.VISIBLE);
+            } else {
+                changeLevelTimes.setVisibility(View.GONE);
             }
         } else {
             changeLevelButton.setVisibility(View.GONE);
@@ -71,7 +73,7 @@ public class LevelChangeView extends LinearLayout implements OnClickListener {
 
     private void handleChangeLevel() {
         levelChange.handleLevelChange();
-        handleChangeLevelButtonVisibility();
+        handleViews();
     }
 
     public void save() {
@@ -80,12 +82,12 @@ public class LevelChangeView extends LinearLayout implements OnClickListener {
 
     public void onReadyForLevelUp() {
         levelChange.onReadyForLevelUp();
-        handleChangeLevelButtonVisibility();
+        handleViews();
     }
 
     public void onReadyForLevelDown() {
         levelChange.onReadyForLevelDown();
-        handleChangeLevelButtonVisibility();
+        handleViews();
     }
 
     public void setChangeLevelListener(ChangeLevelListener changeLevelListener) {
