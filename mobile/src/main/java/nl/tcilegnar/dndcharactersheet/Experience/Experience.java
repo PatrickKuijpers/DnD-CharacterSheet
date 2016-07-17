@@ -1,7 +1,9 @@
 package nl.tcilegnar.dndcharactersheet.Experience;
 
 import android.support.annotation.VisibleForTesting;
+import android.widget.Toast;
 
+import nl.tcilegnar.dndcharactersheet.App;
 import nl.tcilegnar.dndcharactersheet.BuildType;
 import nl.tcilegnar.dndcharactersheet.Level.Level.MaxLevelReachedException;
 import nl.tcilegnar.dndcharactersheet.Level.Level.MinLevelReachedException;
@@ -68,6 +70,10 @@ public class Experience extends StorageObject {
         return newExp;
     }
 
+    private boolean isMinExperienceReached(int newExp) {
+        return newExp < 0;
+    }
+
     private int getNewExpWhenMinExpReached(int newExp) {
         try {
             experienceEdgeListener.onExperienceMinReached();
@@ -78,6 +84,10 @@ public class Experience extends StorageObject {
         return newExp;
     }
 
+    private boolean isMaxExperienceReached(int newExp) {
+        return newExp > EXP_MAX;
+    }
+
     private int getNewExpWhenExpMaxReached(int newExp) {
         try {
             experienceEdgeListener.onExperienceMaxReached();
@@ -86,14 +96,6 @@ public class Experience extends StorageObject {
             newExp = EXP_MAX;
         }
         return newExp;
-    }
-
-    private boolean isMinExperienceReached(int newExp) {
-        return newExp < 0;
-    }
-
-    private boolean isMaxExperienceReached(int newExp) {
-        return newExp > EXP_MAX;
     }
 
     public void setExperienceEdgeListener(ExperienceEdgeListener experienceEdgeListener) {

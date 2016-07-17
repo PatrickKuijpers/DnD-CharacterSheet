@@ -88,6 +88,18 @@ public class Level extends StorageObject implements ExperienceEdgeListener, Chan
         this.levelChangedListener = levelChangedListener;
     }
 
+    public interface ReadyForLevelDownListener {
+        void onReadyForLevelDown() throws MinLevelReachedException;
+    }
+
+    public interface ReadyForLevelUpListener {
+        void onReadyForLevelUp() throws MaxLevelReachedException;
+    }
+
+    public interface LevelChangedListener {
+        void onLevelChanged();
+    }
+
     public class MinLevelReachedException extends Exception {
         public MinLevelReachedException() {
             super("Minimum level bereikt: " + MIN_LEVEL);
@@ -100,17 +112,5 @@ public class Level extends StorageObject implements ExperienceEdgeListener, Chan
             super("Maximum level bereikt: " + MAX_LEVEL);
             Toast.makeText(App.getContext(), getMessage(), Toast.LENGTH_LONG).show();
         }
-    }
-
-    public interface ReadyForLevelDownListener {
-        void onReadyForLevelDown() throws MinLevelReachedException;
-    }
-
-    public interface ReadyForLevelUpListener {
-        void onReadyForLevelUp() throws MaxLevelReachedException;
-    }
-
-    public interface LevelChangedListener {
-        void onLevelChanged();
     }
 }
