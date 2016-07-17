@@ -195,25 +195,25 @@ public class ExperienceEditorTest {
         verify(experienceUpdateListenerMock).onUpdateExperience(0);
     }
 
-    public void initNewExperienceEditor_WithInput() {
+    private void initNewExperienceEditor_WithInput() {
         initNewExperienceEditor(true, false);
     }
 
-    public void initNewExperienceEditor_WithInputValue(int inputValue) {
+    private void initNewExperienceEditor_WithInputValue(int inputValue) {
         initNewExperienceEditor_WithInput();
         expInput.setText(String.valueOf(inputValue));
     }
 
-    public void initNewExperienceEditor_WithNumberPicker() {
+    private void initNewExperienceEditor_WithNumberPicker() {
         initNewExperienceEditor(false, true);
     }
 
-    public void initNewExperienceEditor_WithNumberPickerAndSelectedIndex(int pickerValueIndex) {
+    private void initNewExperienceEditor_WithNumberPickerAndSelectedIndex(int pickerValueIndex) {
         initNewExperienceEditor_WithNumberPicker();
         expPicker.setValue(pickerValueIndex);
     }
 
-    public void initNewExperienceEditor_WithNoInputAndNoNumberPicker() {
+    private void initNewExperienceEditor_WithNoInputAndNoNumberPicker() {
         initNewExperienceEditor(false, true);
     }
 
