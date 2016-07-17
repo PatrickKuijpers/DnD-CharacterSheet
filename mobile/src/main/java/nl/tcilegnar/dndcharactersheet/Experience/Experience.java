@@ -109,6 +109,7 @@ public class Experience extends StorageObject {
     public class ExpTooLowException extends Exception {
         public ExpTooLowException(String message) {
             super(message);
+            Toast.makeText(App.getContext(), getMessage(), Toast.LENGTH_LONG).show();
         }
     }
 }

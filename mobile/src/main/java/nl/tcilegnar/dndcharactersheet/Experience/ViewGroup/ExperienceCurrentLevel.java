@@ -6,7 +6,6 @@ import android.util.AttributeSet;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import nl.tcilegnar.dndcharactersheet.App;
 import nl.tcilegnar.dndcharactersheet.Experience.Experience;
@@ -25,27 +24,25 @@ public class ExperienceCurrentLevel extends LinearLayout implements ExperienceUp
     @VisibleForTesting
     protected ExperienceCurrentLevel(Context context, AttributeSet attrs, Experience experience) {
         super(context, attrs, R.attr.expCurrentLvlStyle);
-        this.experience = experience;
-        init(context);
-    }
-
-    private void init(Context context) {
         inflate(context, R.layout.experience_current_lvl, this);
+        this.experience = experience;
         initViews();
-        updateViewValues(experience.getCurrentExp());
     }
 
     private void initViews() {
         expProgressBar = (ProgressBar) findViewById(R.id.experience_progressBar);
         expProgressBar.setMax(experience.getMax());
+
+        updateViewValues();
     }
 
-    private void updateViewValues(int newExp) {
+    private void updateViewValues() {
+        int exp = experience.getCurrentExp();
         String expLabelText = App.getAppResources().getString(R.string.experience_label);
-        String expText = expLabelText + " " + newExp;
+        String expText = expLabelText + " " + exp;
         ((TextView) findViewById(R.id.experience_text)).setText(expText);
 
-        expProgressBar.setProgress(newExp);
+        expProgressBar.setProgress(exp);
     }
 
     public Experience getExperience() {
@@ -59,11 +56,10 @@ public class ExperienceCurrentLevel extends LinearLayout implements ExperienceUp
     @Override
     public void onUpdateExperience(int expUpdateValue) {
         try {
-            int newExp = experience.updateExperience(expUpdateValue);
-            updateViewValues(newExp);
+            experience.updateExperience(expUpdateValue);
+            updateViewValues();
         } catch (ExpTooLowException e) {
             e.printStackTrace();
-            Toast.makeText(App.getContext(), e.getMessage(), Toast.LENGTH_LONG).show();
         }
     }
 }
