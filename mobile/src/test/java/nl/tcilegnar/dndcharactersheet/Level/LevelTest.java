@@ -90,7 +90,8 @@ public class LevelTest {
     }
 
     @Test
-    public void testOnExperienceMaxReached_WithMaxStartingLevel_LevelNotIncreasedAndNotReadyForLevelUp() {
+    public void testOnExperienceMaxReached_WithMaxStartingLevel_LevelNotIncreasedAndNotReadyForLevelUp() throws
+            MaxLevelReachedException {
         // Arrange
         Storage storageMock = mock(Storage.class);
         int initialSavedLevel = level.getMaxLevel();

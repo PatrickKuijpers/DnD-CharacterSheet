@@ -9,10 +9,12 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import nl.tcilegnar.dndcharactersheet.Level.Level.MaxLevelReachedException;
+import nl.tcilegnar.dndcharactersheet.Level.Level.MinLevelReachedException;
 import nl.tcilegnar.dndcharactersheet.Level.Level.ReadyForLevelDownListener;
 import nl.tcilegnar.dndcharactersheet.Level.Level.ReadyForLevelUpListener;
-import nl.tcilegnar.dndcharactersheet.Level.LevelUp.LevelChange;
-import nl.tcilegnar.dndcharactersheet.Level.LevelUp.LevelChange.ChangeLevelListener;
+import nl.tcilegnar.dndcharactersheet.Level.LevelUp.LevelsReadyForChange;
+import nl.tcilegnar.dndcharactersheet.Level.LevelUp.LevelsReadyForChange.ChangeLevelListener;
 import nl.tcilegnar.dndcharactersheet.R;
 
 public class LevelChangeView extends LinearLayout implements OnClickListener, ReadyForLevelUpListener,
@@ -20,16 +22,16 @@ public class LevelChangeView extends LinearLayout implements OnClickListener, Re
     private ImageButton changeLevelButton;
     private TextView changeLevelTimes;
 
-    private LevelChange levelChange;
+    private LevelsReadyForChange levelsReadyForChange;
 
     public LevelChangeView(Context context, AttributeSet attrs) {
-        this(context, attrs, new LevelChange());
+        this(context, attrs, new LevelsReadyForChange());
     }
 
     @VisibleForTesting
-    protected LevelChangeView(Context context, AttributeSet attrs, LevelChange levelChange) {
+    protected LevelChangeView(Context context, AttributeSet attrs, LevelsReadyForChange levelsReadyForChange) {
         super(context, attrs, R.attr.levelUpStyle);
-        this.levelChange = levelChange;
+        this.levelsReadyForChange = levelsReadyForChange;
         init(context);
     }
 
@@ -48,9 +50,9 @@ public class LevelChangeView extends LinearLayout implements OnClickListener, Re
     }
 
     private void handleViews() {
-        if (levelChange.isReadyForLevelDown() || levelChange.isReadyForLevelUp()) {
+        if (levelsReadyForChange.isReadyForLevelDown() || levelsReadyForChange.isReadyForLevelUp()) {
             changeLevelButton.setVisibility(View.VISIBLE);
-            if (levelChange.showNumberOfLevelsReadyForChange()) {
+            if (levelsReadyForChange.shouldShowValue()) {
                 setChangeLevelTimesText();
                 changeLevelTimes.setVisibility(View.VISIBLE);
             } else {
@@ -63,7 +65,7 @@ public class LevelChangeView extends LinearLayout implements OnClickListener, Re
     }
 
     private void setChangeLevelTimesText() {
-        changeLevelTimes.setText("x " + levelChange.getNumberOfLevelsReadyForChange());
+        changeLevelTimes.setText("x " + levelsReadyForChange.getNumberOfLevelsReadyForChange());
     }
 
     @Override
@@ -75,27 +77,27 @@ public class LevelChangeView extends LinearLayout implements OnClickListener, Re
     }
 
     private void handleChangeLevel() {
-        levelChange.handleLevelChange();
+        levelsReadyForChange.handleLevelChange();
         handleViews();
     }
 
     public void save() {
-        levelChange.save();
+        levelsReadyForChange.save();
     }
 
     @Override
-    public void onReadyForLevelDown() {
-        levelChange.onReadyForLevelDown();
+    public void onReadyForLevelDown() throws MinLevelReachedException {
+        levelsReadyForChange.onReadyForLevelDown();
         handleViews();
     }
 
     @Override
-    public void onReadyForLevelUp() {
-        levelChange.onReadyForLevelUp();
+    public void onReadyForLevelUp() throws MaxLevelReachedException {
+        levelsReadyForChange.onReadyForLevelUp();
         handleViews();
     }
 
     public void setChangeLevelListener(ChangeLevelListener changeLevelListener) {
-        levelChange.setChangeLevelListener(changeLevelListener);
+        levelsReadyForChange.setChangeLevelListener(changeLevelListener);
     }
 }

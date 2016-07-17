@@ -3,7 +3,7 @@ package nl.tcilegnar.dndcharactersheet.Level;
 import android.support.annotation.VisibleForTesting;
 
 import nl.tcilegnar.dndcharactersheet.Experience.Experience.ExperienceEdgeListener;
-import nl.tcilegnar.dndcharactersheet.Level.LevelUp.LevelChange.ChangeLevelListener;
+import nl.tcilegnar.dndcharactersheet.Level.LevelUp.LevelsReadyForChange.ChangeLevelListener;
 import nl.tcilegnar.dndcharactersheet.Storage.Storage;
 import nl.tcilegnar.dndcharactersheet.StorageObject;
 
@@ -44,7 +44,11 @@ public class Level extends StorageObject implements ExperienceEdgeListener, Chan
     }
 
     private void validateMinReached() throws MinLevelReachedException {
-        if (currentLevel == MIN_LEVEL) {
+        validateMinReached(currentLevel);
+    }
+
+    public void validateMinReached(int level) throws MinLevelReachedException {
+        if (level == MIN_LEVEL) {
             throw new MinLevelReachedException();
         }
     }
@@ -56,7 +60,11 @@ public class Level extends StorageObject implements ExperienceEdgeListener, Chan
     }
 
     private void validateMaxReached() throws MaxLevelReachedException {
-        if (currentLevel == MAX_LEVEL) {
+        validateMaxReached(currentLevel);
+    }
+
+    public void validateMaxReached(int Level) throws MaxLevelReachedException {
+        if (Level == MAX_LEVEL) {
             throw new MaxLevelReachedException();
         }
     }
@@ -92,11 +100,11 @@ public class Level extends StorageObject implements ExperienceEdgeListener, Chan
     }
 
     public interface ReadyForLevelDownListener {
-        void onReadyForLevelDown();
+        void onReadyForLevelDown() throws MinLevelReachedException;
     }
 
     public interface ReadyForLevelUpListener {
-        void onReadyForLevelUp();
+        void onReadyForLevelUp() throws MaxLevelReachedException;
     }
 
     public interface LevelChangedListener {
