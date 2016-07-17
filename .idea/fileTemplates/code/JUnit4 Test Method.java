@@ -1,5 +1,5 @@
 @org.junit.Test
-public void test${NAME}() {
+public void ${NAME}() {
     // Arrange
     ${BODY}
     // Act

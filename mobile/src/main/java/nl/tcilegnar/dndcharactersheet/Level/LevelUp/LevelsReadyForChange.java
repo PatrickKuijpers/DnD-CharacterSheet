@@ -27,15 +27,15 @@ public class LevelsReadyForChange extends StorageObject {
         storage.saveReadyForLevelChange(numberOfLevelsReadyForChange);
     }
 
-    public void handleLevelChange() {
+    public void handleLevelChange() throws MinLevelReachedException, MaxLevelReachedException {
         int levelChangeValue = 0;
         if (isReadyForLevelDown()) {
             levelChangeValue = -1;
         } else if (isReadyForLevelUp()) {
             levelChangeValue = +1;
         }
-        onChangeLevel(levelChangeValue);
         changeLevelListener.onChangeLevel(levelChangeValue);
+        onChangeLevel(levelChangeValue);
     }
 
     public int getNumberOfLevelsReadyForChange() {
@@ -58,21 +58,6 @@ public class LevelsReadyForChange extends StorageObject {
         numberOfLevelsReadyForChange -= levelChangeValue;
     }
 
-    public void onReadyForLevelUp() throws MaxLevelReachedException {
-        validateReadyForLevelUp();
-        numberOfLevelsReadyForChange++;
-    }
-
-    private void validateReadyForLevelUp() throws MaxLevelReachedException {
-        Level projectedLevel = new Level();
-        int currentProjectedLevel = getCurrentProjectedLevel(projectedLevel);
-        projectedLevel.validateMaxReached(currentProjectedLevel);
-    }
-
-    private int getCurrentProjectedLevel(Level projectedLevel) {
-        return projectedLevel.getCurrentLevel() + numberOfLevelsReadyForChange;
-    }
-
     public void onReadyForLevelDown() throws MinLevelReachedException {
         validateReadyForLevelDown();
         numberOfLevelsReadyForChange--;
@@ -81,7 +66,22 @@ public class LevelsReadyForChange extends StorageObject {
     private void validateReadyForLevelDown() throws MinLevelReachedException {
         Level projectedLevel = new Level();
         int projectedLevelValue = getCurrentProjectedLevel(projectedLevel);
-        projectedLevel.validateMinReached(projectedLevelValue);
+        projectedLevel.validateMinimumLevel(projectedLevelValue);
+    }
+
+    private int getCurrentProjectedLevel(Level projectedLevel) {
+        return projectedLevel.getCurrentLevel() + numberOfLevelsReadyForChange;
+    }
+
+    public void onReadyForLevelUp() throws MaxLevelReachedException {
+        validateReadyForLevelUp();
+        numberOfLevelsReadyForChange++;
+    }
+
+    private void validateReadyForLevelUp() throws MaxLevelReachedException {
+        Level projectedLevel = new Level();
+        int currentProjectedLevel = getCurrentProjectedLevel(projectedLevel);
+        projectedLevel.validateMaximumLevel(currentProjectedLevel);
     }
 
     public void setChangeLevelListener(ChangeLevelListener changeLevelListener) {
@@ -89,6 +89,6 @@ public class LevelsReadyForChange extends StorageObject {
     }
 
     public interface ChangeLevelListener {
-        void onChangeLevel(int levelChangeValue);
+        void onChangeLevel(int levelChangeValue) throws MinLevelReachedException, MaxLevelReachedException;
     }
 }
