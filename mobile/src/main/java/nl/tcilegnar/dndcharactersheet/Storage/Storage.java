@@ -1,5 +1,8 @@
 package nl.tcilegnar.dndcharactersheet.Storage;
 
+import nl.tcilegnar.dndcharactersheet.Experience.Experience;
+import nl.tcilegnar.dndcharactersheet.Level.Level;
+
 public class Storage extends SharedPrefs {
     @Override
     protected String fileName() {
@@ -7,8 +10,8 @@ public class Storage extends SharedPrefs {
     }
 
     protected enum Key {
-        CURRENT_EXP(0),
-        CURRENT_LEVEL(1),
+        CURRENT_EXP(Experience.EXP_MIN),
+        CURRENT_LEVEL(Level.MIN_LEVEL),
         READY_FOR_LEVEL_CHANGE(0);
 
         protected final int defaultValue;

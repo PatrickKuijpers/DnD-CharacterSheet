@@ -8,8 +8,8 @@ import nl.tcilegnar.dndcharactersheet.Storage.Storage;
 import nl.tcilegnar.dndcharactersheet.StorageObject;
 
 public class Level extends StorageObject implements ExperienceEdgeListener, ChangeLevelListener {
-    private static final int MIN_LEVEL = 1;
-    private static final int MAX_LEVEL = 30;
+    public static final int MIN_LEVEL = 1;
+    public static final int MAX_LEVEL = 30;
     private int currentLevel = storage.loadLevel();
     private ReadyForLevelDownListener readyForLevelDownListener;
     private ReadyForLevelUpListener readyForLevelUpListener;

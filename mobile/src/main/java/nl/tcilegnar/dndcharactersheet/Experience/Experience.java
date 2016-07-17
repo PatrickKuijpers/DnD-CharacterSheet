@@ -11,8 +11,8 @@ import nl.tcilegnar.dndcharactersheet.Storage.Storage;
 import nl.tcilegnar.dndcharactersheet.StorageObject;
 
 public class Experience extends StorageObject {
-    private static final int EXP_MIN = 0;
-    private static final int EXP_MAX = 2500;
+    public static final int EXP_MIN = 0;
+    public static final int EXP_MAX = 2500;
     private int currentExp = storage.loadExperience();
     private ExperienceEdgeListener experienceEdgeListener;
     private BuildType buildType;
@@ -63,21 +63,31 @@ public class Experience extends StorageObject {
 
     private int correctExperienceWhenEdgeIsReached(int newExp) {
         if (isMinExperienceReached(newExp)) {
-            try {
-                experienceEdgeListener.onExperienceMinReached();
-                newExp = newExp + EXP_MAX;
-            } catch (MinLevelReachedException e) {
-                newExp = EXP_MIN;
-                Toast.makeText(App.getContext(), e.getMessage(), Toast.LENGTH_LONG).show();
-            }
+            newExp = getNewExpWhenMinExpReached(newExp);
         } else if (isMaxExperienceReached(newExp)) {
-            try {
-                experienceEdgeListener.onExperienceMaxReached();
-                newExp = newExp - EXP_MAX;
-            } catch (MaxLevelReachedException e) {
-                newExp = EXP_MAX;
-                Toast.makeText(App.getContext(), e.getMessage(), Toast.LENGTH_LONG).show();
-            }
+            newExp = getNewExpWhenExpMaxReached(newExp);
+        }
+        return newExp;
+    }
+
+    private int getNewExpWhenMinExpReached(int newExp) {
+        try {
+            experienceEdgeListener.onExperienceMinReached();
+            newExp = newExp + EXP_MAX;
+        } catch (MinLevelReachedException e) {
+            newExp = EXP_MIN;
+            Toast.makeText(App.getContext(), e.getMessage(), Toast.LENGTH_LONG).show();
+        }
+        return newExp;
+    }
+
+    private int getNewExpWhenExpMaxReached(int newExp) {
+        try {
+            experienceEdgeListener.onExperienceMaxReached();
+            newExp = newExp - EXP_MAX;
+        } catch (MaxLevelReachedException e) {
+            newExp = EXP_MAX;
+            Toast.makeText(App.getContext(), e.getMessage(), Toast.LENGTH_LONG).show();
         }
         return newExp;
     }
