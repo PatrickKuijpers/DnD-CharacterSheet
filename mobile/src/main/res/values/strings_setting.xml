@@ -16,7 +16,7 @@
     <string name="setting_dialogtitle_experience_update_type">Hoe wil je de experience kunnen wijzigen?</string>
     <string name="setting_dialogtitle_experience_update_picker_steps">@string/setting_title_experience_update_picker_steps</string>
 
-    <string name="setting_defaultvalue_experience_update_type">numberpicker</string>
+    <string name="setting_defaultvalue_experience_update_type">@string/setting_entry_experience_update_type_numberpicker</string>
     <string name="setting_defaultvalue_experience_update_picker_steps">100</string>
 
     <string-array name="setting_entries_experience_update_type">

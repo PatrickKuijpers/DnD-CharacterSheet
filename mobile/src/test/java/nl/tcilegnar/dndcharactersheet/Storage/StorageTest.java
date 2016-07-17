@@ -64,9 +64,22 @@ public class StorageTest {
 
         // Act
         storage.saveLevel(expectedLevel);
-        int experience = storage.loadLevel();
+        int level = storage.loadLevel();
 
         // Assert
-        assertEquals(expectedLevel, experience);
+        assertEquals(expectedLevel, level);
+    }
+
+    @Test
+    public void testSaveAndLoadReadyForLevelChange() {
+        // Arrange
+        int expectedReadyForLevelChange = 2;
+
+        // Act
+        storage.saveReadyForLevelChange(expectedReadyForLevelChange);
+        int readyForLevelChange = storage.loadReadyForLevelChange();
+
+        // Assert
+        assertEquals(expectedReadyForLevelChange, readyForLevelChange);
     }
 }

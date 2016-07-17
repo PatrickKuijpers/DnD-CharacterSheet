@@ -17,9 +17,12 @@ import java.util.Set;
 
 import nl.tcilegnar.dndcharactersheet.App;
 import nl.tcilegnar.dndcharactersheet.BuildConfig;
+import nl.tcilegnar.dndcharactersheet.Level.Level;
 import nl.tcilegnar.dndcharactersheet.R;
 
+import static junit.framework.Assert.assertTrue;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 
 @RunWith(RobolectricGradleTestRunner.class)
@@ -33,7 +36,7 @@ public class SettingsTest {
     }
 
     @Test
-    public void testFileName_NotNull() {
+    public void fileName_NotNull() {
         // Arrange
 
         // Act
@@ -44,7 +47,7 @@ public class SettingsTest {
     }
 
     @Test
-    public void testFileName_Settings() {
+    public void fileName_Settings() {
         // Arrange
 
         // Act
@@ -56,7 +59,81 @@ public class SettingsTest {
     }
 
     @Test
-    public void testGetExperiencePickerStepSize_NotSaved_GetDefault() {
+    public void isExperienceUpdateTypeInput_NotSaved_GetDefault() {
+        // Arrange
+
+        // Act
+        boolean isExpUpdateTypeInput = settings.isExperienceUpdateTypeInput();
+
+        // Assert
+        assertFalse(isExpUpdateTypeInput);
+    }
+
+    @Test
+    public void isExperienceUpdateTypeInput_SavedNumberPicker_False() {
+        // Arrange
+        String savedUpdateType = App.getContext().getString(R.string.setting_entry_experience_update_type_numberpicker);
+        savePreference(R.string.setting_key_experience_update_type, savedUpdateType);
+
+        // Act
+        boolean isExpUpdateTypeInput = settings.isExperienceUpdateTypeInput();
+
+        // Assert
+        assertFalse(isExpUpdateTypeInput);
+    }
+
+    @Test
+    public void isExperienceUpdateTypeInput_SavedInput_True() {
+        // Arrange
+        String savedUpdateType = App.getContext().getString(R.string.setting_entry_experience_update_type_input);
+        savePreference(R.string.setting_key_experience_update_type, savedUpdateType);
+
+        // Act
+        boolean isExpUpdateTypeInput = settings.isExperienceUpdateTypeInput();
+
+        // Assert
+        assertTrue(isExpUpdateTypeInput);
+    }
+
+    @Test
+    public void isExperienceUpdateTypeNumberPicker_NotSaved_GetDefault() {
+        // Arrange
+
+        // Act
+        boolean isExpUpdateTypeNumberPicker = settings.isExperienceUpdateTypeNumberPicker();
+
+        // Assert
+        assertTrue(isExpUpdateTypeNumberPicker);
+    }
+
+    @Test
+    public void isExperienceUpdateTypeInput_SavedInput_False() {
+        // Arrange
+        String savedUpdateType = App.getContext().getString(R.string.setting_entry_experience_update_type_input);
+        savePreference(R.string.setting_key_experience_update_type, savedUpdateType);
+
+        // Act
+        boolean isExpUpdateTypeNumberPicker = settings.isExperienceUpdateTypeNumberPicker();
+
+        // Assert
+        assertFalse(isExpUpdateTypeNumberPicker);
+    }
+
+    @Test
+    public void isExperienceUpdateTypeInput_SavedNumberPicker_True() {
+        // Arrange
+        String savedUpdateType = App.getContext().getString(R.string.setting_entry_experience_update_type_numberpicker);
+        savePreference(R.string.setting_key_experience_update_type, savedUpdateType);
+
+        // Act
+        boolean isExpUpdateTypeNumberPicker = settings.isExperienceUpdateTypeNumberPicker();
+
+        // Assert
+        assertTrue(isExpUpdateTypeNumberPicker);
+    }
+
+    @Test
+    public void getExperiencePickerStepSize_NotSaved_GetDefault() {
         // Arrange
 
         // Act
@@ -71,7 +148,7 @@ public class SettingsTest {
     }
 
     @Test
-    public void testGetExperiencePickerStepSize_Saved_GetSavedValue() {
+    public void getExperiencePickerStepSize_Saved_GetSavedValue() {
         // Arrange
         int expectedStepSize = 250;
         savePreference(R.string.setting_key_experience_update_picker_steps, String.valueOf(expectedStepSize));
@@ -85,7 +162,7 @@ public class SettingsTest {
 
     @Test
     @SuppressWarnings("all")
-    public void testSavePreferenceValue_Boolean_ValueSaved() {
+    public void savePreferenceValue_Boolean_ValueSaved() {
         // Arrange
         String key = "testKey";
         Preference preference = getPreference(key);
@@ -101,7 +178,7 @@ public class SettingsTest {
 
     @Test
     @SuppressWarnings("all")
-    public void testSavePreferenceValue_String_ValueSaved() {
+    public void savePreferenceValue_String_ValueSaved() {
         // Arrange
         String key = "testKey";
         Preference preference = getPreference(key);
@@ -117,7 +194,7 @@ public class SettingsTest {
 
     @Test
     @SuppressWarnings("all")
-    public void testSavePreferenceValue_Integer_ValueSaved() {
+    public void savePreferenceValue_Integer_ValueSaved() {
         // Arrange
         String key = "testKey";
         Preference preference = getPreference(key);
@@ -133,7 +210,7 @@ public class SettingsTest {
 
     @Test
     @SuppressWarnings("all")
-    public void testSavePreferenceValue_Float_ValueSaved() {
+    public void savePreferenceValue_Float_ValueSaved() {
         // Arrange
         String key = "testKey";
         Preference preference = getPreference(key);
@@ -149,7 +226,7 @@ public class SettingsTest {
 
     @Test
     @SuppressWarnings("all")
-    public void testSavePreferenceValue_Long_ValueSaved() {
+    public void savePreferenceValue_Long_ValueSaved() {
         // Arrange
         String key = "testKey";
         Preference preference = getPreference(key);
@@ -177,6 +254,20 @@ public class SettingsTest {
 
         // Assert
         Assert.assertEquals(expectedSavedValue, savedValue);
+    }
+
+    @Test
+    public void savePreferenceValue_OtherObject_ValueNotSaved() {
+        // Arrange
+        String key = "testKey";
+        Preference preference = getPreference(key);
+        Level expectedSavedValue = new Level();
+
+        // Act
+        boolean isSaved = settings.savePreferenceValue(preference, expectedSavedValue);
+
+        // Assert
+        assertFalse(isSaved);
     }
 
     private void savePreference(@StringRes int keyId, String value) {
