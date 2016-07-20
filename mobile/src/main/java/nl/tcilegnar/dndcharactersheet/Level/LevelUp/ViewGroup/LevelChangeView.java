@@ -81,7 +81,7 @@ public class LevelChangeView extends LinearLayout implements OnClickListener, Re
             levelsReadyForChange.handleLevelChange();
             handleViews();
         } catch (MinLevelReachedException | MaxLevelReachedException e) {
-            e.printStackTrace();
+            // TODO: iets hiermee doen?
         }
     }
 

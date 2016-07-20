@@ -33,7 +33,7 @@ public class LevelTest {
 
     @Before
     public void setUp() {
-        level = getNewLevel(DEFAULT_LEVEL);
+        level = getNewLevel_WithDefaultValues();
     }
 
     @Test
@@ -78,8 +78,7 @@ public class LevelTest {
     public void save_LoadedValue() {
         // Arrange
         int expectedSavedLevel = 12;
-        doReturn(expectedSavedLevel).when(storageMock).loadLevel();
-        level = new Level(storageMock);
+        level = getNewLevel(expectedSavedLevel);
 
         // Act
         level.save();
@@ -273,7 +272,7 @@ public class LevelTest {
         try {
             level.onChangeLevel(levelChangeValue);
         } catch (MaxLevelReachedException e) {
-            e.printStackTrace();
+            // Niets doen
         }
 
         // Assert
@@ -348,22 +347,26 @@ public class LevelTest {
         try {
             level.onChangeLevel(levelChangeValue);
         } catch (MinLevelReachedException e) {
-            e.printStackTrace();
+            // Niets doen
         }
 
         // Assert
         assertLevelNotChanged(level, previousLevel);
     }
 
+    private Level getNewLevel_WithDefaultValues() {
+        return getNewLevel(DEFAULT_LEVEL);
+    }
+
     private Level getNewLevel(int initialSavedLevel) {
         storageMock = mock(Storage.class);
         doReturn(initialSavedLevel).when(storageMock).loadLevel();
         Level level = new Level(storageMock);
-        initMocks(level);
+        initListeners(level);
         return level;
     }
 
-    private void initMocks(Level level) {
+    private void initListeners(Level level) {
         readyForLevelDownListenerMock = mock(ReadyForLevelDownListener.class);
         readyForLevelUpListenerMock = mock(ReadyForLevelUpListener.class);
         levelChangedListenerMock = mock(LevelChangedListener.class);

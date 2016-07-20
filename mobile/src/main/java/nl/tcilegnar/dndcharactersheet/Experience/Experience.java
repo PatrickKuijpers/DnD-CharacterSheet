@@ -44,14 +44,13 @@ public class Experience extends StorageObject {
         return currentExp;
     }
 
-    public int updateExperience(int expUpdateValue) throws ExpTooLowException {
+    public void updateExperience(int expUpdateValue) throws ExpTooLowException {
         int newExp = currentExp + expUpdateValue;
         validate(expUpdateValue, newExp);
 
         newExp = correctExperienceWhenEdgeIsReached(newExp);
 
         currentExp = newExp;
-        return currentExp;
     }
 
     private void validate(int expUpdateValue, int newExp) throws ExpTooLowException {

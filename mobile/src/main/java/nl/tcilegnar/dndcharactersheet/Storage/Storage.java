@@ -9,12 +9,13 @@ public class Storage extends SharedPrefs {
         return "Storage";
     }
 
-    protected enum Key {
+    // TODO (Patrick): public voor unittest
+    public enum Key {
         CURRENT_EXP(Experience.EXP_MIN),
         CURRENT_LEVEL(Level.MIN_LEVEL),
         READY_FOR_LEVEL_CHANGE(0);
 
-        protected final int defaultValue;
+        public final int defaultValue;
 
         Key(int defaultValue) {
             this.defaultValue = defaultValue;

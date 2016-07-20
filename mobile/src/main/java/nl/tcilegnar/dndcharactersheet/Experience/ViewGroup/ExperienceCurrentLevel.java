@@ -59,7 +59,7 @@ public class ExperienceCurrentLevel extends LinearLayout implements ExperienceUp
             experience.updateExperience(expUpdateValue);
             updateViewValues();
         } catch (ExpTooLowException e) {
-            e.printStackTrace();
+            // TODO: iets hiermee doen?
         }
     }
 }
