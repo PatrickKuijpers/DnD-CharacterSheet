@@ -5,6 +5,7 @@ import android.widget.Toast;
 
 import nl.tcilegnar.dndcharactersheet.App;
 import nl.tcilegnar.dndcharactersheet.Experience.Experience.ExperienceEdgeListener;
+import nl.tcilegnar.dndcharactersheet.Level.LevelUp.LevelsReadyForChange;
 import nl.tcilegnar.dndcharactersheet.Level.LevelUp.LevelsReadyForChange.ChangeLevelListener;
 import nl.tcilegnar.dndcharactersheet.Storage.Storage;
 import nl.tcilegnar.dndcharactersheet.StorageObject;
@@ -37,7 +38,8 @@ public class Level extends StorageObject implements ExperienceEdgeListener, Chan
 
     @Override
     public void onExperienceMinPassed() throws MinLevelReachedException {
-        validateMinimumLevel(currentLevel);
+        int currentProjectedLevel = new LevelsReadyForChange().getCurrentProjectedLevel(currentLevel);
+        validateMinimumLevel(currentProjectedLevel);
         readyForLevelDownListener.onReadyForLevelDown();
     }
 
@@ -53,7 +55,8 @@ public class Level extends StorageObject implements ExperienceEdgeListener, Chan
 
     @Override
     public void onExperienceMaxReached() throws MaxLevelReachedException {
-        validateMaximumLevel(currentLevel);
+        int currentProjectedLevel = new LevelsReadyForChange().getCurrentProjectedLevel(currentLevel);
+        validateMaximumLevel(currentProjectedLevel);
         readyForLevelUpListener.onReadyForLevelUp();
     }
 
@@ -63,8 +66,9 @@ public class Level extends StorageObject implements ExperienceEdgeListener, Chan
         }
     }
 
-    private boolean isMaximumLevel(int Level) throws MaxLevelReachedException {
-        return Level >= MAX_LEVEL;
+    private boolean isMaximumLevel(int level) throws MaxLevelReachedException {
+        int currentProjectedLevel = new LevelsReadyForChange().getCurrentProjectedLevel(level);
+        return currentProjectedLevel >= MAX_LEVEL;
     }
 
     @Override
@@ -74,6 +78,7 @@ public class Level extends StorageObject implements ExperienceEdgeListener, Chan
         validateMaximumLevel(newLevel - 1);
         currentLevel = newLevel;
         levelChangedListener.onLevelChanged();
+        save();
     }
 
     public void setReadyForLevelDownListener(ReadyForLevelDownListener readyForLevelDownListener) {

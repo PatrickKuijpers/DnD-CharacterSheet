@@ -15,6 +15,7 @@ import nl.tcilegnar.dndcharactersheet.Level.Level.ReadyForLevelUpListener;
 import nl.tcilegnar.dndcharactersheet.Storage.Storage;
 
 import static junit.framework.Assert.assertEquals;
+import static org.mockito.Matchers.anyInt;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
@@ -24,7 +25,7 @@ import static org.mockito.Mockito.verify;
 @RunWith(RobolectricGradleTestRunner.class)
 @Config(constants = BuildConfig.class)
 public class LevelTest {
-    public static final int DEFAULT_LEVEL = Level.MIN_LEVEL;
+    private static final int DEFAULT_LEVEL = Storage.Key.CURRENT_LEVEL.defaultValue;
     private Level level;
     private Storage storageMock;
     private ReadyForLevelUpListener readyForLevelUpListenerMock;
@@ -94,12 +95,15 @@ public class LevelTest {
         int expectedLevelChangeValue = 1;
         level.onChangeLevel(expectedLevelChangeValue);
 
+        final int ARRANGE_TIMES = 1;
+        verify(storageMock, times(ARRANGE_TIMES)).saveLevel(anyInt());
+
         // Act
         level.save();
 
         // Assert
         int expectedLevel = previousLevel + expectedLevelChangeValue;
-        verify(storageMock).saveLevel(expectedLevel);
+        verify(storageMock, times(1 + ARRANGE_TIMES)).saveLevel(expectedLevel);
     }
 
     @Test
