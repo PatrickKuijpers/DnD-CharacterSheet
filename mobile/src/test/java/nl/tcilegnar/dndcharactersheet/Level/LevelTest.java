@@ -114,13 +114,13 @@ public class LevelTest {
     }
 
     @Test
-    public void onExperienceMinReached_NotWithMinStartingLevel_OnReadyForLevelDown() throws MinLevelReachedException {
+    public void onExperienceMinPassed_NotWithMinStartingLevel_OnReadyForLevelDown() throws MinLevelReachedException {
         // Arrange
         int initialSavedLevel = 12;
         Level level = getNewLevel(initialSavedLevel);
 
         // Act
-        level.onExperienceMinReached();
+        level.onExperienceMinPassed();
 
         // Assert
         verify(readyForLevelDownListenerMock, times(1)).onReadyForLevelDown();
@@ -128,12 +128,12 @@ public class LevelTest {
     }
 
     @Test(expected = MinLevelReachedException.class)
-    public void onExperienceMinReached_WithMinStartingLevel_MinLevelReachedException() throws MinLevelReachedException {
+    public void onExperienceMinPassed_WithMinStartingLevel_MinLevelReachedException() throws MinLevelReachedException {
         // Arrange
         Level level = getNewLevel(Level.MIN_LEVEL);
 
         // Act
-        level.onExperienceMinReached();
+        level.onExperienceMinPassed();
 
         // Assert
     }

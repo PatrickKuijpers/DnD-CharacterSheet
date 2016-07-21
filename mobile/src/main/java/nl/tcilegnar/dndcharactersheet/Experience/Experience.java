@@ -61,41 +61,33 @@ public class Experience extends StorageObject {
     }
 
     private int correctExperienceWhenEdgeIsReached(int newExp) {
-        while (isMinExperienceReached(newExp)) {
-            newExp = getNewExpWhenMinExpReached(newExp);
+        while (isMinExperiencePassed(newExp)) {
+            try {
+                experienceEdgeListener.onExperienceMinPassed();
+                newExp += EXP_MAX;
+            } catch (MinLevelReachedException e) {
+                newExp = EXP_MIN;
+                break;
+            }
         }
         while (isMaxExperienceReached(newExp)) {
-            newExp = getNewExpWhenExpMaxReached(newExp);
+            try {
+                experienceEdgeListener.onExperienceMaxReached();
+                newExp -= EXP_MAX;
+            } catch (MaxLevelReachedException e) {
+                newExp = EXP_MAX;
+                break;
+            }
         }
         return newExp;
     }
 
-    private boolean isMinExperienceReached(int newExp) {
+    private boolean isMinExperiencePassed(int newExp) {
         return newExp < 0;
     }
 
-    private int getNewExpWhenMinExpReached(int newExp) {
-        try {
-            experienceEdgeListener.onExperienceMinReached();
-            newExp = newExp + EXP_MAX;
-        } catch (MinLevelReachedException e) {
-            newExp = EXP_MIN;
-        }
-        return newExp;
-    }
-
     private boolean isMaxExperienceReached(int newExp) {
-        return newExp > EXP_MAX;
-    }
-
-    private int getNewExpWhenExpMaxReached(int newExp) {
-        try {
-            experienceEdgeListener.onExperienceMaxReached();
-            newExp = newExp - EXP_MAX;
-        } catch (MaxLevelReachedException e) {
-            newExp = EXP_MAX;
-        }
-        return newExp;
+        return newExp >= EXP_MAX;
     }
 
     public void setExperienceEdgeListener(ExperienceEdgeListener experienceEdgeListener) {
@@ -103,7 +95,7 @@ public class Experience extends StorageObject {
     }
 
     public interface ExperienceEdgeListener {
-        void onExperienceMinReached() throws MinLevelReachedException;
+        void onExperienceMinPassed() throws MinLevelReachedException;
 
         void onExperienceMaxReached() throws MaxLevelReachedException;
     }

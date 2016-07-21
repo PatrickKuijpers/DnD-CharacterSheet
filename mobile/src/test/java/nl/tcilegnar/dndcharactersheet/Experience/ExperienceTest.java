@@ -193,6 +193,33 @@ public class ExperienceTest {
     }
 
     @Test
+    public void testUpdateCurrentExp_AddExactlyUpToMaxExp_NewExpIsMinExp() throws ExpTooLowException {
+        // Arrange
+        initExp(10);
+
+        // Act
+        int addedExp = exp.getMax() - exp.getCurrentExp();
+        exp.updateExperience(addedExp);
+
+        // Assert
+        assertEquals(Experience.EXP_MIN, exp.getCurrentExp());
+    }
+
+    @Test
+    public void testUpdateCurrentExp_AddExactlyUpToMaxExp_OnExperienceMaxReached() throws ExpTooLowException,
+            MaxLevelReachedException {
+        // Arrange
+        initExp(10);
+
+        // Act
+        int addedExp = exp.getMax() - exp.getCurrentExp();
+        exp.updateExperience(addedExp);
+
+        // Assert
+        verify(experienceEdgeListenerMock).onExperienceMaxReached();
+    }
+
+    @Test
     public void testUpdateCurrentExp_AddOverMaxExp_NewExpIsLeftoverExp() throws ExpTooLowException {
         // Arrange
         initExp(10);
@@ -308,6 +335,34 @@ public class ExperienceTest {
     }
 
     @Test
+    public void testUpdateCurrentExp_DebugSubstractExactlyUpToMinExp_NewExpIsMinExp() throws ExpTooLowException,
+            MinLevelReachedException {
+        // Arrange
+        initExp(10, IS_DEBUG);
+
+        // Act
+        int addedExp = -exp.getCurrentExp();
+        exp.updateExperience(addedExp);
+
+        // Assert
+        assertEquals(Experience.EXP_MIN, exp.getCurrentExp());
+    }
+
+    @Test
+    public void testUpdateCurrentExp_DebugSubstractExactlyUpToMinExp_NotOnExperienceMinPassed() throws
+            ExpTooLowException, MinLevelReachedException {
+        // Arrange
+        initExp(10, IS_DEBUG);
+
+        // Act
+        int addedExp = -exp.getCurrentExp();
+        exp.updateExperience(addedExp);
+
+        // Assert
+        verify(experienceEdgeListenerMock, never()).onExperienceMinPassed();
+    }
+
+    @Test
     public void testUpdateCurrentExp_DebugSubstractOverMinExp_NewExpIsLeftoverExp() throws ExpTooLowException,
             MinLevelReachedException {
         // Arrange
@@ -322,7 +377,7 @@ public class ExperienceTest {
     }
 
     @Test
-    public void testUpdateCurrentExp_DebugSubstractOverMinExp_OnExperienceMinReached() throws ExpTooLowException,
+    public void testUpdateCurrentExp_DebugSubstractOverMinExp_OnExperienceMinPassed() throws ExpTooLowException,
             MinLevelReachedException {
         // Arrange
         initExp(10, IS_DEBUG);
@@ -332,7 +387,7 @@ public class ExperienceTest {
         exp.updateExperience(addedExp);
 
         // Assert
-        verify(experienceEdgeListenerMock).onExperienceMinReached();
+        verify(experienceEdgeListenerMock).onExperienceMinPassed();
     }
 
     @Test
@@ -351,7 +406,7 @@ public class ExperienceTest {
     }
 
     @Test
-    public void testUpdateCurrentExp_DebugSubstractOverMinExpTwice_OnExperienceMinReachedTwice() throws
+    public void testUpdateCurrentExp_DebugSubstractOverMinExpTwice_OnExperienceMinPassedTwice() throws
             ExpTooLowException, MinLevelReachedException {
         // Arrange
         initExp(10, IS_DEBUG);
@@ -362,11 +417,11 @@ public class ExperienceTest {
         exp.updateExperience(addedExp);
 
         // Assert
-        verify(experienceEdgeListenerMock, times(2)).onExperienceMinReached();
+        verify(experienceEdgeListenerMock, times(2)).onExperienceMinPassed();
     }
 
     @Test
-    public void testUpdateCurrentExp_DebugSubstractNotOverMinExp_NotOnExperienceMinReached() throws
+    public void testUpdateCurrentExp_DebugSubstractNotOverMinExp_NotOnExperienceMinPassed() throws
             ExpTooLowException, MinLevelReachedException {
         // Arrange
         initExp(10, IS_DEBUG);
@@ -376,22 +431,22 @@ public class ExperienceTest {
         exp.updateExperience(addedExp);
 
         // Assert
-        verify(experienceEdgeListenerMock, never()).onExperienceMinReached();
+        verify(experienceEdgeListenerMock, never()).onExperienceMinPassed();
     }
 
     @Test
-    public void testUpdateCurrentExp_DebugSubstractOverMinExpAndMinLevelReached_NewExpIsMin() throws
+    public void testUpdateCurrentExp_DebugSubstractOverMinExpAndMinLevelPassed_NewExpIsMin() throws
             ExpTooLowException, MinLevelReachedException {
         // Arrange
         initExp(10, IS_DEBUG);
-        doThrow(new Level().new MinLevelReachedException()).when(experienceEdgeListenerMock).onExperienceMinReached();
+        doThrow(new Level().new MinLevelReachedException()).when(experienceEdgeListenerMock).onExperienceMinPassed();
 
         // Act
         int addedExp = -exp.getMax() - 1;
         exp.updateExperience(addedExp);
 
         // Assert
-        verify(experienceEdgeListenerMock).onExperienceMinReached();
+        verify(experienceEdgeListenerMock).onExperienceMinPassed();
         assertEquals(exp.getMin(), exp.getCurrentExp());
     }
 

@@ -36,7 +36,7 @@ public class Level extends StorageObject implements ExperienceEdgeListener, Chan
     }
 
     @Override
-    public void onExperienceMinReached() throws MinLevelReachedException {
+    public void onExperienceMinPassed() throws MinLevelReachedException {
         validateMinimumLevel(currentLevel);
         readyForLevelDownListener.onReadyForLevelDown();
     }
