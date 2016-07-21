@@ -34,6 +34,7 @@
         android:layout_marginLeft="@dimen/horizontal_margin"
         android:background="@color/grey_light"
         android:hint="0000000"
+        android:imeOptions="actionDone"
         android:inputType="number"
         android:maxLength="7"
         android:paddingBottom="@dimen/edittext_padding_vertical"

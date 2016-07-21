@@ -8,6 +8,7 @@ import org.robolectric.annotation.Config;
 
 import android.support.annotation.IdRes;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 
 import nl.tcilegnar.dndcharactersheet.App;
@@ -78,18 +79,6 @@ public class ExperienceEditorTest {
     }
 
     @Test
-    public void onClick_MinButtonUsingEmptyInput_OnUpdateExperienceWithValue0() {
-        // Arrange
-        initNewExperienceEditor_WithInput();
-
-        // Act
-        experienceEditor.onClick(minButtonMock);
-
-        // Assert
-        verify(experienceUpdateListenerMock).onUpdateExperience(0);
-    }
-
-    @Test
     public void onClick_PlusButtonUsingInputByDefaultAndValue5_OnUpdateExperienceUsingDefaultInputValue() {
         // Arrange
         int inputValue = 5;
@@ -104,20 +93,6 @@ public class ExperienceEditorTest {
     }
 
     @Test
-    public void onClick_MinButtonUsingInputByDefaultAndValue5_OnUpdateExperienceUsingDefaultInputValue() {
-        // Arrange
-        int inputValue = 5;
-        initNewExperienceEditor_WithInputValue(inputValue);
-
-        // Act
-        experienceEditor.onClick(minButtonMock);
-
-        // Assert
-        int expectedValue = -inputValue;
-        verify(experienceUpdateListenerMock).onUpdateExperience(expectedValue);
-    }
-
-    @Test
     public void onClick_PlusButtonUsingNumberPickerAndDefaultValue0_OnUpdateExperienceUsingDefaultExpPickerValue() {
         // Arrange
         initNewExperienceEditor_WithNumberPicker();
@@ -127,19 +102,6 @@ public class ExperienceEditorTest {
 
         // Assert
         int expectedValue = expPicker.getCurrentSelectedExpValue();
-        verify(experienceUpdateListenerMock).onUpdateExperience(expectedValue);
-    }
-
-    @Test
-    public void onClick_MinButtonUsingNumberPickerAndDefaultValue0_OnUpdateExperienceUsingDefaultExpPickerValue() {
-        // Arrange
-        initNewExperienceEditor_WithNumberPicker();
-
-        // Act
-        experienceEditor.onClick(minButtonMock);
-
-        // Assert
-        int expectedValue = -expPicker.getCurrentSelectedExpValue();
         verify(experienceUpdateListenerMock).onUpdateExperience(expectedValue);
     }
 
@@ -158,6 +120,57 @@ public class ExperienceEditorTest {
     }
 
     @Test
+    public void onClick_PlusButtonUsingNoInputAndNoNumberPicker_OnUpdateExperienceUsingDefaultValue0() {
+        // Arrange
+        initNewExperienceEditor_WithNoInputAndNoNumberPicker();
+
+        // Act
+        experienceEditor.onClick(plusButtonMock);
+
+        // Assert
+        verify(experienceUpdateListenerMock).onUpdateExperience(0);
+    }
+
+    @Test
+    public void onClick_MinButtonUsingEmptyInput_OnUpdateExperienceWithValue0() {
+        // Arrange
+        initNewExperienceEditor_WithInput();
+
+        // Act
+        experienceEditor.onClick(minButtonMock);
+
+        // Assert
+        verify(experienceUpdateListenerMock).onUpdateExperience(0);
+    }
+
+    @Test
+    public void onClick_MinButtonUsingInputByDefaultAndValue5_OnUpdateExperienceUsingDefaultInputValue() {
+        // Arrange
+        int inputValue = 5;
+        initNewExperienceEditor_WithInputValue(inputValue);
+
+        // Act
+        experienceEditor.onClick(minButtonMock);
+
+        // Assert
+        int expectedValue = -inputValue;
+        verify(experienceUpdateListenerMock).onUpdateExperience(expectedValue);
+    }
+
+    @Test
+    public void onClick_MinButtonUsingNumberPickerAndDefaultValue0_OnUpdateExperienceUsingDefaultExpPickerValue() {
+        // Arrange
+        initNewExperienceEditor_WithNumberPicker();
+
+        // Act
+        experienceEditor.onClick(minButtonMock);
+
+        // Assert
+        int expectedValue = -expPicker.getCurrentSelectedExpValue();
+        verify(experienceUpdateListenerMock).onUpdateExperience(expectedValue);
+    }
+
+    @Test
     public void onClick_MinButtonUsingNumberPickerAndValue300_OnUpdateExperienceUsingDefaultExpPickerValue() {
         // Arrange
         int pickerValueIndex = 3;
@@ -172,24 +185,77 @@ public class ExperienceEditorTest {
     }
 
     @Test
-    public void onClick_PlusButtonUsingNoInputAndNoNumberPicker_OnUpdateExperienceUsingDefaultValue0() {
-        // Arrange
-        initNewExperienceEditor_WithNoInputAndNoNumberPicker();
-
-        // Act
-        experienceEditor.onClick(plusButtonMock);
-
-        // Assert
-        verify(experienceUpdateListenerMock).onUpdateExperience(0);
-    }
-
-    @Test
     public void onClick_MinButtonUsingNoInputAndNoNumberPicker_OnUpdateExperienceUsingDefaultValue0() {
         // Arrange
         initNewExperienceEditor_WithNoInputAndNoNumberPicker();
 
         // Act
         experienceEditor.onClick(minButtonMock);
+
+        // Assert
+        verify(experienceUpdateListenerMock).onUpdateExperience(0);
+    }
+
+    @Test
+    public void onEditorAction_EnterUsingEmptyInput_OnUpdateExperienceWithValue0() {
+        // Arrange
+        initNewExperienceEditor_WithInput();
+
+        // Act
+        experienceEditor.onEditorAction(expInput, EditorInfo.IME_ACTION_DONE, null);
+
+        // Assert
+        verify(experienceUpdateListenerMock).onUpdateExperience(0);
+    }
+
+    @Test
+    public void onEditorAction_EnterUsingInputByDefaultAndValue5_OnUpdateExperienceUsingDefaultInputValue() {
+        // Arrange
+        int inputValue = 5;
+        initNewExperienceEditor_WithInputValue(inputValue);
+
+        // Act
+        experienceEditor.onEditorAction(expInput, EditorInfo.IME_ACTION_DONE, null);
+
+        // Assert
+        int expectedValue = inputValue;
+        verify(experienceUpdateListenerMock).onUpdateExperience(expectedValue);
+    }
+
+    @Test
+    public void onEditorAction_EnterUsingNumberPickerAndDefaultValue0_OnUpdateExperienceUsingDefaultExpPickerValue() {
+        // Arrange
+        initNewExperienceEditor_WithNumberPicker();
+
+        // Act
+        experienceEditor.onEditorAction(expInput, EditorInfo.IME_ACTION_DONE, null);
+
+        // Assert
+        int expectedValue = expPicker.getCurrentSelectedExpValue();
+        verify(experienceUpdateListenerMock).onUpdateExperience(expectedValue);
+    }
+
+    @Test
+    public void onEditorAction_EnterUsingNumberPickerAndValue300_OnUpdateExperienceUsingDefaultExpPickerValue() {
+        // Arrange
+        int pickerValueIndex = 3;
+        initNewExperienceEditor_WithNumberPickerAndSelectedIndex(pickerValueIndex);
+
+        // Act
+        experienceEditor.onEditorAction(expInput, EditorInfo.IME_ACTION_DONE, null);
+
+        // Assert
+        int expectedValue = pickerValueIndex * 100; // 300 is de default value op index #3 (default step size = 100)
+        verify(experienceUpdateListenerMock).onUpdateExperience(expectedValue);
+    }
+
+    @Test
+    public void onEditorAction_EnterUsingNoInputAndNoNumberPicker_OnUpdateExperienceUsingDefaultValue0() {
+        // Arrange
+        initNewExperienceEditor_WithNoInputAndNoNumberPicker();
+
+        // Act
+        experienceEditor.onEditorAction(expInput, EditorInfo.IME_ACTION_DONE, null);
 
         // Assert
         verify(experienceUpdateListenerMock).onUpdateExperience(0);
