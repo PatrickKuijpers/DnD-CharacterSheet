@@ -79,7 +79,7 @@ public class ExperienceEditor extends LinearLayout implements OnClickListener, T
         if (actionId == EditorInfo.IME_ACTION_DONE) {
             addExperience();
         }
-        return false;
+        return false; // Voer de standaard action uit: done = verberg soft keyboard
     }
 
     public void setExperienceUpdateListener(ExperienceUpdateListener experienceUpdateListener) {

@@ -1,3 +1,4 @@
 <resources>
     <dimen name="textsize_level">24sp</dimen>
+    <dimen name="experience_plus_button_text_size">24sp</dimen>
 </resources>

@@ -7,11 +7,13 @@
     <dimen name="horizontal_margin_small">8dp</dimen>
     <dimen name="vertical_margin_small">8dp</dimen>
 
+    <dimen name="experience_picker_height">72dp</dimen>
 
     <dimen name="edittext_padding_vertical">4dp</dimen>
     <dimen name="edittext_padding_horizontal">8dp</dimen>
 
-    <dimen name="button_square_size">48dp</dimen>
+    <dimen name="button_square_size">54dp</dimen>
+    <dimen name="button_square_size_small">30dp</dimen>
 
     <dimen name="level_indicator_image_size">96dp</dimen>
     <dimen name="level_up_image_size">64dp</dimen>
