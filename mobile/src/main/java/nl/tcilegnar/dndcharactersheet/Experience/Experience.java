@@ -61,9 +61,10 @@ public class Experience extends StorageObject {
     }
 
     private int correctExperienceWhenEdgeIsReached(int newExp) {
-        if (isMinExperienceReached(newExp)) {
+        while (isMinExperienceReached(newExp)) {
             newExp = getNewExpWhenMinExpReached(newExp);
-        } else if (isMaxExperienceReached(newExp)) {
+        }
+        while (isMaxExperienceReached(newExp)) {
             newExp = getNewExpWhenExpMaxReached(newExp);
         }
         return newExp;
