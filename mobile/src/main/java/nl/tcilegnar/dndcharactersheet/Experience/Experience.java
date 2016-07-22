@@ -49,8 +49,8 @@ public class Experience extends StorageObject {
         currentExp = expUpdater.getUpdatedExperience(expUpdateValue);
     }
 
-    public void setExperienceEdgeListener(ExperienceEdgeListener experienceEdgeListener) {
-        expUpdater.setExperienceEdgeListener(experienceEdgeListener);
+    public void addExperienceEdgeListener(ExperienceEdgeListener experienceEdgeListener) {
+        expUpdater.addExperienceEdgeListener(experienceEdgeListener);
     }
 
     public void setCurrentProjectedLevelListener(CurrentProjectedLevelListener currentProjectedLevelListener) {

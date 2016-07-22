@@ -206,10 +206,10 @@ public class ExperienceTest {
         ExperienceEdgeListener experienceEdgeListenerMock = mock(ExperienceEdgeListener.class);
 
         // Act
-        exp.setExperienceEdgeListener(experienceEdgeListenerMock);
+        exp.addExperienceEdgeListener(experienceEdgeListenerMock);
 
         // Assert
-        verify(experienceUpdaterMock).setExperienceEdgeListener(experienceEdgeListenerMock);
+        verify(experienceUpdaterMock).addExperienceEdgeListener(experienceEdgeListenerMock);
     }
 
     private void initExpDefault() {

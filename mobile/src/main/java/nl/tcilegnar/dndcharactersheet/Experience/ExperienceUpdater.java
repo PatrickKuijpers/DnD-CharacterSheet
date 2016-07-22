@@ -3,6 +3,8 @@ package nl.tcilegnar.dndcharactersheet.Experience;
 import android.support.annotation.VisibleForTesting;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+
 import nl.tcilegnar.dndcharactersheet.App;
 import nl.tcilegnar.dndcharactersheet.Level.Level;
 import nl.tcilegnar.dndcharactersheet.MyBuildConfig;
@@ -10,7 +12,7 @@ import nl.tcilegnar.dndcharactersheet.MyBuildConfig;
 public class ExperienceUpdater {
     private final Experience experience;
     private MyBuildConfig buildConfig;
-    private ExperienceEdgeListener experienceEdgeListener;
+    private ArrayList<ExperienceEdgeListener> experienceEdgeListeners = new ArrayList<>();
 
     public ExperienceUpdater(Experience experience) {
         this(experience, new MyBuildConfig());
@@ -42,7 +44,7 @@ public class ExperienceUpdater {
     private int correctExperienceWhenEdgeIsReached(int newExp) {
         while (isMinExperiencePassed(newExp)) {
             try {
-                experienceEdgeListener.onExperienceMinPassed();
+                onExperienceMinReached();
                 newExp += experience.getMax();
             } catch (Level.MinLevelReachedException e) {
                 newExp = experience.getMin();
@@ -51,7 +53,7 @@ public class ExperienceUpdater {
         }
         while (isMaxExperienceReached(newExp)) {
             try {
-                experienceEdgeListener.onExperienceMaxReached();
+                onExperienceMaxReached();
                 newExp -= experience.getMax();
             } catch (Level.MaxLevelReachedException e) {
                 newExp = experience.getMax();
@@ -59,6 +61,18 @@ public class ExperienceUpdater {
             }
         }
         return newExp;
+    }
+
+    private void onExperienceMinReached() throws Level.MinLevelReachedException {
+        for (ExperienceEdgeListener experienceEdgeListener : experienceEdgeListeners) {
+            experienceEdgeListener.onExperienceMinPassed();
+        }
+    }
+
+    private void onExperienceMaxReached() throws Level.MaxLevelReachedException {
+        for (ExperienceEdgeListener experienceEdgeListener : experienceEdgeListeners) {
+            experienceEdgeListener.onExperienceMaxReached();
+        }
     }
 
     private boolean isMinExperiencePassed(int newExp) {
@@ -69,8 +83,8 @@ public class ExperienceUpdater {
         return newExp >= experience.getMax();
     }
 
-    public void setExperienceEdgeListener(ExperienceEdgeListener experienceEdgeListener) {
-        this.experienceEdgeListener = experienceEdgeListener;
+    public void addExperienceEdgeListener(ExperienceEdgeListener experienceEdgeListener) {
+        experienceEdgeListeners.add(experienceEdgeListener);
     }
 
     public interface ExperienceEdgeListener {

@@ -375,7 +375,7 @@ public class ExperienceUpdaterTest {
 
     private void initListeners(ExperienceUpdater experienceUpdater) {
         experienceEdgeListenerMock = mock(ExperienceEdgeListener.class);
-        experienceUpdater.setExperienceEdgeListener(experienceEdgeListenerMock);
+        experienceUpdater.addExperienceEdgeListener(experienceEdgeListenerMock);
     }
 
     private void assertExpIsUpdatedCorrectly(int addedExp) {

@@ -403,7 +403,7 @@ public class LevelTest {
         doReturn(initialLevel).when(currentProjectedLevelListenerMock).getCurrentProjectedLevel();
         level.setReadyForLevelDownListener(readyForLevelDownListenerMock);
         level.setReadyForLevelUpListener(readyForLevelUpListenerMock);
-        level.setLevelChangedListener(levelChangedListenerMock);
+        level.addLevelChangedListener(levelChangedListenerMock);
         level.setCurrentProjectedLevelListener(currentProjectedLevelListenerMock);
     }
 

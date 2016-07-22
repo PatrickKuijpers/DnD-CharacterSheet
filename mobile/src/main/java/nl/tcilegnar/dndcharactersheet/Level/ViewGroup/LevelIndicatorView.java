@@ -50,7 +50,7 @@ public class LevelIndicatorView extends LinearLayout implements LevelChangedList
         level.setReadyForLevelDownListener(levelChangeView);
         level.setReadyForLevelUpListener(levelChangeView);
         levelChangeView.setChangeLevelListener(level);
-        level.setLevelChangedListener(this);
+        level.addLevelChangedListener(this);
         level.setCurrentProjectedLevelListener(this);
     }
 

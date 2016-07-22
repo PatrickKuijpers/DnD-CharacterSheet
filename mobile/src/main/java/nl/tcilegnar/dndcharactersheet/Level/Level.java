@@ -3,6 +3,8 @@ package nl.tcilegnar.dndcharactersheet.Level;
 import android.support.annotation.VisibleForTesting;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+
 import nl.tcilegnar.dndcharactersheet.App;
 import nl.tcilegnar.dndcharactersheet.Experience.Experience.LevelListener;
 import nl.tcilegnar.dndcharactersheet.Experience.ExperienceUpdater.ExperienceEdgeListener;
@@ -16,7 +18,7 @@ public class Level extends StorageObject implements ExperienceEdgeListener, Chan
     private int currentLevel = storage.loadLevel();
     private ReadyForLevelDownListener readyForLevelDownListener;
     private ReadyForLevelUpListener readyForLevelUpListener;
-    private LevelChangedListener levelChangedListener;
+    private ArrayList<LevelChangedListener> levelChangedListeners = new ArrayList<>();
     private CurrentProjectedLevelListener currentProjectedLevelListener;
 
     public Level() {
@@ -78,7 +80,9 @@ public class Level extends StorageObject implements ExperienceEdgeListener, Chan
         validateMinimumLevel(newLevel + 1);
         validateMaximumLevel(newLevel - 1);
         currentLevel = newLevel;
-        levelChangedListener.onLevelChanged();
+        for (LevelChangedListener levelChangedListener : levelChangedListeners) {
+            levelChangedListener.onLevelChanged();
+        }
     }
 
     public void setReadyForLevelDownListener(ReadyForLevelDownListener readyForLevelDownListener) {
@@ -89,8 +93,8 @@ public class Level extends StorageObject implements ExperienceEdgeListener, Chan
         this.readyForLevelUpListener = readyForLevelUpListener;
     }
 
-    public void setLevelChangedListener(LevelChangedListener levelChangedListener) {
-        this.levelChangedListener = levelChangedListener;
+    public void addLevelChangedListener(LevelChangedListener levelChangedListener) {
+        levelChangedListeners.add(levelChangedListener);
     }
 
     public void setCurrentProjectedLevelListener(CurrentProjectedLevelListener currentProjectedLevelListener) {
