@@ -9,7 +9,7 @@ import android.widget.TextView;
 
 import nl.tcilegnar.dndcharactersheet.App;
 import nl.tcilegnar.dndcharactersheet.Experience.Experience;
-import nl.tcilegnar.dndcharactersheet.Experience.Experience.ExpTooLowException;
+import nl.tcilegnar.dndcharactersheet.Experience.ExperienceUpdater.ExpTooLowException;
 import nl.tcilegnar.dndcharactersheet.Experience.ViewGroup.ExperienceEditor.ExperienceUpdateListener;
 import nl.tcilegnar.dndcharactersheet.R;
 

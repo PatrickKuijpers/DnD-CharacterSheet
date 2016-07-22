@@ -4,7 +4,7 @@ import android.support.annotation.VisibleForTesting;
 import android.widget.Toast;
 
 import nl.tcilegnar.dndcharactersheet.App;
-import nl.tcilegnar.dndcharactersheet.Experience.Experience.ExperienceEdgeListener;
+import nl.tcilegnar.dndcharactersheet.Experience.ExperienceUpdater.ExperienceEdgeListener;
 import nl.tcilegnar.dndcharactersheet.Level.LevelUp.LevelsReadyForChange.ChangeLevelListener;
 import nl.tcilegnar.dndcharactersheet.Storage.Storage;
 import nl.tcilegnar.dndcharactersheet.StorageObject;
