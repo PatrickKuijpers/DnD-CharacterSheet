@@ -36,6 +36,7 @@ public class ExperienceFragment extends BaseFragment {
         expCurrentLevel = (ExperienceCurrentLevel) view.findViewById(R.id.experience_current_level);
         experience = expCurrentLevel.getExperience();
         experience.setExperienceEdgeListener(level);
+        experience.setLevelListener(level);
 
         ExperienceEditor expEditor = (ExperienceEditor) view.findViewById(R.id.experience_editor);
         expEditor.setExperienceUpdateListener(expCurrentLevel);

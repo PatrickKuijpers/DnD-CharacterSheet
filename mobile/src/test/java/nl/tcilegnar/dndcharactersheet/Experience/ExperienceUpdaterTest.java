@@ -6,12 +6,12 @@ import org.robolectric.RobolectricGradleTestRunner;
 import org.robolectric.annotation.Config;
 
 import nl.tcilegnar.dndcharactersheet.BuildConfig;
-import nl.tcilegnar.dndcharactersheet.MyBuildConfig;
 import nl.tcilegnar.dndcharactersheet.Experience.ExperienceUpdater.ExpTooLowException;
 import nl.tcilegnar.dndcharactersheet.Experience.ExperienceUpdater.ExperienceEdgeListener;
 import nl.tcilegnar.dndcharactersheet.Level.Level;
 import nl.tcilegnar.dndcharactersheet.Level.Level.MaxLevelReachedException;
 import nl.tcilegnar.dndcharactersheet.Level.Level.MinLevelReachedException;
+import nl.tcilegnar.dndcharactersheet.MyBuildConfig;
 import nl.tcilegnar.dndcharactersheet.Storage.Storage;
 
 import static junit.framework.Assert.assertEquals;
@@ -26,6 +26,7 @@ import static org.mockito.Mockito.verify;
 @Config(constants = BuildConfig.class)
 public class ExperienceUpdaterTest {
     private static final int DEFAULT_EXP = Storage.Key.CURRENT_EXP.defaultValue;
+    private static final int DEFAULT_EXP_MAX = 1000;
     private static final boolean IS_DEBUG = true;
     private static final boolean IS_NOT_DEBUG = false;
     private static final boolean DEFAULT_BUILD_TYPE = IS_NOT_DEBUG;
@@ -365,7 +366,7 @@ public class ExperienceUpdaterTest {
         buildConfigMock = mock(MyBuildConfig.class);
         doReturn(initialSavedExperience).when(experienceMock).getCurrentExp();
         doReturn(Experience.EXP_MIN).when(experienceMock).getMin();
-        doReturn(Experience.EXP_MAX).when(experienceMock).getMax();
+        doReturn(DEFAULT_EXP_MAX).when(experienceMock).getMax();
         doReturn(initialBuildType).when(buildConfigMock).isDebug();
         ExperienceUpdater experienceUpdater = new ExperienceUpdater(experienceMock, buildConfigMock);
         initListeners(experienceUpdater);

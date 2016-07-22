@@ -4,12 +4,13 @@ import android.support.annotation.VisibleForTesting;
 import android.widget.Toast;
 
 import nl.tcilegnar.dndcharactersheet.App;
+import nl.tcilegnar.dndcharactersheet.Experience.Experience.LevelListener;
 import nl.tcilegnar.dndcharactersheet.Experience.ExperienceUpdater.ExperienceEdgeListener;
 import nl.tcilegnar.dndcharactersheet.Level.LevelUp.LevelsReadyForChange.ChangeLevelListener;
 import nl.tcilegnar.dndcharactersheet.Storage.Storage;
 import nl.tcilegnar.dndcharactersheet.StorageObject;
 
-public class Level extends StorageObject implements ExperienceEdgeListener, ChangeLevelListener {
+public class Level extends StorageObject implements ExperienceEdgeListener, ChangeLevelListener, LevelListener {
     public static final int MIN_LEVEL = 1;
     public static final int MAX_LEVEL = 30;
     private int currentLevel = storage.loadLevel();
@@ -32,6 +33,7 @@ public class Level extends StorageObject implements ExperienceEdgeListener, Chan
         storage.saveLevel(currentLevel);
     }
 
+    @Override
     public int getCurrentLevel() {
         return currentLevel;
     }

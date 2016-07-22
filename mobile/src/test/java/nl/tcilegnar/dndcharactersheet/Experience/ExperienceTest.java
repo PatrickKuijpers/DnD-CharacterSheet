@@ -11,8 +11,8 @@ import nl.tcilegnar.dndcharactersheet.Experience.ExperienceUpdater.ExperienceEdg
 import nl.tcilegnar.dndcharactersheet.Storage.Storage;
 
 import static junit.framework.Assert.assertEquals;
-import static junit.framework.Assert.assertTrue;
 import static nl.tcilegnar.dndcharactersheet.Experience.Experience.EXP_MIN;
+import static nl.tcilegnar.dndcharactersheet.Experience.Experience.LevelListener;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.mock;
@@ -23,11 +23,15 @@ import static org.mockito.Mockito.verify;
 @Config(constants = BuildConfig.class)
 public class ExperienceTest {
     private static final int DEFAULT_EXP = Storage.Key.CURRENT_EXP.defaultValue;
+    private static final int DEFAULT_CURRENT_LEVEL = Storage.Key.CURRENT_LEVEL.defaultValue;
+    private static final int DEFAULT_EXP_MAX = 1000;
     private static Experience exp;
     private Storage storageMock;
     private ExperienceUpdater experienceUpdaterMock;
+    private LevelListener levelListenerMock;
     private int initialExp;
     private int expectedNewExp;
+    private int currentLevel;
 
     @Test
     public void newExperience_Default_LevelLoadedAndDefaultLevelIsSetAsCurrentLevel() {
@@ -119,7 +123,20 @@ public class ExperienceTest {
         int max = exp.getMax();
 
         // Assert
-        assertTrue(max > 0);
+        assertMaxIsCorrect(max);
+    }
+
+    @Test
+    public void getMax_MaxDefinedByLevel_IsBiggerThanZero() {
+        // Arrange
+        initExpDefault();
+        mockCurrentLevel(2);
+
+        // Act
+        int max = exp.getMax();
+
+        // Assert
+        assertMaxIsCorrect(max);
     }
 
     @Test
@@ -207,7 +224,24 @@ public class ExperienceTest {
         experienceUpdaterMock = mock(ExperienceUpdater.class);
         doReturn(initialSavedExperience).when(storageMock).loadExperience();
         Experience exp = new Experience(storageMock, experienceUpdaterMock);
+        setListeners(exp);
         return exp;
+    }
+
+    private void setListeners(Experience exp) {
+        levelListenerMock = mock(LevelListener.class);
+        mockCurrentLevel(DEFAULT_CURRENT_LEVEL);
+        exp.setLevelListener(levelListenerMock);
+    }
+
+    private void mockCurrentLevel(int currentLevel) {
+        doReturn(currentLevel).when(levelListenerMock).getCurrentLevel();
+        this.currentLevel = currentLevel;
+    }
+
+    private void assertMaxIsCorrect(int max) {
+        int expectedMax = DEFAULT_EXP_MAX * currentLevel;
+        assertEquals("max is not equal to expectedMax for level " + currentLevel, expectedMax, max);
     }
 
     private void mockUpdatedExperience(int addedExp) throws ExpTooLowException {

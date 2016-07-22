@@ -9,9 +9,10 @@ import nl.tcilegnar.dndcharactersheet.StorageObject;
 
 public class Experience extends StorageObject {
     public static final int EXP_MIN = 0;
-    public static final int EXP_MAX = 2500;
+    private static final int EXP_MULTIPLIER_VALUE = 1000;
     private int currentExp = storage.loadExperience();
     private ExperienceUpdater expUpdater;
+    private LevelListener levelListener;
 
     public Experience() {
         this(new Storage(), null);
@@ -34,7 +35,7 @@ public class Experience extends StorageObject {
     }
 
     public int getMax() {
-        return EXP_MAX;
+        return EXP_MULTIPLIER_VALUE * levelListener.getCurrentLevel();
     }
 
     public int getCurrentExp() {
@@ -47,5 +48,13 @@ public class Experience extends StorageObject {
 
     public void setExperienceEdgeListener(ExperienceEdgeListener experienceEdgeListener) {
         expUpdater.setExperienceEdgeListener(experienceEdgeListener);
+    }
+
+    public void setLevelListener(LevelListener levelListener) {
+        this.levelListener = levelListener;
+    }
+
+    public interface LevelListener {
+        int getCurrentLevel();
     }
 }
