@@ -20,8 +20,4 @@ public class App extends Application {
     public static Resources getAppResources() {
         return context.getResources();
     }
-
-    public static boolean isDebug() {
-        return BuildConfig.BUILD_TYPE.equalsIgnoreCase("debug");
-    }
 }

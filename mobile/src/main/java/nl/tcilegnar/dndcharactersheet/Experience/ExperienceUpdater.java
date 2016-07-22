@@ -4,22 +4,22 @@ import android.support.annotation.VisibleForTesting;
 import android.widget.Toast;
 
 import nl.tcilegnar.dndcharactersheet.App;
-import nl.tcilegnar.dndcharactersheet.BuildType;
+import nl.tcilegnar.dndcharactersheet.MyBuildConfig;
 import nl.tcilegnar.dndcharactersheet.Level.Level;
 
 public class ExperienceUpdater {
     private final Experience experience;
-    private BuildType buildType;
+    private MyBuildConfig buildConfig;
     private ExperienceEdgeListener experienceEdgeListener;
 
     public ExperienceUpdater(Experience experience) {
-        this(experience, new BuildType());
+        this(experience, new MyBuildConfig());
     }
 
     @VisibleForTesting
-    protected ExperienceUpdater(Experience experience, BuildType buildType) {
+    protected ExperienceUpdater(Experience experience, MyBuildConfig buildConfig) {
         this.experience = experience;
-        this.buildType = buildType;
+        this.buildConfig = buildConfig;
     }
 
     public int getUpdatedExperience(int expUpdateValue) throws ExpTooLowException {
@@ -31,7 +31,7 @@ public class ExperienceUpdater {
     }
 
     private void validate(int expUpdateValue, int newExp) throws ExpTooLowException {
-        if (newExp < 0 && !buildType.isDebug()) {
+        if (newExp < 0 && !buildConfig.isDebug()) {
             int currentExp = experience.getCurrentExp();
             String message = "Nieuwe exp-waarde is te laag: " + currentExp + " + " + expUpdateValue + " = " +
                     newExp;

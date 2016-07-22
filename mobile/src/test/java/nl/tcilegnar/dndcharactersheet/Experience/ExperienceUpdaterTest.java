@@ -6,7 +6,7 @@ import org.robolectric.RobolectricGradleTestRunner;
 import org.robolectric.annotation.Config;
 
 import nl.tcilegnar.dndcharactersheet.BuildConfig;
-import nl.tcilegnar.dndcharactersheet.BuildType;
+import nl.tcilegnar.dndcharactersheet.MyBuildConfig;
 import nl.tcilegnar.dndcharactersheet.Experience.ExperienceUpdater.ExpTooLowException;
 import nl.tcilegnar.dndcharactersheet.Experience.ExperienceUpdater.ExperienceEdgeListener;
 import nl.tcilegnar.dndcharactersheet.Level.Level;
@@ -31,7 +31,7 @@ public class ExperienceUpdaterTest {
     private static final boolean DEFAULT_BUILD_TYPE = IS_NOT_DEBUG;
     private static ExperienceUpdater experienceUpdater;
     private Experience experienceMock;
-    private BuildType buildTypeMock;
+    private MyBuildConfig buildConfigMock;
     private ExperienceEdgeListener experienceEdgeListenerMock;
     private int initialExp;
     private int updatedExp;
@@ -362,12 +362,12 @@ public class ExperienceUpdaterTest {
     private ExperienceUpdater getNewExperienceUpdaterWithMocksAndListeners(int initialSavedExperience, boolean
             initialBuildType) {
         experienceMock = mock(Experience.class);
-        buildTypeMock = mock(BuildType.class);
+        buildConfigMock = mock(MyBuildConfig.class);
         doReturn(initialSavedExperience).when(experienceMock).getCurrentExp();
         doReturn(Experience.EXP_MIN).when(experienceMock).getMin();
         doReturn(Experience.EXP_MAX).when(experienceMock).getMax();
-        doReturn(initialBuildType).when(buildTypeMock).isDebug();
-        ExperienceUpdater experienceUpdater = new ExperienceUpdater(experienceMock, buildTypeMock);
+        doReturn(initialBuildType).when(buildConfigMock).isDebug();
+        ExperienceUpdater experienceUpdater = new ExperienceUpdater(experienceMock, buildConfigMock);
         initListeners(experienceUpdater);
         return experienceUpdater;
     }
@@ -397,7 +397,7 @@ public class ExperienceUpdaterTest {
     }
 
     private void assertExpIsUpdatedBelowMin(int addedExp, int numberOfTimes) {
-        if (buildTypeMock.isDebug()) {
+        if (buildConfigMock.isDebug()) {
             assertExpIsUpdatedCorrectly(addedExp + experienceMock.getMax() * numberOfTimes);
         } else {
             assertExpIsNotUpdated();
