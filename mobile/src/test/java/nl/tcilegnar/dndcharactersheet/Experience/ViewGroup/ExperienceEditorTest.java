@@ -280,7 +280,7 @@ public class ExperienceEditorTest {
     }
 
     private void initNewExperienceEditor_WithNoInputAndNoNumberPicker() {
-        initNewExperienceEditor(false, true);
+        initNewExperienceEditor(false, false);
     }
 
     private void initNewExperienceEditor(boolean isExperienceUpdateTypeInput, boolean
