@@ -5,7 +5,6 @@ android {
     buildToolsVersion "23.0.2"
 
     defaultConfig {
-        applicationId "nl.tcilegnar.dndcharactersheet"
         minSdkVersion 16
         targetSdkVersion 24
         versionCode 1
@@ -25,12 +24,19 @@ android {
     buildTypes {
         release {
             minifyEnabled false
-//            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.release
         }
         debug {
             applicationIdSuffix ".test"
             signingConfig signingConfigs.debug
+        }
+    }
+    productFlavors {
+        DnD3x5 {
+            applicationId "nl.tcilegnar.dndcharactersheet.version_three_five"
+        }
+        DnD5x0 {
+            applicationId "nl.tcilegnar.dndcharactersheet.version_five_zero"
         }
     }
 }
