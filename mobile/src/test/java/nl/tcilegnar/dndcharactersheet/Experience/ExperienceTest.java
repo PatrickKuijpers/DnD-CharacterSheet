@@ -12,6 +12,7 @@ import nl.tcilegnar.dndcharactersheet.Storage.Storage;
 
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertTrue;
+import static nl.tcilegnar.dndcharactersheet.Experience.Experience.EXP_MIN;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.mock;
@@ -26,6 +27,7 @@ public class ExperienceTest {
     private Storage storageMock;
     private ExperienceUpdater experienceUpdaterMock;
     private int initialExp;
+    private int expectedNewExp;
 
     @Test
     public void newExperience_Default_LevelLoadedAndDefaultLevelIsSetAsCurrentLevel() {
@@ -105,7 +107,7 @@ public class ExperienceTest {
         int min = exp.getMin();
 
         // Assert
-        assertEquals(Experience.EXP_MIN, min);
+        assertEquals(EXP_MIN, min);
     }
 
     @Test
@@ -139,13 +141,13 @@ public class ExperienceTest {
         initExpDefault();
 
         int addedExp = 10;
-        int expectedNewExp = getExpectedNewExpFromExperienceUpdaterMock(addedExp);
+        mockUpdatedExperience(addedExp);
 
         // Act
         exp.updateExperience(addedExp);
 
         // Assert
-        assertExpIsUpdated(expectedNewExp);
+        assertExpIsUpdated();
     }
 
     @Test
@@ -155,13 +157,13 @@ public class ExperienceTest {
         initExp(100);
 
         int addedExp = -10;
-        int expectedNewExp = getExpectedNewExpFromExperienceUpdaterMock(addedExp);
+        mockUpdatedExperience(addedExp);
 
         // Act
         exp.updateExperience(addedExp);
 
         // Assert
-        assertExpIsUpdated(expectedNewExp);
+        assertExpIsUpdated();
     }
 
     @Test(expected = ExpTooLowException.class)
@@ -208,15 +210,13 @@ public class ExperienceTest {
         return exp;
     }
 
-    private int getExpectedNewExpFromExperienceUpdaterMock(int addedExp) throws ExpTooLowException {
-        int expectedNewExperience = initialExp + addedExp;
-        doReturn(expectedNewExperience).when(experienceUpdaterMock).getUpdatedExperience(addedExp);
-        return expectedNewExperience;
+    private void mockUpdatedExperience(int addedExp) throws ExpTooLowException {
+        expectedNewExp = initialExp + addedExp;
+        doReturn(expectedNewExp).when(experienceUpdaterMock).getUpdatedExperience(addedExp);
     }
 
-    private void assertExpIsUpdated(int expectedNewExp) {
+    private void assertExpIsUpdated() {
         int newExp = exp.getCurrentExp();
-        String errorMessage = "newExp is not equal to expectedExp: " + expectedNewExp;
-        assertEquals(errorMessage, expectedNewExp, newExp);
+        assertEquals("newExp is not equal to expectedExp", expectedNewExp, newExp);
     }
 }
