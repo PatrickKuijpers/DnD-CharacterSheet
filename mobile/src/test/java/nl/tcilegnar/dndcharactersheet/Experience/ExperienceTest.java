@@ -451,14 +451,14 @@ public class ExperienceTest {
     }
 
     private void initExpDefault() {
-        initExp(DEFAULT_EXP);
+        initExp(DEFAULT_EXP, DEFAULT_BUILD_TYPE);
     }
 
-    private void initExp(Integer initialExp) {
+    private void initExp(int initialExp) {
         initExp(initialExp, DEFAULT_BUILD_TYPE);
     }
 
-    private void initExp(Integer initialExp, boolean initialBuildType) {
+    private void initExp(int initialExp, boolean initialBuildType) {
         this.initialExp = initialExp;
         exp = getNewExperienceWithMocksAndListeners(initialExp, initialBuildType);
     }

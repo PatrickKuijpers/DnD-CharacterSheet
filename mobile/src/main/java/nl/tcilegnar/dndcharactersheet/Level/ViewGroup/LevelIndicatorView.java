@@ -7,11 +7,12 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import nl.tcilegnar.dndcharactersheet.Level.Level;
+import nl.tcilegnar.dndcharactersheet.Level.Level.CurrentProjectedLevelListener;
 import nl.tcilegnar.dndcharactersheet.Level.Level.LevelChangedListener;
 import nl.tcilegnar.dndcharactersheet.Level.LevelUp.ViewGroup.LevelChangeView;
 import nl.tcilegnar.dndcharactersheet.R;
 
-public class LevelIndicatorView extends LinearLayout implements LevelChangedListener {
+public class LevelIndicatorView extends LinearLayout implements LevelChangedListener, CurrentProjectedLevelListener {
     private TextView levelView;
 
     private final Level level;
@@ -50,6 +51,7 @@ public class LevelIndicatorView extends LinearLayout implements LevelChangedList
         level.setReadyForLevelUpListener(levelChangeView);
         levelChangeView.setChangeLevelListener(level);
         level.setLevelChangedListener(this);
+        level.setCurrentProjectedLevelListener(this);
     }
 
     public Level getLevel() {
@@ -64,5 +66,10 @@ public class LevelIndicatorView extends LinearLayout implements LevelChangedList
     @Override
     public void onLevelChanged() {
         setLevelText();
+    }
+
+    @Override
+    public int getCurrentProjectedLevel() {
+        return level.getCurrentLevel() + levelChangeView.getNumberOfLevelsReadyForChange();
     }
 }

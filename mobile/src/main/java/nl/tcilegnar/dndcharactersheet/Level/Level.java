@@ -5,7 +5,6 @@ import android.widget.Toast;
 
 import nl.tcilegnar.dndcharactersheet.App;
 import nl.tcilegnar.dndcharactersheet.Experience.Experience.ExperienceEdgeListener;
-import nl.tcilegnar.dndcharactersheet.Level.LevelUp.LevelsReadyForChange;
 import nl.tcilegnar.dndcharactersheet.Level.LevelUp.LevelsReadyForChange.ChangeLevelListener;
 import nl.tcilegnar.dndcharactersheet.Storage.Storage;
 import nl.tcilegnar.dndcharactersheet.StorageObject;
@@ -17,6 +16,7 @@ public class Level extends StorageObject implements ExperienceEdgeListener, Chan
     private ReadyForLevelDownListener readyForLevelDownListener;
     private ReadyForLevelUpListener readyForLevelUpListener;
     private LevelChangedListener levelChangedListener;
+    private CurrentProjectedLevelListener currentProjectedLevelListener;
 
     public Level() {
         this(new Storage());
@@ -38,12 +38,12 @@ public class Level extends StorageObject implements ExperienceEdgeListener, Chan
 
     @Override
     public void onExperienceMinPassed() throws MinLevelReachedException {
-        int currentProjectedLevel = new LevelsReadyForChange().getCurrentProjectedLevel(currentLevel);
+        int currentProjectedLevel = currentProjectedLevelListener.getCurrentProjectedLevel();
         validateMinimumLevel(currentProjectedLevel);
         readyForLevelDownListener.onReadyForLevelDown();
     }
 
-    public void validateMinimumLevel(int level) throws MinLevelReachedException {
+    private void validateMinimumLevel(int level) throws MinLevelReachedException {
         if (isMinimumLevel(level)) {
             throw new MinLevelReachedException();
         }
@@ -55,20 +55,19 @@ public class Level extends StorageObject implements ExperienceEdgeListener, Chan
 
     @Override
     public void onExperienceMaxReached() throws MaxLevelReachedException {
-        int currentProjectedLevel = new LevelsReadyForChange().getCurrentProjectedLevel(currentLevel);
+        int currentProjectedLevel = currentProjectedLevelListener.getCurrentProjectedLevel();
         validateMaximumLevel(currentProjectedLevel);
         readyForLevelUpListener.onReadyForLevelUp();
     }
 
-    public void validateMaximumLevel(int level) throws MaxLevelReachedException {
+    private void validateMaximumLevel(int level) throws MaxLevelReachedException {
         if (isMaximumLevel(level)) {
             throw new MaxLevelReachedException();
         }
     }
 
     private boolean isMaximumLevel(int level) throws MaxLevelReachedException {
-        int currentProjectedLevel = new LevelsReadyForChange().getCurrentProjectedLevel(level);
-        return currentProjectedLevel >= MAX_LEVEL;
+        return level >= MAX_LEVEL;
     }
 
     @Override
@@ -78,7 +77,6 @@ public class Level extends StorageObject implements ExperienceEdgeListener, Chan
         validateMaximumLevel(newLevel - 1);
         currentLevel = newLevel;
         levelChangedListener.onLevelChanged();
-        save();
     }
 
     public void setReadyForLevelDownListener(ReadyForLevelDownListener readyForLevelDownListener) {
@@ -93,6 +91,10 @@ public class Level extends StorageObject implements ExperienceEdgeListener, Chan
         this.levelChangedListener = levelChangedListener;
     }
 
+    public void setCurrentProjectedLevelListener(CurrentProjectedLevelListener currentProjectedLevelListener) {
+        this.currentProjectedLevelListener = currentProjectedLevelListener;
+    }
+
     public interface ReadyForLevelDownListener {
         void onReadyForLevelDown() throws MinLevelReachedException;
     }
@@ -103,6 +105,10 @@ public class Level extends StorageObject implements ExperienceEdgeListener, Chan
 
     public interface LevelChangedListener {
         void onLevelChanged();
+    }
+
+    public interface CurrentProjectedLevelListener {
+        int getCurrentProjectedLevel();
     }
 
     public class MinLevelReachedException extends Exception {

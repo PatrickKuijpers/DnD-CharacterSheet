@@ -68,6 +68,10 @@ public class LevelChangeView extends LinearLayout implements OnClickListener, Re
         changeLevelTimes.setText("x " + levelsReadyForChange.getNumberOfLevelsReadyForChange());
     }
 
+    public int getNumberOfLevelsReadyForChange() {
+        return levelsReadyForChange.getNumberOfLevelsReadyForChange();
+    }
+
     @Override
     public void onClick(View view) {
         int id = view.getId();

@@ -2,7 +2,6 @@ package nl.tcilegnar.dndcharactersheet.Level.LevelUp;
 
 import android.support.annotation.VisibleForTesting;
 
-import nl.tcilegnar.dndcharactersheet.Level.Level;
 import nl.tcilegnar.dndcharactersheet.Level.Level.MaxLevelReachedException;
 import nl.tcilegnar.dndcharactersheet.Level.Level.MinLevelReachedException;
 import nl.tcilegnar.dndcharactersheet.Storage.Storage;
@@ -59,33 +58,11 @@ public class LevelsReadyForChange extends StorageObject {
     }
 
     public void onReadyForLevelDown() throws MinLevelReachedException {
-        validateReadyForLevelDown();
         numberOfLevelsReadyForChange--;
-        save();
-    }
-
-    private void validateReadyForLevelDown() throws MinLevelReachedException {
-        Level level = new Level();
-        int currentLevel = level.getCurrentLevel();
-        int projectedLevelValue = getCurrentProjectedLevel(currentLevel);
-        level.validateMinimumLevel(projectedLevelValue);
-    }
-
-    public int getCurrentProjectedLevel(int currentLevel) {
-        return currentLevel + numberOfLevelsReadyForChange;
     }
 
     public void onReadyForLevelUp() throws MaxLevelReachedException {
-        validateReadyForLevelUp();
         numberOfLevelsReadyForChange++;
-        save();
-    }
-
-    private void validateReadyForLevelUp() throws MaxLevelReachedException {
-        Level level = new Level();
-        int currentLevel = level.getCurrentLevel();
-        int currentProjectedLevel = getCurrentProjectedLevel(currentLevel);
-        level.validateMaximumLevel(currentProjectedLevel);
     }
 
     public void setChangeLevelListener(ChangeLevelListener changeLevelListener) {
