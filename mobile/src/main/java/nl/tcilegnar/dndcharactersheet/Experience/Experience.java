@@ -7,12 +7,14 @@ import nl.tcilegnar.dndcharactersheet.Experience.ExperienceUpdater.ExperienceEdg
 import nl.tcilegnar.dndcharactersheet.Storage.Storage;
 import nl.tcilegnar.dndcharactersheet.StorageObject;
 
+import static nl.tcilegnar.dndcharactersheet.Level.Level.CurrentProjectedLevelListener;
+
 public class Experience extends StorageObject {
     public static final int EXP_MIN = 0;
     private static final int EXP_MULTIPLIER_VALUE = 1000;
     private int currentExp = storage.loadExperience();
     private ExperienceUpdater expUpdater;
-    private LevelListener levelListener;
+    private CurrentProjectedLevelListener currentProjectedLevelListener;
 
     public Experience() {
         this(new Storage(), null);
@@ -35,7 +37,8 @@ public class Experience extends StorageObject {
     }
 
     public int getMax() {
-        return EXP_MULTIPLIER_VALUE * levelListener.getCurrentLevel();
+        int currentLevel = currentProjectedLevelListener.getCurrentProjectedLevel();
+        return EXP_MULTIPLIER_VALUE * currentLevel;
     }
 
     public int getCurrentExp() {
@@ -50,8 +53,8 @@ public class Experience extends StorageObject {
         expUpdater.setExperienceEdgeListener(experienceEdgeListener);
     }
 
-    public void setLevelListener(LevelListener levelListener) {
-        this.levelListener = levelListener;
+    public void setCurrentProjectedLevelListener(CurrentProjectedLevelListener currentProjectedLevelListener) {
+        this.currentProjectedLevelListener = currentProjectedLevelListener;
     }
 
     public interface LevelListener {

@@ -4,8 +4,8 @@ import android.support.annotation.VisibleForTesting;
 import android.widget.Toast;
 
 import nl.tcilegnar.dndcharactersheet.App;
-import nl.tcilegnar.dndcharactersheet.MyBuildConfig;
 import nl.tcilegnar.dndcharactersheet.Level.Level;
+import nl.tcilegnar.dndcharactersheet.MyBuildConfig;
 
 public class ExperienceUpdater {
     private final Experience experience;
@@ -26,8 +26,8 @@ public class ExperienceUpdater {
         int newExp = experience.getCurrentExp() + expUpdateValue;
         validate(expUpdateValue, newExp);
 
-        int correctedExp = correctExperienceWhenEdgeIsReached(newExp);
-        return correctedExp;
+        int finalNewExp = correctExperienceWhenEdgeIsReached(newExp);
+        return finalNewExp;
     }
 
     private void validate(int expUpdateValue, int newExp) throws ExpTooLowException {

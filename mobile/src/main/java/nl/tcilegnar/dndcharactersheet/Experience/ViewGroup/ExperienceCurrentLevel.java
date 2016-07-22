@@ -11,6 +11,7 @@ import nl.tcilegnar.dndcharactersheet.App;
 import nl.tcilegnar.dndcharactersheet.Experience.Experience;
 import nl.tcilegnar.dndcharactersheet.Experience.ExperienceUpdater.ExpTooLowException;
 import nl.tcilegnar.dndcharactersheet.Experience.ViewGroup.ExperienceEditor.ExperienceUpdateListener;
+import nl.tcilegnar.dndcharactersheet.Level.ViewGroup.LevelIndicatorView;
 import nl.tcilegnar.dndcharactersheet.R;
 
 public class ExperienceCurrentLevel extends LinearLayout implements ExperienceUpdateListener {
@@ -25,6 +26,7 @@ public class ExperienceCurrentLevel extends LinearLayout implements ExperienceUp
     protected ExperienceCurrentLevel(Context context, AttributeSet attrs, Experience experience) {
         super(context, attrs, R.attr.expCurrentLvlStyle);
         inflate(context, R.layout.experience_current_lvl, this);
+        experience.setCurrentProjectedLevelListener(new LevelIndicatorView(App.getContext(), null));
         this.experience = experience;
         initViews();
     }

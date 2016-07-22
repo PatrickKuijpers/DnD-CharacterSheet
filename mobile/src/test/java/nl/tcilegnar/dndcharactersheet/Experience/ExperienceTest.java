@@ -12,7 +12,7 @@ import nl.tcilegnar.dndcharactersheet.Storage.Storage;
 
 import static junit.framework.Assert.assertEquals;
 import static nl.tcilegnar.dndcharactersheet.Experience.Experience.EXP_MIN;
-import static nl.tcilegnar.dndcharactersheet.Experience.Experience.LevelListener;
+import static nl.tcilegnar.dndcharactersheet.Level.Level.CurrentProjectedLevelListener;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.mock;
@@ -23,12 +23,14 @@ import static org.mockito.Mockito.verify;
 @Config(constants = BuildConfig.class)
 public class ExperienceTest {
     private static final int DEFAULT_EXP = Storage.Key.CURRENT_EXP.defaultValue;
-    private static final int DEFAULT_CURRENT_LEVEL = Storage.Key.CURRENT_LEVEL.defaultValue;
+    private static final int DEFAULT_LEVEL = Storage.Key.CURRENT_LEVEL.defaultValue;
+    private static final int DEFAULT_READY_FOR_LEVEL_CHANGE = Storage.Key.READY_FOR_LEVEL_CHANGE.defaultValue;
+    private static final int DEFAULT_CURRENT_PROJECTED_LEVEL = DEFAULT_LEVEL + DEFAULT_READY_FOR_LEVEL_CHANGE;
     private static final int DEFAULT_EXP_MAX = 1000;
     private static Experience exp;
     private Storage storageMock;
     private ExperienceUpdater experienceUpdaterMock;
-    private LevelListener levelListenerMock;
+    private CurrentProjectedLevelListener currentProjectedLevelListener;
     private int initialExp;
     private int expectedNewExp;
     private int currentLevel;
@@ -127,7 +129,7 @@ public class ExperienceTest {
     }
 
     @Test
-    public void getMax_MaxDefinedByLevel_IsBiggerThanZero() {
+    public void getMax_MaxDefinedByCurrentLevel_IsBiggerThanZero() {
         // Arrange
         initExpDefault();
         mockCurrentLevel(2);
@@ -229,13 +231,13 @@ public class ExperienceTest {
     }
 
     private void setListeners(Experience exp) {
-        levelListenerMock = mock(LevelListener.class);
-        mockCurrentLevel(DEFAULT_CURRENT_LEVEL);
-        exp.setLevelListener(levelListenerMock);
+        currentProjectedLevelListener = mock(CurrentProjectedLevelListener.class);
+        mockCurrentLevel(DEFAULT_CURRENT_PROJECTED_LEVEL);
+        exp.setCurrentProjectedLevelListener(currentProjectedLevelListener);
     }
 
     private void mockCurrentLevel(int currentLevel) {
-        doReturn(currentLevel).when(levelListenerMock).getCurrentLevel();
+        doReturn(currentLevel).when(currentProjectedLevelListener).getCurrentProjectedLevel();
         this.currentLevel = currentLevel;
     }
 
