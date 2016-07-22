@@ -8,7 +8,7 @@ import org.robolectric.annotation.Config;
 import nl.tcilegnar.dndcharactersheet.BuildConfig;
 import nl.tcilegnar.dndcharactersheet.Experience.ExperienceUpdater.ExpTooLowException;
 import nl.tcilegnar.dndcharactersheet.Experience.ExperienceUpdater.ExperienceEdgeListener;
-import nl.tcilegnar.dndcharactersheet.Level.LevelTable;
+import nl.tcilegnar.dndcharactersheet.Level.LevelTableUtil;
 import nl.tcilegnar.dndcharactersheet.Storage.Storage;
 
 import static junit.framework.Assert.assertEquals;
@@ -242,7 +242,7 @@ public class ExperienceTest {
     }
 
     private void assertMaxIsCorrect(int max) {
-        int expectedMax = LevelTable.getMaxExperience(currentLevel);
+        int expectedMax = LevelTableUtil.getMaxExperience(currentLevel);
         assertEquals("max is not equal to expectedMax for level " + currentLevel, expectedMax, max);
     }
 

@@ -4,7 +4,7 @@ import android.support.annotation.VisibleForTesting;
 
 import nl.tcilegnar.dndcharactersheet.Experience.ExperienceUpdater.ExpTooLowException;
 import nl.tcilegnar.dndcharactersheet.Experience.ExperienceUpdater.ExperienceEdgeListener;
-import nl.tcilegnar.dndcharactersheet.Level.LevelTable;
+import nl.tcilegnar.dndcharactersheet.Level.LevelTableUtil;
 import nl.tcilegnar.dndcharactersheet.Storage.Storage;
 import nl.tcilegnar.dndcharactersheet.StorageObject;
 
@@ -38,7 +38,7 @@ public class Experience extends StorageObject {
 
     public int getMax() {
         int currentLevel = currentProjectedLevelListener.getCurrentProjectedLevel();
-        return LevelTable.getMaxExperience(currentLevel);
+        return LevelTableUtil.getMaxExperience(currentLevel);
     }
 
     public int getCurrentExp() {

@@ -7,17 +7,17 @@ import org.robolectric.annotation.Config;
 
 import nl.tcilegnar.dndcharactersheet.BuildConfig;
 
-import static nl.tcilegnar.dndcharactersheet.Level.LevelTable.MAX_EXP_FOR_MAX_LEVEL;
-import static nl.tcilegnar.dndcharactersheet.Level.LevelTable.NoMaxExperienceForLevelException;
 import static nl.tcilegnar.dndcharactersheet.Level.LevelTable.TWENTY;
 import static nl.tcilegnar.dndcharactersheet.Level.LevelTable.TWO;
-import static nl.tcilegnar.dndcharactersheet.Level.LevelTable.getMaxExperience;
 import static nl.tcilegnar.dndcharactersheet.Level.LevelTable.values;
+import static nl.tcilegnar.dndcharactersheet.Level.LevelTableUtil.MAX_EXP_FOR_MAX_LEVEL;
+import static nl.tcilegnar.dndcharactersheet.Level.LevelTableUtil.NoMaxExperienceForLevelException;
+import static nl.tcilegnar.dndcharactersheet.Level.LevelTableUtil.getMaxExperience;
 import static org.junit.Assert.assertEquals;
 
 @RunWith(RobolectricGradleTestRunner.class)
 @Config(constants = BuildConfig.class)
-public class LevelTableTest {
+public class LevelTableUtilTest {
     @Test(expected = NoMaxExperienceForLevelException.class)
     public void getMaxExperience_NegativeLevelDoesNotExist_IllegalArgumentException() {
         // Arrange
