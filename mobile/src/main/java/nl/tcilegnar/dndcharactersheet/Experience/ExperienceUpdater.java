@@ -42,21 +42,21 @@ public class ExperienceUpdater {
     }
 
     private int correctExperienceWhenEdgeIsReached(int newExp) {
+        while (isMaxExperienceReached(newExp)) {
+            try {
+                newExp -= experience.getMax();
+                onExperienceMaxReached();
+            } catch (Level.MaxLevelReachedException e) {
+                newExp = experience.getMax();
+                break;
+            }
+        }
         while (isMinExperiencePassed(newExp)) {
             try {
                 onExperienceMinReached();
                 newExp += experience.getMax();
             } catch (Level.MinLevelReachedException e) {
                 newExp = experience.getMin();
-                break;
-            }
-        }
-        while (isMaxExperienceReached(newExp)) {
-            try {
-                onExperienceMaxReached();
-                newExp -= experience.getMax();
-            } catch (Level.MaxLevelReachedException e) {
-                newExp = experience.getMax();
                 break;
             }
         }
