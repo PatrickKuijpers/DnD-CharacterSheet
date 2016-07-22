@@ -8,6 +8,7 @@ import org.robolectric.annotation.Config;
 import nl.tcilegnar.dndcharactersheet.BuildConfig;
 import nl.tcilegnar.dndcharactersheet.Experience.ExperienceUpdater.ExpTooLowException;
 import nl.tcilegnar.dndcharactersheet.Experience.ExperienceUpdater.ExperienceEdgeListener;
+import nl.tcilegnar.dndcharactersheet.Level.LevelTable;
 import nl.tcilegnar.dndcharactersheet.Storage.Storage;
 
 import static junit.framework.Assert.assertEquals;
@@ -26,7 +27,6 @@ public class ExperienceTest {
     private static final int DEFAULT_LEVEL = Storage.Key.CURRENT_LEVEL.defaultValue;
     private static final int DEFAULT_READY_FOR_LEVEL_CHANGE = Storage.Key.READY_FOR_LEVEL_CHANGE.defaultValue;
     private static final int DEFAULT_CURRENT_PROJECTED_LEVEL = DEFAULT_LEVEL + DEFAULT_READY_FOR_LEVEL_CHANGE;
-    private static final int DEFAULT_EXP_MAX = 1000;
     private static Experience exp;
     private Storage storageMock;
     private ExperienceUpdater experienceUpdaterMock;
@@ -242,7 +242,7 @@ public class ExperienceTest {
     }
 
     private void assertMaxIsCorrect(int max) {
-        int expectedMax = DEFAULT_EXP_MAX * currentLevel;
+        int expectedMax = LevelTable.getMaxExperience(currentLevel);
         assertEquals("max is not equal to expectedMax for level " + currentLevel, expectedMax, max);
     }
 
