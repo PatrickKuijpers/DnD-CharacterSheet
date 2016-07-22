@@ -6,7 +6,8 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 import nl.tcilegnar.dndcharactersheet.App;
-import nl.tcilegnar.dndcharactersheet.Level.Level;
+import nl.tcilegnar.dndcharactersheet.Level.Level.MaxLevelReachedException;
+import nl.tcilegnar.dndcharactersheet.Level.Level.MinLevelReachedException;
 import nl.tcilegnar.dndcharactersheet.MyBuildConfig;
 
 public class ExperienceUpdater {
@@ -44,18 +45,22 @@ public class ExperienceUpdater {
     private int correctExperienceWhenEdgeIsReached(int newExp) {
         while (isMaxExperienceReached(newExp)) {
             try {
+                // Kies eerst max exp voor het huidige (projected) level, en trek dat af van het huidige exp
                 newExp -= experience.getMax();
+                // Verhoog daarna pas het (projected) level
                 onExperienceMaxReached();
-            } catch (Level.MaxLevelReachedException e) {
+            } catch (MaxLevelReachedException e) {
                 newExp = experience.getMax();
                 break;
             }
         }
         while (isMinExperiencePassed(newExp)) {
             try {
+                // Verlaag eerst het (projected) level
                 onExperienceMinReached();
+                // Kies min exp voor het nieuwe (projected) level, en voeg dat toe aan het huidige exp
                 newExp += experience.getMax();
-            } catch (Level.MinLevelReachedException e) {
+            } catch (MinLevelReachedException e) {
                 newExp = experience.getMin();
                 break;
             }
@@ -63,13 +68,13 @@ public class ExperienceUpdater {
         return newExp;
     }
 
-    private void onExperienceMinReached() throws Level.MinLevelReachedException {
+    private void onExperienceMinReached() throws MinLevelReachedException {
         for (ExperienceEdgeListener experienceEdgeListener : experienceEdgeListeners) {
             experienceEdgeListener.onExperienceMinPassed();
         }
     }
 
-    private void onExperienceMaxReached() throws Level.MaxLevelReachedException {
+    private void onExperienceMaxReached() throws MaxLevelReachedException {
         for (ExperienceEdgeListener experienceEdgeListener : experienceEdgeListeners) {
             experienceEdgeListener.onExperienceMaxReached();
         }
@@ -88,9 +93,9 @@ public class ExperienceUpdater {
     }
 
     public interface ExperienceEdgeListener {
-        void onExperienceMinPassed() throws Level.MinLevelReachedException;
+        void onExperienceMinPassed() throws MinLevelReachedException;
 
-        void onExperienceMaxReached() throws Level.MaxLevelReachedException;
+        void onExperienceMaxReached() throws MaxLevelReachedException;
     }
 
     public class ExpTooLowException extends Exception {
