@@ -25,7 +25,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
 @RunWith(RobolectricGradleTestRunner.class)
-@Config(constants = BuildConfig.class, sdk = 21)
+@Config(constants = BuildConfig.class)
 public class ExperienceEditorTest {
     private static final boolean DEFAULT_IS_EXPERIENCE_UPDATE_TYPE_INPUT = true;
     private static final boolean DEFAULT_IS_NOT_EXPERIENCE_UPDATE_TYPE_NUMBER_PICKER = false;

@@ -7,7 +7,7 @@ import nl.tcilegnar.dndcharactersheet.BuildConfig;
 import static org.junit.Assert.*;
 #parse("File Header.java")
 @RunWith(RobolectricGradleTestRunner.class)
-@Config(constants = BuildConfig.class, sdk = 21)
+@Config(constants = BuildConfig.class)
 public class ${NAME} {
   ${BODY}
 }
