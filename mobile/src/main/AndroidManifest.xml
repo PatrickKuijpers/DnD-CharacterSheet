@@ -23,7 +23,7 @@
         </activity>
         <activity
             android:name=".Experience.ExperienceActivity"
-            android:label="@string/title_experience"
+            android:label="@string/title_level_and_experience"
             android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name=".Settings.SettingsActivity"

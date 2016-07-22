@@ -5,18 +5,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import nl.tcilegnar.dndcharactersheet.BaseFragment;
+import nl.tcilegnar.dndcharactersheet.BaseStorageFragment;
 import nl.tcilegnar.dndcharactersheet.Experience.ViewGroup.ExperienceCurrentLevel;
 import nl.tcilegnar.dndcharactersheet.Experience.ViewGroup.ExperienceEditor;
 import nl.tcilegnar.dndcharactersheet.Level.Level;
 import nl.tcilegnar.dndcharactersheet.Level.ViewGroup.LevelIndicatorView;
 import nl.tcilegnar.dndcharactersheet.R;
 
-public class ExperienceFragment extends BaseFragment {
+public class ExperienceFragment extends BaseStorageFragment {
     private ExperienceCurrentLevel expCurrentLevel;
     private LevelIndicatorView levelIndicatorView;
-    private Level level;
-    private Experience experience;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -31,10 +29,10 @@ public class ExperienceFragment extends BaseFragment {
 
     private void initViews(View view) {
         levelIndicatorView = (LevelIndicatorView) view.findViewById(R.id.level_indicator_view);
-        level = levelIndicatorView.getLevel();
+        Level level = levelIndicatorView.getLevel();
 
         expCurrentLevel = (ExperienceCurrentLevel) view.findViewById(R.id.experience_current_level);
-        experience = expCurrentLevel.getExperience();
+        Experience experience = expCurrentLevel.getExperience();
         experience.addExperienceEdgeListener(level);
         experience.addExperienceEdgeListener(expCurrentLevel);
         experience.setCurrentProjectedLevelListener(levelIndicatorView);

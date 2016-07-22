@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="title_main_menu">@string/app_name</string>
-    <string name="title_experience">Level &amp; experience</string>
+    <string name="title_level_and_experience">Level &amp; experience</string>
     <string name="title_settings">Settings</string>
 </resources>
