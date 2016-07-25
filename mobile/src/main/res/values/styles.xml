@@ -1,5 +1,10 @@
 <resources>
 
+    <style name="fragment_main_menu">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+    </style>
+
     <style name="fragment_full_screen">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">match_parent</item>
@@ -7,6 +12,26 @@
         <item name="android:paddingBottom">@dimen/vertical_margin</item>
         <item name="android:paddingLeft">@dimen/horizontal_margin</item>
         <item name="android:paddingRight">@dimen/horizontal_margin</item>
+    </style>
+
+    <style name="container_button_main_menu">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:paddingTop">@dimen/vertical_margin_big</item>
+        <item name="android:paddingBottom">@dimen/vertical_margin_big</item>
+        <item name="android:paddingLeft">@dimen/horizontal_margin_big</item>
+        <item name="android:paddingRight">@dimen/horizontal_margin_big</item>
+    </style>
+
+    <style name="button_main_menu">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:padding">0dp</item>
+        <item name="android:textSize">@dimen/textsize_big</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:layout_marginLeft">@dimen/vertical_margin</item>
+        <item name="android:layout_marginRight">@dimen/vertical_margin</item>
+        <item name="android:layout_marginTop">@dimen/horizontal_margin</item>
     </style>
 
     <style name="button_square">
