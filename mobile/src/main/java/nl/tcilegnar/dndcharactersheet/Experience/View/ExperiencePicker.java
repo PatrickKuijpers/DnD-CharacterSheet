@@ -32,6 +32,10 @@ public class ExperiencePicker extends NumberPicker {
     public ExperiencePicker(Context context, AttributeSet attrs, Settings settings) {
         super(context, attrs);
         this.settings = settings;
+        initViewsIfVisible();
+    }
+
+    private void initViewsIfVisible() {
         boolean shouldBeVisible = settings.isExperienceUpdateTypeNumberPicker();
         if (shouldBeVisible) {
             init();
@@ -100,6 +104,10 @@ public class ExperiencePicker extends NumberPicker {
             state = bundle.getParcelable(SavedValues.SAVED_INSTANCE.name());
         }
         super.onRestoreInstanceState(state);
+    }
+
+    public void updateSettingsData() {
+        initViewsIfVisible();
     }
 
     public int getCurrentSelectedExpValue() {

@@ -2,17 +2,17 @@ package nl.tcilegnar.dndcharactersheet.MainMenu;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import nl.tcilegnar.dndcharactersheet.BaseFragment;
 import nl.tcilegnar.dndcharactersheet.R;
 
 import static android.view.View.OnClickListener;
 
-public class MainMenuFragment extends Fragment implements OnClickListener {
+public class MainMenuFragment extends BaseFragment implements OnClickListener {
     private MainMenuActivity callbackMainMenu;
 
     @Override

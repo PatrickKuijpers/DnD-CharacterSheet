@@ -8,18 +8,29 @@ import android.widget.EditText;
 import nl.tcilegnar.dndcharactersheet.Storage.Settings;
 
 public class ExperienceInput extends EditText {
+    private final Settings settings;
+
     public ExperienceInput(Context context, AttributeSet attrs) {
         this(context, attrs, new Settings());
     }
 
     public ExperienceInput(Context context, AttributeSet attrs, Settings settings) {
         super(context, attrs);
+        this.settings = settings;
+        initViewsIfVisible();
+    }
+
+    private void initViewsIfVisible() {
         boolean shouldBeVisible = settings.isExperienceUpdateTypeInput();
         if (shouldBeVisible) {
             setVisibility(View.VISIBLE);
         } else {
             setVisibility(View.GONE);
         }
+    }
+
+    public void updateSettingsData() {
+        initViewsIfVisible();
     }
 
     public int getExpValue() {

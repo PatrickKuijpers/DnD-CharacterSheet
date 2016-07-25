@@ -1,19 +1,37 @@
 package nl.tcilegnar.dndcharactersheet.Experience;
 
 import android.os.Bundle;
-import android.support.v4.app.FragmentTransaction;
 
-import nl.tcilegnar.dndcharactersheet.BaseActivity;
-import nl.tcilegnar.dndcharactersheet.R;
+import nl.tcilegnar.dndcharactersheet.BaseStorageActivity;
+import nl.tcilegnar.dndcharactersheet.FragmentManager;
 
-public class ExperienceActivity extends BaseActivity {
+public class ExperienceActivity extends BaseStorageActivity {
+    private FragmentManager fragmentManager = new FragmentManager(this);
+
+    public enum FragTag {
+        Experience
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         if (savedInstanceState == null) {
-            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-            fragmentTransaction.replace(R.id.activity_content, new ExperienceFragment()).commit();
+            fragmentManager.addFirstFragment(getExperienceFragment(), FragTag.Experience.name());
         }
+    }
+
+    public ExperienceFragment getExperienceFragment() {
+        String tag = FragTag.Experience.name();
+        ExperienceFragment experienceFragment = fragmentManager.getFragment(ExperienceFragment.class, tag);
+        if (experienceFragment == null) {
+            experienceFragment = new ExperienceFragment();
+        }
+        return experienceFragment;
+    }
+
+    @Override
+    protected void updateSettingsData() {
+        getExperienceFragment().updateSettingsData();
     }
 }

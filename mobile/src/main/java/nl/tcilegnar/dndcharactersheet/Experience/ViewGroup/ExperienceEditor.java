@@ -82,6 +82,11 @@ public class ExperienceEditor extends LinearLayout implements OnClickListener, T
         return false; // Voer de standaard action uit: done = verberg soft keyboard
     }
 
+    public void updateSettingsData() {
+        expInput.updateSettingsData();
+        expPicker.updateSettingsData();
+    }
+
     public void setExperienceUpdateListener(ExperienceUpdateListener experienceUpdateListener) {
         this.experienceUpdateListener = experienceUpdateListener;
     }

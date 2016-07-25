@@ -13,6 +13,7 @@ public class SettingsFragment extends PreferenceFragment implements OnPreference
     private ListPreference expUpdateType;
     private ListPreference expUpdatePickerSteps;
     private Settings settings = new Settings();
+    private SettingsActivity preferenceChangeListener;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -35,7 +36,7 @@ public class SettingsFragment extends PreferenceFragment implements OnPreference
     }
 
     private void initDependencies() {
-        String selectedValue = expUpdateType.getValue().toString();
+        String selectedValue = expUpdateType.getValue();
         handleDependencyOfExpUpdateType(selectedValue);
     }
 
@@ -50,7 +51,7 @@ public class SettingsFragment extends PreferenceFragment implements OnPreference
             String selectedValue = newValue.toString();
             handleDependencyOfExpUpdateType(selectedValue);
         }
-
+        preferenceChangeListener.onPreferenceChanged();
         return settings.savePreferenceValue(preference, newValue);
     }
 
@@ -60,5 +61,9 @@ public class SettingsFragment extends PreferenceFragment implements OnPreference
         } else {
             expUpdatePickerSteps.setEnabled(false);
         }
+    }
+
+    public void setPreferenceChangeListener(SettingsActivity preferenceChangeListener) {
+        this.preferenceChangeListener = preferenceChangeListener;
     }
 }

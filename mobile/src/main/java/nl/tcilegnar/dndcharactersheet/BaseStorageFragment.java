@@ -1,8 +1,6 @@
 package nl.tcilegnar.dndcharactersheet;
 
-import android.support.v4.app.Fragment;
-
-public abstract class BaseStorageFragment extends Fragment {
+public abstract class BaseStorageFragment extends BaseFragment {
     @Override
     public void onPause() {
         onSaveData();

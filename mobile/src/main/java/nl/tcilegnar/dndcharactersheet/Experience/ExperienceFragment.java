@@ -15,6 +15,7 @@ import nl.tcilegnar.dndcharactersheet.R;
 public class ExperienceFragment extends BaseStorageFragment {
     private ExperienceCurrentLevel expCurrentLevel;
     private LevelIndicatorView levelIndicatorView;
+    private ExperienceEditor expEditor;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -37,12 +38,16 @@ public class ExperienceFragment extends BaseStorageFragment {
         experience.addExperienceEdgeListener(expCurrentLevel);
         experience.setCurrentProjectedLevelListener(levelIndicatorView);
 
-        ExperienceEditor expEditor = (ExperienceEditor) view.findViewById(R.id.experience_editor);
+        expEditor = (ExperienceEditor) view.findViewById(R.id.experience_editor);
         expEditor.setExperienceUpdateListener(expCurrentLevel);
     }
 
     protected void onSaveData() {
         expCurrentLevel.save();
         levelIndicatorView.save();
+    }
+
+    public void updateSettingsData() {
+        expEditor.updateSettingsData();
     }
 }
