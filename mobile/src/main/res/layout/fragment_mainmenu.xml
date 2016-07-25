@@ -20,7 +20,6 @@
         <Button
             android:id="@+id/main_menu_button_level_and_experience"
             style="@style/button_main_menu"
-            android:background="@drawable/Button_main_menu"
             android:text="@string/title_level_and_experience"/>
 
     </LinearLayout>
