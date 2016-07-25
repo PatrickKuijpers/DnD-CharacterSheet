@@ -42,6 +42,6 @@ public class Log {
     }
 
     private static String finalLogTag(String logTag) {
-        return BASE_LOGTAG + logTag;
+        return BASE_LOGTAG + " " + logTag;
     }
 }

@@ -38,6 +38,7 @@ public class LevelIndicatorView extends LinearLayout implements LevelChangedList
 
     private void initViews() {
         levelView = (TextView) findViewById(R.id.level_view);
+
         levelChangeView = (LevelChangeView) findViewById(R.id.level_change_view);
     }
 
@@ -47,8 +48,7 @@ public class LevelIndicatorView extends LinearLayout implements LevelChangedList
     }
 
     private void setListeners() {
-        level.setReadyForLevelDownListener(levelChangeView);
-        level.setReadyForLevelUpListener(levelChangeView);
+        level.addReadyForLevelChangeListener(levelChangeView);
         levelChangeView.setChangeLevelListener(level);
         level.addLevelChangedListener(this);
         level.setCurrentProjectedLevelListener(this);
@@ -56,6 +56,10 @@ public class LevelIndicatorView extends LinearLayout implements LevelChangedList
 
     public Level getLevel() {
         return level;
+    }
+
+    public LevelChangeView getLevelChangeView() {
+        return levelChangeView;
     }
 
     public void save() {

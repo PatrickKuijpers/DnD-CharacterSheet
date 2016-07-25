@@ -11,18 +11,18 @@ import android.widget.TextView;
 
 import nl.tcilegnar.dndcharactersheet.Level.Level.MaxLevelReachedException;
 import nl.tcilegnar.dndcharactersheet.Level.Level.MinLevelReachedException;
-import nl.tcilegnar.dndcharactersheet.Level.Level.ReadyForLevelDownListener;
-import nl.tcilegnar.dndcharactersheet.Level.Level.ReadyForLevelUpListener;
+import nl.tcilegnar.dndcharactersheet.Level.Level.ReadyForLevelChangeListener;
 import nl.tcilegnar.dndcharactersheet.Level.LevelUp.LevelsReadyForChange;
 import nl.tcilegnar.dndcharactersheet.Level.LevelUp.LevelsReadyForChange.ChangeLevelListener;
 import nl.tcilegnar.dndcharactersheet.R;
 
-public class LevelChangeView extends LinearLayout implements OnClickListener, ReadyForLevelUpListener,
-        ReadyForLevelDownListener {
+public class LevelChangeView extends LinearLayout implements OnClickListener, ReadyForLevelChangeListener {
     private ImageButton changeLevelButton;
     private TextView changeLevelTimes;
 
     private LevelsReadyForChange levelsReadyForChange;
+
+    private LevelUpIconVisibilityChangedListener levelUpIconVisibilityChangedListener;
 
     public LevelChangeView(Context context, AttributeSet attrs) {
         this(context, attrs, new LevelsReadyForChange());
@@ -50,7 +50,7 @@ public class LevelChangeView extends LinearLayout implements OnClickListener, Re
     }
 
     private void handleViews() {
-        if (levelsReadyForChange.isReadyForLevelDown() || levelsReadyForChange.isReadyForLevelUp()) {
+        if (levelsReadyForChange.isReadyForLevelChange()) {
             changeLevelButton.setVisibility(View.VISIBLE);
             if (levelsReadyForChange.shouldShowValue()) {
                 setChangeLevelTimesText();
@@ -94,18 +94,25 @@ public class LevelChangeView extends LinearLayout implements OnClickListener, Re
     }
 
     @Override
-    public void onReadyForLevelDown() throws MinLevelReachedException {
-        levelsReadyForChange.onReadyForLevelDown();
+    public void onReadyForLevelChange(int levelChangeValue) {
+        levelsReadyForChange.onReadyForLevelChange(levelChangeValue);
         handleViews();
-    }
-
-    @Override
-    public void onReadyForLevelUp() throws MaxLevelReachedException {
-        levelsReadyForChange.onReadyForLevelUp();
-        handleViews();
+        levelUpIconVisibilityChangedListener.onLevelUpIconVisibilityChanged();
     }
 
     public void setChangeLevelListener(ChangeLevelListener changeLevelListener) {
         levelsReadyForChange.setChangeLevelListener(changeLevelListener);
+    }
+
+    public void setLevelUpIconVisibilityChangedListener(LevelUpIconVisibilityChangedListener listener) {
+        this.levelUpIconVisibilityChangedListener = listener;
+    }
+
+    public boolean isReadyForLevelChange() {
+        return levelsReadyForChange.isReadyForLevelChange();
+    }
+
+    public interface LevelUpIconVisibilityChangedListener {
+        void onLevelUpIconVisibilityChanged();
     }
 }

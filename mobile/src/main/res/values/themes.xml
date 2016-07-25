@@ -28,7 +28,8 @@
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
 
     <style name="MyTextViewStyle" parent="android:Widget.TextView">
-        <item name="android:textColor">@color/black</item>
+        <!-- Veranderd alle textkleuren, incl. bv. snackbar -->
+        <!--<item name="android:textColor">@color/black</item>-->
     </style>
 
 </resources>

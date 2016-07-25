@@ -9,8 +9,7 @@ import nl.tcilegnar.dndcharactersheet.BuildConfig;
 import nl.tcilegnar.dndcharactersheet.Level.Level.LevelChangedListener;
 import nl.tcilegnar.dndcharactersheet.Level.Level.MaxLevelReachedException;
 import nl.tcilegnar.dndcharactersheet.Level.Level.MinLevelReachedException;
-import nl.tcilegnar.dndcharactersheet.Level.Level.ReadyForLevelDownListener;
-import nl.tcilegnar.dndcharactersheet.Level.Level.ReadyForLevelUpListener;
+import nl.tcilegnar.dndcharactersheet.Level.Level.ReadyForLevelChangeListener;
 import nl.tcilegnar.dndcharactersheet.Storage.Storage;
 
 import static junit.framework.Assert.assertEquals;
@@ -29,8 +28,7 @@ public class LevelTest {
     private static final int DEFAULT_LEVEL = Storage.Key.CURRENT_LEVEL.defaultValue;
     private static Level level;
     private Storage storageMock;
-    private ReadyForLevelUpListener readyForLevelUpListenerMock;
-    private ReadyForLevelDownListener readyForLevelDownListenerMock;
+    private ReadyForLevelChangeListener readyForLevelChangeListenerMock;
     private LevelChangedListener levelChangedListenerMock;
     private CurrentProjectedLevelListener currentProjectedLevelListenerMock;
     private int initialLevel;
@@ -123,7 +121,7 @@ public class LevelTest {
         level.onExperienceMinPassed();
 
         // Assert
-        verifyOnReadyForLevelDown();
+        verifyOnReadyForLevelChange(-1);
     }
 
     @Test
@@ -137,7 +135,7 @@ public class LevelTest {
         level.onExperienceMinPassed();
 
         // Assert
-        verifyOnReadyForLevelDown();
+        verifyOnReadyForLevelChange(-1);
     }
 
     @Test
@@ -149,7 +147,7 @@ public class LevelTest {
         level.onExperienceMinPassed();
 
         // Assert
-        verifyOnReadyForLevelDown();
+        verifyOnReadyForLevelChange(-1);
     }
 
     @Test(expected = MinLevelReachedException.class)
@@ -177,7 +175,8 @@ public class LevelTest {
     }
 
     @Test
-    public void onExperienceMaxReached_WithStartingLevel12_OnReadyForLevelUp() throws MaxLevelReachedException {
+    public void onExperienceMaxReached_WithStartingLevel12_OnReadyForLevelUp() throws MaxLevelReachedException,
+            MinLevelReachedException {
         // Arrange
         initLevel(12);
 
@@ -185,12 +184,12 @@ public class LevelTest {
         level.onExperienceMaxReached();
 
         // Assert
-        verifyOnReadyForLevelUp();
+        verifyOnReadyForLevelChange(+1);
     }
 
     @Test
     public void onExperienceMaxReached_WithStartingLevel12AndProjectedLevelPlus1_OnReadyForLevelUp() throws
-            MaxLevelReachedException {
+            MaxLevelReachedException, MinLevelReachedException {
         // Arrange
         initLevel(12);
         doReturn(initialLevel + 1).when(currentProjectedLevelListenerMock).getCurrentProjectedLevel();
@@ -199,11 +198,12 @@ public class LevelTest {
         level.onExperienceMaxReached();
 
         // Assert
-        verifyOnReadyForLevelUp();
+        verifyOnReadyForLevelChange(+1);
     }
 
     @Test
-    public void onExperienceMaxReached_WithStartingLevelAlmostMax_OnReadyForLevelUp() throws MaxLevelReachedException {
+    public void onExperienceMaxReached_WithStartingLevelAlmostMax_OnReadyForLevelUp() throws
+            MaxLevelReachedException, MinLevelReachedException {
         // Arrange
         initLevel(MAX_LEVEL - 1);
 
@@ -211,7 +211,7 @@ public class LevelTest {
         level.onExperienceMaxReached();
 
         // Assert
-        verifyOnReadyForLevelUp();
+        verifyOnReadyForLevelChange(+1);
     }
 
     @Test(expected = MaxLevelReachedException.class)
@@ -396,25 +396,18 @@ public class LevelTest {
     }
 
     private void initListeners(Level level) {
-        readyForLevelDownListenerMock = mock(ReadyForLevelDownListener.class);
-        readyForLevelUpListenerMock = mock(ReadyForLevelUpListener.class);
+        readyForLevelChangeListenerMock = mock(ReadyForLevelChangeListener.class);
         levelChangedListenerMock = mock(LevelChangedListener.class);
         currentProjectedLevelListenerMock = mock(CurrentProjectedLevelListener.class);
         doReturn(initialLevel).when(currentProjectedLevelListenerMock).getCurrentProjectedLevel();
-        level.setReadyForLevelDownListener(readyForLevelDownListenerMock);
-        level.setReadyForLevelUpListener(readyForLevelUpListenerMock);
+        level.addReadyForLevelChangeListener(readyForLevelChangeListenerMock);
         level.addLevelChangedListener(levelChangedListenerMock);
         level.setCurrentProjectedLevelListener(currentProjectedLevelListenerMock);
     }
 
-    private void verifyOnReadyForLevelDown() throws MinLevelReachedException {
-        verify(readyForLevelDownListenerMock).onReadyForLevelDown();
-        assertEquals(initialLevel, level.getCurrentLevel()); // En ga nog niet direct level down!
-    }
-
-    private void verifyOnReadyForLevelUp() throws MaxLevelReachedException {
-        verify(readyForLevelUpListenerMock).onReadyForLevelUp();
-        assertEquals(initialLevel, level.getCurrentLevel()); // En ga nog niet direct level up!
+    private void verifyOnReadyForLevelChange(int levelChangeValue) throws MinLevelReachedException {
+        verify(readyForLevelChangeListenerMock).onReadyForLevelChange(levelChangeValue);
+        assertEquals(initialLevel, level.getCurrentLevel()); // En wijzig het level nog niet direct!
     }
 
     private void assertLevelChanged(Level level, int previousLevel, int levelChangeValue) {

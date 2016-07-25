@@ -6,4 +6,6 @@
     <string name="action_settings">Settings</string>
 
     <string name="experience_label">Exp:</string>
+
+    <string name="level_up_info">"Je zult pas level up gaan zodra je op het icoontje klikt.</string>
 </resources>

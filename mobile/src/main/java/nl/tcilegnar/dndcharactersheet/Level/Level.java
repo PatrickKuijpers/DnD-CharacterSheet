@@ -16,8 +16,7 @@ public class Level extends StorageObject implements ExperienceEdgeListener, Chan
     public static final int MIN_LEVEL = LevelTable.ONE.level;
     public static final int MAX_LEVEL = LevelTable.values().length;
     private int currentLevel = storage.loadLevel();
-    private ReadyForLevelDownListener readyForLevelDownListener;
-    private ReadyForLevelUpListener readyForLevelUpListener;
+    private ArrayList<ReadyForLevelChangeListener> readyForLevelChangeListeners = new ArrayList<>();
     private ArrayList<LevelChangedListener> levelChangedListeners = new ArrayList<>();
     private CurrentProjectedLevelListener currentProjectedLevelListener;
 
@@ -44,7 +43,13 @@ public class Level extends StorageObject implements ExperienceEdgeListener, Chan
     public void onExperienceMinPassed() throws MinLevelReachedException {
         int currentProjectedLevel = currentProjectedLevelListener.getCurrentProjectedLevel();
         validateMinimumLevel(currentProjectedLevel);
-        readyForLevelDownListener.onReadyForLevelDown();
+        onReadyForLevelChangeListenerUpdate(-1);
+    }
+
+    void onReadyForLevelChangeListenerUpdate(int levelChangeValue) {
+        for (ReadyForLevelChangeListener readyForLevelChangeListener : readyForLevelChangeListeners) {
+            readyForLevelChangeListener.onReadyForLevelChange(levelChangeValue);
+        }
     }
 
     private void validateMinimumLevel(int level) throws MinLevelReachedException {
@@ -61,7 +66,7 @@ public class Level extends StorageObject implements ExperienceEdgeListener, Chan
     public void onExperienceMaxReached() throws MaxLevelReachedException {
         int currentProjectedLevel = currentProjectedLevelListener.getCurrentProjectedLevel();
         validateMaximumLevel(currentProjectedLevel);
-        readyForLevelUpListener.onReadyForLevelUp();
+        onReadyForLevelChangeListenerUpdate(+1);
     }
 
     private void validateMaximumLevel(int level) throws MaxLevelReachedException {
@@ -85,12 +90,8 @@ public class Level extends StorageObject implements ExperienceEdgeListener, Chan
         }
     }
 
-    public void setReadyForLevelDownListener(ReadyForLevelDownListener readyForLevelDownListener) {
-        this.readyForLevelDownListener = readyForLevelDownListener;
-    }
-
-    public void setReadyForLevelUpListener(ReadyForLevelUpListener readyForLevelUpListener) {
-        this.readyForLevelUpListener = readyForLevelUpListener;
+    public void addReadyForLevelChangeListener(ReadyForLevelChangeListener readyForLevelChangeListener) {
+        readyForLevelChangeListeners.add(readyForLevelChangeListener);
     }
 
     public void addLevelChangedListener(LevelChangedListener levelChangedListener) {
@@ -101,12 +102,8 @@ public class Level extends StorageObject implements ExperienceEdgeListener, Chan
         this.currentProjectedLevelListener = currentProjectedLevelListener;
     }
 
-    public interface ReadyForLevelDownListener {
-        void onReadyForLevelDown() throws MinLevelReachedException;
-    }
-
-    public interface ReadyForLevelUpListener {
-        void onReadyForLevelUp() throws MaxLevelReachedException;
+    public interface ReadyForLevelChangeListener {
+        void onReadyForLevelChange(int levelChangeValue);
     }
 
     public interface LevelChangedListener {

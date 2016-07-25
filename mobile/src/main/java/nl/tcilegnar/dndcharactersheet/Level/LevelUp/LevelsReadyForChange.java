@@ -53,16 +53,16 @@ public class LevelsReadyForChange extends StorageObject {
         return numberOfLevelsReadyForChange < 0;
     }
 
+    public boolean isReadyForLevelChange() {
+        return isReadyForLevelUp() || isReadyForLevelDown();
+    }
+
     private void onChangeLevel(int levelChangeValue) {
         numberOfLevelsReadyForChange -= levelChangeValue;
     }
 
-    public void onReadyForLevelDown() throws MinLevelReachedException {
-        numberOfLevelsReadyForChange--;
-    }
-
-    public void onReadyForLevelUp() throws MaxLevelReachedException {
-        numberOfLevelsReadyForChange++;
+    public void onReadyForLevelChange(int levelChangeValue) {
+        numberOfLevelsReadyForChange += levelChangeValue;
     }
 
     public void setChangeLevelListener(ChangeLevelListener changeLevelListener) {
