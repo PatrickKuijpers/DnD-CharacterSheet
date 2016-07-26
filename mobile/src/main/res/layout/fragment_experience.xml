@@ -24,5 +24,4 @@
         android:layout_alignParentLeft="true"
         android:layout_below="@id/experience_current_level"
         android:layout_marginTop="@dimen/vertical_margin"/>
-
 </RelativeLayout>

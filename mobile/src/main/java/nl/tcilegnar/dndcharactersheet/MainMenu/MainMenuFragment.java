@@ -5,8 +5,10 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.Toast;
 
+import nl.tcilegnar.dndcharactersheet.App;
 import nl.tcilegnar.dndcharactersheet.BaseFragment;
 import nl.tcilegnar.dndcharactersheet.R;
 
@@ -35,15 +37,31 @@ public class MainMenuFragment extends BaseFragment implements OnClickListener {
     }
 
     private void initViews(View view) {
-        Button btnExperience = (Button) view.findViewById(R.id.main_menu_button_level_and_experience);
-        btnExperience.setOnClickListener(this);
+        LinearLayout buttonsContainer = (LinearLayout) view.findViewById(R.id.main_menu_buttons_container);
+        setOnClickListenersOnChildren(buttonsContainer);
+    }
+
+    private void setOnClickListenersOnChildren(ViewGroup viewGroup) {
+        for (int i = 0; i < viewGroup.getChildCount(); i++) {
+            (viewGroup.getChildAt(i)).setOnClickListener(this);
+        }
     }
 
     @Override
     public void onClick(View view) {
         int viewId = view.getId();
-        if (viewId == R.id.main_menu_button_level_and_experience) {
+        if (viewId == R.id.main_menu_button_basic_character_info) {
+            showComingSoon();
+        } else if (viewId == R.id.main_menu_button_level_and_experience) {
             callbackMainMenu.startLevelAndExperience();
+        } else if (viewId == R.id.main_menu_button_abilities) {
+            showComingSoon();
+        } else if (viewId == R.id.main_menu_button_money) {
+            showComingSoon();
         }
+    }
+
+    private void showComingSoon() {
+        Toast.makeText(App.getContext(), R.string.coming_soon, Toast.LENGTH_LONG).show();
     }
 }

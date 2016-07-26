@@ -95,9 +95,8 @@ public class ExperienceFragment extends BaseStorageFragment implements LevelUpIc
 
     private Snackbar getLevelInfoSnackbar() {
         if (levelInfoSnackbar == null) {
-            CoordinatorLayout coordinatorLayout = (CoordinatorLayout) getActivity().findViewById(R.id
-                    .coordinatorLayout);
-            levelInfoSnackbar = Snackbar.make(coordinatorLayout, R.string.level_up_info, Snackbar.LENGTH_INDEFINITE);
+            CoordinatorLayout layout = (CoordinatorLayout) getActivity().findViewById(R.id.coordinatorLayout);
+            levelInfoSnackbar = Snackbar.make(layout, R.string.level_up_info, Snackbar.LENGTH_INDEFINITE);
         }
         return levelInfoSnackbar;
     }

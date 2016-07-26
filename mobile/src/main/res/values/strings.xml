@@ -7,5 +7,7 @@
 
     <string name="experience_label">Exp:</string>
 
-    <string name="level_up_info">"Je zult pas level up gaan zodra je op het icoontje klikt.</string>
+    <string name="level_up_info">Je zult pas level up gaan zodra je op het icoontje klikt.</string>
+
+    <string name="coming_soon">Coming soon!</string>
 </resources>
