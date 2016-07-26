@@ -2,22 +2,13 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <group android:checkableBehavior="single">
-        <item
-            android:id="@+id/nav_char_A"
-            android:title="Character A"/>
-        <item
-            android:id="@+id/nav_char_B"
-            android:title="Character B"/>
+        <item android:title="Here be dragons!"/>
+        <item android:title="En coole opties komen later..."/>
+        <!--        <item
+                    android:id="@+id/nav_char_A"
+                    android:title="Character A"/>
+                <item
+                    android:id="@+id/nav_char_B"
+                    android:title="Character B"/>-->
     </group>
-
-    <!--
-    <item android:title="Communicate">
-        <menu>
-            <item
-                android:id="@+id/nav_share"
-                android:icon="@drawable/ic_menu_share"
-                android:title="Share" />
-        </menu>
-    </item>
-    -->
 </menu>

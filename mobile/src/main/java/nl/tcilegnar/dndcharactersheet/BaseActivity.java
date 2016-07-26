@@ -73,17 +73,14 @@ public abstract class BaseActivity extends AppCompatActivity implements OnNaviga
         startActivity(settingsActivity, animation);
     }
 
-    @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_char_A) {
-
-        } else if (id == R.id.nav_char_B) {
-
-        }
+        //        if (id == R.id.nav_char_A) {
+        //        } else if (id == R.id.nav_char_B) {
+        //        }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
