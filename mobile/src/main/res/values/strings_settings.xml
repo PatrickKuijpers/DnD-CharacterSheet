@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="setting_key_confirm">OK</string>
+    <string name="setting_category_confirm"/>
+    <string name="setting_title_confirm">OK</string>
+
     <!-- Keys voor de settings. Verander deze nooit! -->
     <string name="setting_key_show_hints">show_hints</string>
     <string name="setting_key_experience_update_type">experience_update_type</string>

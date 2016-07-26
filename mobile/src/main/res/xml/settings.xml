@@ -24,4 +24,9 @@
             android:summary="@string/setting_summary_experience_update_picker_steps"
             android:title="@string/setting_title_experience_update_picker_steps"/>
     </PreferenceCategory>
+    <PreferenceCategory android:title="@string/setting_category_confirm">
+        <Preference
+            android:key="@string/setting_key_confirm"
+            android:title="@string/setting_title_confirm"/>
+    </PreferenceCategory>
 </PreferenceScreen>

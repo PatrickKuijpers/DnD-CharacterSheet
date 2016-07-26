@@ -21,6 +21,7 @@ public class SettingsFragment extends PreferenceFragment implements OnPreference
         addPreferencesFromResource(R.xml.settings);
 
         initPreferences();
+        initConfirmButton();
     }
 
     private void initPreferences() {
@@ -43,6 +44,17 @@ public class SettingsFragment extends PreferenceFragment implements OnPreference
     private void setPreferenceChangeListeners() {
         expUpdateType.setOnPreferenceChangeListener(this);
         expUpdatePickerSteps.setOnPreferenceChangeListener(this);
+    }
+
+    private void initConfirmButton() {
+        Preference preference = getPreferenceManager().findPreference(getString(R.string.setting_key_confirm));
+        preference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+            @Override
+            public boolean onPreferenceClick(Preference preference) {
+                getActivity().finish();
+                return true;
+            }
+        });
     }
 
     @Override
