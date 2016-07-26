@@ -21,6 +21,7 @@
         <Button
             android:id="@+id/main_menu_button_basic_character_info"
             style="@style/button_main_menu"
+            android:alpha="0.6"
             android:text="@string/title_basic_character_info"/>
 
         <Button
@@ -31,11 +32,13 @@
         <Button
             android:id="@+id/main_menu_button_abilities"
             style="@style/button_main_menu"
+            android:alpha="0.6"
             android:text="@string/title_abilities"/>
 
         <Button
             android:id="@+id/main_menu_button_money"
             style="@style/button_main_menu"
+            android:alpha="0.6"
             android:text="@string/title_money"/>
     </LinearLayout>
 </RelativeLayout>

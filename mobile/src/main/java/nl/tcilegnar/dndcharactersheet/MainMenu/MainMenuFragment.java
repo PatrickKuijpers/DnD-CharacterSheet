@@ -62,6 +62,6 @@ public class MainMenuFragment extends BaseFragment implements OnClickListener {
     }
 
     private void showComingSoon() {
-        Toast.makeText(App.getContext(), R.string.coming_soon, Toast.LENGTH_LONG).show();
+        Toast.makeText(App.getContext(), R.string.coming_soon, Toast.LENGTH_SHORT).show();
     }
 }
