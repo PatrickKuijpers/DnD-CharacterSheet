@@ -1,6 +1,7 @@
 package nl.tcilegnar.dndcharactersheet.Settings;
 
 import android.os.Bundle;
+import android.preference.CheckBoxPreference;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceChangeListener;
@@ -10,9 +11,11 @@ import nl.tcilegnar.dndcharactersheet.R;
 import nl.tcilegnar.dndcharactersheet.Storage.Settings;
 
 public class SettingsFragment extends PreferenceFragment implements OnPreferenceChangeListener {
+    private Settings settings = new Settings();
+
+    private CheckBoxPreference showHints;
     private ListPreference expUpdateType;
     private ListPreference expUpdatePickerSteps;
-    private Settings settings = new Settings();
     private SettingsActivity preferenceChangeListener;
 
     @Override
@@ -25,6 +28,7 @@ public class SettingsFragment extends PreferenceFragment implements OnPreference
     }
 
     private void initPreferences() {
+        showHints = (CheckBoxPreference) findPreference(getString(R.string.setting_key_show_hints));
         expUpdateType = (ListPreference) findPreference(getString(R.string.setting_key_experience_update_type));
         expUpdatePickerSteps = (ListPreference) findPreference(getString(R.string
                 .setting_key_experience_update_picker_steps));
@@ -42,6 +46,7 @@ public class SettingsFragment extends PreferenceFragment implements OnPreference
     }
 
     private void setPreferenceChangeListeners() {
+        showHints.setOnPreferenceChangeListener(this);
         expUpdateType.setOnPreferenceChangeListener(this);
         expUpdatePickerSteps.setOnPreferenceChangeListener(this);
     }

@@ -16,15 +16,18 @@ import nl.tcilegnar.dndcharactersheet.Level.LevelUp.ViewGroup.LevelChangeView;
 import nl.tcilegnar.dndcharactersheet.Level.LevelUp.ViewGroup.LevelChangeView.LevelUpIconVisibilityChangedListener;
 import nl.tcilegnar.dndcharactersheet.Level.ViewGroup.LevelIndicatorView;
 import nl.tcilegnar.dndcharactersheet.R;
+import nl.tcilegnar.dndcharactersheet.Storage.Settings;
 import nl.tcilegnar.dndcharactersheet.Utils.KeyboardUtil;
 
 public class ExperienceFragment extends BaseStorageFragment implements LevelUpIconVisibilityChangedListener,
         LevelChangedListener {
+    private Settings settings = new Settings();
+
     private ExperienceCurrentLevel expCurrentLevel;
     private LevelIndicatorView levelIndicatorView;
+    private LevelChangeView levelChangeView;
     private ExperienceEditor expEditor;
     private Snackbar levelInfoSnackbar;
-    private LevelChangeView levelChangeView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -64,6 +67,7 @@ public class ExperienceFragment extends BaseStorageFragment implements LevelUpIc
 
     public void updateSettingsData() {
         expEditor.updateSettingsData();
+        toggleLevelInfoSnackbar();
     }
 
     @Override
@@ -77,7 +81,7 @@ public class ExperienceFragment extends BaseStorageFragment implements LevelUpIc
     }
 
     private void toggleLevelInfoSnackbar() {
-        if (levelChangeView.isReadyForLevelChange()) {
+        if (settings.shouldShowHints() && levelChangeView.isReadyForLevelChange()) {
             showSnackbar();
         } else {
             hideSnackbar();

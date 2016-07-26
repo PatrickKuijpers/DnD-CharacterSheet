@@ -15,6 +15,7 @@ public class Settings extends SharedPrefs {
     }
 
     private enum DefaultValue {
+        SHOW_HINTS(R.string.setting_defaultvalue_show_hints),
         EXP_UPDATE_TYPE(R.string.setting_defaultvalue_experience_update_type),
         EXP_UPDATE_PICKER_STEPSIZE(R.string.setting_defaultvalue_experience_update_picker_steps);
 
@@ -23,6 +24,11 @@ public class Settings extends SharedPrefs {
         DefaultValue(@StringRes int resId) {
             value = App.getContext().getString(resId);
         }
+    }
+
+    public boolean shouldShowHints() {
+        String key = getKey(R.string.setting_key_show_hints);
+        return loadBoolean(key, Boolean.valueOf(DefaultValue.SHOW_HINTS.value));
     }
 
     public boolean isExperienceUpdateTypeInput() {
