@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory android:title="@string/setting_category_title_general">
+        <CheckBoxPreference
+            android:defaultValue="@string/setting_defaultvalue_show_hints"
+            android:key="@string/setting_key_show_hints"
+            android:summary="@string/setting_summary_show_hints"
+            android:title="@string/setting_title_show_hints"/>
+    </PreferenceCategory>
     <PreferenceCategory android:title="@string/setting_category_title_experience">
         <ListPreference
             android:defaultValue="@string/setting_defaultvalue_experience_update_type"
