@@ -5,6 +5,7 @@
     <string name="title_basic_character_info">Character info</string>
     <string name="title_level_and_experience">Level &amp; experience</string>
     <string name="title_abilities">Abilities</string>
+    <string name="title_hp">Hitpoints</string>
     <string name="title_money">Money</string>
 
     <string name="title_settings">Settings</string>

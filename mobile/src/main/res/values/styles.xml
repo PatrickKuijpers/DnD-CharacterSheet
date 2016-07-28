@@ -50,6 +50,10 @@
         <item name="android:background">@drawable/button_main_menu</item>
     </style>
 
+    <style name="button_main_menu_coming_soon" parent="button_main_menu">
+        <item name="android:alpha">0.6</item>
+    </style>
+
     <style name="button_square">
         <item name="android:layout_width">@dimen/button_square_size</item>
         <item name="android:layout_height">@dimen/button_square_size</item>
