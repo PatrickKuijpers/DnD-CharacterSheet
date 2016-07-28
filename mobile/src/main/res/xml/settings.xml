@@ -23,6 +23,11 @@
             android:key="@string/setting_key_experience_picker_steps"
             android:summary="@string/setting_summary_experience_picker_steps"
             android:title="@string/setting_title_experience_picker_steps"/>
+        <CheckBoxPreference
+            android:defaultValue="@string/setting_defaultvalue_allow_level_down"
+            android:key="@string/setting_key_allow_level_down"
+            android:summary="@string/setting_summary_allow_level_down"
+            android:title="@string/setting_title_allow_level_down"/>
     </PreferenceCategory>
     <PreferenceCategory android:title="@string/setting_category_confirm">
         <Preference

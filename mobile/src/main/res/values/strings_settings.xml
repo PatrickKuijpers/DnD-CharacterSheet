@@ -7,7 +7,8 @@
     <!-- Keys voor de settings. Verander deze nooit! -->
     <string name="setting_key_show_hints">show_hints</string>
     <string name="setting_key_experience_update_type">experience_update_type</string>
-    <string name="setting_key_experience_picker_steps">experience_update_steps</string>
+    <string name="setting_key_experience_picker_steps">experience_picker_steps</string>
+    <string name="setting_key_allow_level_down">allow_level_down</string>
 
     <!-- Overige gegevens voor de settings -->
     <string name="setting_category_title_general">Algemeen</string>
@@ -16,10 +17,12 @@
     <string name="setting_title_show_hints">Tips tonen</string>
     <string name="setting_title_experience_update_type">Experience aanpassen</string>
     <string name="setting_title_experience_picker_steps">Experience update stappen</string>
+    <string name="setting_title_allow_level_down">Level down</string>
 
     <string name="setting_summary_show_hints">Toon handige tips om de app te leren gebruiken</string>
     <string name="setting_summary_experience_update_type">Invoer type van experience wijzigingen</string>
     <string name="setting_summary_experience_picker_steps">Stappen waarmee je experience kan updaten</string>
+    <string name="setting_summary_allow_level_down">Sta toe dat je levels omlaag kan gaan</string>
 
     <string name="setting_dialogtitle_experience_update_type">Hoe wil je de experience kunnen wijzigen?</string>
     <string name="setting_dialogtitle_experience_picker_steps">@string/setting_title_experience_picker_steps</string>
@@ -27,6 +30,7 @@
     <string name="setting_defaultvalue_show_hints">true</string>
     <string name="setting_defaultvalue_experience_update_type">@string/setting_entry_experience_update_type_numberpicker</string>
     <string name="setting_defaultvalue_experience_picker_steps">100</string>
+    <string name="setting_defaultvalue_allow_level_down">false</string>
 
     <string-array name="setting_entries_experience_update_type">
         <item>"Handmatig invoeren"</item>

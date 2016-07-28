@@ -17,7 +17,8 @@ public class Settings extends SharedPrefs {
     private enum DefaultValue {
         SHOW_HINTS(R.string.setting_defaultvalue_show_hints),
         EXP_UPDATE_TYPE(R.string.setting_defaultvalue_experience_update_type),
-        EXP_UPDATE_PICKER_STEPSIZE(R.string.setting_defaultvalue_experience_picker_steps);
+        EXP_UPDATE_PICKER_STEPSIZE(R.string.setting_defaultvalue_experience_picker_steps),
+        ALLOW_LEVEL_DOWN(R.string.setting_defaultvalue_allow_level_down);
 
         private final String value;
 
@@ -40,6 +41,11 @@ public class Settings extends SharedPrefs {
         String key = getKey(R.string.setting_key_experience_picker_steps);
         String experiencePickerStepSize = loadString(key, DefaultValue.EXP_UPDATE_PICKER_STEPSIZE.value);
         return Integer.valueOf(experiencePickerStepSize);
+    }
+
+    public boolean isLevelDownAllowed() {
+        String key = getKey(R.string.setting_key_allow_level_down);
+        return loadBoolean(key, Boolean.valueOf(DefaultValue.ALLOW_LEVEL_DOWN.value));
     }
 
     public boolean isExperienceUpdateTypeInput() {

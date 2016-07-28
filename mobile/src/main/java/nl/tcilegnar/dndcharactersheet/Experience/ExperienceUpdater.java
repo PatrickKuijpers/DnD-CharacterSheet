@@ -8,21 +8,22 @@ import java.util.ArrayList;
 import nl.tcilegnar.dndcharactersheet.App;
 import nl.tcilegnar.dndcharactersheet.Level.Level.MaxLevelReachedException;
 import nl.tcilegnar.dndcharactersheet.Level.Level.MinLevelReachedException;
-import nl.tcilegnar.dndcharactersheet.MyBuildConfig;
+import nl.tcilegnar.dndcharactersheet.Storage.Settings;
 
 public class ExperienceUpdater {
     private final Experience experience;
-    private MyBuildConfig buildConfig;
+    private final Settings settings;
+
     private ArrayList<ExperienceEdgeListener> experienceEdgeListeners = new ArrayList<>();
 
     public ExperienceUpdater(Experience experience) {
-        this(experience, new MyBuildConfig());
+        this(experience, new Settings());
     }
 
     @VisibleForTesting
-    protected ExperienceUpdater(Experience experience, MyBuildConfig buildConfig) {
+    protected ExperienceUpdater(Experience experience, Settings settings) {
         this.experience = experience;
-        this.buildConfig = buildConfig;
+        this.settings = settings;
     }
 
     public int getUpdatedExperience(int expUpdateValue) throws ExpTooLowException {
@@ -34,7 +35,7 @@ public class ExperienceUpdater {
     }
 
     private void validate(int expUpdateValue, int newExp) throws ExpTooLowException {
-        if (newExp < 0 && !buildConfig.isDebug()) {
+        if (newExp < 0 && !settings.isLevelDownAllowed()) {
             int currentExp = experience.getCurrentExp();
             String message = "Nieuwe exp-waarde is te laag: " + currentExp + " + " + expUpdateValue + " = " +
                     newExp;

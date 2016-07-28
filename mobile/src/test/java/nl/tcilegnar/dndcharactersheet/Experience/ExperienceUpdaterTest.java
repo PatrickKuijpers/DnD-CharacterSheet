@@ -11,7 +11,7 @@ import nl.tcilegnar.dndcharactersheet.Experience.ExperienceUpdater.ExperienceEdg
 import nl.tcilegnar.dndcharactersheet.Level.Level;
 import nl.tcilegnar.dndcharactersheet.Level.Level.MaxLevelReachedException;
 import nl.tcilegnar.dndcharactersheet.Level.Level.MinLevelReachedException;
-import nl.tcilegnar.dndcharactersheet.MyBuildConfig;
+import nl.tcilegnar.dndcharactersheet.Storage.Settings;
 import nl.tcilegnar.dndcharactersheet.Storage.Storage;
 
 import static junit.framework.Assert.assertEquals;
@@ -27,12 +27,12 @@ import static org.mockito.Mockito.verify;
 public class ExperienceUpdaterTest {
     private static final int DEFAULT_EXP = Storage.Key.CURRENT_EXP.defaultValue;
     private static final int DEFAULT_EXP_MAX = 1000;
-    private static final boolean IS_DEBUG = true;
-    private static final boolean IS_NOT_DEBUG = false;
-    private static final boolean DEFAULT_BUILD_TYPE = IS_NOT_DEBUG;
+    private static final boolean IS_ALLOWED_LEVEL_DOWN = true;
+    private static final boolean IS_NOT_ALLOWED_LEVEL_DOWN = false;
+    private static final boolean DEFAULT_IS_ALLOWED_LEVEL_DOWN = IS_NOT_ALLOWED_LEVEL_DOWN;
     private static ExperienceUpdater experienceUpdater;
     private Experience experienceMock;
-    private MyBuildConfig buildConfigMock;
+    private Settings settingsMock;
     private ExperienceEdgeListener experienceEdgeListenerMock;
     private int initialExp;
     private int updatedExp;
@@ -232,10 +232,10 @@ public class ExperienceUpdaterTest {
     }
 
     @Test
-    public void getUpdatedExperience_DebugSubstractExactlyUpToMinExp_NewExpIsMinExp() throws ExpTooLowException,
-            MinLevelReachedException {
+    public void getUpdatedExperience_LevelDownIsAllowedAndSubstractExactlyUpToMinExp_NewExpIsMinExp() throws
+            ExpTooLowException, MinLevelReachedException {
         // Arrange
-        initExp(10, IS_DEBUG);
+        initExp(10, IS_ALLOWED_LEVEL_DOWN);
 
         // Act
         int addedExp = -experienceMock.getCurrentExp();
@@ -246,10 +246,10 @@ public class ExperienceUpdaterTest {
     }
 
     @Test
-    public void getUpdatedExperience_DebugSubstractExactlyUpToMinExp_NotOnExperienceMinPassed() throws
-            ExpTooLowException, MinLevelReachedException {
+    public void getUpdatedExperience_LevelDownIsAllowedAndSubstractExactlyUpToMinExp_NotOnExperienceMinPassed()
+            throws ExpTooLowException, MinLevelReachedException {
         // Arrange
-        initExp(10, IS_DEBUG);
+        initExp(10, IS_ALLOWED_LEVEL_DOWN);
 
         // Act
         int addedExp = -experienceMock.getCurrentExp();
@@ -260,10 +260,10 @@ public class ExperienceUpdaterTest {
     }
 
     @Test
-    public void getUpdatedExperience_DebugSubstractOverMinExp_NewExpIsLeftoverExp() throws ExpTooLowException,
-            MinLevelReachedException {
+    public void getUpdatedExperience_LevelDownIsAllowedAndSubstractOverMinExp_NewExpIsLeftoverExp() throws
+            ExpTooLowException, MinLevelReachedException {
         // Arrange
-        initExp(10, IS_DEBUG);
+        initExp(10, IS_ALLOWED_LEVEL_DOWN);
 
         // Act
         int addedExp = -experienceMock.getMax() - 1;
@@ -274,10 +274,10 @@ public class ExperienceUpdaterTest {
     }
 
     @Test
-    public void getUpdatedExperience_DebugSubstractOverMinExp_OnExperienceMinPassed() throws ExpTooLowException,
-            MinLevelReachedException {
+    public void getUpdatedExperience_LevelDownIsAllowedAndSubstractOverMinExp_OnExperienceMinPassed() throws
+            ExpTooLowException, MinLevelReachedException {
         // Arrange
-        initExp(10, IS_DEBUG);
+        initExp(10, IS_ALLOWED_LEVEL_DOWN);
 
         // Act
         int addedExp = -experienceMock.getMax() - 1;
@@ -288,10 +288,10 @@ public class ExperienceUpdaterTest {
     }
 
     @Test
-    public void getUpdatedExperience_DebugSubstractOverMinExpTwice_NewExpIsLeftoverExp() throws ExpTooLowException,
-            MinLevelReachedException {
+    public void getUpdatedExperience_LevelDownIsAllowedAndSubstractOverMinExpTwice_NewExpIsLeftoverExp() throws
+            ExpTooLowException, MinLevelReachedException {
         // Arrange
-        initExp(10, IS_DEBUG);
+        initExp(10, IS_ALLOWED_LEVEL_DOWN);
 
         // Act
         int numberOfTimes = 2;
@@ -303,10 +303,10 @@ public class ExperienceUpdaterTest {
     }
 
     @Test
-    public void getUpdatedExperience_DebugSubstractOverMinExpTwice_OnExperienceMinPassedTwice() throws
-            ExpTooLowException, MinLevelReachedException {
+    public void getUpdatedExperience_LevelDownIsAllowedAndSubstractOverMinExpTwice_OnExperienceMinPassedTwice()
+            throws ExpTooLowException, MinLevelReachedException {
         // Arrange
-        initExp(10, IS_DEBUG);
+        initExp(10, IS_ALLOWED_LEVEL_DOWN);
 
         // Act
         int numberOfTimes = 2;
@@ -318,10 +318,10 @@ public class ExperienceUpdaterTest {
     }
 
     @Test
-    public void getUpdatedExperience_DebugSubstractNotOverMinExp_NotOnExperienceMinPassed() throws
+    public void getUpdatedExperience_LevelDownIsAllowedAndSubstractNotOverMinExp_NotOnExperienceMinPassed() throws
             ExpTooLowException, MinLevelReachedException {
         // Arrange
-        initExp(10, IS_DEBUG);
+        initExp(10, IS_ALLOWED_LEVEL_DOWN);
 
         // Act
         int addedExp = -experienceMock.getCurrentExp() + 1;
@@ -332,10 +332,10 @@ public class ExperienceUpdaterTest {
     }
 
     @Test
-    public void getUpdatedExperience_DebugSubstractOverMinExpAndMinLevelPassed_UpdatedExpIsMin() throws
-            ExpTooLowException, MinLevelReachedException {
+    public void getUpdatedExperience_LevelDownIsAllowedAndSubstractOverMinExpAndMinLevelPassed_UpdatedExpIsMin()
+            throws ExpTooLowException, MinLevelReachedException {
         // Arrange
-        initExp(10, IS_DEBUG);
+        initExp(10, IS_ALLOWED_LEVEL_DOWN);
         doThrow(new Level().new MinLevelReachedException()).when(experienceEdgeListenerMock).onExperienceMinPassed();
 
         // Act
@@ -348,11 +348,11 @@ public class ExperienceUpdaterTest {
     }
 
     private void initExpUpdaterDefault() {
-        initExp(DEFAULT_EXP, DEFAULT_BUILD_TYPE);
+        initExp(DEFAULT_EXP, DEFAULT_IS_ALLOWED_LEVEL_DOWN);
     }
 
     private void initExp(int initialExp) {
-        initExp(initialExp, DEFAULT_BUILD_TYPE);
+        initExp(initialExp, DEFAULT_IS_ALLOWED_LEVEL_DOWN);
     }
 
     private void initExp(int initialExp, boolean initialBuildType) {
@@ -361,14 +361,14 @@ public class ExperienceUpdaterTest {
     }
 
     private ExperienceUpdater getNewExperienceUpdaterWithMocksAndListeners(int initialSavedExperience, boolean
-            initialBuildType) {
+            initialIsAllowedLevelDown) {
         experienceMock = mock(Experience.class);
-        buildConfigMock = mock(MyBuildConfig.class);
+        settingsMock = mock(Settings.class);
         doReturn(initialSavedExperience).when(experienceMock).getCurrentExp();
         doReturn(Experience.EXP_MIN).when(experienceMock).getMin();
         doReturn(DEFAULT_EXP_MAX).when(experienceMock).getMax();
-        doReturn(initialBuildType).when(buildConfigMock).isDebug();
-        ExperienceUpdater experienceUpdater = new ExperienceUpdater(experienceMock, buildConfigMock);
+        doReturn(initialIsAllowedLevelDown).when(settingsMock).isLevelDownAllowed();
+        ExperienceUpdater experienceUpdater = new ExperienceUpdater(experienceMock, settingsMock);
         initListeners(experienceUpdater);
         return experienceUpdater;
     }
@@ -398,7 +398,7 @@ public class ExperienceUpdaterTest {
     }
 
     private void assertExpIsUpdatedBelowMin(int addedExp, int numberOfTimes) {
-        if (buildConfigMock.isDebug()) {
+        if (settingsMock.isLevelDownAllowed()) {
             assertExpIsUpdatedCorrectly(addedExp + experienceMock.getMax() * numberOfTimes);
         } else {
             assertExpIsNotUpdated();
