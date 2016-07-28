@@ -11,7 +11,7 @@ import nl.tcilegnar.dndcharactersheet.R;
 import nl.tcilegnar.dndcharactersheet.Storage.Settings;
 
 public class SettingsFragment extends PreferenceFragment implements OnPreferenceChangeListener {
-    private Settings settings = new Settings();
+    private Settings settings = Settings.getInstance();
 
     private CheckBoxPreference showHints;
     private ListPreference expUpdateType;

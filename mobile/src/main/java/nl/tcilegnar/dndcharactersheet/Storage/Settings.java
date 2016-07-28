@@ -9,6 +9,23 @@ import nl.tcilegnar.dndcharactersheet.App;
 import nl.tcilegnar.dndcharactersheet.R;
 
 public class Settings extends SharedPrefs {
+
+    private static Settings instance;
+
+    public static Settings getInstance() {
+        if (instance == null) {
+            instance = new Settings();
+        }
+        return instance;
+    }
+
+    private Settings() {
+    }
+
+    public void tearDown() {
+        instance = null;
+    }
+
     @Override
     protected String fileName() {
         return "Settings";

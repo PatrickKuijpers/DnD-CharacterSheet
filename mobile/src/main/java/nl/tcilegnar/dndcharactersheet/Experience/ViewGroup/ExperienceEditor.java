@@ -23,7 +23,7 @@ public class ExperienceEditor extends LinearLayout implements OnClickListener, T
     private ExperienceUpdateListener experienceUpdateListener;
 
     public ExperienceEditor(Context context, AttributeSet attrs) {
-        this(context, attrs, new Settings());
+        this(context, attrs, Settings.getInstance());
     }
 
     @VisibleForTesting

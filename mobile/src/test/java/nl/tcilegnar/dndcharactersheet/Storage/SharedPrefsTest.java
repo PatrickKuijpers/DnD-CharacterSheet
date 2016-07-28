@@ -1,7 +1,7 @@
 package nl.tcilegnar.dndcharactersheet.Storage;
 
+import org.junit.After;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricGradleTestRunner;
@@ -34,7 +34,12 @@ public class SharedPrefsTest {
     @Before
     public void setUp() {
         // Gebruikt om abstract SharedPrefs te kunnen instantiëren
-        settings = new Settings();
+        settings = Settings.getInstance();
+    }
+
+    @After
+    public void tearDown() {
+        settings.tearDown();
     }
 
     @Test
@@ -55,7 +60,7 @@ public class SharedPrefsTest {
     @Test
     public void testGetPrefs_FileNameIsNull_IsDefaultPrefs() {
         // Arrange
-        Settings settings = spy(new Settings());
+        Settings settings = spy(Settings.getInstance());
         doReturn(null).when(settings).fileName();
 
         // Act

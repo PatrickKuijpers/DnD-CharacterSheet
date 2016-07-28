@@ -11,7 +11,7 @@ public abstract class MoneyView extends LinearLayout {
     private final Settings settings;
 
     public MoneyView(Context context, AttributeSet attrs) {
-        this(context, attrs, new Settings());
+        this(context, attrs, Settings.getInstance());
     }
 
     @VisibleForTesting

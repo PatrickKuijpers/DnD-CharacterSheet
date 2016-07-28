@@ -2,6 +2,7 @@ package nl.tcilegnar.dndcharactersheet.Storage;
 
 import junit.framework.Assert;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -31,7 +32,12 @@ public class SettingsTest {
 
     @Before
     public void setUp() {
-        settings = new Settings();
+        settings = Settings.getInstance();
+    }
+
+    @After
+    public void tearDown() {
+        settings.tearDown();
     }
 
     @Test

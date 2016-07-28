@@ -18,7 +18,7 @@ public class ExperienceUpdater {
     private ArrayList<ExperienceEdgeListener> experienceEdgeListeners = new ArrayList<>();
 
     public ExperienceUpdater(Experience experience) {
-        this(experience, new Settings());
+        this(experience, Settings.getInstance());
     }
 
     @VisibleForTesting

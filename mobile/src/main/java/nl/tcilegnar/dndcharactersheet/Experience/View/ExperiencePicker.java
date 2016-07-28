@@ -19,14 +19,14 @@ import nl.tcilegnar.dndcharactersheet.Storage.Settings;
 public class ExperiencePicker extends NumberPicker {
     private static final int MIN_VALUE = 0;
     private static final int MAX_VALUE = 1000;
-    private Settings settings = new Settings();
+    private Settings settings;
 
     public enum SavedValues {
         SAVED_INSTANCE, CURRENT_PICKER_INDEX
     }
 
     public ExperiencePicker(Context context, AttributeSet attrs) {
-        this(context, attrs, new Settings());
+        this(context, attrs, Settings.getInstance());
     }
 
     public ExperiencePicker(Context context, AttributeSet attrs, Settings settings) {

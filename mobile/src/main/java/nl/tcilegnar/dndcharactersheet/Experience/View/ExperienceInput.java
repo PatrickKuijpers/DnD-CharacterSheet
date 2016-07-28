@@ -11,7 +11,7 @@ public class ExperienceInput extends EditText {
     private final Settings settings;
 
     public ExperienceInput(Context context, AttributeSet attrs) {
-        this(context, attrs, new Settings());
+        this(context, attrs, Settings.getInstance());
     }
 
     public ExperienceInput(Context context, AttributeSet attrs, Settings settings) {
