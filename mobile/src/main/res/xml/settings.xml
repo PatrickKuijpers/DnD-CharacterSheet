@@ -17,12 +17,12 @@
             android:summary="@string/setting_summary_experience_update_type"
             android:title="@string/setting_title_experience_update_type"/>
         <ListPreference
-            android:dialogTitle="@string/setting_dialogtitle_experience_update_picker_steps"
-            android:entries="@array/setting_entries_experience_update_picker_steps"
-            android:entryValues="@array/setting_entryvalues_experience_update_picker_steps"
-            android:key="@string/setting_key_experience_update_picker_steps"
-            android:summary="@string/setting_summary_experience_update_picker_steps"
-            android:title="@string/setting_title_experience_update_picker_steps"/>
+            android:dialogTitle="@string/setting_dialogtitle_experience_picker_steps"
+            android:entries="@array/setting_entries_experience_picker_steps"
+            android:entryValues="@array/setting_entryvalues_experience_picker_steps"
+            android:key="@string/setting_key_experience_picker_steps"
+            android:summary="@string/setting_summary_experience_picker_steps"
+            android:title="@string/setting_title_experience_picker_steps"/>
     </PreferenceCategory>
     <PreferenceCategory android:title="@string/setting_category_confirm">
         <Preference

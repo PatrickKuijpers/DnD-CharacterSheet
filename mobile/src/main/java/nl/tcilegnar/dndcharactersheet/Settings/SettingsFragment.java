@@ -30,14 +30,22 @@ public class SettingsFragment extends PreferenceFragment implements OnPreference
     private void initPreferences() {
         showHints = (CheckBoxPreference) findPreference(getString(R.string.setting_key_show_hints));
         expUpdateType = (ListPreference) findPreference(getString(R.string.setting_key_experience_update_type));
-        expUpdatePickerSteps = (ListPreference) findPreference(getString(R.string
-                .setting_key_experience_update_picker_steps));
-
-        // TODO: setting defaults setten? Hoe / kan dit?
-
+        expUpdatePickerSteps = (ListPreference) findPreference(getString(R.string.setting_key_experience_picker_steps));
+        initValues();
         initDependencies();
 
         setPreferenceChangeListeners();
+    }
+
+    private void initValues() {
+        boolean shouldShowHints = settings.shouldShowHints();
+        showHints.setChecked(shouldShowHints);
+
+        String experienceUpdateType = settings.getExperienceUpdateType();
+        expUpdateType.setValue(experienceUpdateType);
+
+        int pickerStepSize = settings.getExperiencePickerStepSize();
+        expUpdatePickerSteps.setValue(String.valueOf(pickerStepSize));
     }
 
     private void initDependencies() {

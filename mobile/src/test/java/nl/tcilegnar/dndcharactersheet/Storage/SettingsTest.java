@@ -143,7 +143,7 @@ public class SettingsTest {
         // TODO: Welk van deze 2?
         //		assertEquals(DefaultValue.EXP_UPDATE_PICKER_STEPSIZE.value, stepSize);
         int defaultValue = Integer.valueOf(App.getContext().getString(R.string
-                .setting_defaultvalue_experience_update_picker_steps));
+                .setting_defaultvalue_experience_picker_steps));
         assertEquals(defaultValue, stepSize);
     }
 
@@ -151,7 +151,7 @@ public class SettingsTest {
     public void getExperiencePickerStepSize_Saved_GetSavedValue() {
         // Arrange
         int expectedStepSize = 250;
-        savePreference(R.string.setting_key_experience_update_picker_steps, String.valueOf(expectedStepSize));
+        savePreference(R.string.setting_key_experience_picker_steps, String.valueOf(expectedStepSize));
 
         // Act
         int stepSize = settings.getExperiencePickerStepSize();
