@@ -17,6 +17,8 @@
     <dimen name="button_square_size">54dp</dimen>
     <dimen name="button_square_size_small">30dp</dimen>
 
+    <dimen name="coin_size">96dp</dimen>
+
     <dimen name="level_indicator_image_size">96dp</dimen>
     <dimen name="level_up_image_size">64dp</dimen>
 </resources>

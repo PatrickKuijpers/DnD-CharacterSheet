@@ -26,6 +26,10 @@
             android:label="@string/title_level_and_experience"
             android:theme="@style/AppTheme.NoActionBar"/>
         <activity
+            android:name=".Money.MoneyActivity"
+            android:label="@string/title_money"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity
             android:name=".Settings.SettingsActivity"
             android:label="@string/title_settings"
             android:theme="@style/AppTheme.NoActionBar"/>

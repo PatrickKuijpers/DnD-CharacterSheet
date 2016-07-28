@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        style="@style/fragment_money"
+        android:focusableInTouchMode="true">
+
+        <nl.tcilegnar.dndcharactersheet.Money.MoneyView.PlatinumView
+            android:id="@+id/platinum_view"
+            style="@style/money_style"/>
+
+        <nl.tcilegnar.dndcharactersheet.Money.MoneyView.GoldView
+            android:id="@+id/gold_view"
+            style="@style/money_style_not_first"/>
+
+        <nl.tcilegnar.dndcharactersheet.Money.MoneyView.SilverView
+            android:id="@+id/silver_view"
+            style="@style/money_style_not_first"/>
+
+        <nl.tcilegnar.dndcharactersheet.Money.MoneyView.BronzeView
+            android:id="@+id/bronze_view"
+            style="@style/money_style_not_first"/>
+    </LinearLayout>
+</ScrollView>

@@ -18,19 +18,14 @@
 
     <nl.tcilegnar.dndcharactersheet.Experience.View.ExperienceInput
         android:id="@+id/experience_input"
+        style="@style/default_edittext_number"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/horizontal_margin"
         android:layout_marginRight="@dimen/horizontal_margin"
-        android:background="@color/grey_light"
         android:hint="0000000"
         android:imeOptions="actionDone"
-        android:inputType="number"
         android:maxLength="7"
-        android:paddingBottom="@dimen/edittext_padding_vertical"
-        android:paddingLeft="@dimen/edittext_padding_horizontal"
-        android:paddingRight="@dimen/edittext_padding_horizontal"
-        android:paddingTop="@dimen/edittext_padding_vertical"
         android:textColorHint="@color/transparent"
         android:visibility="gone"/>
 

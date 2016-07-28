@@ -3,11 +3,8 @@ package nl.tcilegnar.dndcharactersheet.Experience;
 import android.os.Bundle;
 
 import nl.tcilegnar.dndcharactersheet.BaseStorageActivity;
-import nl.tcilegnar.dndcharactersheet.FragmentManager;
 
 public class ExperienceActivity extends BaseStorageActivity {
-    private FragmentManager fragmentManager = new FragmentManager(this);
-
     public enum FragTag {
         Experience
     }

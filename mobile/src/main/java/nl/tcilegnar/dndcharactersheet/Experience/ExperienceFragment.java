@@ -16,13 +16,10 @@ import nl.tcilegnar.dndcharactersheet.Level.LevelUp.ViewGroup.LevelChangeView;
 import nl.tcilegnar.dndcharactersheet.Level.LevelUp.ViewGroup.LevelChangeView.LevelUpIconVisibilityChangedListener;
 import nl.tcilegnar.dndcharactersheet.Level.ViewGroup.LevelIndicatorView;
 import nl.tcilegnar.dndcharactersheet.R;
-import nl.tcilegnar.dndcharactersheet.Storage.Settings;
 import nl.tcilegnar.dndcharactersheet.Utils.KeyboardUtil;
 
 public class ExperienceFragment extends BaseStorageFragment implements LevelUpIconVisibilityChangedListener,
         LevelChangedListener {
-    private Settings settings = new Settings();
-
     private ExperienceCurrentLevel expCurrentLevel;
     private LevelIndicatorView levelIndicatorView;
     private LevelChangeView levelChangeView;

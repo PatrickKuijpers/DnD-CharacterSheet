@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <ImageView
+        style="@style/imageview_coin"
+        android:contentDescription="@string/image_description_gold_coin"
+        android:src="@drawable/coin_gold"/>
+
+    <EditText
+        android:id="@+id/gold_text"
+        style="@style/money_edittext_orientation"/>
+</merge>

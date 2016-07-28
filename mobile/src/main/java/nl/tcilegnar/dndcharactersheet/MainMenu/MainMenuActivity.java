@@ -6,6 +6,7 @@ import android.support.v4.app.FragmentTransaction;
 
 import nl.tcilegnar.dndcharactersheet.BaseActivity;
 import nl.tcilegnar.dndcharactersheet.Experience.ExperienceActivity;
+import nl.tcilegnar.dndcharactersheet.Money.MoneyActivity;
 import nl.tcilegnar.dndcharactersheet.R;
 
 public class MainMenuActivity extends BaseActivity {
@@ -22,5 +23,10 @@ public class MainMenuActivity extends BaseActivity {
     public void startLevelAndExperience() {
         Intent experienceActivity = new Intent(this, ExperienceActivity.class);
         startActivity(experienceActivity);
+    }
+
+    public void startMoney() {
+        Intent moneyActivity = new Intent(this, MoneyActivity.class);
+        startActivity(moneyActivity);
     }
 }

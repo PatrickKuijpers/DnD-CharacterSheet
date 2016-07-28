@@ -16,6 +16,8 @@ import android.view.MenuItem;
 import nl.tcilegnar.dndcharactersheet.Settings.SettingsActivity;
 
 public abstract class BaseActivity extends AppCompatActivity implements OnNavigationItemSelectedListener {
+    protected FragmentManager fragmentManager = new FragmentManager(this);
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

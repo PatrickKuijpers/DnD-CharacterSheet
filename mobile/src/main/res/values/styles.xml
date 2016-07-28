@@ -14,6 +14,21 @@
         <item name="android:paddingRight">@dimen/horizontal_margin</item>
     </style>
 
+    <style name="fragment_money" parent="fragment_full_screen">
+        <item name="android:orientation">vertical</item>
+    </style>
+
+    <style name="money_style">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:orientation">horizontal</item>
+        <item name="android:gravity">center_vertical</item>
+    </style>
+
+    <style name="money_style_not_first" parent="money_style">
+        <item name="android:layout_marginTop">@dimen/horizontal_margin</item>
+    </style>
+
     <style name="container_button_main_menu">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">match_parent</item>
@@ -45,6 +60,35 @@
         <item name="android:layout_width">@dimen/button_square_size_small</item>
         <item name="android:layout_height">@dimen/button_square_size_small</item>
         <item name="android:padding">0dp</item>
+    </style>
+
+    <style name="imageview_coin">
+        <item name="android:layout_width">@dimen/coin_size</item>
+        <item name="android:layout_height">@dimen/coin_size</item>
+    </style>
+
+    <style name="default_edittext_number">
+        <item name="android:background">@color/grey_light</item>
+        <item name="android:inputType">number</item>
+        <item name="android:paddingBottom">@dimen/edittext_padding_vertical</item>
+        <item name="android:paddingLeft">@dimen/edittext_padding_horizontal</item>
+        <item name="android:paddingRight">@dimen/edittext_padding_horizontal</item>
+        <item name="android:paddingTop">@dimen/edittext_padding_vertical</item>
+    </style>
+
+    <style name="money_edittext" parent="@style/default_edittext_number">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@color/grey_light</item>
+        <item name="android:textColorHint">@color/transparent</item>
+        <item name="android:hint">000</item>
+        <item name="android:maxLength">3</item>
+        <item name="android:imeOptions">actionDone</item>
+        <item name="android:visibility">visible</item>
+    </style>
+
+    <style name="money_edittext_orientation" parent="@style/money_edittext">
+        <item name="android:layout_marginLeft">@dimen/vertical_margin</item>
     </style>
 
 </resources>
