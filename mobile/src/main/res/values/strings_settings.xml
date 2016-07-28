@@ -22,7 +22,7 @@
     <string name="setting_summary_show_hints">Toon handige tips om de app te leren gebruiken</string>
     <string name="setting_summary_experience_update_type">Invoer type van experience wijzigingen</string>
     <string name="setting_summary_experience_picker_steps">Stappen waarmee je experience kan updaten</string>
-    <string name="setting_summary_allow_level_down">Sta toe dat je levels omlaag kan gaan</string>
+    <string name="setting_summary_allow_level_down">Sta toe dat experience onder 0 mag gaan, en je dus levels omlaag kan</string>
 
     <string name="setting_dialogtitle_experience_update_type">Hoe wil je de experience kunnen wijzigen?</string>
     <string name="setting_dialogtitle_experience_picker_steps">@string/setting_title_experience_picker_steps</string>
