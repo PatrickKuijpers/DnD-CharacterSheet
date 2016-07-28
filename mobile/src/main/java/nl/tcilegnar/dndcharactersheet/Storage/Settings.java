@@ -14,12 +14,13 @@ public class Settings extends SharedPrefs {
         return "Settings";
     }
 
-    private enum DefaultValue {
+    protected enum DefaultValue {
         SHOW_HINTS(R.string.setting_defaultvalue_show_hints),
         EXP_UPDATE_TYPE(R.string.setting_defaultvalue_experience_update_type),
-        EXP_UPDATE_PICKER_STEPSIZE(R.string.setting_defaultvalue_experience_update_picker_steps);
+        EXP_UPDATE_PICKER_STEPSIZE(R.string.setting_defaultvalue_experience_picker_steps),
+        ALLOW_LEVEL_DOWN(R.string.setting_defaultvalue_allow_level_down);
 
-        private final String value;
+        protected final String value;
 
         DefaultValue(@StringRes int resId) {
             value = App.getContext().getString(resId);
@@ -31,23 +32,28 @@ public class Settings extends SharedPrefs {
         return loadBoolean(key, Boolean.valueOf(DefaultValue.SHOW_HINTS.value));
     }
 
+    public String getExperienceUpdateType() {
+        String key = getKey(R.string.setting_key_experience_update_type);
+        return loadString(key, DefaultValue.EXP_UPDATE_TYPE.value);
+    }
+
+    public int getExperiencePickerStepSize() {
+        String key = getKey(R.string.setting_key_experience_picker_steps);
+        String experiencePickerStepSize = loadString(key, DefaultValue.EXP_UPDATE_PICKER_STEPSIZE.value);
+        return Integer.valueOf(experiencePickerStepSize);
+    }
+
+    public boolean isLevelDownAllowed() {
+        String key = getKey(R.string.setting_key_allow_level_down);
+        return loadBoolean(key, Boolean.valueOf(DefaultValue.ALLOW_LEVEL_DOWN.value));
+    }
+
     public boolean isExperienceUpdateTypeInput() {
         return getExperienceUpdateType().equals(getString(R.string.setting_entry_experience_update_type_input));
     }
 
     public boolean isExperienceUpdateTypeNumberPicker() {
         return getExperienceUpdateType().equals(getString(R.string.setting_entry_experience_update_type_numberpicker));
-    }
-
-    private String getExperienceUpdateType() {
-        String key = getKey(R.string.setting_key_experience_update_type);
-        return loadString(key, DefaultValue.EXP_UPDATE_TYPE.value);
-    }
-
-    public int getExperiencePickerStepSize() {
-        String key = getKey(R.string.setting_key_experience_update_picker_steps);
-        String experiencePickerStepSize = loadString(key, DefaultValue.EXP_UPDATE_PICKER_STEPSIZE.value);
-        return Integer.valueOf(experiencePickerStepSize);
     }
 
     public boolean savePreferenceValue(Preference preference, Object newValue) {

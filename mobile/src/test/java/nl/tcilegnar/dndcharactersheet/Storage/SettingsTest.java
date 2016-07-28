@@ -20,7 +20,6 @@ import nl.tcilegnar.dndcharactersheet.BuildConfig;
 import nl.tcilegnar.dndcharactersheet.Level.Level;
 import nl.tcilegnar.dndcharactersheet.R;
 
-import static junit.framework.Assert.assertTrue;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
@@ -59,6 +58,85 @@ public class SettingsTest {
     }
 
     @Test
+    public void shouldShowHints_NotSaved_GetDefault() {
+        // Arrange
+
+        // Act
+        boolean shouldShowHints = settings.shouldShowHints();
+
+        // Assert
+        boolean defaultValue = Boolean.valueOf(Settings.DefaultValue.SHOW_HINTS.value);
+        assertEquals(defaultValue, shouldShowHints);
+    }
+
+    @Test
+    public void shouldShowHints_Saved_GetSavedValue() {
+        // Arrange
+        boolean expectedValue = !Boolean.valueOf(Settings.DefaultValue.SHOW_HINTS.value);
+        savePreference(R.string.setting_key_show_hints, expectedValue);
+
+        // Act
+        boolean shouldShowHints = settings.shouldShowHints();
+
+        // Assert
+        assertEquals(expectedValue, shouldShowHints);
+    }
+
+    @Test
+    public void getExperiencePickerStepSize_NotSaved_GetDefault() {
+        // Arrange
+
+        // Act
+        int stepSize = settings.getExperiencePickerStepSize();
+
+        // Assert
+        // TODO: Welk van deze 2?
+        int defaultValue = Integer.valueOf(Settings.DefaultValue.EXP_UPDATE_PICKER_STEPSIZE.value);
+        assertEquals(defaultValue, stepSize);
+        //        int defaultValue = Integer.valueOf(App.getContext().getString(R.string
+        //                .setting_defaultvalue_experience_picker_steps));
+        assertEquals(defaultValue, stepSize);
+    }
+
+    @Test
+    public void getExperiencePickerStepSize_Saved_GetSavedValue() {
+        // Arrange
+        int expectedStepSize = 250;
+        savePreference(R.string.setting_key_experience_picker_steps, String.valueOf(expectedStepSize));
+
+        // Act
+        int stepSize = settings.getExperiencePickerStepSize();
+
+        // Assert
+        assertEquals(expectedStepSize, stepSize);
+    }
+
+    @Test
+    public void isLevelDownAllowed_NotSaved_GetDefault() {
+        // Arrange
+
+        // Act
+        boolean isLevelDownAllowed = settings.isLevelDownAllowed();
+
+        // Assert
+        boolean defaultValue = Boolean.valueOf(Settings.DefaultValue.ALLOW_LEVEL_DOWN.value);
+        assertEquals(defaultValue, isLevelDownAllowed);
+    }
+
+    @Test
+    public void isLevelDownAllowed_Saved_GetSavedValue() {
+        // Arrange
+        boolean expectedValue = !Boolean.valueOf(Settings.DefaultValue.ALLOW_LEVEL_DOWN.value);
+        savePreference(R.string.setting_key_allow_level_down, expectedValue);
+
+        // Act
+        boolean isLevelDownAllowed = settings.isLevelDownAllowed();
+
+        // Assert
+        assertEquals(expectedValue, isLevelDownAllowed);
+    }
+
+    @Test
     public void isExperienceUpdateTypeInput_NotSaved_GetDefault() {
         // Arrange
 
@@ -66,7 +144,8 @@ public class SettingsTest {
         boolean isExpUpdateTypeInput = settings.isExperienceUpdateTypeInput();
 
         // Assert
-        assertFalse(isExpUpdateTypeInput);
+        boolean defaultValue = false;
+        assertEquals(defaultValue, isExpUpdateTypeInput);
     }
 
     @Test
@@ -79,7 +158,8 @@ public class SettingsTest {
         boolean isExpUpdateTypeInput = settings.isExperienceUpdateTypeInput();
 
         // Assert
-        assertFalse(isExpUpdateTypeInput);
+        boolean expectedValue = false;
+        assertEquals(expectedValue, isExpUpdateTypeInput);
     }
 
     @Test
@@ -92,7 +172,8 @@ public class SettingsTest {
         boolean isExpUpdateTypeInput = settings.isExperienceUpdateTypeInput();
 
         // Assert
-        assertTrue(isExpUpdateTypeInput);
+        boolean expectedValue = true;
+        assertEquals(expectedValue, isExpUpdateTypeInput);
     }
 
     @Test
@@ -103,7 +184,8 @@ public class SettingsTest {
         boolean isExpUpdateTypeNumberPicker = settings.isExperienceUpdateTypeNumberPicker();
 
         // Assert
-        assertTrue(isExpUpdateTypeNumberPicker);
+        boolean defaultValue = true;
+        assertEquals(defaultValue, isExpUpdateTypeNumberPicker);
     }
 
     @Test
@@ -116,7 +198,8 @@ public class SettingsTest {
         boolean isExpUpdateTypeNumberPicker = settings.isExperienceUpdateTypeNumberPicker();
 
         // Assert
-        assertFalse(isExpUpdateTypeNumberPicker);
+        boolean expectedValue = false;
+        assertEquals(expectedValue, isExpUpdateTypeNumberPicker);
     }
 
     @Test
@@ -129,35 +212,8 @@ public class SettingsTest {
         boolean isExpUpdateTypeNumberPicker = settings.isExperienceUpdateTypeNumberPicker();
 
         // Assert
-        assertTrue(isExpUpdateTypeNumberPicker);
-    }
-
-    @Test
-    public void getExperiencePickerStepSize_NotSaved_GetDefault() {
-        // Arrange
-
-        // Act
-        int stepSize = settings.getExperiencePickerStepSize();
-
-        // Assert
-        // TODO: Welk van deze 2?
-        //		assertEquals(DefaultValue.EXP_UPDATE_PICKER_STEPSIZE.value, stepSize);
-        int defaultValue = Integer.valueOf(App.getContext().getString(R.string
-                .setting_defaultvalue_experience_update_picker_steps));
-        assertEquals(defaultValue, stepSize);
-    }
-
-    @Test
-    public void getExperiencePickerStepSize_Saved_GetSavedValue() {
-        // Arrange
-        int expectedStepSize = 250;
-        savePreference(R.string.setting_key_experience_update_picker_steps, String.valueOf(expectedStepSize));
-
-        // Act
-        int stepSize = settings.getExperiencePickerStepSize();
-
-        // Assert
-        assertEquals(expectedStepSize, stepSize);
+        boolean expectedValue = true;
+        assertEquals(expectedValue, isExpUpdateTypeNumberPicker);
     }
 
     @Test
@@ -270,7 +326,17 @@ public class SettingsTest {
         assertFalse(isSaved);
     }
 
+    private void savePreference(@StringRes int keyId, boolean value) {
+        String key = settings.getKey(keyId);
+        settings.save(key, value);
+    }
+
     private void savePreference(@StringRes int keyId, String value) {
+        String key = settings.getKey(keyId);
+        settings.save(key, value);
+    }
+
+    private void savePreference(@StringRes int keyId, int value) {
         String key = settings.getKey(keyId);
         settings.save(key, value);
     }

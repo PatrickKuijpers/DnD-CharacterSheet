@@ -17,10 +17,10 @@ import nl.tcilegnar.dndcharactersheet.Level.LevelUp.LevelsReadyForChange.ChangeL
 import nl.tcilegnar.dndcharactersheet.R;
 
 public class LevelChangeView extends LinearLayout implements OnClickListener, ReadyForLevelChangeListener {
+    private final LevelsReadyForChange levelsReadyForChange;
+
     private ImageButton changeLevelButton;
     private TextView changeLevelTimes;
-
-    private LevelsReadyForChange levelsReadyForChange;
 
     private LevelUpIconVisibilityChangedListener levelUpIconVisibilityChangedListener;
 
