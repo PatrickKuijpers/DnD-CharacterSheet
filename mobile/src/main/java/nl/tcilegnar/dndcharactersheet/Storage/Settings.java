@@ -14,13 +14,13 @@ public class Settings extends SharedPrefs {
         return "Settings";
     }
 
-    private enum DefaultValue {
+    protected enum DefaultValue {
         SHOW_HINTS(R.string.setting_defaultvalue_show_hints),
         EXP_UPDATE_TYPE(R.string.setting_defaultvalue_experience_update_type),
         EXP_UPDATE_PICKER_STEPSIZE(R.string.setting_defaultvalue_experience_picker_steps),
         ALLOW_LEVEL_DOWN(R.string.setting_defaultvalue_allow_level_down);
 
-        private final String value;
+        protected final String value;
 
         DefaultValue(@StringRes int resId) {
             value = App.getContext().getString(resId);
