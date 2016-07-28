@@ -7,7 +7,9 @@
 
     <string name="experience_label">Exp:</string>
 
-    <string name="level_up_info">Je zult pas level up gaan zodra je op het icoontje klikt.</string>
+    <string name="level_change_info_up">Je zult pas level up gaan zodra je op het icoontje klikt.</string>
+    <string name="level_change_info_down">Je zult pas level down gaan zodra je op het icoontje klikt.</string>
+    <string name="level_change_info_unknown">Je level zal pas veranderen zodra je op het icoontje klikt.</string>
 
     <string name="coming_soon">Coming soon!</string>
 </resources>

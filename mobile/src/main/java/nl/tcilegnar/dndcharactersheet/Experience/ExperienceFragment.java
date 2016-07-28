@@ -100,8 +100,27 @@ public class ExperienceFragment extends BaseStorageFragment implements LevelUpIc
     private Snackbar getLevelInfoSnackbar() {
         if (levelInfoSnackbar == null) {
             CoordinatorLayout layout = (CoordinatorLayout) getActivity().findViewById(R.id.coordinatorLayout);
-            levelInfoSnackbar = Snackbar.make(layout, R.string.level_up_info, Snackbar.LENGTH_INDEFINITE);
+            levelInfoSnackbar = Snackbar.make(layout, getLevelUpOrDownText(), Snackbar.LENGTH_INDEFINITE);
+        } else {
+            levelInfoSnackbar.setText(getLevelUpOrDownText());
         }
         return levelInfoSnackbar;
+    }
+
+    public String getLevelUpOrDownText() {
+        // TODO: deze is nog nodig omdat je bij de init nog niet weet wat numberOfLevelsReadyForChange is
+        String levelUpOrDownText = getString(R.string.level_change_info_unknown);
+
+        boolean isLevelUp = levelChangeView.getNumberOfLevelsReadyForChange() > 0;
+        if (isLevelUp) {
+            levelUpOrDownText = getString(R.string.level_change_info_up);
+        }
+
+        boolean isLeveldown = levelChangeView.getNumberOfLevelsReadyForChange() < 0;
+        if (isLeveldown) {
+            levelUpOrDownText = getString(R.string.level_change_info_down);
+        }
+
+        return levelUpOrDownText;
     }
 }

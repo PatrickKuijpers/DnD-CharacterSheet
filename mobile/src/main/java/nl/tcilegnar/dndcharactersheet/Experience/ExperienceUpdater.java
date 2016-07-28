@@ -9,6 +9,7 @@ import nl.tcilegnar.dndcharactersheet.App;
 import nl.tcilegnar.dndcharactersheet.Level.Level.MaxLevelReachedException;
 import nl.tcilegnar.dndcharactersheet.Level.Level.MinLevelReachedException;
 import nl.tcilegnar.dndcharactersheet.Storage.Settings;
+import nl.tcilegnar.dndcharactersheet.Utils.Log;
 
 public class ExperienceUpdater {
     private final Experience experience;
@@ -37,9 +38,9 @@ public class ExperienceUpdater {
     private void validate(int expUpdateValue, int newExp) throws ExpTooLowException {
         if (newExp < 0 && !settings.isLevelDownAllowed()) {
             int currentExp = experience.getCurrentExp();
-            String message = "Nieuwe exp-waarde is te laag: " + currentExp + " + " + expUpdateValue + " = " +
-                    newExp;
-            throw new ExpTooLowException(message);
+            String message = "Nieuwe exp-waarde is te laag: " + currentExp + " + " + expUpdateValue + " = " + newExp;
+            Log.w(getClass().getSimpleName(), message);
+            throw new ExpTooLowException("Level down is not allowed");
         }
     }
 
