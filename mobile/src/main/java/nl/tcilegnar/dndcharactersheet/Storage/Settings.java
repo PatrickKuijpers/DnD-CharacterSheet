@@ -6,10 +6,10 @@ import android.support.annotation.StringRes;
 import java.util.Set;
 
 import nl.tcilegnar.dndcharactersheet.App;
+import nl.tcilegnar.dndcharactersheet.BaseStorageFragment;
 import nl.tcilegnar.dndcharactersheet.R;
 
 public class Settings extends SharedPrefs {
-
     private static Settings instance;
 
     public static Settings getInstance() {
@@ -25,6 +25,8 @@ public class Settings extends SharedPrefs {
     public void tearDown() {
         instance = null;
     }
+
+    private BaseStorageFragment settingsChangedListener;
 
     @Override
     protected String fileName() {
@@ -74,6 +76,7 @@ public class Settings extends SharedPrefs {
     }
 
     public boolean savePreferenceValue(Preference preference, Object newValue) {
+        settingsChangedListener.onSettingsChanged();
         String key = preference.getKey();
         boolean isSaved = true;
         if (newValue instanceof Boolean) {
@@ -92,5 +95,9 @@ public class Settings extends SharedPrefs {
             isSaved = false;
         }
         return isSaved;
+    }
+
+    public void setSettingsChangedListener(BaseStorageFragment settingsChangedListener) {
+        this.settingsChangedListener = settingsChangedListener;
     }
 }

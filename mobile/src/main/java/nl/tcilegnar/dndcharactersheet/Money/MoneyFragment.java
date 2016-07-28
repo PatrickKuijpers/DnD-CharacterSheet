@@ -31,10 +31,10 @@ public class MoneyFragment extends BaseStorageFragment {
     }
 
     @Override
-    protected void onSaveData() {
-
+    protected void updateSettingsData() {
     }
 
-    public void updateSettingsData() {
+    @Override
+    protected void onSaveData() {
     }
 }

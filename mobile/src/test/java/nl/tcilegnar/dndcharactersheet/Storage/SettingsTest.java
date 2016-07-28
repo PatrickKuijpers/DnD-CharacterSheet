@@ -17,6 +17,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import nl.tcilegnar.dndcharactersheet.App;
+import nl.tcilegnar.dndcharactersheet.BaseStorageFragment;
 import nl.tcilegnar.dndcharactersheet.BuildConfig;
 import nl.tcilegnar.dndcharactersheet.Level.Level;
 import nl.tcilegnar.dndcharactersheet.R;
@@ -24,15 +25,24 @@ import nl.tcilegnar.dndcharactersheet.R;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
 
 @RunWith(RobolectricGradleTestRunner.class)
 @Config(constants = BuildConfig.class)
 public class SettingsTest {
     private Settings settings;
+    private BaseStorageFragment settingsChangedListener;
 
     @Before
     public void setUp() {
         settings = Settings.getInstance();
+        setListeners();
+    }
+
+    private void setListeners() {
+        settingsChangedListener = mock(BaseStorageFragment.class);
+        settings.setSettingsChangedListener(settingsChangedListener);
     }
 
     @After
@@ -223,19 +233,15 @@ public class SettingsTest {
     }
 
     @Test
-    @SuppressWarnings("all")
-    public void savePreferenceValue_Boolean_ValueSaved() {
+    public void savePreferenceValue_RandomValue_SettingsChangedListenerCalled() {
         // Arrange
-        String key = "testKey";
-        Preference preference = getPreference(key);
-        boolean expectedSavedValue = true;
 
         // Act
-        settings.savePreferenceValue(preference, expectedSavedValue);
-        boolean savedValue = settings.loadBoolean(key);
+        Preference preference = mock(Preference.class);
+        settings.savePreferenceValue(preference, "");
 
         // Assert
-        Assert.assertEquals(expectedSavedValue, savedValue);
+        verify(settingsChangedListener).onSettingsChanged();
     }
 
     @Test

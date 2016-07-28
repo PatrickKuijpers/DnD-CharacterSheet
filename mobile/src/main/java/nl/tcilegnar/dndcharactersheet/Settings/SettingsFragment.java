@@ -18,8 +18,6 @@ public class SettingsFragment extends PreferenceFragment implements OnPreference
     private ListPreference expUpdatePickerSteps;
     private CheckBoxPreference allowLevelDown;
 
-    private SettingsActivity preferenceChangeListener;
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -88,7 +86,6 @@ public class SettingsFragment extends PreferenceFragment implements OnPreference
     @Override
     public boolean onPreferenceChange(Preference preference, Object newValue) {
         updateDependencies(preference, newValue);
-        preferenceChangeListener.onPreferenceChanged();
         return settings.savePreferenceValue(preference, newValue);
     }
 
@@ -97,9 +94,5 @@ public class SettingsFragment extends PreferenceFragment implements OnPreference
             String selectedValue = newValue.toString();
             handleDependencyOfExpUpdateType(selectedValue);
         }
-    }
-
-    public void setPreferenceChangeListener(SettingsActivity preferenceChangeListener) {
-        this.preferenceChangeListener = preferenceChangeListener;
     }
 }

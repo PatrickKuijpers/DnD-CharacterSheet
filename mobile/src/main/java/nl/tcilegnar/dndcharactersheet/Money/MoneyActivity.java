@@ -26,9 +26,4 @@ public class MoneyActivity extends BaseStorageActivity {
         }
         return moneyFragment;
     }
-
-    @Override
-    protected void updateSettingsData() {
-        getMoneyFragment().updateSettingsData();
-    }
 }

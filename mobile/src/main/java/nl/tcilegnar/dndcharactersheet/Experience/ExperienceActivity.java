@@ -26,9 +26,4 @@ public class ExperienceActivity extends BaseStorageActivity {
         }
         return experienceFragment;
     }
-
-    @Override
-    protected void updateSettingsData() {
-        getExperienceFragment().updateSettingsData();
-    }
 }
