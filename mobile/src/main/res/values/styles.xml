@@ -104,10 +104,14 @@
     </style>
 
     <style name="money_numberpicker" parent="money_numberpicker_base">
+        <item name="android:theme">@style/customize_numberpicker</item>
         <item name="android:scaleX">0.7</item>
         <item name="android:scaleY">0.7</item>
-        <item name="android:theme">@android:style/Theme.Dialog</item>
         <item name="android:layout_marginTop">@dimen/money_numberpicker_margin_top</item>
+    </style>
+
+    <style name="customize_numberpicker" parent="@android:style/Theme.Dialog">
+        <item name="android:textColorPrimary">@android:color/black</item>
     </style>
 
     <style name="money_numberslider" parent="money_numberpicker_base">
