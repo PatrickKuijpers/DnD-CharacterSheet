@@ -7,7 +7,7 @@
             android:summary="@string/setting_summary_show_hints"
             android:title="@string/setting_title_show_hints"/>
     </PreferenceCategory>
-    <PreferenceCategory android:title="@string/setting_category_title_experience">
+    <PreferenceCategory android:title="@string/setting_category_title_experience_and_level">
         <ListPreference
             android:defaultValue="@string/setting_defaultvalue_experience_update_type"
             android:dialogTitle="@string/setting_dialogtitle_experience_update_type"
@@ -29,7 +29,6 @@
             android:summary="@string/setting_summary_allow_level_down"
             android:title="@string/setting_title_allow_level_down"/>
     </PreferenceCategory>
-    <PreferenceCategory android:title="@string/setting_category_confirm">
     <PreferenceCategory android:title="@string/setting_category_title_money">
         <ListPreference
             android:defaultValue="@string/setting_defaultvalue_money_update_type"
@@ -40,6 +39,7 @@
             android:summary="@string/setting_summary_money_update_type"
             android:title="@string/setting_title_money_update_type"/>
     </PreferenceCategory>
+    <PreferenceCategory android:title="@string/setting_category_title_confirm">
         <Preference
             android:key="@string/setting_key_confirm"
             android:title="@string/setting_title_confirm"/>

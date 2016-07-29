@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="setting_key_confirm">OK</string>
-    <string name="setting_category_confirm"/>
+    <string name="setting_category_title_confirm"/>
     <string name="setting_title_confirm">OK</string>
 
     <!-- Keys voor de settings. Verander deze nooit! -->
@@ -13,7 +13,7 @@
 
     <!-- Settings titels, uitleg & defaultvalue -->
     <string name="setting_category_title_general">Algemeen</string>
-    <string name="setting_category_title_experience">Experience</string>
+    <string name="setting_category_title_experience_and_level">@string/title_level_and_experience</string>
     <string name="setting_category_title_money">@string/title_money</string>
 
     <string name="setting_title_show_hints">Tips tonen</string>
