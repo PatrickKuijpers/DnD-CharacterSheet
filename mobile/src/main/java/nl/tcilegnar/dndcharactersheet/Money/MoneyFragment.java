@@ -46,9 +46,9 @@ public class MoneyFragment extends BaseStorageFragment {
 
     @Override
     protected void onSaveData() {
-        //        platinumView.save();
-        //        goldView.save();
-        //        silverView.save();
-        //        bronzeView.save();
+        platinumView.save();
+        goldView.save();
+        silverView.save();
+        bronzeView.save();
     }
 }

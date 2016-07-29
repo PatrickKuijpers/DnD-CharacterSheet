@@ -24,10 +24,14 @@ public class MoneyInput extends EditText {
         //        boolean shouldBeVisible = settings.;
         boolean shouldBeVisible = true;
         if (shouldBeVisible) {
+            init();
             setVisibility(View.VISIBLE);
         } else {
             setVisibility(View.GONE);
         }
+    }
+
+    private void init() {
     }
 
     public void updateSettingsData() {
@@ -49,5 +53,9 @@ public class MoneyInput extends EditText {
 
     private String getInputText() {
         return getText().toString();
+    }
+
+    public void setMoneyValue(int moneyValue) {
+        setText(String.valueOf(moneyValue));
     }
 }

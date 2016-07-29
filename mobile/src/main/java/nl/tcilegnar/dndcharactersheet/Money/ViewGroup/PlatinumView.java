@@ -6,6 +6,7 @@ import android.util.AttributeSet;
 
 import nl.tcilegnar.dndcharactersheet.R;
 import nl.tcilegnar.dndcharactersheet.Storage.Settings;
+import nl.tcilegnar.dndcharactersheet.Storage.Storage;
 
 public class PlatinumView extends MoneyView {
     public PlatinumView(Context context, AttributeSet attrs) {
@@ -20,5 +21,15 @@ public class PlatinumView extends MoneyView {
     @Override
     protected int getLayoutResource() {
         return R.layout.money_platinum_view;
+    }
+
+    public void save() {
+        int value = getValue();
+        new Storage().savePlatinum(value);
+    }
+
+    @Override
+    public int load() {
+        return new Storage().loadPlatinum();
     }
 }

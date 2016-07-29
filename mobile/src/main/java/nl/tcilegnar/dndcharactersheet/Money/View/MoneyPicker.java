@@ -7,12 +7,14 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.widget.NumberPicker;
 
+import nl.tcilegnar.dndcharactersheet.Money.ViewGroup.MoneyView;
 import nl.tcilegnar.dndcharactersheet.Storage.Settings;
 
 public class MoneyPicker extends NumberPicker {
     private static final int MIN_VALUE = 0;
     private static final int MAX_VALUE = 99;
     private Settings settings;
+    private MoneyView moneyView;
 
     public enum SavedValues {
         SAVED_INSTANCE, CURRENT_PICKER_INDEX
@@ -85,7 +87,11 @@ public class MoneyPicker extends NumberPicker {
         initViewsIfVisible();
     }
 
-    public int getCurrentSelectedExpValue() {
+    public int getCurrentSelectedMoneyValue() {
         return Integer.valueOf(getDisplayedValues()[getValue()]);
+    }
+
+    public void setMoneyValue(int moneyValue) {
+        setValue(moneyValue);
     }
 }
