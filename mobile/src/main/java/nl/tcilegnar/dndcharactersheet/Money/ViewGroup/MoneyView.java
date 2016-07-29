@@ -58,11 +58,12 @@ public abstract class MoneyView extends LinearLayout {
         if (moneyInput.getVisibility() == View.VISIBLE) {
             return moneyInput.getInputNumber();
         } else if (numberSlider.getVisibility() == View.VISIBLE) {
-            return numberSlider.getCurrentSelectedMoneyValue();
+            return numberSlider.getCurrentSelectedNumber();
         } else if (numberPicker.getVisibility() == View.VISIBLE) {
-            return numberPicker.getCurrentSelectedMoneyValue();
+            return numberPicker.getCurrentSelectedNumber();
+        } else {
+            return 0;
         }
-        return 0;
     }
 
     public abstract int load();
