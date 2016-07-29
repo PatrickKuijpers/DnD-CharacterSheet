@@ -37,10 +37,18 @@ public abstract class BaseNumberPicker extends NumberPicker {
     private void initViewsIfVisible() {
         if (shouldBeVisible()) {
             init();
-            setVisibility(View.VISIBLE);
+            showView();
         } else {
-            setVisibility(View.GONE);
+            hideView();
         }
+    }
+
+    protected void showView() {
+        setVisibility(View.VISIBLE);
+    }
+
+    protected void hideView() {
+        setVisibility(View.GONE);
     }
 
     protected abstract boolean shouldBeVisible();
