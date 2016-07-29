@@ -22,4 +22,9 @@ public class MoneySlider extends MoneyBaseNumberPicker {
         super.init();
         setDividerColor(R.color.grey_light);
     }
+
+    @Override
+    protected boolean shouldBeVisible() {
+        return settings.isMoneyUpdateTypeNumberSlider();
+    }
 }

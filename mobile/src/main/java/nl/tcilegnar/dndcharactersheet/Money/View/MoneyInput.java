@@ -17,8 +17,9 @@ public class MoneyInput extends BaseNumberInput {
         super(context, attrs, settings);
     }
 
+    @Override
     protected boolean shouldBeVisible() {
-        return true;
+        return settings.isMoneyUpdateTypeInput();
     }
 
     public void setMoneyValue(int moneyValue) {

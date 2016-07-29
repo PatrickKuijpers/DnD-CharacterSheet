@@ -21,11 +21,6 @@ public abstract class MoneyBaseNumberPicker extends BaseNumberPicker {
     }
 
     @Override
-    protected boolean shouldBeVisible() {
-        return true;
-    }
-
-    @Override
     protected int minValue() {
         return MIN_VALUE;
     }

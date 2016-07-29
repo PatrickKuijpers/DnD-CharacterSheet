@@ -15,4 +15,9 @@ public class MoneyPicker extends MoneyBaseNumberPicker {
     public MoneyPicker(Context context, AttributeSet attrs, Settings settings) {
         super(context, attrs, settings);
     }
+
+    @Override
+    protected boolean shouldBeVisible() {
+        return settings.isMoneyUpdateTypeNumberPicker();
+    }
 }

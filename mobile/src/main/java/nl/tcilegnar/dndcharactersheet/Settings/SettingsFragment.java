@@ -13,10 +13,11 @@ import nl.tcilegnar.dndcharactersheet.Storage.Settings;
 public class SettingsFragment extends PreferenceFragment implements OnPreferenceChangeListener {
     private Settings settings = Settings.getInstance();
 
-    private CheckBoxPreference showHints;
-    private ListPreference expUpdateType;
-    private ListPreference expUpdatePickerSteps;
-    private CheckBoxPreference allowLevelDown;
+    private CheckBoxPreference showHintsPref;
+    private ListPreference expUpdateTypePref;
+    private ListPreference expPickerStepsPref;
+    private CheckBoxPreference allowLevelDownPref;
+    private ListPreference moneyUpdateTypePref;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -28,10 +29,11 @@ public class SettingsFragment extends PreferenceFragment implements OnPreference
     }
 
     private void initPreferences() {
-        showHints = (CheckBoxPreference) findPreference(getString(R.string.setting_key_show_hints));
-        expUpdateType = (ListPreference) findPreference(getString(R.string.setting_key_experience_update_type));
-        expUpdatePickerSteps = (ListPreference) findPreference(getString(R.string.setting_key_experience_picker_steps));
-        allowLevelDown = (CheckBoxPreference) findPreference(getString(R.string.setting_key_allow_level_down));
+        showHintsPref = (CheckBoxPreference) findPreference(getString(R.string.setting_key_show_hints));
+        expUpdateTypePref = (ListPreference) findPreference(getString(R.string.setting_key_experience_update_type));
+        expPickerStepsPref = (ListPreference) findPreference(getString(R.string.setting_key_experience_picker_steps));
+        allowLevelDownPref = (CheckBoxPreference) findPreference(getString(R.string.setting_key_allow_level_down));
+        moneyUpdateTypePref = (ListPreference) findPreference(getString(R.string.setting_key_money_update_type));
         initValues();
         initDependencies();
 
@@ -40,36 +42,40 @@ public class SettingsFragment extends PreferenceFragment implements OnPreference
 
     private void initValues() {
         boolean shouldShowHints = settings.shouldShowHints();
-        showHints.setChecked(shouldShowHints);
+        showHintsPref.setChecked(shouldShowHints);
 
         String experienceUpdateType = settings.getExperienceUpdateType();
-        expUpdateType.setValue(experienceUpdateType);
+        expUpdateTypePref.setValue(experienceUpdateType);
 
         int pickerStepSize = settings.getExperiencePickerStepSize();
-        expUpdatePickerSteps.setValue(String.valueOf(pickerStepSize));
+        expPickerStepsPref.setValue(String.valueOf(pickerStepSize));
 
         boolean isLevelDownAllowed = settings.isLevelDownAllowed();
-        allowLevelDown.setChecked(isLevelDownAllowed);
+        allowLevelDownPref.setChecked(isLevelDownAllowed);
+
+        String moneyUpdateType = settings.getMoneyUpdateType();
+        moneyUpdateTypePref.setValue(moneyUpdateType);
     }
 
     private void initDependencies() {
-        String selectedValue = expUpdateType.getValue();
+        String selectedValue = expUpdateTypePref.getValue();
         handleDependencyOfExpUpdateType(selectedValue);
     }
 
     private void handleDependencyOfExpUpdateType(String selectedValue) {
         if (selectedValue.equals(getString(R.string.setting_entry_experience_update_type_numberpicker))) {
-            expUpdatePickerSteps.setEnabled(true);
+            expPickerStepsPref.setEnabled(true);
         } else {
-            expUpdatePickerSteps.setEnabled(false);
+            expPickerStepsPref.setEnabled(false);
         }
     }
 
     private void setPreferenceChangeListeners() {
-        showHints.setOnPreferenceChangeListener(this);
-        expUpdateType.setOnPreferenceChangeListener(this);
-        expUpdatePickerSteps.setOnPreferenceChangeListener(this);
-        allowLevelDown.setOnPreferenceChangeListener(this);
+        showHintsPref.setOnPreferenceChangeListener(this);
+        expUpdateTypePref.setOnPreferenceChangeListener(this);
+        expPickerStepsPref.setOnPreferenceChangeListener(this);
+        allowLevelDownPref.setOnPreferenceChangeListener(this);
+        moneyUpdateTypePref.setOnPreferenceChangeListener(this);
     }
 
     private void initConfirmButton() {
@@ -90,7 +96,7 @@ public class SettingsFragment extends PreferenceFragment implements OnPreference
     }
 
     private void updateDependencies(Preference preference, Object newValue) {
-        if (preference.equals(expUpdateType)) {
+        if (preference.equals(expUpdateTypePref)) {
             String selectedValue = newValue.toString();
             handleDependencyOfExpUpdateType(selectedValue);
         }
