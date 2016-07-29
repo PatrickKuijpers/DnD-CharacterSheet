@@ -37,7 +37,8 @@ public class Settings extends SharedPrefs {
         SHOW_HINTS(R.string.setting_defaultvalue_show_hints),
         EXP_UPDATE_TYPE(R.string.setting_defaultvalue_experience_update_type),
         EXP_UPDATE_PICKER_STEPSIZE(R.string.setting_defaultvalue_experience_picker_steps),
-        ALLOW_LEVEL_DOWN(R.string.setting_defaultvalue_allow_level_down);
+        ALLOW_LEVEL_DOWN(R.string.setting_defaultvalue_allow_level_down),
+        MONEY_UPDATE_TYPE(R.string.setting_defaultvalue_money_update_type);
 
         protected final String value;
 
@@ -67,12 +68,29 @@ public class Settings extends SharedPrefs {
         return loadBoolean(key, Boolean.valueOf(DefaultValue.ALLOW_LEVEL_DOWN.value));
     }
 
+    public String getMoneyUpdateType() {
+        String key = getKey(R.string.setting_key_money_update_type);
+        return loadString(key, DefaultValue.MONEY_UPDATE_TYPE.value);
+    }
+
     public boolean isExperienceUpdateTypeInput() {
         return getExperienceUpdateType().equals(getString(R.string.setting_entry_experience_update_type_input));
     }
 
     public boolean isExperienceUpdateTypeNumberPicker() {
         return getExperienceUpdateType().equals(getString(R.string.setting_entry_experience_update_type_numberpicker));
+    }
+
+    public boolean isMoneyUpdateTypeInput() {
+        return getMoneyUpdateType().equals(getString(R.string.setting_entry_money_update_type_input));
+    }
+
+    public boolean isMoneyUpdateTypeNumberPicker() {
+        return getMoneyUpdateType().equals(getString(R.string.setting_entry_money_update_type_numberpicker));
+    }
+
+    public boolean isMoneyUpdateTypeNumberSlider() {
+        return getMoneyUpdateType().equals(getString(R.string.setting_entry_money_update_type_numberslider));
     }
 
     public boolean savePreferenceValue(Preference preference, Object newValue) {

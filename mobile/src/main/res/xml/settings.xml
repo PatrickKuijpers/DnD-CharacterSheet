@@ -30,6 +30,16 @@
             android:title="@string/setting_title_allow_level_down"/>
     </PreferenceCategory>
     <PreferenceCategory android:title="@string/setting_category_confirm">
+    <PreferenceCategory android:title="@string/setting_category_title_money">
+        <ListPreference
+            android:defaultValue="@string/setting_defaultvalue_money_update_type"
+            android:dialogTitle="@string/setting_dialogtitle_money_update_type"
+            android:entries="@array/setting_entries_money_update_type"
+            android:entryValues="@array/setting_entryvalues_money_update_type"
+            android:key="@string/setting_key_money_update_type"
+            android:summary="@string/setting_summary_money_update_type"
+            android:title="@string/setting_title_money_update_type"/>
+    </PreferenceCategory>
         <Preference
             android:key="@string/setting_key_confirm"
             android:title="@string/setting_title_confirm"/>

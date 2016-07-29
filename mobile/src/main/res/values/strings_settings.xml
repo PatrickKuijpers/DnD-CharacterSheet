@@ -9,29 +9,35 @@
     <string name="setting_key_experience_update_type">experience_update_type</string>
     <string name="setting_key_experience_picker_steps">experience_picker_steps</string>
     <string name="setting_key_allow_level_down">allow_level_down</string>
+    <string name="setting_key_money_update_type">money_update_type</string>
 
     <!-- Settings titels, uitleg & defaultvalue -->
     <string name="setting_category_title_general">Algemeen</string>
     <string name="setting_category_title_experience">Experience</string>
+    <string name="setting_category_title_money">@string/title_money</string>
 
     <string name="setting_title_show_hints">Tips tonen</string>
     <string name="setting_title_experience_update_type">Experience aanpassen</string>
     <string name="setting_title_experience_picker_steps">Experience update stappen</string>
     <string name="setting_title_allow_level_down">Level down</string>
+    <string name="setting_title_money_update_type">Money aanpassen</string>
 
     <string name="setting_summary_show_hints">Toon handige tips om de app te leren gebruiken</string>
     <string name="setting_summary_experience_update_type">Invoer type van experience wijzigingen</string>
     <string name="setting_summary_experience_picker_steps">Stappen waarmee je experience kan updaten</string>
     <string name="setting_summary_allow_level_down">Sta toe dat experience onder 0 mag gaan, en je dus levels omlaag kan</string>
+    <string name="setting_summary_money_update_type">Invoer type van money wijzigingen</string>
 
     <string name="setting_defaultvalue_show_hints">true</string>
     <string name="setting_defaultvalue_experience_update_type">@string/setting_entry_experience_update_type_numberpicker</string>
     <string name="setting_defaultvalue_experience_picker_steps">100</string>
     <string name="setting_defaultvalue_allow_level_down">false</string>
+    <string name="setting_defaultvalue_money_update_type">@string/setting_entry_money_update_type_numberpicker</string>
 
     <!-- Dialog values -->
     <string name="setting_dialogtitle_experience_update_type">Hoe wil je de experience kunnen wijzigen?</string>
     <string name="setting_dialogtitle_experience_picker_steps">@string/setting_title_experience_picker_steps</string>
+    <string name="setting_dialogtitle_money_update_type">Hoe wil je money kunnen wijzigen?</string>
 
     <string-array name="setting_entries_experience_update_type">
         <item>"Handmatig invoeren"</item>
@@ -67,4 +73,20 @@
         <item>"500"</item>
         <item>"1000"</item>
     </string-array>
+
+    <string-array name="setting_entries_money_update_type">
+        <item>"Handmatig invoeren"</item>
+        <item>"Snel scrollen door vooraf ingestelde waarden van 1 tot 99"</item>
+        <item>"Plus en min knop met waarden tussen 1 en 99"</item> <!-- TODO: Ook incl. invoer? -->
+    </string-array>
+
+    <string-array name="setting_entryvalues_money_update_type">
+        <item>@string/setting_entry_money_update_type_input</item>
+        <item>@string/setting_entry_money_update_type_numberslider</item>
+        <item>@string/setting_entry_money_update_type_numberpicker</item>
+    </string-array>
+
+    <string name="setting_entry_money_update_type_input">input</string>
+    <string name="setting_entry_money_update_type_numberslider">numberslider</string>
+    <string name="setting_entry_money_update_type_numberpicker">numberpicker</string>
 </resources>
