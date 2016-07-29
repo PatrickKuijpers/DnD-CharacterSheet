@@ -7,19 +7,19 @@
         style="@style/fragment_money"
         android:focusableInTouchMode="true">
 
-        <nl.tcilegnar.dndcharactersheet.Money.MoneyView.PlatinumView
+        <nl.tcilegnar.dndcharactersheet.Money.ViewGroup.PlatinumView
             android:id="@+id/platinum_view"
             style="@style/money_view"/>
 
-        <nl.tcilegnar.dndcharactersheet.Money.MoneyView.GoldView
+        <nl.tcilegnar.dndcharactersheet.Money.ViewGroup.GoldView
             android:id="@+id/gold_view"
             style="@style/money_view_not_first"/>
 
-        <nl.tcilegnar.dndcharactersheet.Money.MoneyView.SilverView
+        <nl.tcilegnar.dndcharactersheet.Money.ViewGroup.SilverView
             android:id="@+id/silver_view"
             style="@style/money_view_not_first"/>
 
-        <nl.tcilegnar.dndcharactersheet.Money.MoneyView.BronzeView
+        <nl.tcilegnar.dndcharactersheet.Money.ViewGroup.BronzeView
             android:id="@+id/bronze_view"
             style="@style/money_view_not_first"/>
     </LinearLayout>

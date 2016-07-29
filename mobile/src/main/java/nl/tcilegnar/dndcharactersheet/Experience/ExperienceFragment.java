@@ -57,15 +57,15 @@ public class ExperienceFragment extends BaseStorageFragment implements LevelUpIc
     }
 
     @Override
-    protected void onSaveData() {
-        expCurrentLevel.save();
-        levelIndicatorView.save();
-    }
-
-    @Override
     protected void updateSettingsData() {
         expEditor.updateSettingsData();
         toggleLevelInfoSnackbar();
+    }
+
+    @Override
+    protected void onSaveData() {
+        expCurrentLevel.save();
+        levelIndicatorView.save();
     }
 
     @Override

@@ -1,4 +1,4 @@
-package nl.tcilegnar.dndcharactersheet.Money.MoneyView;
+package nl.tcilegnar.dndcharactersheet.Money.ViewGroup;
 
 import android.content.Context;
 import android.support.annotation.VisibleForTesting;
@@ -7,18 +7,18 @@ import android.util.AttributeSet;
 import nl.tcilegnar.dndcharactersheet.R;
 import nl.tcilegnar.dndcharactersheet.Storage.Settings;
 
-public class PlatinumView extends MoneyView {
-    public PlatinumView(Context context, AttributeSet attrs) {
+public class GoldView extends MoneyView {
+    public GoldView(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 
     @VisibleForTesting
-    protected PlatinumView(Context context, AttributeSet attrs, Settings settings) {
+    protected GoldView(Context context, AttributeSet attrs, Settings settings) {
         super(context, attrs, settings);
     }
 
     @Override
     protected int getLayoutResource() {
-        return R.layout.money_platinum_view;
+        return R.layout.money_gold_view;
     }
 }

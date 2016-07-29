@@ -1,4 +1,4 @@
-package nl.tcilegnar.dndcharactersheet.Money.MoneyView;
+package nl.tcilegnar.dndcharactersheet.Money.ViewGroup;
 
 import android.content.Context;
 import android.support.annotation.VisibleForTesting;
