@@ -5,19 +5,11 @@
         <item name="android:gravity">center</item>
     </style>
 
-    <style name="money_style">
+    <style name="money_view">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:orientation">vertical</item>
         <item name="android:gravity">center_horizontal</item>
-    </style>
-
-    <style name="money_style_not_first" parent="money_style">
-        <item name="android:layout_marginLeft">@dimen/vertical_margin</item>
-    </style>
-
-    <style name="money_edittext_orientation" parent="@style/money_edittext">
-        <item name="android:layout_marginTop">@dimen/horizontal_margin</item>
     </style>
 
 </resources>

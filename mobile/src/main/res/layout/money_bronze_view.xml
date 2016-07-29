@@ -8,5 +8,9 @@
 
     <EditText
         android:id="@+id/bronze_text"
-        style="@style/money_edittext_orientation"/>
+        style="@style/money_edittext"/>
+
+    <NumberPicker
+        android:id="@+id/money_numberpicker"
+        style="@style/money_numberpicker"/>
 </merge>

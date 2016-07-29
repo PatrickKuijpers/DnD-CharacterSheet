@@ -18,15 +18,16 @@
         <item name="android:orientation">vertical</item>
     </style>
 
-    <style name="money_style">
+    <style name="money_view">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:orientation">horizontal</item>
         <item name="android:gravity">center_vertical</item>
     </style>
 
-    <style name="money_style_not_first" parent="money_style">
-        <item name="android:layout_marginTop">@dimen/horizontal_margin</item>
+    <style name="money_view_not_first" parent="money_view">
+        <item name="android:layout_marginLeft">@dimen/money_view_not_first_margin_left</item>
+        <item name="android:layout_marginTop">@dimen/money_view_not_first_margin_top</item>
     </style>
 
     <style name="container_button_main_menu">
@@ -89,10 +90,22 @@
         <item name="android:maxLength">3</item>
         <item name="android:imeOptions">actionDone</item>
         <item name="android:visibility">visible</item>
+        <item name="android:layout_marginLeft">@dimen/money_edittext_margin_left</item>
+        <item name="android:layout_marginTop">@dimen/money_edittext_margin_top</item>
     </style>
 
-    <style name="money_edittext_orientation" parent="@style/money_edittext">
-        <item name="android:layout_marginLeft">@dimen/vertical_margin</item>
+    <style name="money_numberpicker_base">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginLeft">@dimen/money_numberpicker_base_margin_left</item>
+        <item name="android:layout_marginTop">@dimen/money_numberpicker_base_margin_top</item>
+    </style>
+
+    <style name="money_numberpicker" parent="money_numberpicker_base">
+        <item name="android:scaleX">0.7</item>
+        <item name="android:scaleY">0.7</item>
+        <item name="android:theme">@android:style/Theme.Dialog</item>
+        <item name="android:layout_marginTop">@dimen/money_numberpicker_margin_top</item>
     </style>
 
 </resources>
