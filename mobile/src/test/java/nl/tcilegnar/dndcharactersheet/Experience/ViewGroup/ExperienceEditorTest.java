@@ -101,7 +101,7 @@ public class ExperienceEditorTest {
         experienceEditor.onClick(plusButtonMock);
 
         // Assert
-        int expectedValue = expPicker.getCurrentSelectedExpValue();
+        int expectedValue = expPicker.getCurrentSelectedNumber();
         verify(experienceUpdateListenerMock).onUpdateExperience(expectedValue);
     }
 
@@ -166,7 +166,7 @@ public class ExperienceEditorTest {
         experienceEditor.onClick(minButtonMock);
 
         // Assert
-        int expectedValue = -expPicker.getCurrentSelectedExpValue();
+        int expectedValue = -expPicker.getCurrentSelectedNumber();
         verify(experienceUpdateListenerMock).onUpdateExperience(expectedValue);
     }
 
@@ -231,7 +231,7 @@ public class ExperienceEditorTest {
         experienceEditor.onEditorAction(expInput, EditorInfo.IME_ACTION_DONE, null);
 
         // Assert
-        int expectedValue = expPicker.getCurrentSelectedExpValue();
+        int expectedValue = expPicker.getCurrentSelectedNumber();
         verify(experienceUpdateListenerMock).onUpdateExperience(expectedValue);
     }
 

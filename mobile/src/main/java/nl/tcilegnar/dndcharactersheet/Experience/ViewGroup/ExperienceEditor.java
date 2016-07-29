@@ -68,7 +68,7 @@ public class ExperienceEditor extends LinearLayout implements OnClickListener, T
         if (settings.isExperienceUpdateTypeInput()) {
             return expInput.getInputNumber();
         } else if (settings.isExperienceUpdateTypeNumberPicker()) {
-            return expPicker.getCurrentSelectedExpValue();
+            return expPicker.getCurrentSelectedNumber();
         } else {
             return 0;
         }
