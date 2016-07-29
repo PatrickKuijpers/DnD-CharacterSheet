@@ -30,6 +30,8 @@
         <item name="android:layout_marginTop">@dimen/money_view_not_first_margin_top</item>
     </style>
 
+    <style name="money_editors" parent="money_view"/>
+
     <style name="container_button_main_menu">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">match_parent</item>
@@ -108,4 +110,9 @@
         <item name="android:layout_marginTop">@dimen/money_numberpicker_margin_top</item>
     </style>
 
+    <style name="money_numberslider" parent="money_numberpicker_base">
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:scaleX">0.8</item>
+        <item name="android:scaleY">0.8</item>
+    </style>
 </resources>

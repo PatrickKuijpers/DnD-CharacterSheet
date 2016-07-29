@@ -4,6 +4,6 @@
     <dimen name="money_view_not_first_margin_top">0dp</dimen>
     <dimen name="money_subviews_margin_left">0dp</dimen>
     <dimen name="money_subviews_margin_top">@dimen/vertical_margin</dimen>
-    <!-- Zou @dimen/vertical_margin moeten zijn, maar vanwege numberpicker scaling probleem is een correctie toegepast-->
+    <!-- Zou money_numberpicker_base_margin_top = money_subviews_margin_top = @dimen/vertical_margin moeten zijn, maar vanwege numberpicker scaling probleem is een correctie toegepast-->
     <dimen name="money_numberpicker_margin_top">-10dp</dimen>
 </resources>
