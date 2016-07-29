@@ -8,8 +8,7 @@
 
     <nl.tcilegnar.dndcharactersheet.Money.View.MoneySlider
         android:id="@+id/money_numberslider"
-        style="@style/money_numberslider"
-        android:descendantFocusability="blocksDescendants"/>
+        style="@style/money_numberslider"/>
 
     <nl.tcilegnar.dndcharactersheet.Money.View.MoneyPicker
         android:id="@+id/money_numberpicker"

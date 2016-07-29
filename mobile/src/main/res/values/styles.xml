@@ -74,7 +74,7 @@
         <item name="android:layout_height">@dimen/coin_size</item>
     </style>
 
-    <style name="default_edittext_number">
+    <style name="base_edittext_number">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:background">@color/grey_light</item>
@@ -87,12 +87,12 @@
         <item name="android:paddingTop">@dimen/edittext_padding_vertical</item>
     </style>
 
-    <style name="experience_edittext" parent="@style/default_edittext_number">
+    <style name="experience_edittext" parent="@style/base_edittext_number">
         <item name="android:hint">0000000</item>
         <item name="android:maxLength">7</item>
     </style>
 
-    <style name="money_edittext" parent="@style/default_edittext_number">
+    <style name="money_edittext" parent="@style/base_edittext_number">
         <item name="android:background">@color/grey_light</item>
         <item name="android:hint">00</item>
         <item name="android:maxLength">2</item>
@@ -101,14 +101,20 @@
         <item name="android:layout_marginTop">@dimen/money_edittext_margin_top</item>
     </style>
 
-    <style name="money_numberpicker_base">
+    <style name="base_numberpicker">
+        <item name="android:descendantFocusability">blocksDescendants</item>
+    </style>
+
+    <style name="experience_numberpicker" parent="base_numberpicker"/>
+
+    <style name="base_money_numberpicker" parent="base_numberpicker">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_marginLeft">@dimen/money_numberpicker_base_margin_left</item>
         <item name="android:layout_marginTop">@dimen/money_numberpicker_base_margin_top</item>
     </style>
 
-    <style name="money_numberpicker" parent="money_numberpicker_base">
+    <style name="money_numberpicker" parent="base_money_numberpicker">
         <item name="android:theme">@style/customize_numberpicker</item>
         <item name="android:scaleX">0.7</item>
         <item name="android:scaleY">0.7</item>
@@ -119,7 +125,7 @@
         <item name="android:textColorPrimary">@android:color/black</item>
     </style>
 
-    <style name="money_numberslider" parent="money_numberpicker_base">
+    <style name="money_numberslider" parent="base_money_numberpicker">
         <item name="android:layout_height">match_parent</item>
         <item name="android:scaleX">0.8</item>
         <item name="android:scaleY">0.8</item>
