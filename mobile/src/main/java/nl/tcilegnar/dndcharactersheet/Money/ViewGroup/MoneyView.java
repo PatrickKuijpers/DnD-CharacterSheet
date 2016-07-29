@@ -52,6 +52,7 @@ public abstract class MoneyView extends LinearLayout {
         moneyInput.updateSettingsData();
         numberSlider.updateSettingsData();
         numberPicker.updateSettingsData();
+        initValues();
     }
 
     protected int getMoneyValue() {
