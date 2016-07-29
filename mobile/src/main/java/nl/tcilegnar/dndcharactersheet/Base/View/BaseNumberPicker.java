@@ -103,10 +103,6 @@ public abstract class BaseNumberPicker extends NumberPicker {
         return Integer.valueOf(getDisplayedValues()[getValue()]);
     }
 
-    public void setMoneyValue(int moneyValue) {
-        setValue(moneyValue);
-    }
-
     protected void setDividerColorTransparent() {
         setDividerColor(R.color.transparent);
     }
