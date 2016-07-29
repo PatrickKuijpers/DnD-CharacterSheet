@@ -30,6 +30,7 @@ import static org.mockito.Mockito.verify;
 
 @RunWith(RobolectricGradleTestRunner.class)
 @Config(constants = BuildConfig.class)
+@SuppressWarnings("all") // TODO
 public class SettingsTest {
     private Settings settings;
     private BaseStorageFragment settingsChangedListener;
@@ -245,7 +246,21 @@ public class SettingsTest {
     }
 
     @Test
-    @SuppressWarnings("all")
+    public void savePreferenceValue_Boolean_ValueSaved() {
+        // Arrange
+        String key = "testKey";
+        Preference preference = getPreference(key);
+        boolean expectedSavedValue = true;
+
+        // Act
+        settings.savePreferenceValue(preference, expectedSavedValue);
+        boolean savedValue = settings.loadBoolean(key);
+
+        // Assert
+        Assert.assertEquals(expectedSavedValue, savedValue);
+    }
+
+    @Test
     public void savePreferenceValue_String_ValueSaved() {
         // Arrange
         String key = "testKey";
@@ -261,7 +276,6 @@ public class SettingsTest {
     }
 
     @Test
-    @SuppressWarnings("all")
     public void savePreferenceValue_Integer_ValueSaved() {
         // Arrange
         String key = "testKey";
@@ -277,7 +291,6 @@ public class SettingsTest {
     }
 
     @Test
-    @SuppressWarnings("all")
     public void savePreferenceValue_Float_ValueSaved() {
         // Arrange
         String key = "testKey";
@@ -293,7 +306,6 @@ public class SettingsTest {
     }
 
     @Test
-    @SuppressWarnings("all")
     public void savePreferenceValue_Long_ValueSaved() {
         // Arrange
         String key = "testKey";
@@ -309,7 +321,6 @@ public class SettingsTest {
     }
 
     @Test
-    @SuppressWarnings("all")
     public void testSavePreferenceValue_StringSet_ValueSaved() {
         // Arrange
         String key = "testKey";
