@@ -13,15 +13,13 @@
         android:id="@+id/experience_picker"
         android:layout_width="wrap_content"
         android:layout_height="@dimen/experience_picker_height"
-        android:descendantFocusability="blocksDescendants"
-        android:visibility="visible"/>
+        android:descendantFocusability="blocksDescendants"/>
 
     <nl.tcilegnar.dndcharactersheet.Experience.View.ExperienceInput
         android:id="@+id/experience_input"
         style="@style/experience_edittext"
         android:layout_marginLeft="@dimen/horizontal_margin"
-        android:layout_marginRight="@dimen/horizontal_margin"
-        android:visibility="gone"/>
+        android:layout_marginRight="@dimen/horizontal_margin"/>
 
     <Button
         android:id="@+id/experience_plus_button"
