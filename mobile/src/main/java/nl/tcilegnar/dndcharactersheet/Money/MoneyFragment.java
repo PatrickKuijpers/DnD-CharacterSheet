@@ -5,7 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import nl.tcilegnar.dndcharactersheet.BaseStorageFragment;
+import nl.tcilegnar.dndcharactersheet.Base.BaseStorageFragment;
 import nl.tcilegnar.dndcharactersheet.Money.ViewGroup.BronzeView;
 import nl.tcilegnar.dndcharactersheet.Money.ViewGroup.GoldView;
 import nl.tcilegnar.dndcharactersheet.Money.ViewGroup.PlatinumView;

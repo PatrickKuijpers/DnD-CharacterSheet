@@ -7,7 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import nl.tcilegnar.dndcharactersheet.BaseStorageFragment;
+import nl.tcilegnar.dndcharactersheet.Base.BaseStorageFragment;
 import nl.tcilegnar.dndcharactersheet.Experience.ViewGroup.ExperienceCurrentLevel;
 import nl.tcilegnar.dndcharactersheet.Experience.ViewGroup.ExperienceEditor;
 import nl.tcilegnar.dndcharactersheet.Level.Level;

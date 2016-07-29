@@ -1,4 +1,4 @@
-package nl.tcilegnar.dndcharactersheet;
+package nl.tcilegnar.dndcharactersheet.Base;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;

@@ -24,7 +24,7 @@ public class PlatinumView extends MoneyView {
     }
 
     public void save() {
-        int value = getValue();
+        int value = getMoneyValue();
         new Storage().savePlatinum(value);
     }
 

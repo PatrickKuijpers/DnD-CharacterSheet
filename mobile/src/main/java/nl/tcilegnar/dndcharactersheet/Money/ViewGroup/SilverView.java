@@ -24,7 +24,7 @@ public class SilverView extends MoneyView {
     }
 
     public void save() {
-        int value = getValue();
+        int value = getMoneyValue();
         new Storage().saveSilver(value);
     }
 

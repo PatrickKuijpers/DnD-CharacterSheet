@@ -24,7 +24,7 @@ public class GoldView extends MoneyView {
     }
 
     public void save() {
-        int value = getValue();
+        int value = getMoneyValue();
         new Storage().saveGold(value);
     }
 

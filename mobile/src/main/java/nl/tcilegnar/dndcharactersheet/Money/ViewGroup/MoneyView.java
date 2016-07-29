@@ -36,6 +36,10 @@ public abstract class MoneyView extends LinearLayout {
         numberSlider = (MoneySlider) findViewById(R.id.money_numberslider);
         numberPicker = (MoneyPicker) findViewById(R.id.money_numberpicker);
 
+        initValues();
+    }
+
+    private void initValues() {
         int moneyValue = load();
         moneyInput.setMoneyValue(moneyValue);
         numberSlider.setMoneyValue(moneyValue);
@@ -50,9 +54,9 @@ public abstract class MoneyView extends LinearLayout {
         numberPicker.updateSettingsData();
     }
 
-    protected int getValue() {
+    protected int getMoneyValue() {
         if (moneyInput.getVisibility() == View.VISIBLE) {
-            return moneyInput.getMoneyValue();
+            return moneyInput.getInputNumber();
         } else if (numberSlider.getVisibility() == View.VISIBLE) {
             return numberSlider.getCurrentSelectedMoneyValue();
         } else if (numberPicker.getVisibility() == View.VISIBLE) {

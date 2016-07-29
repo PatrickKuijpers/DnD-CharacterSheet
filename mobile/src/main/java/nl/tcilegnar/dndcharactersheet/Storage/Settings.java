@@ -6,7 +6,7 @@ import android.support.annotation.StringRes;
 import java.util.Set;
 
 import nl.tcilegnar.dndcharactersheet.App;
-import nl.tcilegnar.dndcharactersheet.BaseStorageFragment;
+import nl.tcilegnar.dndcharactersheet.Base.BaseStorageFragment;
 import nl.tcilegnar.dndcharactersheet.R;
 
 public class Settings extends SharedPrefs {

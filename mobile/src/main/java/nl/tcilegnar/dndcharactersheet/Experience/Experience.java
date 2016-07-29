@@ -6,7 +6,7 @@ import nl.tcilegnar.dndcharactersheet.Experience.ExperienceUpdater.ExpTooLowExce
 import nl.tcilegnar.dndcharactersheet.Experience.ExperienceUpdater.ExperienceEdgeListener;
 import nl.tcilegnar.dndcharactersheet.Level.LevelTableUtil;
 import nl.tcilegnar.dndcharactersheet.Storage.Storage;
-import nl.tcilegnar.dndcharactersheet.StorageObject;
+import nl.tcilegnar.dndcharactersheet.Base.StorageObject;
 
 import static nl.tcilegnar.dndcharactersheet.Level.Level.CurrentProjectedLevelListener;
 

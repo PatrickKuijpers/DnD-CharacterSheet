@@ -10,7 +10,7 @@ import nl.tcilegnar.dndcharactersheet.Experience.Experience.LevelListener;
 import nl.tcilegnar.dndcharactersheet.Experience.ExperienceUpdater.ExperienceEdgeListener;
 import nl.tcilegnar.dndcharactersheet.Level.LevelUp.LevelsReadyForChange.ChangeLevelListener;
 import nl.tcilegnar.dndcharactersheet.Storage.Storage;
-import nl.tcilegnar.dndcharactersheet.StorageObject;
+import nl.tcilegnar.dndcharactersheet.Base.StorageObject;
 
 public class Level extends StorageObject implements ExperienceEdgeListener, ChangeLevelListener, LevelListener {
     public static final int MIN_LEVEL = LevelTable.ONE.level;

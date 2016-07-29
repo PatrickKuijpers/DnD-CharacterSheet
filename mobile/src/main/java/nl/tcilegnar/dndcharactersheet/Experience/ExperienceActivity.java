@@ -2,7 +2,7 @@ package nl.tcilegnar.dndcharactersheet.Experience;
 
 import android.os.Bundle;
 
-import nl.tcilegnar.dndcharactersheet.BaseStorageActivity;
+import nl.tcilegnar.dndcharactersheet.Base.BaseStorageActivity;
 
 public class ExperienceActivity extends BaseStorageActivity {
     public enum FragTag {

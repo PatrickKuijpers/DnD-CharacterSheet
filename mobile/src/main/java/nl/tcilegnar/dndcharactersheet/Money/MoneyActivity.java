@@ -2,7 +2,7 @@ package nl.tcilegnar.dndcharactersheet.Money;
 
 import android.os.Bundle;
 
-import nl.tcilegnar.dndcharactersheet.BaseStorageActivity;
+import nl.tcilegnar.dndcharactersheet.Base.BaseStorageActivity;
 
 public class MoneyActivity extends BaseStorageActivity {
     public enum FragTag {

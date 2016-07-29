@@ -24,7 +24,7 @@ public class BronzeView extends MoneyView {
     }
 
     public void save() {
-        int value = getValue();
+        int value = getMoneyValue();
         new Storage().saveBronze(value);
     }
 

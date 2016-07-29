@@ -1,4 +1,4 @@
-package nl.tcilegnar.dndcharactersheet;
+package nl.tcilegnar.dndcharactersheet.Base;
 
 import android.app.ActivityOptions;
 import android.content.Intent;
@@ -13,6 +13,9 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import nl.tcilegnar.dndcharactersheet.App;
+import nl.tcilegnar.dndcharactersheet.FragmentManager;
+import nl.tcilegnar.dndcharactersheet.R;
 import nl.tcilegnar.dndcharactersheet.Settings.SettingsActivity;
 
 public abstract class BaseActivity extends AppCompatActivity implements OnNavigationItemSelectedListener {

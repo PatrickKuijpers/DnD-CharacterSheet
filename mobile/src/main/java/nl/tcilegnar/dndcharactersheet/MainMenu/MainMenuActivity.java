@@ -4,7 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 
-import nl.tcilegnar.dndcharactersheet.BaseActivity;
+import nl.tcilegnar.dndcharactersheet.Base.BaseActivity;
 import nl.tcilegnar.dndcharactersheet.Experience.ExperienceActivity;
 import nl.tcilegnar.dndcharactersheet.Money.MoneyActivity;
 import nl.tcilegnar.dndcharactersheet.R;
