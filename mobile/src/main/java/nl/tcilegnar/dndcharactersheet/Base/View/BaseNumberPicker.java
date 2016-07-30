@@ -3,6 +3,8 @@ package nl.tcilegnar.dndcharactersheet.Base.View;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.drawable.ColorDrawable;
+import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.annotation.ColorRes;
 import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
@@ -83,24 +85,24 @@ public abstract class BaseNumberPicker extends NumberPicker {
 
     protected abstract int getPickerStepSize();
 
-    //    @Override
-    //    public Parcelable onSaveInstanceState() {
-    //        super.onSaveInstanceState();
-    //        Bundle bundle = new Bundle();
-    //        bundle.putParcelable(SavedValues.SAVED_INSTANCE.name(), super.onSaveInstanceState());
-    //        //        bundle.putInt(SavedValues.CURRENT_PICKER_INDEX.name(), getValue());
-    //        return bundle;
-    //    }
-    //
-    //    @Override
-    //    public void onRestoreInstanceState(Parcelable state) {
-    //        if (state instanceof Bundle) {
-    //            Bundle bundle = (Bundle) state;
-    //            //            setValue(bundle.getInt(SavedValues.CURRENT_PICKER_INDEX.name()));
-    //            state = bundle.getParcelable(SavedValues.SAVED_INSTANCE.name());
-    //        }
-    //        super.onRestoreInstanceState(state);
-    //    }
+    @Override
+    public Parcelable onSaveInstanceState() {
+        super.onSaveInstanceState();
+        Bundle bundle = new Bundle();
+        bundle.putParcelable(SavedValues.SAVED_INSTANCE.name(), super.onSaveInstanceState());
+        bundle.putInt(SavedValues.CURRENT_PICKER_INDEX.name(), getValue());
+        return bundle;
+    }
+
+    @Override
+    public void onRestoreInstanceState(Parcelable state) {
+        if (state instanceof Bundle) {
+            Bundle bundle = (Bundle) state;
+            setValue(bundle.getInt(SavedValues.CURRENT_PICKER_INDEX.name()));
+            state = bundle.getParcelable(SavedValues.SAVED_INSTANCE.name());
+        }
+        super.onRestoreInstanceState(state);
+    }
 
     public void updateSettingsData() {
         initViewsIfVisible();
