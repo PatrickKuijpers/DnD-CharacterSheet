@@ -5,7 +5,6 @@ import android.support.annotation.VisibleForTesting;
 import android.util.AttributeSet;
 
 import nl.tcilegnar.dndcharactersheet.R;
-import nl.tcilegnar.dndcharactersheet.Storage.Settings;
 import nl.tcilegnar.dndcharactersheet.Storage.Storage;
 
 public class BronzeView extends MoneyView {
@@ -14,8 +13,8 @@ public class BronzeView extends MoneyView {
     }
 
     @VisibleForTesting
-    protected BronzeView(Context context, AttributeSet attrs, Settings settings) {
-        super(context, attrs, settings);
+    protected BronzeView(Context context, AttributeSet attrs, Storage storage) {
+        super(context, attrs, storage);
     }
 
     @Override
@@ -23,13 +22,13 @@ public class BronzeView extends MoneyView {
         return R.layout.money_bronze_view;
     }
 
-    public void save() {
-        int value = getMoneyValue();
-        new Storage().saveBronze(value);
+    @Override
+    protected int loadMoneyValue() {
+        return storage.loadBronze();
     }
 
     @Override
-    public int load() {
-        return new Storage().loadBronze();
+    protected void saveMoneyValue(int value) {
+        storage.saveBronze(value);
     }
 }

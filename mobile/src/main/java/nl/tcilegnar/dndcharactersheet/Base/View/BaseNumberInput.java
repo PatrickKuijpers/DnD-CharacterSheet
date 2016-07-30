@@ -24,7 +24,7 @@ public abstract class BaseNumberInput extends EditText {
 
     protected void initViewsIfVisible() {
         if (shouldBeVisible()) {
-            init();
+            initView();
             setVisibility(View.VISIBLE);
         } else {
             setVisibility(View.GONE);
@@ -33,7 +33,7 @@ public abstract class BaseNumberInput extends EditText {
 
     protected abstract boolean shouldBeVisible();
 
-    protected void init() {
+    protected void initView() {
     }
 
     public void updateSettingsData() {

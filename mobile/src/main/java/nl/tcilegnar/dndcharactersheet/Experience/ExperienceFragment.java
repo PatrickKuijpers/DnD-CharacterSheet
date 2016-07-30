@@ -63,6 +63,11 @@ public class ExperienceFragment extends BaseStorageFragment implements LevelUpIc
     }
 
     @Override
+    protected void onLoadData() {
+
+    }
+
+    @Override
     protected void onSaveData() {
         expCurrentLevel.save();
         levelIndicatorView.save();
@@ -106,7 +111,7 @@ public class ExperienceFragment extends BaseStorageFragment implements LevelUpIc
     }
 
     public String getLevelUpOrDownText() {
-        // TODO: deze is nog nodig omdat je bij de init nog niet weet wat numberOfLevelsReadyForChange is
+        // TODO: deze is nog nodig omdat je bij initViews nog niet weet wat numberOfLevelsReadyForChange is
         String levelUpOrDownText = getString(R.string.level_change_info_unknown);
 
         boolean isLevelUp = levelChangeView.getNumberOfLevelsReadyForChange() > 0;

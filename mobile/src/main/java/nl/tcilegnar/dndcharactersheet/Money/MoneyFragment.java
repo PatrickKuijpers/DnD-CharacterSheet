@@ -37,11 +37,11 @@ public class MoneyFragment extends BaseStorageFragment {
     }
 
     @Override
-    protected void updateSettingsData() {
-        platinumView.updateSettingsData();
-        goldView.updateSettingsData();
-        silverView.updateSettingsData();
-        bronzeView.updateSettingsData();
+    protected void onLoadData() {
+        platinumView.load();
+        goldView.load();
+        silverView.load();
+        bronzeView.load();
     }
 
     @Override
@@ -50,5 +50,13 @@ public class MoneyFragment extends BaseStorageFragment {
         goldView.save();
         silverView.save();
         bronzeView.save();
+    }
+
+    @Override
+    protected void updateSettingsData() {
+        platinumView.updateSettingsData();
+        goldView.updateSettingsData();
+        silverView.updateSettingsData();
+        bronzeView.updateSettingsData();
     }
 }

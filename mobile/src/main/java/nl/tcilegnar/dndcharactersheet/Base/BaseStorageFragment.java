@@ -23,6 +23,7 @@ public abstract class BaseStorageFragment extends BaseFragment {
             settingsChanged = false;
             updateSettingsData();
         }
+        onLoadData();
     }
 
     @Override
@@ -31,9 +32,11 @@ public abstract class BaseStorageFragment extends BaseFragment {
         super.onPause();
     }
 
-    protected abstract void updateSettingsData();
+    protected abstract void onLoadData();
 
     protected abstract void onSaveData();
+
+    protected abstract void updateSettingsData();
 
     public void onSettingsChanged() {
         settingsChanged = true;

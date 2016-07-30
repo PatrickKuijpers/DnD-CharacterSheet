@@ -18,8 +18,8 @@ public class MoneySlider extends MoneyBaseNumberPicker {
     }
 
     @Override
-    protected void init() {
-        super.init();
+    protected void initView() {
+        super.initView();
         setDividerColor(R.color.grey_light);
     }
 

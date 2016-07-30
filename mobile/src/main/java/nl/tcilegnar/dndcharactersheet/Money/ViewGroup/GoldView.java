@@ -5,7 +5,6 @@ import android.support.annotation.VisibleForTesting;
 import android.util.AttributeSet;
 
 import nl.tcilegnar.dndcharactersheet.R;
-import nl.tcilegnar.dndcharactersheet.Storage.Settings;
 import nl.tcilegnar.dndcharactersheet.Storage.Storage;
 
 public class GoldView extends MoneyView {
@@ -14,8 +13,8 @@ public class GoldView extends MoneyView {
     }
 
     @VisibleForTesting
-    protected GoldView(Context context, AttributeSet attrs, Settings settings) {
-        super(context, attrs, settings);
+    protected GoldView(Context context, AttributeSet attrs, Storage storage) {
+        super(context, attrs, storage);
     }
 
     @Override
@@ -23,13 +22,13 @@ public class GoldView extends MoneyView {
         return R.layout.money_gold_view;
     }
 
-    public void save() {
-        int value = getMoneyValue();
-        new Storage().saveGold(value);
+    @Override
+    protected int loadMoneyValue() {
+        return storage.loadGold();
     }
 
     @Override
-    public int load() {
-        return new Storage().loadGold();
+    protected void saveMoneyValue(int value) {
+        storage.saveGold(value);
     }
 }

@@ -5,7 +5,6 @@ import android.support.annotation.VisibleForTesting;
 import android.util.AttributeSet;
 
 import nl.tcilegnar.dndcharactersheet.R;
-import nl.tcilegnar.dndcharactersheet.Storage.Settings;
 import nl.tcilegnar.dndcharactersheet.Storage.Storage;
 
 public class SilverView extends MoneyView {
@@ -14,8 +13,8 @@ public class SilverView extends MoneyView {
     }
 
     @VisibleForTesting
-    protected SilverView(Context context, AttributeSet attrs, Settings settings) {
-        super(context, attrs, settings);
+    protected SilverView(Context context, AttributeSet attrs, Storage storage) {
+        super(context, attrs, storage);
     }
 
     @Override
@@ -23,13 +22,13 @@ public class SilverView extends MoneyView {
         return R.layout.money_silver_view;
     }
 
-    public void save() {
-        int value = getMoneyValue();
-        new Storage().saveSilver(value);
+    @Override
+    protected int loadMoneyValue() {
+        return storage.loadSilver();
     }
 
     @Override
-    public int load() {
-        return new Storage().loadSilver();
+    protected void saveMoneyValue(int value) {
+        storage.saveSilver(value);
     }
 }

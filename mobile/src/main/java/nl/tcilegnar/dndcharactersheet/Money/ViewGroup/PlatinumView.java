@@ -5,7 +5,6 @@ import android.support.annotation.VisibleForTesting;
 import android.util.AttributeSet;
 
 import nl.tcilegnar.dndcharactersheet.R;
-import nl.tcilegnar.dndcharactersheet.Storage.Settings;
 import nl.tcilegnar.dndcharactersheet.Storage.Storage;
 
 public class PlatinumView extends MoneyView {
@@ -14,8 +13,8 @@ public class PlatinumView extends MoneyView {
     }
 
     @VisibleForTesting
-    protected PlatinumView(Context context, AttributeSet attrs, Settings settings) {
-        super(context, attrs, settings);
+    protected PlatinumView(Context context, AttributeSet attrs, Storage storage) {
+        super(context, attrs, storage);
     }
 
     @Override
@@ -23,13 +22,13 @@ public class PlatinumView extends MoneyView {
         return R.layout.money_platinum_view;
     }
 
-    public void save() {
-        int value = getMoneyValue();
-        new Storage().savePlatinum(value);
+    @Override
+    protected int loadMoneyValue() {
+        return storage.loadPlatinum();
     }
 
     @Override
-    public int load() {
-        return new Storage().loadPlatinum();
+    protected void saveMoneyValue(int value) {
+        storage.savePlatinum(value);
     }
 }

@@ -25,8 +25,8 @@ public class ExperiencePicker extends BaseNumberPicker {
     }
 
     @Override
-    protected void init() {
-        super.init();
+    protected void initView() {
+        super.initView();
         setDividerColorTransparent();
     }
 

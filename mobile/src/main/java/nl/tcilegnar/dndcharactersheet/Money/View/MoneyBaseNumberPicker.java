@@ -21,6 +21,12 @@ public abstract class MoneyBaseNumberPicker extends BaseNumberPicker {
     }
 
     @Override
+    protected void initView() {
+        super.initView();
+        // TODO: automatisch values setten uit storage?
+    }
+
+    @Override
     protected int minValue() {
         return MIN_VALUE;
     }
