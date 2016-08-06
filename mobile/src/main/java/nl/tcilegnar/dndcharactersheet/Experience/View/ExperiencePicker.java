@@ -51,11 +51,18 @@ public class ExperiencePicker extends NumberPicker {
     }
 
     private void initPickerValues() {
+        setValue(0);
+        setMinValue(MIN_VALUE);
+
         String[] displayedValues = generateDisplayedValues();
-        super.setDisplayedValues(displayedValues);
-        super.setMinValue(MIN_VALUE);
-        super.setMaxValue(displayedValues.length - 1);
-        super.setValue(0);
+        int newMaxValue = displayedValues.length - 1;
+        if (newMaxValue > getMaxValue()) {
+            setDisplayedValues(displayedValues);
+            setMaxValue(newMaxValue);
+        } else {
+            setMaxValue(newMaxValue);
+            setDisplayedValues(displayedValues);
+        }
     }
 
     private String[] generateDisplayedValues() {
