@@ -3,7 +3,7 @@ package nl.tcilegnar.dndcharactersheet.Utils;
 import nl.tcilegnar.dndcharactersheet.BuildConfig;
 
 public class Log {
-    private static final String BASE_LOGTAG = "TEST";
+    private static final String BASE_LOGTAG = "DnDLog";
 
     public static void v(String logTag, String msg) {
         if (BuildConfig.DEBUG) {
