@@ -3,6 +3,7 @@ package nl.tcilegnar.dndcharactersheet.Base;
 import android.app.ActivityOptions;
 import android.content.Intent;
 import android.os.Bundle;
+import android.preference.PreferenceActivity;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.NavigationView.OnNavigationItemSelectedListener;
 import android.support.v4.view.GravityCompat;
@@ -11,12 +12,12 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 
 import nl.tcilegnar.dndcharactersheet.App;
 import nl.tcilegnar.dndcharactersheet.FragmentManager;
 import nl.tcilegnar.dndcharactersheet.R;
-import nl.tcilegnar.dndcharactersheet.Settings.SettingsActivity;
 
 public abstract class BaseActivity extends AppCompatActivity implements OnNavigationItemSelectedListener {
     protected FragmentManager fragmentManager = new FragmentManager(this);
@@ -41,7 +42,12 @@ public abstract class BaseActivity extends AppCompatActivity implements OnNaviga
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.settings_menu, menu);
+        MenuInflater menuInflater = getMenuInflater();
+
+        Class<? extends PreferenceActivity> settingsActivityClass = getSettingsActivityClass();
+        if (settingsActivityClass != null) {
+            menuInflater.inflate(R.menu.settings_menu, menu);
+        }
         return true;
     }
 
@@ -72,11 +78,17 @@ public abstract class BaseActivity extends AppCompatActivity implements OnNaviga
     }
 
     private void startSettingsActivity() {
-        Intent settingsActivity = new Intent(this, SettingsActivity.class);
-        Bundle animation = ActivityOptions.makeCustomAnimation(App.getContext(), R.anim.anim_enter_from_right, R.anim
-                .anim_exit_to_left).toBundle();
-        startActivity(settingsActivity, animation);
+        Class<? extends PreferenceActivity> settingsActivityClass = getSettingsActivityClass();
+        if (settingsActivityClass != null) {
+            Intent settingsActivity = new Intent(this, settingsActivityClass);
+            Bundle animation = ActivityOptions.makeCustomAnimation(App.getContext(), R.anim.anim_enter_from_right, R
+                    .anim.anim_exit_to_left).toBundle();
+
+            startActivity(settingsActivity, animation);
+        }
     }
+
+    protected abstract Class<? extends PreferenceActivity> getSettingsActivityClass();
 
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {

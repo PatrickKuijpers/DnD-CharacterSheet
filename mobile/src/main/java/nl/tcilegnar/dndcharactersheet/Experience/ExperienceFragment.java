@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import nl.tcilegnar.dndcharactersheet.Base.BaseStorageFragment;
+import nl.tcilegnar.dndcharactersheet.Experience.Settings.ExperienceSettings;
 import nl.tcilegnar.dndcharactersheet.Experience.ViewGroup.ExperienceCurrentLevel;
 import nl.tcilegnar.dndcharactersheet.Experience.ViewGroup.ExperienceEditor;
 import nl.tcilegnar.dndcharactersheet.Level.Level;
@@ -16,6 +17,8 @@ import nl.tcilegnar.dndcharactersheet.Level.LevelUp.ViewGroup.LevelChangeView;
 import nl.tcilegnar.dndcharactersheet.Level.LevelUp.ViewGroup.LevelChangeView.LevelUpIconVisibilityChangedListener;
 import nl.tcilegnar.dndcharactersheet.Level.ViewGroup.LevelIndicatorView;
 import nl.tcilegnar.dndcharactersheet.R;
+import nl.tcilegnar.dndcharactersheet.Settings.Main.MainSettings;
+import nl.tcilegnar.dndcharactersheet.Settings.Settings;
 import nl.tcilegnar.dndcharactersheet.Utils.KeyboardUtil;
 
 public class ExperienceFragment extends BaseStorageFragment implements LevelUpIconVisibilityChangedListener,
@@ -57,9 +60,8 @@ public class ExperienceFragment extends BaseStorageFragment implements LevelUpIc
     }
 
     @Override
-    protected void updateSettingsData() {
-        expEditor.updateSettingsData();
-        toggleLevelInfoSnackbar();
+    protected Settings getSettings() {
+        return ExperienceSettings.getInstance();
     }
 
     @Override
@@ -74,6 +76,12 @@ public class ExperienceFragment extends BaseStorageFragment implements LevelUpIc
     }
 
     @Override
+    protected void updateSettingsData() {
+        expEditor.updateSettingsData();
+        toggleLevelInfoSnackbar();
+    }
+
+    @Override
     public void onLevelUpIconVisibilityChanged() {
         toggleLevelInfoSnackbar();
     }
@@ -84,7 +92,7 @@ public class ExperienceFragment extends BaseStorageFragment implements LevelUpIc
     }
 
     private void toggleLevelInfoSnackbar() {
-        if (settings.shouldShowHints() && levelChangeView.isReadyForLevelChange()) {
+        if (MainSettings.getInstance().shouldShowHints() && levelChangeView.isReadyForLevelChange()) {
             showSnackbar();
         } else {
             hideSnackbar();

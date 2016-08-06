@@ -1,22 +1,16 @@
 package nl.tcilegnar.dndcharactersheet.Base.View;
 
 import android.content.Context;
-import android.support.annotation.VisibleForTesting;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.EditText;
 
-import nl.tcilegnar.dndcharactersheet.Storage.Settings;
+import nl.tcilegnar.dndcharactersheet.Settings.Settings;
 
 public abstract class BaseNumberInput extends EditText {
     protected final Settings settings;
 
-    public BaseNumberInput(Context context, AttributeSet attrs) {
-        this(context, attrs, Settings.getInstance());
-    }
-
-    @VisibleForTesting
-    public BaseNumberInput(Context context, AttributeSet attrs, Settings settings) {
+    public <T extends Settings> BaseNumberInput(Context context, AttributeSet attrs, T settings) {
         super(context, attrs);
         this.settings = settings;
         initViewsIfVisible();

@@ -12,7 +12,7 @@
     <string name="setting_key_money_update_type">money_update_type</string>
 
     <!-- Settings titels, uitleg & defaultvalue -->
-    <string name="setting_category_title_general">Algemeen</string>
+    <string name="setting_category_title_general">Algemene instellingen</string>
     <string name="setting_category_title_experience_and_level">@string/title_level_and_experience</string>
     <string name="setting_category_title_money">@string/title_money</string>
 

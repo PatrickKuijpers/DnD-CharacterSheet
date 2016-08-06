@@ -15,20 +15,16 @@ import java.lang.reflect.Field;
 
 import nl.tcilegnar.dndcharactersheet.App;
 import nl.tcilegnar.dndcharactersheet.R;
-import nl.tcilegnar.dndcharactersheet.Storage.Settings;
+import nl.tcilegnar.dndcharactersheet.Settings.Settings;
 
 public abstract class BaseNumberPicker extends NumberPicker {
-    protected Settings settings;
+    protected final Settings settings;
 
     public enum SavedValues {
         SAVED_INSTANCE, CURRENT_PICKER_INDEX
     }
 
-    public BaseNumberPicker(Context context, AttributeSet attrs) {
-        this(context, attrs, Settings.getInstance());
-    }
-
-    public BaseNumberPicker(Context context, AttributeSet attrs, Settings settings) {
+    public <T extends Settings> BaseNumberPicker(Context context, AttributeSet attrs, T settings) {
         super(context, attrs);
         this.settings = settings;
         initViewsIfVisible();

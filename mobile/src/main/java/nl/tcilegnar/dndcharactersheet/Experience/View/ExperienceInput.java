@@ -5,19 +5,19 @@ import android.support.annotation.VisibleForTesting;
 import android.util.AttributeSet;
 
 import nl.tcilegnar.dndcharactersheet.Base.View.BaseNumberInput;
-import nl.tcilegnar.dndcharactersheet.Storage.Settings;
+import nl.tcilegnar.dndcharactersheet.Experience.Settings.ExperienceSettings;
 
 public class ExperienceInput extends BaseNumberInput {
     public ExperienceInput(Context context, AttributeSet attrs) {
-        super(context, attrs);
+        this(context, attrs, ExperienceSettings.getInstance());
     }
 
     @VisibleForTesting
-    public ExperienceInput(Context context, AttributeSet attrs, Settings settings) {
+    protected ExperienceInput(Context context, AttributeSet attrs, ExperienceSettings settings) {
         super(context, attrs, settings);
     }
 
     protected boolean shouldBeVisible() {
-        return settings.isExperienceUpdateTypeInput();
+        return ((ExperienceSettings) settings).isExperienceUpdateTypeInput();
     }
 }

@@ -6,11 +6,13 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import nl.tcilegnar.dndcharactersheet.Base.BaseStorageFragment;
+import nl.tcilegnar.dndcharactersheet.Money.Settings.MoneySettings;
 import nl.tcilegnar.dndcharactersheet.Money.ViewGroup.BronzeView;
 import nl.tcilegnar.dndcharactersheet.Money.ViewGroup.GoldView;
 import nl.tcilegnar.dndcharactersheet.Money.ViewGroup.PlatinumView;
 import nl.tcilegnar.dndcharactersheet.Money.ViewGroup.SilverView;
 import nl.tcilegnar.dndcharactersheet.R;
+import nl.tcilegnar.dndcharactersheet.Settings.Settings;
 
 public class MoneyFragment extends BaseStorageFragment {
     private PlatinumView platinumView;
@@ -34,6 +36,11 @@ public class MoneyFragment extends BaseStorageFragment {
         goldView = (GoldView) view.findViewById(R.id.gold_view);
         silverView = (SilverView) view.findViewById(R.id.silver_view);
         bronzeView = (BronzeView) view.findViewById(R.id.bronze_view);
+    }
+
+    @Override
+    protected Settings getSettings() {
+        return MoneySettings.getInstance();
     }
 
     @Override

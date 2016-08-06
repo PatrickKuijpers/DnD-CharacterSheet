@@ -10,24 +10,24 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import nl.tcilegnar.dndcharactersheet.Experience.Settings.ExperienceSettings;
 import nl.tcilegnar.dndcharactersheet.Experience.View.ExperienceInput;
 import nl.tcilegnar.dndcharactersheet.Experience.View.ExperiencePicker;
 import nl.tcilegnar.dndcharactersheet.R;
-import nl.tcilegnar.dndcharactersheet.Storage.Settings;
 
 public class ExperienceEditor extends LinearLayout implements OnClickListener, TextView.OnEditorActionListener {
-    private final Settings settings;
+    private final ExperienceSettings settings;
     private ExperiencePicker expPicker;
     private ExperienceInput expInput;
 
     private ExperienceUpdateListener experienceUpdateListener;
 
     public ExperienceEditor(Context context, AttributeSet attrs) {
-        this(context, attrs, Settings.getInstance());
+        this(context, attrs, ExperienceSettings.getInstance());
     }
 
     @VisibleForTesting
-    protected ExperienceEditor(Context context, AttributeSet attrs, Settings settings) {
+    protected ExperienceEditor(Context context, AttributeSet attrs, ExperienceSettings settings) {
         super(context, attrs, R.attr.expEditorStyle);
         inflate(context, R.layout.experience_editor, this);
         this.settings = settings;

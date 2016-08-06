@@ -28,7 +28,15 @@
             android:label="@string/title_money"
             android:theme="@style/AppTheme.NoActionBar"/>
         <activity
-            android:name=".Settings.SettingsActivity"
+            android:name=".Settings.Main.MainSettingsActivity"
+            android:label="@string/title_settings"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity
+            android:name=".Experience.Settings.ExperienceSettingsActivity"
+            android:label="@string/title_settings"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity
+            android:name=".Money.Settings.MoneySettingsActivity"
             android:label="@string/title_settings"
             android:theme="@style/AppTheme.NoActionBar"/>
     </application>

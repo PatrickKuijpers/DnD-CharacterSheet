@@ -1,10 +1,11 @@
 package nl.tcilegnar.dndcharactersheet.Experience.View;
 
 import android.content.Context;
+import android.support.annotation.VisibleForTesting;
 import android.util.AttributeSet;
 
 import nl.tcilegnar.dndcharactersheet.Base.View.BaseNumberPicker;
-import nl.tcilegnar.dndcharactersheet.Storage.Settings;
+import nl.tcilegnar.dndcharactersheet.Experience.Settings.ExperienceSettings;
 
 public class ExperiencePicker extends BaseNumberPicker {
     private static final int MIN_VALUE = 0;
@@ -12,16 +13,17 @@ public class ExperiencePicker extends BaseNumberPicker {
     private static final int INITIAL_VALUE = 0;
 
     public ExperiencePicker(Context context, AttributeSet attrs) {
-        super(context, attrs);
+        this(context, attrs, ExperienceSettings.getInstance());
     }
 
-    public ExperiencePicker(Context context, AttributeSet attrs, Settings settings) {
+    @VisibleForTesting
+    protected ExperiencePicker(Context context, AttributeSet attrs, ExperienceSettings settings) {
         super(context, attrs, settings);
     }
 
     @Override
     protected boolean shouldBeVisible() {
-        return settings.isExperienceUpdateTypeNumberPicker();
+        return ((ExperienceSettings) settings).isExperienceUpdateTypeNumberPicker();
     }
 
     @Override
@@ -47,6 +49,6 @@ public class ExperiencePicker extends BaseNumberPicker {
 
     @Override
     protected int getPickerStepSize() {
-        return settings.getExperiencePickerStepSize();
+        return ((ExperienceSettings) settings).getExperiencePickerStepSize();
     }
 }

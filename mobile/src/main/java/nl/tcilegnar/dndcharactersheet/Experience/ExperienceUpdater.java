@@ -6,23 +6,23 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 import nl.tcilegnar.dndcharactersheet.App;
+import nl.tcilegnar.dndcharactersheet.Experience.Settings.ExperienceSettings;
 import nl.tcilegnar.dndcharactersheet.Level.Level.MaxLevelReachedException;
 import nl.tcilegnar.dndcharactersheet.Level.Level.MinLevelReachedException;
-import nl.tcilegnar.dndcharactersheet.Storage.Settings;
 import nl.tcilegnar.dndcharactersheet.Utils.Log;
 
 public class ExperienceUpdater {
     private final Experience experience;
-    private final Settings settings;
+    private final ExperienceSettings settings;
 
     private ArrayList<ExperienceEdgeListener> experienceEdgeListeners = new ArrayList<>();
 
     public ExperienceUpdater(Experience experience) {
-        this(experience, Settings.getInstance());
+        this(experience, ExperienceSettings.getInstance());
     }
 
     @VisibleForTesting
-    protected ExperienceUpdater(Experience experience, Settings settings) {
+    protected ExperienceUpdater(Experience experience, ExperienceSettings settings) {
         this.experience = experience;
         this.settings = settings;
     }

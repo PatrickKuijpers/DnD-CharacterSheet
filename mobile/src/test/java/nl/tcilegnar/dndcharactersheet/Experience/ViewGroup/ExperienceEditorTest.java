@@ -13,11 +13,11 @@ import android.widget.Button;
 
 import nl.tcilegnar.dndcharactersheet.App;
 import nl.tcilegnar.dndcharactersheet.BuildConfig;
+import nl.tcilegnar.dndcharactersheet.Experience.Settings.ExperienceSettings;
 import nl.tcilegnar.dndcharactersheet.Experience.View.ExperienceInput;
 import nl.tcilegnar.dndcharactersheet.Experience.View.ExperiencePicker;
 import nl.tcilegnar.dndcharactersheet.Experience.ViewGroup.ExperienceEditor.ExperienceUpdateListener;
 import nl.tcilegnar.dndcharactersheet.R;
-import nl.tcilegnar.dndcharactersheet.Storage.Settings;
 
 import static junit.framework.Assert.assertTrue;
 import static org.mockito.Mockito.doReturn;
@@ -29,7 +29,7 @@ import static org.mockito.Mockito.verify;
 public class ExperienceEditorTest {
     private static final boolean DEFAULT_IS_EXPERIENCE_UPDATE_TYPE_INPUT = true;
     private static final boolean DEFAULT_IS_NOT_EXPERIENCE_UPDATE_TYPE_NUMBER_PICKER = false;
-    private static final Settings SETTINGS_MOCK = mock(Settings.class);
+    private static final ExperienceSettings settingsMock = mock(ExperienceSettings.class);
     private static Button plusButtonMock;
     private static Button minButtonMock;
     private ExperienceEditor experienceEditor;
@@ -285,10 +285,10 @@ public class ExperienceEditorTest {
 
     private void initNewExperienceEditor(boolean isExperienceUpdateTypeInput, boolean
             isExperienceUpdateTypeNumberPicker) {
-        doReturn(isExperienceUpdateTypeInput).when(SETTINGS_MOCK).isExperienceUpdateTypeInput();
-        doReturn(isExperienceUpdateTypeNumberPicker).when(SETTINGS_MOCK).isExperienceUpdateTypeNumberPicker();
+        doReturn(isExperienceUpdateTypeInput).when(settingsMock).isExperienceUpdateTypeInput();
+        doReturn(isExperienceUpdateTypeNumberPicker).when(settingsMock).isExperienceUpdateTypeNumberPicker();
 
-        experienceEditor = new ExperienceEditor(App.getContext(), null, SETTINGS_MOCK);
+        experienceEditor = new ExperienceEditor(App.getContext(), null, settingsMock);
         expInput = (ExperienceInput) experienceEditor.findViewById(R.id.experience_input);
         expPicker = (ExperiencePicker) experienceEditor.findViewById(R.id.experience_picker);
         setListeners(experienceEditor);

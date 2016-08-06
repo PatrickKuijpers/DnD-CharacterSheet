@@ -1,6 +1,5 @@
 package nl.tcilegnar.dndcharactersheet.Storage;
 
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -22,6 +21,7 @@ import nl.tcilegnar.dndcharactersheet.R;
 
 import static junit.framework.Assert.assertEquals;
 import static org.junit.Assert.assertNotSame;
+import static org.mockito.Mockito.doCallRealMethod;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.spy;
 
@@ -29,416 +29,443 @@ import static org.mockito.Mockito.spy;
 @Config(constants = BuildConfig.class)
 @SuppressWarnings("all")
 public class SharedPrefsTest {
-    private Settings settings;
+    public static final String SHARED_PREFS_STUB_FILE_NAME = "SharedPrefsStubFileName";
+    private SharedPrefsStub sharedPrefsStub;
 
     @Before
     public void setUp() {
         // Gebruikt om abstract SharedPrefs te kunnen instantiëren
-        settings = Settings.getInstance();
-    }
-
-    @After
-    public void tearDown() {
-        settings.tearDown();
+        sharedPrefsStub = new SharedPrefsStub();
     }
 
     @Test
-    public void testGetPrefs_AbstractFileName_IsExtendedPrefs() {
+    public void getPrefs_AbstractFileName_IsExtendedPrefs() {
         // Arrange
 
         // Act
-        SharedPreferences prefs = settings.getPrefs();
+        SharedPreferences prefs = sharedPrefsStub.getPrefs();
 
         // Assert
-        SharedPreferences defaultSharedPrefs = PreferenceManager.getDefaultSharedPreferences(App.getContext());
-        assertNotSame(defaultSharedPrefs, prefs);
-        SharedPreferences extendedPrefs = App.getContext().getSharedPreferences(settings.fileName(), Context
+        SharedPreferences extendedPrefs = App.getContext().getSharedPreferences(sharedPrefsStub.fileName(), Context
                 .MODE_PRIVATE);
         assertEquals(extendedPrefs, prefs);
     }
 
     @Test
-    public void testGetPrefs_FileNameIsNull_IsDefaultPrefs() {
+    public void getPrefs_AbstractFileName_IsNotDefaultPrefs() {
         // Arrange
-        Settings settings = spy(Settings.getInstance());
-        doReturn(null).when(settings).fileName();
 
         // Act
-        SharedPreferences prefs = settings.getPrefs();
+        SharedPreferences prefs = sharedPrefsStub.getPrefs();
+
+        // Assert
+        SharedPreferences defaultSharedPrefs = PreferenceManager.getDefaultSharedPreferences(App.getContext());
+        assertNotSame(defaultSharedPrefs, prefs);
+    }
+
+    @Test
+    public void getPrefs_FileNameIsNull_IsDefaultPrefs() {
+        // Arrange
+        SharedPrefsStub sharedPrefsStubSpy = spy(new SharedPrefsStub());
+        doReturn(null).when(sharedPrefsStubSpy).fileName();
+        doCallRealMethod().when(sharedPrefsStubSpy).getPrefs();
+
+        // Act
+        SharedPreferences prefs = sharedPrefsStubSpy.getPrefs();
 
         // Assert
         SharedPreferences defaultSharedPrefs = PreferenceManager.getDefaultSharedPreferences(App.getContext());
         assertEquals(defaultSharedPrefs, prefs);
-        SharedPreferences extendedPrefs = App.getContext().getSharedPreferences(this.settings.fileName(), Context
-                .MODE_PRIVATE);
+    }
+
+    @Test
+    public void getPrefs_FileNameIsNull_IsNotExtendedPrefs() {
+        // Arrange
+        SharedPrefsStub sharedPrefsStubSpy = spy(new SharedPrefsStub());
+        doReturn(null).when(sharedPrefsStubSpy).fileName();
+        doCallRealMethod().when(sharedPrefsStubSpy).getPrefs();
+
+        // Act
+        SharedPreferences prefs = sharedPrefsStubSpy.getPrefs();
+
+        // Assert
+        SharedPreferences extendedPrefs = App.getContext().getSharedPreferences(this.sharedPrefsStub.fileName(),
+                Context.MODE_PRIVATE);
         assertNotSame(extendedPrefs, prefs);
     }
 
     @Test
-    public void testSaveAndLoadBoolean_True_ValueSaved() {
+    public void saveAndLoadBoolean_True_ValueSaved() {
         // Arrange
         String key = "testKey1";
         boolean expectedSavedValue = true;
 
         // Act
-        settings.save(key, expectedSavedValue);
-        boolean savedValue = settings.loadBoolean(key);
+        sharedPrefsStub.save(key, expectedSavedValue);
+        boolean savedValue = sharedPrefsStub.loadBoolean(key);
 
         // Assert
         assertEquals(expectedSavedValue, savedValue);
     }
 
     @Test
-    public void testSaveAndLoadBoolean_False_ValueSaved() {
+    public void saveAndLoadBoolean_False_ValueSaved() {
         // Arrange
         String key = "testKey2";
         boolean expectedSavedValue = false;
 
         // Act
-        settings.save(key, expectedSavedValue);
-        boolean savedValue = settings.loadBoolean(key);
+        sharedPrefsStub.save(key, expectedSavedValue);
+        boolean savedValue = sharedPrefsStub.loadBoolean(key);
 
         // Assert
         assertEquals(expectedSavedValue, savedValue);
     }
 
     @Test
-    public void testLoadBoolean_Default() {
+    public void loadBoolean_Default() {
         // Arrange
         String key = "testKey3";
         boolean expectedDefaultValue = false;
 
         // Act
-        boolean defaultValue = settings.loadBoolean(key);
+        boolean defaultValue = sharedPrefsStub.loadBoolean(key);
 
         // Assert
         assertEquals(expectedDefaultValue, defaultValue);
     }
 
     @Test
-    public void testLoadBoolean_DefaultOverride() {
+    public void loadBoolean_DefaultOverride() {
         // Arrange
         String key = "testKey4";
         boolean expectedDefaultValue = true;
 
         // Act
-        boolean defaultValue = settings.loadBoolean(key, expectedDefaultValue);
+        boolean defaultValue = sharedPrefsStub.loadBoolean(key, expectedDefaultValue);
 
         // Assert
         assertEquals(expectedDefaultValue, defaultValue);
     }
 
     @Test
-    public void testSaveAndLoadString_x_ValueSaved() {
+    public void saveAndLoadString_x_ValueSaved() {
         // Arrange
         String key = "testKey1";
         String expectedSavedValue = "testValue";
 
         // Act
-        settings.save(key, expectedSavedValue);
-        String savedValue = settings.loadString(key);
+        sharedPrefsStub.save(key, expectedSavedValue);
+        String savedValue = sharedPrefsStub.loadString(key);
 
         // Assert
         assertEquals(expectedSavedValue, savedValue);
     }
 
     @Test
-    public void testSaveAndLoadString_Null_ValueSaved() {
+    public void saveAndLoadString_Null_ValueSaved() {
         // Arrange
         String key = "testKey2";
         String expectedSavedValue = null;
 
         // Act
-        settings.save(key, expectedSavedValue);
-        String savedValue = settings.loadString(key);
+        sharedPrefsStub.save(key, expectedSavedValue);
+        String savedValue = sharedPrefsStub.loadString(key);
 
         // Assert
         assertEquals(expectedSavedValue, savedValue);
     }
 
     @Test
-    public void testLoadString_Default() {
+    public void loadString_Default() {
         // Arrange
         String key = "testKey3";
         String expectedDefaultValue = null;
 
         // Act
-        String defaultValue = settings.loadString(key);
+        String defaultValue = sharedPrefsStub.loadString(key);
 
         // Assert
         assertEquals(expectedDefaultValue, defaultValue);
     }
 
     @Test
-    public void testLoadString_DefaultOverride() {
+    public void loadString_DefaultOverride() {
         // Arrange
         String key = "testKey4";
         String expectedDefaultValue = "defaultValue";
 
         // Act
-        String defaultValue = settings.loadString(key, expectedDefaultValue);
+        String defaultValue = sharedPrefsStub.loadString(key, expectedDefaultValue);
 
         // Assert
         assertEquals(expectedDefaultValue, defaultValue);
     }
 
     @Test
-    public void testSaveAndLoadInt_12_ValueSaved() {
+    public void saveAndLoadInt_12_ValueSaved() {
         // Arrange
         String key = "testKey1";
         int expectedSavedValue = 12;
 
         // Act
-        settings.save(key, expectedSavedValue);
-        int savedValue = settings.loadInt(key);
+        sharedPrefsStub.save(key, expectedSavedValue);
+        int savedValue = sharedPrefsStub.loadInt(key);
 
         // Assert
         assertEquals(expectedSavedValue, savedValue);
     }
 
     @Test
-    public void testSaveAndLoadInt_Minus12_ValueSaved() {
+    public void saveAndLoadInt_Minus12_ValueSaved() {
         // Arrange
         String key = "testKey2";
         int expectedSavedValue = -12;
 
         // Act
-        settings.save(key, expectedSavedValue);
-        int savedValue = settings.loadInt(key);
+        sharedPrefsStub.save(key, expectedSavedValue);
+        int savedValue = sharedPrefsStub.loadInt(key);
 
         // Assert
         assertEquals(expectedSavedValue, savedValue);
     }
 
     @Test
-    public void testLoadInt_Default() {
+    public void loadInt_Default() {
         // Arrange
         String key = "testKey3";
         int expectedDefaultValue = 0;
 
         // Act
-        int defaultValue = settings.loadInt(key);
+        int defaultValue = sharedPrefsStub.loadInt(key);
 
         // Assert
         assertEquals(expectedDefaultValue, defaultValue);
     }
 
     @Test
-    public void testLoadInt_DefaultOverride() {
+    public void loadInt_DefaultOverride() {
         // Arrange
         String key = "testKey4";
         int expectedDefaultValue = 12;
 
         // Act
-        int defaultValue = settings.loadInt(key, expectedDefaultValue);
+        int defaultValue = sharedPrefsStub.loadInt(key, expectedDefaultValue);
 
         // Assert
         assertEquals(expectedDefaultValue, defaultValue);
     }
 
     @Test
-    public void testSaveAndLoadFloat_1p2_ValueSaved() {
+    public void saveAndLoadFloat_1p2_ValueSaved() {
         // Arrange
         String key = "testKey1";
         float expectedSavedValue = 1.2F;
 
         // Act
-        settings.save(key, expectedSavedValue);
-        float savedValue = settings.loadFloat(key);
+        sharedPrefsStub.save(key, expectedSavedValue);
+        float savedValue = sharedPrefsStub.loadFloat(key);
 
         // Assert
         assertEquals(expectedSavedValue, savedValue);
     }
 
     @Test
-    public void testSaveAndLoadFloat_Minus1p2_ValueSaved() {
+    public void saveAndLoadFloat_Minus1p2_ValueSaved() {
         // Arrange
         String key = "testKey2";
         float expectedSavedValue = -1.2F;
 
         // Act
-        settings.save(key, expectedSavedValue);
-        float savedValue = settings.loadFloat(key);
+        sharedPrefsStub.save(key, expectedSavedValue);
+        float savedValue = sharedPrefsStub.loadFloat(key);
 
         // Assert
         assertEquals(expectedSavedValue, savedValue);
     }
 
     @Test
-    public void testLoadFloat_Default() {
+    public void loadFloat_Default() {
         // Arrange
         String key = "testKey3";
         float expectedDefaultValue = 0;
 
         // Act
-        float defaultValue = settings.loadFloat(key);
+        float defaultValue = sharedPrefsStub.loadFloat(key);
 
         // Assert
         assertEquals(expectedDefaultValue, defaultValue);
     }
 
     @Test
-    public void testLoadFloat_DefaultOverride() {
+    public void loadFloat_DefaultOverride() {
         // Arrange
         String key = "testKey4";
         float expectedDefaultValue = 1.2F;
 
         // Act
-        float defaultValue = settings.loadFloat(key, expectedDefaultValue);
+        float defaultValue = sharedPrefsStub.loadFloat(key, expectedDefaultValue);
 
         // Assert
         assertEquals(expectedDefaultValue, defaultValue);
     }
 
     @Test
-    public void testSaveAndLoadLong_123_ValueSaved() {
+    public void saveAndLoadLong_123_ValueSaved() {
         // Arrange
         String key = "testKey1";
         long expectedSavedValue = 123;
 
         // Act
-        settings.save(key, expectedSavedValue);
-        long savedValue = settings.loadLong(key);
+        sharedPrefsStub.save(key, expectedSavedValue);
+        long savedValue = sharedPrefsStub.loadLong(key);
 
         // Assert
         assertEquals(expectedSavedValue, savedValue);
     }
 
     @Test
-    public void testSaveAndLoadLong_Minus123_ValueSaved() {
+    public void saveAndLoadLong_Minus123_ValueSaved() {
         // Arrange
         String key = "testKey2";
         long expectedSavedValue = -123;
 
         // Act
-        settings.save(key, expectedSavedValue);
-        long savedValue = settings.loadLong(key);
+        sharedPrefsStub.save(key, expectedSavedValue);
+        long savedValue = sharedPrefsStub.loadLong(key);
 
         // Assert
         assertEquals(expectedSavedValue, savedValue);
     }
 
     @Test
-    public void testLoadLong_Default() {
+    public void loadLong_Default() {
         // Arrange
         String key = "testKey3";
         long expectedDefaultValue = 0;
 
         // Act
-        long defaultValue = settings.loadLong(key);
+        long defaultValue = sharedPrefsStub.loadLong(key);
 
         // Assert
         assertEquals(expectedDefaultValue, defaultValue);
     }
 
     @Test
-    public void testLoadLong_DefaultOverride() {
+    public void loadLong_DefaultOverride() {
         // Arrange
         String key = "testKey4";
         long expectedDefaultValue = 123;
 
         // Act
-        long defaultValue = settings.loadLong(key, expectedDefaultValue);
+        long defaultValue = sharedPrefsStub.loadLong(key, expectedDefaultValue);
 
         // Assert
         assertEquals(expectedDefaultValue, defaultValue);
     }
 
     @Test
-    public void testSaveAndLoadStringSet_NoStrings_ValueSaved() {
+    public void saveAndLoadStringSet_NoStrings_ValueSaved() {
         // Arrange
         String key = "testKey1";
         Set<String> expectedSavedValue = new HashSet<>();
 
         // Act
-        settings.save(key, expectedSavedValue);
-        Set<String> savedValue = settings.loadStringSet(key);
+        sharedPrefsStub.save(key, expectedSavedValue);
+        Set<String> savedValue = sharedPrefsStub.loadStringSet(key);
 
         // Assert
         assertEquals(expectedSavedValue, savedValue);
     }
 
     @Test
-    public void testSaveAndLoadStringSet_SeveralString_ValueSaved() {
+    public void saveAndLoadStringSet_SeveralString_ValueSaved() {
         // Arrange
         String key = "testKey2";
         Set<String> expectedSavedValue = new HashSet<>(Arrays.asList("T", "E", "S", "T"));
 
         // Act
-        settings.save(key, expectedSavedValue);
-        Set<String> savedValue = settings.loadStringSet(key);
+        sharedPrefsStub.save(key, expectedSavedValue);
+        Set<String> savedValue = sharedPrefsStub.loadStringSet(key);
 
         // Assert
         assertEquals(expectedSavedValue, savedValue);
     }
 
     @Test
-    public void testLoadStringSet_Default() {
+    public void loadStringSet_Default() {
         // Arrange
         String key = "testKey3";
         Set<String> expectedDefaultValue = null;
 
         // Act
-        Set<String> defaultValue = settings.loadStringSet(key);
+        Set<String> defaultValue = sharedPrefsStub.loadStringSet(key);
 
         // Assert
         assertEquals(expectedDefaultValue, defaultValue);
     }
 
     @Test
-    public void testLoadStringSet_DefaultOverride() {
+    public void loadStringSet_DefaultOverride() {
         // Arrange
         String key = "testKey4";
         Set<String> expectedDefaultValue = new HashSet<>(Arrays.asList("T", "E", "S", "T"));
 
         // Act
-        Set<String> defaultValue = settings.loadStringSet(key, expectedDefaultValue);
+        Set<String> defaultValue = sharedPrefsStub.loadStringSet(key, expectedDefaultValue);
 
         // Assert
         assertEquals(expectedDefaultValue, defaultValue);
     }
 
     @Test
-    public void testGetKey() {
+    public void getKey() {
         // Arrange
         String expectedKey = App.getContext().getString(R.string.app_name);
 
         // Act
-        String key = settings.getKey(R.string.app_name);
+        String key = sharedPrefsStub.getKey(R.string.app_name);
 
         // Assert
         assertEquals(expectedKey, key);
     }
 
     @Test(expected = Resources.NotFoundException.class)
-    public void testGetKey_NoStringResourceId_ResourcesNotFoundException() {
+    public void getKey_NoStringResourceId_ResourcesNotFoundException() {
         // Arrange
 
         // Act
-        settings.getString(0);
+        sharedPrefsStub.getString(0);
 
         // Assert
     }
 
     @Test
-    public void testGetString() {
+    public void getString() {
         // Arrange
         String expectedString = App.getContext().getString(R.string.app_name);
 
         // Act
-        String string = settings.getString(R.string.app_name);
+        String string = sharedPrefsStub.getString(R.string.app_name);
 
         // Assert
         assertEquals(expectedString, string);
     }
 
     @Test(expected = Resources.NotFoundException.class)
-    public void testGetString_NoStringResourceId_ResourcesNotFoundException() {
+    public void getString_NoStringResourceId_ResourcesNotFoundException() {
         // Arrange
 
         // Act
-        settings.getString(0);
+        sharedPrefsStub.getString(0);
 
         // Assert
+    }
+
+    public class SharedPrefsStub extends SharedPrefs {
+        @Override
+        protected String fileName() {
+            return SHARED_PREFS_STUB_FILE_NAME;
+        }
     }
 }

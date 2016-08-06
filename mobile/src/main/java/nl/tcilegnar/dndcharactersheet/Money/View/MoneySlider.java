@@ -4,8 +4,8 @@ import android.content.Context;
 import android.support.annotation.VisibleForTesting;
 import android.util.AttributeSet;
 
+import nl.tcilegnar.dndcharactersheet.Money.Settings.MoneySettings;
 import nl.tcilegnar.dndcharactersheet.R;
-import nl.tcilegnar.dndcharactersheet.Storage.Settings;
 
 public class MoneySlider extends MoneyBaseNumberPicker {
     public MoneySlider(Context context, AttributeSet attrs) {
@@ -13,7 +13,7 @@ public class MoneySlider extends MoneyBaseNumberPicker {
     }
 
     @VisibleForTesting
-    public MoneySlider(Context context, AttributeSet attrs, Settings settings) {
+    protected MoneySlider(Context context, AttributeSet attrs, MoneySettings settings) {
         super(context, attrs, settings);
     }
 
@@ -25,6 +25,6 @@ public class MoneySlider extends MoneyBaseNumberPicker {
 
     @Override
     protected boolean shouldBeVisible() {
-        return settings.isMoneyUpdateTypeNumberSlider();
+        return ((MoneySettings) settings).isMoneyUpdateTypeNumberSlider();
     }
 }

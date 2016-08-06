@@ -1,10 +1,11 @@
 package nl.tcilegnar.dndcharactersheet.Money.View;
 
 import android.content.Context;
+import android.support.annotation.VisibleForTesting;
 import android.util.AttributeSet;
 
 import nl.tcilegnar.dndcharactersheet.Base.View.BaseNumberPicker;
-import nl.tcilegnar.dndcharactersheet.Storage.Settings;
+import nl.tcilegnar.dndcharactersheet.Money.Settings.MoneySettings;
 
 public abstract class MoneyBaseNumberPicker extends BaseNumberPicker {
     private static final int MIN_VALUE = 0;
@@ -13,10 +14,11 @@ public abstract class MoneyBaseNumberPicker extends BaseNumberPicker {
     private static final int PICKER_STEP_SIZE = 1;
 
     public MoneyBaseNumberPicker(Context context, AttributeSet attrs) {
-        super(context, attrs);
+        this(context, attrs, MoneySettings.getInstance());
     }
 
-    public MoneyBaseNumberPicker(Context context, AttributeSet attrs, Settings settings) {
+    @VisibleForTesting
+    protected MoneyBaseNumberPicker(Context context, AttributeSet attrs, MoneySettings settings) {
         super(context, attrs, settings);
     }
 

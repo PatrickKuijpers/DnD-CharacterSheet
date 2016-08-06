@@ -2,6 +2,7 @@ package nl.tcilegnar.dndcharactersheet.MainMenu;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,6 +24,11 @@ public class MainMenuFragment extends BaseFragment implements OnClickListener {
         if (context instanceof MainMenuActivity) {
             callbackMainMenu = (MainMenuActivity) context;
         }
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
     }
 
     @Override

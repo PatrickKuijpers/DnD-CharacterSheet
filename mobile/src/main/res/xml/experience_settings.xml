@@ -1,12 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
-    <PreferenceCategory android:title="@string/setting_category_title_general">
-        <CheckBoxPreference
-            android:defaultValue="@string/setting_defaultvalue_show_hints"
-            android:key="@string/setting_key_show_hints"
-            android:summary="@string/setting_summary_show_hints"
-            android:title="@string/setting_title_show_hints"/>
-    </PreferenceCategory>
     <PreferenceCategory android:title="@string/setting_category_title_experience_and_level">
         <ListPreference
             android:defaultValue="@string/setting_defaultvalue_experience_update_type"
@@ -28,16 +21,6 @@
             android:key="@string/setting_key_allow_level_down"
             android:summary="@string/setting_summary_allow_level_down"
             android:title="@string/setting_title_allow_level_down"/>
-    </PreferenceCategory>
-    <PreferenceCategory android:title="@string/setting_category_title_money">
-        <ListPreference
-            android:defaultValue="@string/setting_defaultvalue_money_update_type"
-            android:dialogTitle="@string/setting_dialogtitle_money_update_type"
-            android:entries="@array/setting_entries_money_update_type"
-            android:entryValues="@array/setting_entryvalues_money_update_type"
-            android:key="@string/setting_key_money_update_type"
-            android:summary="@string/setting_summary_money_update_type"
-            android:title="@string/setting_title_money_update_type"/>
     </PreferenceCategory>
     <PreferenceCategory android:title="@string/setting_category_title_confirm">
         <Preference
