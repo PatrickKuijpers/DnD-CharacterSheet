@@ -1,4 +1,6 @@
-package nl.tcilegnar.dndcharactersheet;
+package nl.tcilegnar.dndcharactersheet.Utils;
+
+import nl.tcilegnar.dndcharactersheet.BuildConfig;
 
 public class MyBuildConfig {
     public boolean isDebug() {
