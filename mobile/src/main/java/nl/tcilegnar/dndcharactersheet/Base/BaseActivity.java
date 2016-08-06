@@ -20,6 +20,7 @@ import nl.tcilegnar.dndcharactersheet.FragmentManager;
 import nl.tcilegnar.dndcharactersheet.R;
 
 public abstract class BaseActivity extends AppCompatActivity implements OnNavigationItemSelectedListener {
+    protected final String LOGTAG = getClass().getSimpleName();
     protected FragmentManager fragmentManager = new FragmentManager(this);
 
     @Override
