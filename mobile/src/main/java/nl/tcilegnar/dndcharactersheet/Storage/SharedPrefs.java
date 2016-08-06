@@ -18,6 +18,10 @@ public abstract class SharedPrefs {
     protected abstract String fileName();
 
     protected SharedPreferences getPrefs() {
+        // TODO (nadat iedereen geinstalleerd heeft, dit weer verwijderen)
+        SharedPreferences tempPrefs = App.getContext().getSharedPreferences("Settings", Context.MODE_PRIVATE);
+        tempPrefs.edit().clear().apply();
+        // ---
         if (fileName() != null) {
             return extendedSharedPrefs;
         } else {
