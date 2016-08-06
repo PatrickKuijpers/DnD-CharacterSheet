@@ -54,11 +54,18 @@ public abstract class BaseNumberPicker extends NumberPicker {
     }
 
     private void initPickerValues() {
+        setValue(initialValue());
+        setMinValue(minValue());
+
         String[] displayedValues = generateDisplayedValues();
-        super.setDisplayedValues(displayedValues);
-        super.setMinValue(minValue());
-        super.setMaxValue(displayedValues.length - 1);
-        super.setValue(initialValue());
+        int maxValue = displayedValues.length - 1;
+        if (maxValue > getMaxValue()) {
+            setDisplayedValues(displayedValues);
+            setMaxValue(maxValue);
+        } else {
+            setMaxValue(maxValue);
+            setDisplayedValues(displayedValues);
+        }
     }
 
     protected abstract int minValue();
