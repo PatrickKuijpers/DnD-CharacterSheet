@@ -1,6 +1,7 @@
 package nl.tcilegnar.dndcharactersheet.Money.ViewGroup;
 
 import android.content.Context;
+import android.support.annotation.LayoutRes;
 import android.support.annotation.VisibleForTesting;
 import android.util.AttributeSet;
 import android.view.View;
@@ -31,7 +32,9 @@ public abstract class MoneyView extends LinearLayout {
         initView();
     }
 
-    protected abstract int getLayoutResource();
+    protected abstract
+    @LayoutRes
+    int getLayoutResource();
 
     protected abstract int loadMoneyValue();
 
