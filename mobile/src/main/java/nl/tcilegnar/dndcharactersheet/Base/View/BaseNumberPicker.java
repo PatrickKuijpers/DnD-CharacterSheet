@@ -18,7 +18,7 @@ import nl.tcilegnar.dndcharactersheet.R;
 import nl.tcilegnar.dndcharactersheet.Settings.Settings;
 
 public abstract class BaseNumberPicker extends NumberPicker {
-    protected final Settings settings;
+    public final Settings settings; // TODO public voor unittest zou niet nodig hoeven zijn?
 
     public enum SavedValues {
         SAVED_INSTANCE, CURRENT_PICKER_INDEX

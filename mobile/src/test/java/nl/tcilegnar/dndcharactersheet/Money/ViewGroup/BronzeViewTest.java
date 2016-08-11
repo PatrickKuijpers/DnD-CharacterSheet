@@ -1,6 +1,5 @@
 package nl.tcilegnar.dndcharactersheet.Money.ViewGroup;
 
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricGradleTestRunner;
@@ -25,11 +24,6 @@ public class BronzeViewTest {
     private BronzeView bronzeView;
     private Storage storageMock;
 
-    @Before
-    public void setup() {
-        initBronzeView();
-    }
-
     @Test
     public void bronzeViewPublicConstructor() {
         // Arrange
@@ -45,6 +39,7 @@ public class BronzeViewTest {
     @Test
     public void getLayoutResource() {
         // Arrange
+        initBronzeView();
 
         // Act
         int resourceId = bronzeView.getLayoutResource();
@@ -56,6 +51,7 @@ public class BronzeViewTest {
     @Test
     public void loadMoneyValue() {
         // Arrange
+        initBronzeView();
         int expectedValue = mockLoadBronze(11);
 
         // Act
@@ -68,6 +64,7 @@ public class BronzeViewTest {
     @Test
     public void saveMoneyValue() {
         // Arrange
+        initBronzeView();
         int expectedSavedValue = 11;
 
         // Act

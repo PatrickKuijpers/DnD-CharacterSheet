@@ -1,6 +1,5 @@
 package nl.tcilegnar.dndcharactersheet.Money.ViewGroup;
 
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricGradleTestRunner;
@@ -25,11 +24,6 @@ public class SilverViewTest {
     private SilverView silverView;
     private Storage storageMock;
 
-    @Before
-    public void setup() {
-        initSilverView();
-    }
-
     @Test
     public void silverViewPublicConstructor() {
         // Arrange
@@ -45,6 +39,7 @@ public class SilverViewTest {
     @Test
     public void getLayoutResource() {
         // Arrange
+        initSilverView();
 
         // Act
         int resourceId = silverView.getLayoutResource();
@@ -56,6 +51,7 @@ public class SilverViewTest {
     @Test
     public void loadMoneyValue() {
         // Arrange
+        initSilverView();
         int expectedValue = mockLoadSilver(11);
 
         // Act
@@ -68,6 +64,7 @@ public class SilverViewTest {
     @Test
     public void saveMoneyValue() {
         // Arrange
+        initSilverView();
         int expectedSavedValue = 11;
 
         // Act

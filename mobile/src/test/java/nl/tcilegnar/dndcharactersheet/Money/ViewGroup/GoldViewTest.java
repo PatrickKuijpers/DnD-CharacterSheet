@@ -1,6 +1,5 @@
 package nl.tcilegnar.dndcharactersheet.Money.ViewGroup;
 
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricGradleTestRunner;
@@ -25,11 +24,6 @@ public class GoldViewTest {
     private GoldView goldView;
     private Storage storageMock;
 
-    @Before
-    public void setup() {
-        initGoldView();
-    }
-
     @Test
     public void goldViewPublicConstructor() {
         // Arrange
@@ -45,6 +39,7 @@ public class GoldViewTest {
     @Test
     public void getLayoutResource() {
         // Arrange
+        initGoldView();
 
         // Act
         int resourceId = goldView.getLayoutResource();
@@ -56,6 +51,7 @@ public class GoldViewTest {
     @Test
     public void loadMoneyValue() {
         // Arrange
+        initGoldView();
         int expectedValue = mockLoadGold(11);
 
         // Act
@@ -68,6 +64,7 @@ public class GoldViewTest {
     @Test
     public void saveMoneyValue() {
         // Arrange
+        initGoldView();
         int expectedSavedValue = 11;
 
         // Act

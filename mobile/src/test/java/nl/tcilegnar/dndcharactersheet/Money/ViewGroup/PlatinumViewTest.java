@@ -1,6 +1,5 @@
 package nl.tcilegnar.dndcharactersheet.Money.ViewGroup;
 
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricGradleTestRunner;
@@ -22,24 +21,8 @@ import static org.mockito.Mockito.verify;
 @RunWith(RobolectricGradleTestRunner.class)
 @Config(constants = BuildConfig.class)
 public class PlatinumViewTest {
-    //    private MoneyActivity moneyActivity;
-    //    private LayoutInflater layoutInflater;
     private PlatinumView platinumView;
     private Storage storageMock;
-
-    @Before
-    public void setup() {
-        //        layoutInflater = LayoutInflater.from(moneyActivity);
-        //        //        ViewGroup root = (ViewGroup) moneyActivity.findViewById(R.id.activity_content_parent);
-        //        platinumView = (PlatinumView) layoutInflater.inflate(R.layout.money_platinum_view, null);
-
-        //        moneyActivity = new MoneyActivity();
-        //        platinumView = (PlatinumView) layoutInflater.inflate(R.layout.money_platinum_view, null);
-        //        loadingSpinner = loadingTextView.findViewById(R.id.loading_text_spinner);
-        //        loadingTextTextView = (TextView) loadingTextView.findViewById(R.id.loading_text_text_view);
-
-        initPlatinumView();
-    }
 
     @Test
     public void platinumViewPublicConstructor() {
@@ -56,6 +39,7 @@ public class PlatinumViewTest {
     @Test
     public void getLayoutResource() {
         // Arrange
+        initPlatinumView();
 
         // Act
         int resourceId = platinumView.getLayoutResource();
@@ -67,6 +51,7 @@ public class PlatinumViewTest {
     @Test
     public void loadMoneyValue() {
         // Arrange
+        initPlatinumView();
         int expectedValue = mockLoadPlatinum(11);
 
         // Act
@@ -79,6 +64,7 @@ public class PlatinumViewTest {
     @Test
     public void saveMoneyValue() {
         // Arrange
+        initPlatinumView();
         int expectedSavedValue = 11;
 
         // Act
@@ -94,7 +80,7 @@ public class PlatinumViewTest {
     }
 
     private Context getContext() {
-        return App.getContext(); //Robolectric.buildActivity(MoneyActivity.class).create().get();
+        return App.getContext();
     }
 
     private int mockLoadPlatinum(int value) {
