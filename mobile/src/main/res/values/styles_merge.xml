@@ -1,0 +1,23 @@
+<resources>
+
+    <style name="levelIndicatorStyle">
+        <item name="android:gravity">bottom</item>
+        <item name="android:orientation">horizontal</item>
+    </style>
+
+    <style name="levelUpStyle">
+        <item name="android:gravity">bottom</item>
+        <item name="android:orientation">horizontal</item>
+    </style>
+
+    <style name="expCurrentLvlStyle">
+        <item name="android:gravity">center_vertical</item>
+    </style>
+
+    <style name="expEditorStyle">
+        <item name="android:focusableInTouchMode">true</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:orientation">horizontal</item>
+    </style>
+
+</resources>

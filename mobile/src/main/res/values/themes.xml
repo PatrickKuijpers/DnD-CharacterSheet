@@ -1,0 +1,35 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+
+        <!-- Styles voor merged views -->
+        <item name="levelIndicatorStyle">@style/levelIndicatorStyle</item>
+        <item name="levelUpStyle">@style/levelUpStyle</item>
+        <item name="expCurrentLvlStyle">@style/expCurrentLvlStyle</item>
+        <item name="expEditorStyle">@style/expEditorStyle</item>
+
+        <!-- Custom styles-->
+        <item name="android:textViewStyle">@style/MyTextViewStyle</item>
+        <item name="android:textAllCaps">false</item>
+    </style>
+
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
+
+    <style name="MyTextViewStyle" parent="android:Widget.TextView">
+        <!-- Veranderd alle textkleuren, incl. bv. snackbar -->
+        <!--<item name="android:textColor">@color/black</item>-->
+    </style>
+
+</resources>

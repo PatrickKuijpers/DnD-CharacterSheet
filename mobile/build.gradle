@@ -1,29 +1,58 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 23
+    compileSdkVersion 24
     buildToolsVersion "23.0.2"
 
     defaultConfig {
-        applicationId "nl.tcilegnar.dndcharactersheet"
         minSdkVersion 16
-        targetSdkVersion 23
+        targetSdkVersion 24
         versionCode 1
-        versionName "1.0"
+        versionName "0.1.1"
+    }
+    signingConfigs {
+        release {
+            storeFile file(project.property("DnD.signing.store.file"))
+            storePassword project.property("DnD.signing.store.password")
+            keyAlias project.property("DnD.signing.key.alias")
+            keyPassword project.property("DnD.signing.key.password")
+        }
+        debug {
+            storeFile file('../debug.keystore')
+        }
     }
     buildTypes {
         release {
             minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
+        }
+        debug {
+            applicationIdSuffix ".test"
+            signingConfig signingConfigs.debug
+        }
+    }
+    productFlavors {
+        DnD3x5 {
+            applicationId "nl.tcilegnar.dndcharactersheet.version_three_five"
+        }
+        DnD5x0 {
+            applicationId "nl.tcilegnar.dndcharactersheet.version_five_zero"
         }
     }
 }
 
+repositories {
+    mavenCentral()
+}
+
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    wearApp project(':wear')
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+
+    compile 'com.android.support:appcompat-v7:24.0.0'
+    compile 'com.android.support:design:24.0.0'
+    compile 'net.hockeyapp.android:HockeySDK:4.0.0'
+
     testCompile 'junit:junit:4.12'
-    compile 'com.android.support:appcompat-v7:23.1.1'
-    compile 'com.google.android.gms:play-services:8.3.0'
-    compile 'com.android.support:design:23.1.1'
+    testCompile 'org.robolectric:robolectric:3.1'
+    testCompile 'org.mockito:mockito-all:1.9.5'
 }

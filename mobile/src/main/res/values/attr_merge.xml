@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="LevelIndicatorView">
+        <attr name="levelIndicatorStyle" format="reference"/>
+    </declare-styleable>
+    <declare-styleable name="LevelChangeView">
+        <attr name="levelUpStyle" format="reference"/>
+    </declare-styleable>
+    <declare-styleable name="ExperienceCurrentLevel">
+        <attr name="expCurrentLvlStyle" format="reference"/>
+    </declare-styleable>
+    <declare-styleable name="ExperienceEditor">
+        <attr name="expEditorStyle" format="reference"/>
+    </declare-styleable>
+</resources>

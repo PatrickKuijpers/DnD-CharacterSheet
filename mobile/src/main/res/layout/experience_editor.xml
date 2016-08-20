@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <Button
+        android:id="@+id/experience_min_button"
+        style="@style/button_square_small"
+        android:layout_marginRight="@dimen/horizontal_margin"
+        android:background="@color/red_transparent"
+        android:text="-"
+        android:textColor="@color/white"/>
+
+    <nl.tcilegnar.dndcharactersheet.Experience.View.ExperiencePicker
+        android:id="@+id/experience_picker"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/experience_picker_height"
+        android:descendantFocusability="blocksDescendants"
+        android:visibility="visible"/>
+
+    <nl.tcilegnar.dndcharactersheet.Experience.View.ExperienceInput
+        android:id="@+id/experience_input"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/horizontal_margin"
+        android:layout_marginRight="@dimen/horizontal_margin"
+        android:background="@color/grey_light"
+        android:hint="0000000"
+        android:imeOptions="actionDone"
+        android:inputType="number"
+        android:maxLength="7"
+        android:paddingBottom="@dimen/edittext_padding_vertical"
+        android:paddingLeft="@dimen/edittext_padding_horizontal"
+        android:paddingRight="@dimen/edittext_padding_horizontal"
+        android:paddingTop="@dimen/edittext_padding_vertical"
+        android:textColorHint="@color/transparent"
+        android:visibility="gone"/>
+
+    <Button
+        android:id="@+id/experience_plus_button"
+        style="@style/button_square"
+        android:layout_marginLeft="@dimen/horizontal_margin"
+        android:background="@color/green_transparent"
+        android:text="+"
+        android:textSize="@dimen/experience_plus_button_text_size"/>
+</merge>
