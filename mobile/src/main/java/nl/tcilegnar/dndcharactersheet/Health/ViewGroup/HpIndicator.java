@@ -3,6 +3,7 @@ package nl.tcilegnar.dndcharactersheet.Health.ViewGroup;
 import android.content.Context;
 import android.support.annotation.VisibleForTesting;
 import android.util.AttributeSet;
+import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -33,15 +34,15 @@ public class HpIndicator extends LinearLayout {
 
     private void init(Context context) {
         inflate(context, R.layout.hp_indicator, this);
-        testSetValues();
+        setDummyValues();
         initViews();
     }
 
     @Deprecated
-    private void testSetValues() {
-        hp.setTotal(10);
-        hp.setCurrent(7);
-        hp.setTemp(2);
+    private void setDummyValues() {
+        //        hp.setTotal(10);
+        //        hp.setCurrent(7);
+        //        hp.setTemp(2);
     }
 
     private void initViews() {
@@ -54,20 +55,39 @@ public class HpIndicator extends LinearLayout {
     }
 
     private void updateHpValues() {
+        updateTotalHp();
+        updateCurrentHp();
+        updateTempHp();
+    }
+
+    private void updateTotalHp() {
         int totalHp = hp.getTotal();
         String totalHpLabelText = App.getAppResources().getString(R.string.total_hp_label);
         String totalHpText = totalHpLabelText + " " + totalHp;
         totalHpValue.setText(totalHpText);
+    }
 
+    private void updateCurrentHp() {
+        int totalHp = hp.getTotal();
         int currentHp = hp.getCurrent();
         currentHpValue.setText(String.valueOf(currentHp));
         currentHpProgressBar.setMax(totalHp);
         currentHpProgressBar.setProgress(currentHp);
+    }
 
+    private void updateTempHp() {
         int tempHp = hp.getTemp();
         tempHpValue.setText(String.valueOf(tempHp));
-        tempHpProgressBar.setMax(5);
+        tempHpProgressBar.setMax(5); // TODO: design van volledige HpIndicator verbeteren, dan is dit niet meer nodig
         tempHpProgressBar.setProgress(tempHp);
+
+        if (tempHp > 0) {
+            tempHpValue.setVisibility(View.VISIBLE);
+            tempHpProgressBar.setVisibility(View.VISIBLE);
+        } else {
+            tempHpValue.setVisibility(View.INVISIBLE);
+            tempHpProgressBar.setVisibility(View.INVISIBLE);
+        }
     }
 
     public Hp getHp() {

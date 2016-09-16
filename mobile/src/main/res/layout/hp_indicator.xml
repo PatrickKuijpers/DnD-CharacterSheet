@@ -55,7 +55,8 @@
                 style="?android:attr/progressBarStyleHorizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/horizontal_margin"/>
+                android:layout_marginTop="@dimen/horizontal_margin"
+                android:visibility="invisible"/>
 
             <TextView
                 android:id="@+id/temp_hp_value"
@@ -64,7 +65,8 @@
                 android:layout_marginTop="@dimen/horizontal_margin_small"
                 android:gravity="center"
                 android:textColor="@color/grey"
-                android:textSize="@dimen/textsize_normal"/>
+                android:textSize="@dimen/textsize_normal"
+                android:visibility="invisible"/>
         </LinearLayout>
     </LinearLayout>
 </merge>
