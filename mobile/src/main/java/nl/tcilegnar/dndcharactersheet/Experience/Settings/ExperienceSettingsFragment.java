@@ -14,7 +14,7 @@ public class ExperienceSettingsFragment extends SettingsFragment {
 
     @Override
     protected int getSettingsResource() {
-        return R.xml.experience_settings;
+        return R.xml.settings_experience;
     }
 
     @Override

@@ -6,8 +6,10 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import nl.tcilegnar.dndcharactersheet.Base.BaseStorageFragment;
+import nl.tcilegnar.dndcharactersheet.Health.Settings.HpSettings;
 import nl.tcilegnar.dndcharactersheet.Health.ViewGroup.HpIndicator;
 import nl.tcilegnar.dndcharactersheet.R;
+import nl.tcilegnar.dndcharactersheet.Settings.Main.MainSettings;
 import nl.tcilegnar.dndcharactersheet.Settings.Settings;
 
 public class HpFragment extends BaseStorageFragment {
@@ -32,7 +34,7 @@ public class HpFragment extends BaseStorageFragment {
 
     @Override
     protected Settings getSettings() {
-        return null;
+        return HpSettings.getInstance();
     }
 
     @Override

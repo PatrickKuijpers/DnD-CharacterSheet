@@ -12,9 +12,10 @@
     <string name="setting_key_money_update_type">money_update_type</string>
 
     <!-- Settings titels, uitleg & defaultvalue -->
-    <string name="setting_category_title_general">Algemene instellingen</string>
-    <string name="setting_category_title_experience_and_level">@string/title_level_and_experience</string>
-    <string name="setting_category_title_money">@string/title_money</string>
+    <string name="setting_category_title_general">@string/title_settings_main</string>
+    <string name="setting_category_title_experience_and_level">@string/title_settings_experience</string>
+    <string name="setting_category_title_hp">@string/title_settings_hp</string>
+    <string name="setting_category_title_money">@string/title_settings_money</string>
 
     <string name="setting_title_show_hints">Tips tonen</string>
     <string name="setting_title_experience_update_type">Experience aanpassen</string>

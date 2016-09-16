@@ -8,5 +8,10 @@
     <string name="title_hp">Health</string>
     <string name="title_money">Money</string>
 
-    <string name="title_settings">Settings</string>
+    <string name="title_settings_main">General settings</string>
+    <string name="title_settings_basic_character_info">Character info settings</string>
+    <string name="title_settings_experience">Level &amp; experience settings</string>
+    <string name="title_settings_abilities">Abilities settings</string>
+    <string name="title_settings_hp">Health settings</string>
+    <string name="title_settings_money">Money settings</string>
 </resources>

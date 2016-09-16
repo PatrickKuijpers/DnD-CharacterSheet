@@ -10,7 +10,7 @@ public class MoneySettingsFragment extends SettingsFragment {
 
     @Override
     protected int getSettingsResource() {
-        return R.xml.money_settings;
+        return R.xml.settings_money;
     }
 
     @Override

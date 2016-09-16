@@ -33,15 +33,15 @@
             android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name=".Settings.Main.MainSettingsActivity"
-            android:label="@string/title_settings"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:label="@string/title_settings_main"/>
         <activity
             android:name=".Experience.Settings.ExperienceSettingsActivity"
-            android:label="@string/title_settings"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:label="@string/title_settings_experience"/>
+        <activity
+            android:name=".Health.Settings.HpSettingsActivity"
+            android:label="@string/title_settings_hp"/>
         <activity
             android:name=".Money.Settings.MoneySettingsActivity"
-            android:label="@string/title_settings"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:label="@string/title_settings_money"/>
     </application>
 </manifest>
