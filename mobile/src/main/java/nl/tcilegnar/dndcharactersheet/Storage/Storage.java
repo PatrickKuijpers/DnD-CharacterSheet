@@ -19,7 +19,10 @@ public class Storage extends SharedPrefs {
         PLATINUM(0),
         GOLD(0),
         SILVER(0),
-        BRONZE(0);
+        BRONZE(0),
+        TOTAL_HP(0),
+        CURRENT_HP(0),
+        TEMP_HP(0);
 
         public final int defaultValue;
 
@@ -95,6 +98,36 @@ public class Storage extends SharedPrefs {
 
     public int loadBronze() {
         Key key = Key.BRONZE;
+        return loadInt(key.name(), key.defaultValue);
+    }
+
+    public void saveTotalHp(int value) {
+        Key key = Key.TOTAL_HP;
+        save(key.name(), value);
+    }
+
+    public int loadTotalHp() {
+        Key key = Key.TOTAL_HP;
+        return loadInt(key.name(), key.defaultValue);
+    }
+
+    public void saveCurrentHp(int value) {
+        Key key = Key.CURRENT_HP;
+        save(key.name(), value);
+    }
+
+    public int loadCurrentHp() {
+        Key key = Key.CURRENT_HP;
+        return loadInt(key.name(), key.defaultValue);
+    }
+
+    public void saveTempHp(int value) {
+        Key key = Key.TEMP_HP;
+        save(key.name(), value);
+    }
+
+    public int loadTempHp() {
+        Key key = Key.TEMP_HP;
         return loadInt(key.name(), key.defaultValue);
     }
 }
