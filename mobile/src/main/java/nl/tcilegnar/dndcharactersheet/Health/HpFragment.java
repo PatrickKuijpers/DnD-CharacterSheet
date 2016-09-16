@@ -6,10 +6,12 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import nl.tcilegnar.dndcharactersheet.Base.BaseStorageFragment;
+import nl.tcilegnar.dndcharactersheet.Health.ViewGroup.HpIndicator;
 import nl.tcilegnar.dndcharactersheet.R;
 import nl.tcilegnar.dndcharactersheet.Settings.Settings;
 
 public class HpFragment extends BaseStorageFragment {
+    private HpIndicator hpIndicator;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -23,6 +25,8 @@ public class HpFragment extends BaseStorageFragment {
     }
 
     private void initViews(View view) {
+        hpIndicator = (HpIndicator) view.findViewById(R.id.hp_indicator_view);
+        Hp hp = hpIndicator.getHp();
 
     }
 
@@ -37,6 +41,7 @@ public class HpFragment extends BaseStorageFragment {
 
     @Override
     protected void onSaveData() {
+        hpIndicator.save();
     }
 
     @Override

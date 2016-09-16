@@ -12,6 +12,7 @@
         <item name="levelUpStyle">@style/levelUpStyle</item>
         <item name="expCurrentLvlStyle">@style/expCurrentLvlStyle</item>
         <item name="expEditorStyle">@style/expEditorStyle</item>
+        <item name="hpIndicatorStyle">@style/hpIndicatorStyle</item>
 
         <!-- Custom styles-->
         <item name="android:textViewStyle">@style/MyTextViewStyle</item>
