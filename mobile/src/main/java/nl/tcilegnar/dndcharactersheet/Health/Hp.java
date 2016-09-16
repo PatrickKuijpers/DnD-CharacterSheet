@@ -10,6 +10,9 @@ import nl.tcilegnar.dndcharactersheet.Storage.Storage;
 
 public class Hp extends StorageObject {
     private static final int MINIMUM_TOTAL = 1;
+    protected static final int MINIMUM_CURRENT_DISABLED = 0;
+    protected static final int MINIMUM_CURRENT_DYING = -9;
+    protected static final int MINIMUM_CURRENT_DEAD = -10;
     private static final int MINIMUM_TEMP = 0;
 
     private int total = storage.loadTotalHp();
@@ -79,6 +82,34 @@ public class Hp extends StorageObject {
 
     public int getCurrentComplete() {
         return getCurrent() + getTemp();
+    }
+
+    public HealthState getCurrentHealthState() {
+        if (isAlive()) {
+            return HealthState.Alive;
+        } else if (isDisabled()) {
+            return HealthState.Disabled;
+        } else if (isDying()) {
+            return HealthState.Dying;
+        } else {
+            return HealthState.Dead;
+        }
+    }
+
+    public boolean isAlive() {
+        return current > MINIMUM_CURRENT_DISABLED;
+    }
+
+    public boolean isDisabled() {
+        return current == MINIMUM_CURRENT_DISABLED;
+    }
+
+    public boolean isDying() {
+        return current >= MINIMUM_CURRENT_DYING && current < MINIMUM_CURRENT_DISABLED;
+    }
+
+    public boolean isDead() {
+        return current <= MINIMUM_CURRENT_DEAD;
     }
 
     public class TotalHpTooLowException extends IllegalArgumentException {

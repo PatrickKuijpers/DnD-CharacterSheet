@@ -98,12 +98,16 @@ public class HpIndicator extends LinearLayout {
         @ColorInt int backgroundColor = currentHealthState.getBackgroundColor();
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            currentHpProgressBar.setProgressTintList(ColorStateList.valueOf(progressColor));
-            currentHpProgressBar.setSecondaryProgressTintList(ColorStateList.valueOf(secondaryColor));
             currentHpProgressBar.setProgressBackgroundTintList(ColorStateList.valueOf(backgroundColor));
+            currentHpProgressBar.setProgressTintList(ColorStateList.valueOf(progressColor));
+            //currentHpProgressBar.setSecondaryProgressTintList(ColorStateList.valueOf(secondaryColor));
+
+            tempHpProgressBar.setProgressBackgroundTintList(ColorStateList.valueOf(backgroundColor));
+            tempHpProgressBar.setProgressTintList(ColorStateList.valueOf(secondaryColor));
         } else {
             // TODO: hoe op oudere versies mooi maken?
-            currentHpProgressBar.getProgressDrawable().setColorFilter(progressColor, PorterDuff.Mode.MULTIPLY);
+            currentHpProgressBar.getProgressDrawable().setColorFilter(progressColor, PorterDuff.Mode.SRC_IN);
+            tempHpProgressBar.getProgressDrawable().setColorFilter(secondaryColor, PorterDuff.Mode.SRC_OUT);
         }
     }
 

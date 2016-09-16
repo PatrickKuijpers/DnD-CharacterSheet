@@ -8,8 +8,8 @@ import nl.tcilegnar.dndcharactersheet.App;
 import nl.tcilegnar.dndcharactersheet.R;
 
 public enum HealthState {
-    Alive(R.color.green_medium, R.color.green_medium, R.color.grey_light),
-    Disabled(R.color.transparent, R.color.transparent, R.color.grey_medium),
+    Alive(R.color.green_medium, R.color.green_medium, R.color.grey_medium),
+    Disabled(R.color.transparent, R.color.transparent, R.color.grey_dark),
     Dying(R.color.red, R.color.red, R.color.grey_dark),
     Dead(R.color.black, R.color.black, R.color.black);
 
@@ -38,7 +38,7 @@ public enum HealthState {
     public
     @ColorInt
     int getBackgroundColor() {
-        return ContextCompat.getColor(App.getContext(), colorResId);
+        return ContextCompat.getColor(App.getContext(), backgroundColorResId);
     }
 }
 
