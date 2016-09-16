@@ -10,10 +10,11 @@ import nl.tcilegnar.dndcharactersheet.Storage.Storage;
 
 public class Hp extends StorageObject {
     private static final int MINIMUM_TOTAL = 1;
-    protected static final int MINIMUM_CURRENT_DISABLED = 0;
-    protected static final int MINIMUM_CURRENT_DYING = -9;
-    protected static final int MINIMUM_CURRENT_DEAD = -10;
     private static final int MINIMUM_TEMP = 0;
+    public static final int DYING_HP = 10;
+    public static final int MINIMUM_CURRENT_DISABLED = 0;
+    public static final int MINIMUM_CURRENT_DYING = -9;
+    public static final int MINIMUM_CURRENT_DEAD = -DYING_HP;
 
     private int total = storage.loadTotalHp();
     private int current = storage.loadCurrentHp();

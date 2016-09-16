@@ -85,14 +85,29 @@ public class HpIndicator extends LinearLayout {
 
     private void updateCurrentHp(int totalHp, int currentHp) {
         currentHpValue.setText(String.valueOf(currentHp));
-        currentHpProgressBar.setMax(totalHp);
-        currentHpProgressBar.setProgress(currentHp);
-
-        updateCurrentHpProgressBarColors();
+        updateCurrentHpProgressBar(totalHp, currentHp);
     }
 
-    private void updateCurrentHpProgressBarColors() {
+    private void updateCurrentHpProgressBar(int totalHp, int currentHp) {
         HealthState currentHealthState = hp.getCurrentHealthState();
+        switch (currentHealthState) {
+            case Alive:
+            case Disabled:
+                currentHpProgressBar.setMax(totalHp);
+                currentHpProgressBar.setProgress(currentHp);
+                break;
+            case Dying:
+            case Dead:
+                currentHpProgressBar.setMax(Hp.DYING_HP);
+                int dyingProgress = Hp.DYING_HP + currentHp;
+                currentHpProgressBar.setProgress(dyingProgress);
+                break;
+        }
+
+        updateCurrentHpProgressBarColors(currentHealthState);
+    }
+
+    private void updateCurrentHpProgressBarColors(HealthState currentHealthState) {
         @ColorInt int progressColor = currentHealthState.getColor();
         @ColorInt int secondaryColor = currentHealthState.getSecondaryColor();
         @ColorInt int backgroundColor = currentHealthState.getBackgroundColor();
