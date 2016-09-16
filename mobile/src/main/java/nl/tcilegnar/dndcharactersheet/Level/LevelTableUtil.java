@@ -36,7 +36,7 @@ public class LevelTableUtil {
         return LevelTable.values().length;
     }
 
-    static boolean isMaxLevel(int level) {
+    private static boolean isMaxLevel(int level) {
         return level == maxLevel();
     }
 

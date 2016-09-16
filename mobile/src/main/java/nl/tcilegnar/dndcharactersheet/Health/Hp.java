@@ -81,22 +81,22 @@ public class Hp extends StorageObject {
         return getCurrent() + getTemp();
     }
 
-    protected class TotalHpTooLowException extends IllegalArgumentException {
-        protected TotalHpTooLowException() {
+    public class TotalHpTooLowException extends IllegalArgumentException {
+        public TotalHpTooLowException() {
             super(String.format(App.getAppResources().getString(R.string.total_hp_too_low_exception), MINIMUM_TOTAL));
             Toast.makeText(App.getContext(), getMessage(), Toast.LENGTH_LONG).show();
         }
     }
 
-    protected class CurrentHpTooHighException extends IllegalArgumentException {
-        protected CurrentHpTooHighException() {
+    public class CurrentHpTooHighException extends IllegalArgumentException {
+        public CurrentHpTooHighException() {
             super(String.format(App.getAppResources().getString(R.string.current_hp_too_high_exception)));
             Toast.makeText(App.getContext(), getMessage(), Toast.LENGTH_LONG).show();
         }
     }
 
-    protected class TempHpTooLowException extends IllegalArgumentException {
-        protected TempHpTooLowException() {
+    public class TempHpTooLowException extends IllegalArgumentException {
+        public TempHpTooLowException() {
             super(String.format(App.getAppResources().getString(R.string.temp_hp_too_low_exception), MINIMUM_TEMP));
             Toast.makeText(App.getContext(), getMessage(), Toast.LENGTH_LONG).show();
         }
