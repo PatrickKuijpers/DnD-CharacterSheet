@@ -25,7 +25,8 @@
                 style="?android:attr/progressBarStyleHorizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/horizontal_margin"/>
+                android:layout_marginTop="@dimen/horizontal_margin"
+                android:progressBackgroundTint="@color/grey_light"/>
 
             <TextView
                 android:id="@+id/current_hp_value"
@@ -64,9 +65,17 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/horizontal_margin_small"
                 android:gravity="center"
-                android:textColor="@color/grey"
+                android:textColor="@color/grey_medium"
                 android:textSize="@dimen/textsize_normal"
                 android:visibility="invisible"/>
         </LinearLayout>
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/current_health_state"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/horizontal_margin_big"
+        android:gravity="center"
+        android:textSize="@dimen/textsize_big"/>
 </merge>

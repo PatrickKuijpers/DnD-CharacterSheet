@@ -6,7 +6,7 @@
 
     <color name="black">#000</color>
     <color name="grey_dark">#666</color>
-    <color name="grey">#aaa</color>
+    <color name="grey_medium">#999</color>
     <color name="grey_light">#eee</color>
     <color name="white">#fff</color>
     <color name="transparent">@android:color/transparent</color>
@@ -19,6 +19,8 @@
     <color name="yellow">#ff0</color>
     <color name="purple">#f0f</color>
     <color name="cyan">#0ff</color>
+
+    <color name="green_medium">#090</color>
 
     <color name="level">@color/white</color>
 </resources>

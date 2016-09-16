@@ -1,6 +1,10 @@
 package nl.tcilegnar.dndcharactersheet.Health.ViewGroup;
 
 import android.content.Context;
+import android.content.res.ColorStateList;
+import android.graphics.PorterDuff;
+import android.os.Build;
+import android.support.annotation.ColorInt;
 import android.support.annotation.VisibleForTesting;
 import android.util.AttributeSet;
 import android.view.View;
@@ -9,6 +13,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import nl.tcilegnar.dndcharactersheet.App;
+import nl.tcilegnar.dndcharactersheet.Health.HealthState;
 import nl.tcilegnar.dndcharactersheet.Health.Hp;
 import nl.tcilegnar.dndcharactersheet.R;
 
@@ -20,6 +25,7 @@ public class HpIndicator extends LinearLayout {
     private TextView tempHpValue;
     private ProgressBar currentHpProgressBar;
     private ProgressBar tempHpProgressBar;
+    private TextView healthStateValue;
 
     public HpIndicator(Context context, AttributeSet attrs) {
         this(context, attrs, new Hp());
@@ -40,9 +46,9 @@ public class HpIndicator extends LinearLayout {
 
     @Deprecated
     private void setDummyValues() {
-        //        hp.setTotal(10);
-        //        hp.setCurrent(7);
-        //        hp.setTemp(2);
+        hp.setTotal(10);
+        hp.setCurrent(7);
+        hp.setTemp(2);
     }
 
     private void initViews() {
@@ -51,32 +57,57 @@ public class HpIndicator extends LinearLayout {
         tempHpValue = (TextView) findViewById(R.id.temp_hp_value);
         currentHpProgressBar = (ProgressBar) findViewById(R.id.current_hp_progress);
         tempHpProgressBar = (ProgressBar) findViewById(R.id.temp_hp_progress);
+        healthStateValue = (TextView) findViewById(R.id.current_health_state);
         updateHpValues();
+        updateHealthState();
+    }
+
+    private void updateHealthState() {
+        HealthState currentHealthState = hp.getCurrentHealthState();
+        healthStateValue.setText(currentHealthState.toString());
+        healthStateValue.setTextColor(ColorStateList.valueOf(currentHealthState.getColor()));
     }
 
     private void updateHpValues() {
-        updateTotalHp();
-        updateCurrentHp();
-        updateTempHp();
+        int totalHp = hp.getTotal();
+        int currentHp = hp.getCurrent();
+        int tempHp = hp.getTemp();
+        updateTotalHp(totalHp);
+        updateCurrentHp(totalHp, currentHp);
+        updateTempHp(tempHp);
     }
 
-    private void updateTotalHp() {
-        int totalHp = hp.getTotal();
+    private void updateTotalHp(int totalHp) {
         String totalHpLabelText = App.getAppResources().getString(R.string.total_hp_label);
         String totalHpText = totalHpLabelText + " " + totalHp;
         totalHpValue.setText(totalHpText);
     }
 
-    private void updateCurrentHp() {
-        int totalHp = hp.getTotal();
-        int currentHp = hp.getCurrent();
+    private void updateCurrentHp(int totalHp, int currentHp) {
         currentHpValue.setText(String.valueOf(currentHp));
         currentHpProgressBar.setMax(totalHp);
         currentHpProgressBar.setProgress(currentHp);
+
+        updateCurrentHpProgressBarColors();
     }
 
-    private void updateTempHp() {
-        int tempHp = hp.getTemp();
+    private void updateCurrentHpProgressBarColors() {
+        HealthState currentHealthState = hp.getCurrentHealthState();
+        @ColorInt int progressColor = currentHealthState.getColor();
+        @ColorInt int secondaryColor = currentHealthState.getSecondaryColor();
+        @ColorInt int backgroundColor = currentHealthState.getBackgroundColor();
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            currentHpProgressBar.setProgressTintList(ColorStateList.valueOf(progressColor));
+            currentHpProgressBar.setSecondaryProgressTintList(ColorStateList.valueOf(secondaryColor));
+            currentHpProgressBar.setProgressBackgroundTintList(ColorStateList.valueOf(backgroundColor));
+        } else {
+            // TODO: hoe op oudere versies mooi maken?
+            currentHpProgressBar.getProgressDrawable().setColorFilter(progressColor, PorterDuff.Mode.MULTIPLY);
+        }
+    }
+
+    private void updateTempHp(int tempHp) {
         tempHpValue.setText(String.valueOf(tempHp));
         tempHpProgressBar.setMax(5); // TODO: design van volledige HpIndicator verbeteren, dan is dit niet meer nodig
         tempHpProgressBar.setProgress(tempHp);
