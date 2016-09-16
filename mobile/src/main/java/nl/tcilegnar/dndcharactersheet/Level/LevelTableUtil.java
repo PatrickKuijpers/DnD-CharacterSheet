@@ -2,6 +2,9 @@ package nl.tcilegnar.dndcharactersheet.Level;
 
 import android.support.annotation.IntRange;
 
+import nl.tcilegnar.dndcharactersheet.App;
+import nl.tcilegnar.dndcharactersheet.R;
+
 public class LevelTableUtil {
     /** TODO: Geef een hoog willekeurig getal terug zodat je na lvl 20 evt verder kan gaan met exp verzamelen */
     public static final int MAX_EXP_FOR_MAX_LEVEL = 0;
@@ -39,7 +42,7 @@ public class LevelTableUtil {
 
     protected static class NoMaxExperienceForLevelException extends IllegalArgumentException {
         protected NoMaxExperienceForLevelException(int level) {
-            super("Geen maximum experience mogelijk voor level " + String.valueOf(level));
+            super(String.format(App.getAppResources().getString(R.string.max_level_reached_exception), level));
         }
     }
 }

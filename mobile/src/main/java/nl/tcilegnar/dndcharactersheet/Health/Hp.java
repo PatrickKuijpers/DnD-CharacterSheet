@@ -1,11 +1,17 @@
 package nl.tcilegnar.dndcharactersheet.Health;
 
 import android.support.annotation.VisibleForTesting;
+import android.widget.Toast;
 
+import nl.tcilegnar.dndcharactersheet.App;
 import nl.tcilegnar.dndcharactersheet.Base.StorageObject;
+import nl.tcilegnar.dndcharactersheet.R;
 import nl.tcilegnar.dndcharactersheet.Storage.Storage;
 
 public class Hp extends StorageObject {
+    private static final int MINIMUM_TOTAL = 1;
+    private static final int MINIMUM_TEMP = 0;
+
     private int total = storage.loadTotalHp();
     private int current = storage.loadCurrentHp();
     private int temp = storage.loadTempHp();
@@ -30,9 +36,9 @@ public class Hp extends StorageObject {
         return total;
     }
 
-    public void setTotal(int newTotal) throws IllegalArgumentException {
-        if (newTotal <= 0) {
-            throw new IllegalArgumentException();
+    public void setTotal(int newTotal) throws TotalHpTooLowException {
+        if (newTotal < MINIMUM_TOTAL) {
+            throw new TotalHpTooLowException();
         }
 
         if (newTotal < current) {
@@ -53,9 +59,9 @@ public class Hp extends StorageObject {
         return current;
     }
 
-    public void setCurrent(int newCurrent) throws IllegalArgumentException {
+    public void setCurrent(int newCurrent) throws CurrentHpTooHighException {
         if (newCurrent > total) {
-            throw new IllegalArgumentException();
+            throw new CurrentHpTooHighException();
         }
         this.current = newCurrent;
     }
@@ -64,14 +70,35 @@ public class Hp extends StorageObject {
         return temp;
     }
 
-    public void setTemp(int newTemp) throws IllegalArgumentException {
-        if (newTemp < 0) {
-            throw new IllegalArgumentException();
+    public void setTemp(int newTemp) throws TempHpTooLowException {
+        if (newTemp < MINIMUM_TEMP) {
+            throw new TempHpTooLowException();
         }
         this.temp = newTemp;
     }
 
     public int getCurrentComplete() {
         return getCurrent() + getTemp();
+    }
+
+    protected class TotalHpTooLowException extends IllegalArgumentException {
+        protected TotalHpTooLowException() {
+            super(String.format(App.getAppResources().getString(R.string.total_hp_too_low_exception), MINIMUM_TOTAL));
+            Toast.makeText(App.getContext(), getMessage(), Toast.LENGTH_LONG).show();
+        }
+    }
+
+    protected class CurrentHpTooHighException extends IllegalArgumentException {
+        protected CurrentHpTooHighException() {
+            super(String.format(App.getAppResources().getString(R.string.current_hp_too_high_exception)));
+            Toast.makeText(App.getContext(), getMessage(), Toast.LENGTH_LONG).show();
+        }
+    }
+
+    protected class TempHpTooLowException extends IllegalArgumentException {
+        protected TempHpTooLowException() {
+            super(String.format(App.getAppResources().getString(R.string.temp_hp_too_low_exception), MINIMUM_TEMP));
+            Toast.makeText(App.getContext(), getMessage(), Toast.LENGTH_LONG).show();
+        }
     }
 }

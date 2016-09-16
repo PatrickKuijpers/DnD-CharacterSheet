@@ -61,8 +61,8 @@ public class HpTest {
         assertEquals(expectedTotal, hp.getTotal());
     }
 
-    @Test(expected = IllegalArgumentException.class)
-    public void setTotal_ZeroValue_IllegalArgumentException() {
+    @Test(expected = Hp.TotalHpTooLowException.class)
+    public void setTotal_ZeroValue_TotalHpTooLowException() {
         // Arrange
         int expectedTotal = 0;
         Hp hp = getDefaultHp();
@@ -73,8 +73,8 @@ public class HpTest {
         // Assert
     }
 
-    @Test(expected = IllegalArgumentException.class)
-    public void setTotal_NegativeValue_IllegalArgumentException() {
+    @Test(expected = Hp.TotalHpTooLowException.class)
+    public void setTotal_NegativeValue_TotalHpTooLowException() {
         // Arrange
         int expectedTotal = -1;
         Hp hp = getDefaultHp();
@@ -146,8 +146,8 @@ public class HpTest {
         assertEquals(expectedCurrent, hp.getCurrent());
     }
 
-    @Test(expected = IllegalArgumentException.class)
-    public void setCurrent_CurrentBiggerThanTotal_IllegalArgumentException() {
+    @Test(expected = Hp.CurrentHpTooHighException.class)
+    public void setCurrent_CurrentBiggerThanTotal_CurrentHpTooHighException() {
         // Arrange
         int expectedCurrent = DEFAULT_TOTAL_HP + 1;
         Hp hp = getDefaultHp();
@@ -223,8 +223,8 @@ public class HpTest {
         assertEquals(expectedTemp, hp.getTemp());
     }
 
-    @Test(expected = IllegalArgumentException.class)
-    public void setTemp_NegativeValue_IllegalArgumentException() {
+    @Test(expected = Hp.TempHpTooLowException.class)
+    public void setTemp_NegativeValue_TempHpTooLowException() {
         // Arrange
         int expectedTemp = -1;
         Hp hp = getDefaultHp();
