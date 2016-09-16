@@ -1,123 +1,54 @@
 package nl.tcilegnar.dndcharactersheet.Experience.View;
 
 import android.content.Context;
-import android.content.res.Resources;
-import android.graphics.drawable.ColorDrawable;
-import android.os.Bundle;
-import android.os.Parcelable;
-import android.support.v4.content.ContextCompat;
+import android.support.annotation.VisibleForTesting;
 import android.util.AttributeSet;
-import android.view.View;
-import android.widget.NumberPicker;
 
-import java.lang.reflect.Field;
+import nl.tcilegnar.dndcharactersheet.Base.View.BaseNumberPicker;
+import nl.tcilegnar.dndcharactersheet.Experience.Settings.ExperienceSettings;
 
-import nl.tcilegnar.dndcharactersheet.App;
-import nl.tcilegnar.dndcharactersheet.R;
-import nl.tcilegnar.dndcharactersheet.Storage.Settings;
-
-public class ExperiencePicker extends NumberPicker {
+public class ExperiencePicker extends BaseNumberPicker {
     private static final int MIN_VALUE = 0;
     private static final int MAX_VALUE = 1000;
-    private Settings settings = new Settings();
-
-    public enum SavedValues {
-        SAVED_INSTANCE, CURRENT_PICKER_INDEX
-    }
+    private static final int INITIAL_VALUE = 0;
 
     public ExperiencePicker(Context context, AttributeSet attrs) {
-        this(context, attrs, new Settings());
+        this(context, attrs, ExperienceSettings.getInstance());
     }
 
-    public ExperiencePicker(Context context, AttributeSet attrs, Settings settings) {
-        super(context, attrs);
-        this.settings = settings;
-        initViewsIfVisible();
+    @VisibleForTesting
+    protected ExperiencePicker(Context context, AttributeSet attrs, ExperienceSettings settings) {
+        super(context, attrs, settings);
     }
 
-    private void initViewsIfVisible() {
-        boolean shouldBeVisible = settings.isExperienceUpdateTypeNumberPicker();
-        if (shouldBeVisible) {
-            init();
-            setVisibility(View.VISIBLE);
-        } else {
-            setVisibility(View.GONE);
-        }
+    @Override
+    protected boolean shouldBeVisible() {
+        return ((ExperienceSettings) settings).isExperienceUpdateTypeNumberPicker();
     }
 
-    private void init() {
-        initPickerValues();
+    @Override
+    protected void initView() {
+        super.initView();
         setDividerColorTransparent();
     }
 
-    private void initPickerValues() {
-        setValue(0);
-        setMinValue(MIN_VALUE);
-
-        String[] displayedValues = generateDisplayedValues();
-        int newMaxValue = displayedValues.length - 1;
-        if (newMaxValue > getMaxValue()) {
-            setDisplayedValues(displayedValues);
-            setMaxValue(newMaxValue);
-        } else {
-            setMaxValue(newMaxValue);
-            setDisplayedValues(displayedValues);
-        }
-    }
-
-    private String[] generateDisplayedValues() {
-        int pickerStepSize = settings.getExperiencePickerStepSize();
-        int numberOfSteps = ((MAX_VALUE - MIN_VALUE) / pickerStepSize) + 1;
-        String[] experienceValues = new String[numberOfSteps];
-        int nextValue = MIN_VALUE;
-        for (int i = 0; i < experienceValues.length; i++) {
-            experienceValues[i] = String.valueOf(nextValue);
-            nextValue = nextValue + pickerStepSize;
-        }
-        return experienceValues;
-    }
-
-    private void setDividerColorTransparent() {
-        int color = ContextCompat.getColor(App.getContext(), R.color.transparent);
-
-        Field[] pickerFields = NumberPicker.class.getDeclaredFields();
-        for (Field pf : pickerFields) {
-            if (pf.getName().equals("mSelectionDivider")) {
-                pf.setAccessible(true);
-                try {
-                    ColorDrawable colorDrawable = new ColorDrawable(color);
-                    pf.set(this, colorDrawable);
-                } catch (IllegalArgumentException | Resources.NotFoundException | IllegalAccessException e) {
-                    e.printStackTrace();
-                }
-                break;
-            }
-        }
+    @Override
+    protected int minValue() {
+        return MIN_VALUE;
     }
 
     @Override
-    public Parcelable onSaveInstanceState() {
-        Bundle bundle = new Bundle();
-        bundle.putParcelable(SavedValues.SAVED_INSTANCE.name(), super.onSaveInstanceState());
-        bundle.putInt(SavedValues.CURRENT_PICKER_INDEX.name(), getValue());
-        return bundle;
+    protected int maxValue() {
+        return MAX_VALUE;
     }
 
     @Override
-    public void onRestoreInstanceState(Parcelable state) {
-        if (state instanceof Bundle) {
-            Bundle bundle = (Bundle) state;
-            setValue(bundle.getInt(SavedValues.CURRENT_PICKER_INDEX.name()));
-            state = bundle.getParcelable(SavedValues.SAVED_INSTANCE.name());
-        }
-        super.onRestoreInstanceState(state);
+    protected int initialValue() {
+        return INITIAL_VALUE;
     }
 
-    public void updateSettingsData() {
-        initViewsIfVisible();
-    }
-
-    public int getCurrentSelectedExpValue() {
-        return Integer.valueOf(getDisplayedValues()[getValue()]);
+    @Override
+    protected int getPickerStepSize() {
+        return ((ExperienceSettings) settings).getExperiencePickerStepSize();
     }
 }

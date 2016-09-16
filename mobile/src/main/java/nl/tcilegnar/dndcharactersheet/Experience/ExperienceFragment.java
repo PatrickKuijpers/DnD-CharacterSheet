@@ -7,7 +7,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import nl.tcilegnar.dndcharactersheet.BaseStorageFragment;
+import nl.tcilegnar.dndcharactersheet.Base.BaseStorageFragment;
+import nl.tcilegnar.dndcharactersheet.Experience.Settings.ExperienceSettings;
 import nl.tcilegnar.dndcharactersheet.Experience.ViewGroup.ExperienceCurrentLevel;
 import nl.tcilegnar.dndcharactersheet.Experience.ViewGroup.ExperienceEditor;
 import nl.tcilegnar.dndcharactersheet.Level.Level;
@@ -16,13 +17,12 @@ import nl.tcilegnar.dndcharactersheet.Level.LevelUp.ViewGroup.LevelChangeView;
 import nl.tcilegnar.dndcharactersheet.Level.LevelUp.ViewGroup.LevelChangeView.LevelUpIconVisibilityChangedListener;
 import nl.tcilegnar.dndcharactersheet.Level.ViewGroup.LevelIndicatorView;
 import nl.tcilegnar.dndcharactersheet.R;
-import nl.tcilegnar.dndcharactersheet.Storage.Settings;
+import nl.tcilegnar.dndcharactersheet.Settings.Main.MainSettings;
+import nl.tcilegnar.dndcharactersheet.Settings.Settings;
 import nl.tcilegnar.dndcharactersheet.Utils.KeyboardUtil;
 
 public class ExperienceFragment extends BaseStorageFragment implements LevelUpIconVisibilityChangedListener,
         LevelChangedListener {
-    private Settings settings = new Settings();
-
     private ExperienceCurrentLevel expCurrentLevel;
     private LevelIndicatorView levelIndicatorView;
     private LevelChangeView levelChangeView;
@@ -60,12 +60,23 @@ public class ExperienceFragment extends BaseStorageFragment implements LevelUpIc
     }
 
     @Override
+    protected Settings getSettings() {
+        return ExperienceSettings.getInstance();
+    }
+
+    @Override
+    protected void onLoadData() {
+
+    }
+
+    @Override
     protected void onSaveData() {
         expCurrentLevel.save();
         levelIndicatorView.save();
     }
 
-    public void updateSettingsData() {
+    @Override
+    protected void updateSettingsData() {
         expEditor.updateSettingsData();
         toggleLevelInfoSnackbar();
     }
@@ -81,7 +92,7 @@ public class ExperienceFragment extends BaseStorageFragment implements LevelUpIc
     }
 
     private void toggleLevelInfoSnackbar() {
-        if (settings.shouldShowHints() && levelChangeView.isReadyForLevelChange()) {
+        if (MainSettings.getInstance().shouldShowHints() && levelChangeView.isReadyForLevelChange()) {
             showSnackbar();
         } else {
             hideSnackbar();
@@ -108,7 +119,7 @@ public class ExperienceFragment extends BaseStorageFragment implements LevelUpIc
     }
 
     public String getLevelUpOrDownText() {
-        // TODO: deze is nog nodig omdat je bij de init nog niet weet wat numberOfLevelsReadyForChange is
+        // TODO: deze is nog nodig omdat je bij initViews nog niet weet wat numberOfLevelsReadyForChange is
         String levelUpOrDownText = getString(R.string.level_change_info_unknown);
 
         boolean isLevelUp = levelChangeView.getNumberOfLevelsReadyForChange() > 0;

@@ -22,7 +22,7 @@ public class StorageTest {
     }
 
     @Test
-    public void testFileName_NotNull() {
+    public void fileName_NotNull() {
         // Arrange
 
         // Act
@@ -33,7 +33,7 @@ public class StorageTest {
     }
 
     @Test
-    public void testFileName_Storage() {
+    public void fileName_Storage() {
         // Arrange
 
         // Act
@@ -45,7 +45,7 @@ public class StorageTest {
     }
 
     @Test
-    public void testSaveAndLoadExperience() {
+    public void saveAndLoadExperience() {
         // Arrange
         int expectedExperience = 1234;
 
@@ -58,7 +58,7 @@ public class StorageTest {
     }
 
     @Test
-    public void testSaveAndLoadLevel() {
+    public void saveAndLoadLevel() {
         // Arrange
         int expectedLevel = 12;
 
@@ -71,7 +71,7 @@ public class StorageTest {
     }
 
     @Test
-    public void testSaveAndLoadReadyForLevelChange() {
+    public void saveAndLoadReadyForLevelChange() {
         // Arrange
         int expectedReadyForLevelChange = 2;
 
@@ -81,5 +81,57 @@ public class StorageTest {
 
         // Assert
         assertEquals(expectedReadyForLevelChange, readyForLevelChange);
+    }
+
+    @Test
+    public void saveAndLoadPlatinum() {
+        // Arrange
+        int expectedPlatinum = 12;
+
+        // Act
+        storage.savePlatinum(expectedPlatinum);
+        int platinum = storage.loadPlatinum();
+
+        // Assert
+        assertEquals(expectedPlatinum, platinum);
+    }
+
+    @Test
+    public void saveAndLoadGold() {
+        // Arrange
+        int expectedGold = 12;
+
+        // Act
+        storage.saveGold(expectedGold);
+        int gold = storage.loadGold();
+
+        // Assert
+        assertEquals(expectedGold, gold);
+    }
+
+    @Test
+    public void saveAndLoadSilver() {
+        // Arrange
+        int expectedSilver = 12;
+
+        // Act
+        storage.saveSilver(expectedSilver);
+        int silver = storage.loadSilver();
+
+        // Assert
+        assertEquals(expectedSilver, silver);
+    }
+
+    @Test
+    public void saveAndLoadBronze() {
+        // Arrange
+        int expectedBronze = 12;
+
+        // Act
+        storage.saveBronze(expectedBronze);
+        int bronze = storage.loadBronze();
+
+        // Assert
+        assertEquals(expectedBronze, bronze);
     }
 }

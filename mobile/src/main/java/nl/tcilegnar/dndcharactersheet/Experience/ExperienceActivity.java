@@ -1,12 +1,16 @@
 package nl.tcilegnar.dndcharactersheet.Experience;
 
 import android.os.Bundle;
+import android.preference.PreferenceActivity;
 
-import nl.tcilegnar.dndcharactersheet.BaseStorageActivity;
-import nl.tcilegnar.dndcharactersheet.FragmentManager;
+import nl.tcilegnar.dndcharactersheet.Base.BaseStorageActivity;
+import nl.tcilegnar.dndcharactersheet.Experience.Settings.ExperienceSettingsActivity;
 
 public class ExperienceActivity extends BaseStorageActivity {
-    private FragmentManager fragmentManager = new FragmentManager(this);
+    @Override
+    protected Class<? extends PreferenceActivity> getSettingsActivityClass() {
+        return ExperienceSettingsActivity.class;
+    }
 
     public enum FragTag {
         Experience
@@ -28,10 +32,5 @@ public class ExperienceActivity extends BaseStorageActivity {
             experienceFragment = new ExperienceFragment();
         }
         return experienceFragment;
-    }
-
-    @Override
-    protected void updateSettingsData() {
-        getExperienceFragment().updateSettingsData();
     }
 }

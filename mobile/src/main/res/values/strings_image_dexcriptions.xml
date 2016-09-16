@@ -3,4 +3,9 @@
     <string name="image_description_beta_banner">Een rode banner of lintje dat aangeeft dat dit een beta-versie van de app is</string>
 
     <string name="image_description_level_up">Go level up now!</string>
+
+    <string name="image_description_platinum_coin">Een platinum munt</string>
+    <string name="image_description_gold_coin">Een gouden munt</string>
+    <string name="image_description_silver_coin">Een zilveren munt</string>
+    <string name="image_description_bronze_coin">Een bronzen munt</string>
 </resources>

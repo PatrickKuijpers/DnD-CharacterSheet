@@ -2,6 +2,7 @@ package nl.tcilegnar.dndcharactersheet.MainMenu;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,7 +10,7 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import nl.tcilegnar.dndcharactersheet.App;
-import nl.tcilegnar.dndcharactersheet.BaseFragment;
+import nl.tcilegnar.dndcharactersheet.Base.BaseFragment;
 import nl.tcilegnar.dndcharactersheet.R;
 
 import static android.view.View.OnClickListener;
@@ -23,6 +24,11 @@ public class MainMenuFragment extends BaseFragment implements OnClickListener {
         if (context instanceof MainMenuActivity) {
             callbackMainMenu = (MainMenuActivity) context;
         }
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
     }
 
     @Override
@@ -59,7 +65,7 @@ public class MainMenuFragment extends BaseFragment implements OnClickListener {
         } else if (viewId == R.id.main_menu_button_hp) {
             showComingSoon();
         } else if (viewId == R.id.main_menu_button_money) {
-            showComingSoon();
+            callbackMainMenu.startMoney();
         }
     }
 

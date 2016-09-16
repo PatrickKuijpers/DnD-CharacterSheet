@@ -1,13 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
-    <PreferenceCategory android:title="@string/setting_category_title_general">
-        <CheckBoxPreference
-            android:defaultValue="@string/setting_defaultvalue_show_hints"
-            android:key="@string/setting_key_show_hints"
-            android:summary="@string/setting_summary_show_hints"
-            android:title="@string/setting_title_show_hints"/>
-    </PreferenceCategory>
-    <PreferenceCategory android:title="@string/setting_category_title_experience">
+    <PreferenceCategory android:title="@string/setting_category_title_experience_and_level">
         <ListPreference
             android:defaultValue="@string/setting_defaultvalue_experience_update_type"
             android:dialogTitle="@string/setting_dialogtitle_experience_update_type"
@@ -29,7 +22,7 @@
             android:summary="@string/setting_summary_allow_level_down"
             android:title="@string/setting_title_allow_level_down"/>
     </PreferenceCategory>
-    <PreferenceCategory android:title="@string/setting_category_confirm">
+    <PreferenceCategory android:title="@string/setting_category_title_confirm">
         <Preference
             android:key="@string/setting_key_confirm"
             android:title="@string/setting_title_confirm"/>

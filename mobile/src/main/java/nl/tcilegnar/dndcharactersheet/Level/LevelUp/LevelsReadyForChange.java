@@ -5,7 +5,7 @@ import android.support.annotation.VisibleForTesting;
 import nl.tcilegnar.dndcharactersheet.Level.Level.MaxLevelReachedException;
 import nl.tcilegnar.dndcharactersheet.Level.Level.MinLevelReachedException;
 import nl.tcilegnar.dndcharactersheet.Storage.Storage;
-import nl.tcilegnar.dndcharactersheet.StorageObject;
+import nl.tcilegnar.dndcharactersheet.Base.StorageObject;
 
 public class LevelsReadyForChange extends StorageObject {
     private int numberOfLevelsReadyForChange = storage.loadReadyForLevelChange();

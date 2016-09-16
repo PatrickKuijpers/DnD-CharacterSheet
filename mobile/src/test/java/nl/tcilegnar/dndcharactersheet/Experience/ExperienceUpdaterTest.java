@@ -8,10 +8,10 @@ import org.robolectric.annotation.Config;
 import nl.tcilegnar.dndcharactersheet.BuildConfig;
 import nl.tcilegnar.dndcharactersheet.Experience.ExperienceUpdater.ExpTooLowException;
 import nl.tcilegnar.dndcharactersheet.Experience.ExperienceUpdater.ExperienceEdgeListener;
+import nl.tcilegnar.dndcharactersheet.Experience.Settings.ExperienceSettings;
 import nl.tcilegnar.dndcharactersheet.Level.Level;
 import nl.tcilegnar.dndcharactersheet.Level.Level.MaxLevelReachedException;
 import nl.tcilegnar.dndcharactersheet.Level.Level.MinLevelReachedException;
-import nl.tcilegnar.dndcharactersheet.Storage.Settings;
 import nl.tcilegnar.dndcharactersheet.Storage.Storage;
 
 import static junit.framework.Assert.assertEquals;
@@ -32,7 +32,7 @@ public class ExperienceUpdaterTest {
     private static final boolean DEFAULT_IS_ALLOWED_LEVEL_DOWN = IS_NOT_ALLOWED_LEVEL_DOWN;
     private static ExperienceUpdater experienceUpdater;
     private Experience experienceMock;
-    private Settings settingsMock;
+    private ExperienceSettings settingsMock;
     private ExperienceEdgeListener experienceEdgeListenerMock;
     private int initialExp;
     private int updatedExp;
@@ -363,7 +363,7 @@ public class ExperienceUpdaterTest {
     private ExperienceUpdater getNewExperienceUpdaterWithMocksAndListeners(int initialSavedExperience, boolean
             initialIsAllowedLevelDown) {
         experienceMock = mock(Experience.class);
-        settingsMock = mock(Settings.class);
+        settingsMock = mock(ExperienceSettings.class);
         doReturn(initialSavedExperience).when(experienceMock).getCurrentExp();
         doReturn(Experience.EXP_MIN).when(experienceMock).getMin();
         doReturn(DEFAULT_EXP_MAX).when(experienceMock).getMax();

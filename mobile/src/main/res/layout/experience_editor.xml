@@ -11,28 +11,15 @@
 
     <nl.tcilegnar.dndcharactersheet.Experience.View.ExperiencePicker
         android:id="@+id/experience_picker"
+        style="@style/experience_numberpicker"
         android:layout_width="wrap_content"
-        android:layout_height="@dimen/experience_picker_height"
-        android:descendantFocusability="blocksDescendants"
-        android:visibility="visible"/>
+        android:layout_height="@dimen/experience_picker_height"/>
 
     <nl.tcilegnar.dndcharactersheet.Experience.View.ExperienceInput
         android:id="@+id/experience_input"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/experience_edittext"
         android:layout_marginLeft="@dimen/horizontal_margin"
-        android:layout_marginRight="@dimen/horizontal_margin"
-        android:background="@color/grey_light"
-        android:hint="0000000"
-        android:imeOptions="actionDone"
-        android:inputType="number"
-        android:maxLength="7"
-        android:paddingBottom="@dimen/edittext_padding_vertical"
-        android:paddingLeft="@dimen/edittext_padding_horizontal"
-        android:paddingRight="@dimen/edittext_padding_horizontal"
-        android:paddingTop="@dimen/edittext_padding_vertical"
-        android:textColorHint="@color/transparent"
-        android:visibility="gone"/>
+        android:layout_marginRight="@dimen/horizontal_margin"/>
 
     <Button
         android:id="@+id/experience_plus_button"

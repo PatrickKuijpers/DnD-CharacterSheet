@@ -1,4 +1,4 @@
-package nl.tcilegnar.dndcharactersheet;
+package nl.tcilegnar.dndcharactersheet.Base;
 
 import android.support.v4.app.Fragment;
 

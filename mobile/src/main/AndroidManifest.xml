@@ -2,8 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="nl.tcilegnar.dndcharactersheet">
 
-    <uses-permission android:name="android.permission.WAKE_LOCK"/>
-
     <application
         android:name=".App"
         android:allowBackup="true"
@@ -26,7 +24,19 @@
             android:label="@string/title_level_and_experience"
             android:theme="@style/AppTheme.NoActionBar"/>
         <activity
-            android:name=".Settings.SettingsActivity"
+            android:name=".Money.MoneyActivity"
+            android:label="@string/title_money"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity
+            android:name=".Settings.Main.MainSettingsActivity"
+            android:label="@string/title_settings"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity
+            android:name=".Experience.Settings.ExperienceSettingsActivity"
+            android:label="@string/title_settings"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity
+            android:name=".Money.Settings.MoneySettingsActivity"
             android:label="@string/title_settings"
             android:theme="@style/AppTheme.NoActionBar"/>
     </application>
