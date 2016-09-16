@@ -39,7 +39,7 @@
 
             <Button
                 android:id="@+id/main_menu_button_hp"
-                style="@style/button_main_menu_coming_soon"
+                style="@style/button_main_menu"
                 android:text="@string/title_hp"/>
 
             <Button

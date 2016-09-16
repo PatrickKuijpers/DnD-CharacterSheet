@@ -63,7 +63,7 @@ public class MainMenuFragment extends BaseFragment implements OnClickListener {
         } else if (viewId == R.id.main_menu_button_abilities) {
             showComingSoon();
         } else if (viewId == R.id.main_menu_button_hp) {
-            showComingSoon();
+            callbackMainMenu.startHp();
         } else if (viewId == R.id.main_menu_button_money) {
             callbackMainMenu.startMoney();
         }
