@@ -102,6 +102,23 @@ public class HpTest {
     }
 
     @Test
+    public void setTotal_IncreasedValueWhileHpIsFull_CurrentIncreasedWithSameAmount() {
+        // Arrange
+        int increasedTotalValue = 2;
+        int newTotal = DEFAULT_TOTAL_HP + increasedTotalValue;
+        int currentHp = DEFAULT_TOTAL_HP;
+        Hp hp = getHp(DEFAULT_TOTAL_HP, currentHp, DEFAULT_TEMP_HP);
+        int previousCurrent = hp.getCurrent();
+
+        // Act
+        hp.setTotal(newTotal);
+
+        // Assert
+        int expectedCurrent = previousCurrent + increasedTotalValue;
+        assertEquals(expectedCurrent, hp.getCurrent());
+    }
+
+    @Test
     public void setTotal_NotChangedValue_CurrentNotChanged() {
         // Arrange
         int increasedTotalValue = 0;
@@ -253,11 +270,20 @@ public class HpTest {
         return new Hp(storageMock);
     }
 
+    private Hp getHp(int totalHp, int currentHp, int tempHp) {
+        Storage storageMock = getStorageMock(totalHp, currentHp, tempHp);
+        return new Hp(storageMock);
+    }
+
     Storage getDefaultStorageMock() {
+        return getStorageMock(DEFAULT_TOTAL_HP, DEFAULT_CURRENT_HP, DEFAULT_TEMP_HP);
+    }
+
+    Storage getStorageMock(int totalHp, int currentHp, int tempHp) {
         storageMock = mock(Storage.class);
-        doReturn(DEFAULT_TOTAL_HP).when(storageMock).loadTotalHp();
-        doReturn(DEFAULT_CURRENT_HP).when(storageMock).loadCurrentHp();
-        doReturn(DEFAULT_TEMP_HP).when(storageMock).loadTempHp();
+        doReturn(totalHp).when(storageMock).loadTotalHp();
+        doReturn(currentHp).when(storageMock).loadCurrentHp();
+        doReturn(tempHp).when(storageMock).loadTempHp();
         return storageMock;
     }
 }

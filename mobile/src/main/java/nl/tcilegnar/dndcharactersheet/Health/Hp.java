@@ -45,18 +45,19 @@ public class Hp extends StorageObject {
             throw new TotalHpTooLowException();
         }
 
-        if (newTotal < current) {
-            setCurrent(newTotal);
-        }
+        int previousTotal = this.total;
+        this.total = newTotal;
 
-        int increasedValue = newTotal - this.total;
+        int increasedValue = newTotal - previousTotal;
         boolean hasTotalHpIncreased = increasedValue > 0;
         if (hasTotalHpIncreased) {
             int newCurrent = getCurrent() + increasedValue;
             setCurrent(newCurrent);
         }
 
-        this.total = newTotal;
+        if (newTotal < current) {
+            setCurrent(newTotal);
+        }
     }
 
     public int getCurrent() {
