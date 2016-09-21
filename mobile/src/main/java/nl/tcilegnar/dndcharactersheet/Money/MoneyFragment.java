@@ -7,18 +7,18 @@ import android.view.ViewGroup;
 
 import nl.tcilegnar.dndcharactersheet.Base.BaseStorageFragment;
 import nl.tcilegnar.dndcharactersheet.Money.Settings.MoneySettings;
-import nl.tcilegnar.dndcharactersheet.Money.ViewGroup.BronzeEditor;
-import nl.tcilegnar.dndcharactersheet.Money.ViewGroup.GoldEditor;
+import nl.tcilegnar.dndcharactersheet.Money.ViewGroup.BronzeView;
+import nl.tcilegnar.dndcharactersheet.Money.ViewGroup.GoldView;
 import nl.tcilegnar.dndcharactersheet.Money.ViewGroup.PlatinumView;
-import nl.tcilegnar.dndcharactersheet.Money.ViewGroup.SilverEditor;
+import nl.tcilegnar.dndcharactersheet.Money.ViewGroup.SilverView;
 import nl.tcilegnar.dndcharactersheet.R;
 import nl.tcilegnar.dndcharactersheet.Settings.Settings;
 
 public class MoneyFragment extends BaseStorageFragment {
     private PlatinumView platinumView;
-    private GoldEditor goldEditor;
-    private SilverEditor silverEditor;
-    private BronzeEditor bronzeEditor;
+    private GoldView goldView;
+    private SilverView silverView;
+    private BronzeView bronzeView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -33,9 +33,9 @@ public class MoneyFragment extends BaseStorageFragment {
 
     private void initViews(View view) {
         platinumView = (PlatinumView) view.findViewById(R.id.platinum_view);
-        goldEditor = (GoldEditor) view.findViewById(R.id.gold_editor);
-        silverEditor = (SilverEditor) view.findViewById(R.id.silver_editor);
-        bronzeEditor = (BronzeEditor) view.findViewById(R.id.bronze_editor);
+        goldView = (GoldView) view.findViewById(R.id.gold_view);
+        silverView = (SilverView) view.findViewById(R.id.silver_view);
+        bronzeView = (BronzeView) view.findViewById(R.id.bronze_view);
     }
 
     @Override
@@ -46,24 +46,20 @@ public class MoneyFragment extends BaseStorageFragment {
     @Override
     protected void onLoadData() {
         platinumView.load();
-        goldEditor.load();
-        silverEditor.load();
-        bronzeEditor.load();
+        goldView.load();
+        silverView.load();
+        bronzeView.load();
     }
 
     @Override
     protected void onSaveData() {
         platinumView.save();
-        goldEditor.save();
-        silverEditor.save();
-        bronzeEditor.save();
+        goldView.save();
+        silverView.save();
+        bronzeView.save();
     }
 
     @Override
     protected void updateSettingsData() {
-        platinumView.updateSettingsData();
-        goldEditor.updateSettingsData();
-        silverEditor.updateSettingsData();
-        bronzeEditor.updateSettingsData();
     }
 }

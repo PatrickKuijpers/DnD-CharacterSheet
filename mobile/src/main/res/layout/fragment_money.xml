@@ -13,16 +13,16 @@
                 android:id="@+id/platinum_view"
                 style="@style/money_view"/>
 
-            <nl.tcilegnar.dndcharactersheet.Money.ViewGroup.GoldEditor
-                android:id="@+id/gold_editor"
+            <nl.tcilegnar.dndcharactersheet.Money.ViewGroup.GoldView
+                android:id="@+id/gold_view"
                 style="@style/money_view_not_first"/>
 
-            <nl.tcilegnar.dndcharactersheet.Money.ViewGroup.SilverEditor
-                android:id="@+id/silver_editor"
+            <nl.tcilegnar.dndcharactersheet.Money.ViewGroup.SilverView
+                android:id="@+id/silver_view"
                 style="@style/money_view_not_first"/>
 
-            <nl.tcilegnar.dndcharactersheet.Money.ViewGroup.BronzeEditor
-                android:id="@+id/bronze_editor"
+            <nl.tcilegnar.dndcharactersheet.Money.ViewGroup.BronzeView
+                android:id="@+id/bronze_view"
                 style="@style/money_view_not_first"/>
         </LinearLayout>
 

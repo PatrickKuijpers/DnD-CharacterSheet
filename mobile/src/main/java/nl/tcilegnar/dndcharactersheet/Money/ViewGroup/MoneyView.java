@@ -36,10 +36,7 @@ public abstract class MoneyView extends LinearLayout {
     protected abstract void saveMoneyValue(int value);
 
     private void initView() {
-        moneyIndicatorTextView = (MoneyIndicatorTextView) findViewById(R.id.money_indicator_text);
-    }
-
-    public void updateSettingsData() {
+        moneyIndicatorTextView = (MoneyIndicatorTextView) findViewById(R.id.money_indicator_text_view);
     }
 
     public void load() {

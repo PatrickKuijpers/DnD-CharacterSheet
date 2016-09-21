@@ -3,8 +3,8 @@
 
     <ImageView
         style="@style/imageview_coin"
-        android:contentDescription="@string/image_description_platinum_coin"
-        android:src="@drawable/coin_platinum"/>
+        android:contentDescription="@string/image_description_bronze_coin"
+        android:src="@drawable/coin_bronze"/>
 
     <nl.tcilegnar.dndcharactersheet.Money.View.MoneyIndicatorTextView
         android:id="@+id/money_indicator_text_view"
