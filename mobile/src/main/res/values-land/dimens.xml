@@ -1,7 +1,9 @@
 <resources>
     <dimen name="money_view_not_first_margin_left">@dimen/vertical_margin</dimen>
     <dimen name="money_view_not_first_margin_top">0dp</dimen>
-    <dimen name="money_subviews_margin_left">0dp</dimen>
-    <dimen name="money_subviews_margin_top">@dimen/vertical_margin</dimen>
+    <dimen name="money_editor_not_first_margin_left">@dimen/money_view_not_first_margin_left</dimen>
+    <dimen name="money_editor_not_first_margin_top">@dimen/money_view_not_first_margin_top</dimen>
+    <dimen name="money_indicator_textview_margin_left">0dp</dimen>
+    <dimen name="money_indicator_textview_margin_top">@dimen/vertical_margin_big</dimen>
     <dimen name="money_editors_margin_left">0dp</dimen>
 </resources>

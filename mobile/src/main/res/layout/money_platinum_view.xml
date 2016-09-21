@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <ImageView
+        style="@style/imageview_coin"
+        android:contentDescription="@string/image_description_platinum_coin"
+        android:src="@drawable/coin_platinum"/>
+
+    <nl.tcilegnar.dndcharactersheet.Money.View.MoneyIndicatorTextView
+        android:id="@+id/money_indicator_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/money_indicator_textview_margin_left"
+        android:layout_marginTop="@dimen/money_indicator_textview_margin_top"
+        android:gravity="end"
+        android:maxLength="2"
+        android:textSize="@dimen/textsize_very_big"/>
+</merge>

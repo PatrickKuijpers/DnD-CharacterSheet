@@ -13,6 +13,7 @@ public class MoneyActivity extends BaseStorageActivity {
     }
 
     public enum FragTag {
+        MONEY,
         MONEY_EDITOR
     }
 
@@ -21,8 +22,18 @@ public class MoneyActivity extends BaseStorageActivity {
         super.onCreate(savedInstanceState);
 
         if (savedInstanceState == null) {
-            fragmentManager.addFirstFragment(getMoneyEditorFragment(), FragTag.MONEY_EDITOR.name());
+            fragmentManager.addFirstFragment(getMoneyFragment(), FragTag.MONEY.name());
+            //            fragmentManager.addFirstFragment(getMoneyEditorFragment(), FragTag.MONEY_EDITOR.name());
         }
+    }
+
+    public MoneyFragment getMoneyFragment() {
+        String tag = FragTag.MONEY.name();
+        MoneyFragment moneyFragment = fragmentManager.getFragment(MoneyFragment.class, tag);
+        if (moneyFragment == null) {
+            moneyFragment = new MoneyFragment();
+        }
+        return moneyFragment;
     }
 
     public MoneyEditorFragment getMoneyEditorFragment() {

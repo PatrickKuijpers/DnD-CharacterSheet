@@ -28,11 +28,20 @@
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:orientation">horizontal</item>
+        <item name="android:layout_gravity">center|start</item>
+        <item name="android:gravity">center_vertical</item>
     </style>
 
     <style name="money_view_not_first" parent="money_view">
         <item name="android:layout_marginLeft">@dimen/money_view_not_first_margin_left</item>
         <item name="android:layout_marginTop">@dimen/money_view_not_first_margin_top</item>
+    </style>
+
+    <style name="money_editor" parent="money_view"/>
+
+    <style name="money_editor_not_first" parent="money_editor">
+        <item name="android:layout_marginLeft">@dimen/money_editor_not_first_margin_left</item>
+        <item name="android:layout_marginTop">@dimen/money_editor_not_first_margin_top</item>
     </style>
 
     <style name="container_button_main_menu">
