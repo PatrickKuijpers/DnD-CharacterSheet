@@ -4,9 +4,13 @@ import android.os.Bundle;
 import android.preference.PreferenceActivity;
 
 import nl.tcilegnar.dndcharactersheet.Base.BaseStorageActivity;
+import nl.tcilegnar.dndcharactersheet.Money.MoneyFragment.ChangeMoneyListener;
 import nl.tcilegnar.dndcharactersheet.Money.Settings.MoneySettingsActivity;
 
-public class MoneyActivity extends BaseStorageActivity {
+import static nl.tcilegnar.dndcharactersheet.FragmentManager.Anim.SLIDE_RIGHT_TO_LEFT;
+
+public class MoneyActivity extends BaseStorageActivity implements ChangeMoneyListener {
+
     @Override
     protected Class<? extends PreferenceActivity> getSettingsActivityClass() {
         return MoneySettingsActivity.class;
@@ -43,5 +47,20 @@ public class MoneyActivity extends BaseStorageActivity {
             moneyEditorFragment = new MoneyEditorFragment();
         }
         return moneyEditorFragment;
+    }
+
+    @Override
+    public void onAddMoneyClicked() {
+        startMoneyEditor();
+    }
+
+    @Override
+    public void onSubstractMoneyClicked() {
+        startMoneyEditor();
+    }
+
+    private void startMoneyEditor() {
+        MoneyEditorFragment moneyEditorFragment = getMoneyEditorFragment();
+        fragmentManager.replaceFragment(moneyEditorFragment, FragTag.MONEY_EDITOR.name(), true, SLIDE_RIGHT_TO_LEFT);
     }
 }
