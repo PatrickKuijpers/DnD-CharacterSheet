@@ -14,7 +14,7 @@ import nl.tcilegnar.dndcharactersheet.Money.ViewGroup.SilverEditor;
 import nl.tcilegnar.dndcharactersheet.R;
 import nl.tcilegnar.dndcharactersheet.Settings.Settings;
 
-public class MoneyFragment extends BaseStorageFragment {
+public class MoneyEditorFragment extends BaseStorageFragment {
     private PlatinumEditor platinumEditor;
     private GoldEditor goldEditor;
     private SilverEditor silverEditor;
