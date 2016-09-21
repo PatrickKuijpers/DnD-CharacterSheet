@@ -20,42 +20,42 @@ import static org.mockito.Mockito.verify;
 
 @RunWith(RobolectricGradleTestRunner.class)
 @Config(constants = BuildConfig.class)
-public class GoldViewTest {
-    private GoldView goldView;
+public class PlatinumEditorTest {
+    private PlatinumEditor platinumEditor;
     private Storage storageMock;
 
     @Test
-    public void goldViewPublicConstructor() {
+    public void platinumEditorPublicConstructor() {
         // Arrange
 
         // Act
-        GoldView goldView = new GoldView(getContext(), null);
+        PlatinumEditor platinumEditor = new PlatinumEditor(getContext(), null);
 
         // Assert
-        assertNotNull(goldView.storage);
-        Asserts.hasCorrectEditors(goldView);
+        assertNotNull(platinumEditor.storage);
+        Asserts.hasCorrectEditors(platinumEditor);
     }
 
     @Test
     public void getLayoutResource() {
         // Arrange
-        initGoldView();
+        initPlatinumEditor();
 
         // Act
-        int resourceId = goldView.getLayoutResource();
+        int resourceId = platinumEditor.getLayoutResource();
 
         // Assert
-        assertEquals(R.layout.money_gold_view, resourceId);
+        assertEquals(R.layout.money_platinum_editor, resourceId);
     }
 
     @Test
     public void loadMoneyValue() {
         // Arrange
-        initGoldView();
-        int expectedValue = mockLoadGold(11);
+        initPlatinumEditor();
+        int expectedValue = mockLoadPlatinum(11);
 
         // Act
-        int moneyValue = goldView.loadMoneyValue();
+        int moneyValue = platinumEditor.loadMoneyValue();
 
         // Assert
         assertEquals(expectedValue, moneyValue);
@@ -64,27 +64,27 @@ public class GoldViewTest {
     @Test
     public void saveMoneyValue() {
         // Arrange
-        initGoldView();
+        initPlatinumEditor();
         int expectedSavedValue = 11;
 
         // Act
-        goldView.saveMoneyValue(expectedSavedValue);
+        platinumEditor.saveMoneyValue(expectedSavedValue);
 
         // Assert
-        verify(storageMock).saveGold(expectedSavedValue);
+        verify(storageMock).savePlatinum(expectedSavedValue);
     }
 
-    private void initGoldView() {
+    private void initPlatinumEditor() {
         storageMock = mock(Storage.class);
-        goldView = new GoldView(getContext(), null, storageMock);
+        platinumEditor = new PlatinumEditor(getContext(), null, storageMock);
     }
 
     private Context getContext() {
         return App.getContext();
     }
 
-    private int mockLoadGold(int value) {
-        doReturn(value).when(storageMock).loadGold();
+    private int mockLoadPlatinum(int value) {
+        doReturn(value).when(storageMock).loadPlatinum();
         return value;
     }
 }

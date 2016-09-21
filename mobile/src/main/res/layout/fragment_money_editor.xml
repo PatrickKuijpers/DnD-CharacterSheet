@@ -4,30 +4,27 @@
     android:layout_height="match_parent">
 
     <LinearLayout
-        style="@style/fragment_full_screen"
+        style="@style/fragment_money"
         android:focusableInTouchMode="true"
         android:orientation="horizontal">
 
-        <LinearLayout style="@style/money_indicator">
+        <LinearLayout style="@style/money_view_list">
 
-            <nl.tcilegnar.dndcharactersheet.Money.ViewGroup.PlatinumView
-                android:id="@+id/platinum_view"
+            <nl.tcilegnar.dndcharactersheet.Money.ViewGroup.PlatinumEditor
+                android:id="@+id/platinum_editor"
                 style="@style/money_view"/>
 
-            <nl.tcilegnar.dndcharactersheet.Money.ViewGroup.GoldView
-                android:id="@+id/gold_view"
-                style="@style/money_view_not_first"
-                android:layout_weight="25"/>
+            <nl.tcilegnar.dndcharactersheet.Money.ViewGroup.GoldEditor
+                android:id="@+id/gold_editor"
+                style="@style/money_view_not_first"/>
 
-            <nl.tcilegnar.dndcharactersheet.Money.ViewGroup.SilverView
-                android:id="@+id/silver_view"
-                style="@style/money_view_not_first"
-                android:layout_weight="25"/>
+            <nl.tcilegnar.dndcharactersheet.Money.ViewGroup.SilverEditor
+                android:id="@+id/silver_editor"
+                style="@style/money_view_not_first"/>
 
-            <nl.tcilegnar.dndcharactersheet.Money.ViewGroup.BronzeView
-                android:id="@+id/bronze_view"
-                style="@style/money_view_not_first"
-                android:layout_weight="25"/>
+            <nl.tcilegnar.dndcharactersheet.Money.ViewGroup.BronzeEditor
+                android:id="@+id/bronze_editor"
+                style="@style/money_view_not_first"/>
         </LinearLayout>
 
         <LinearLayout

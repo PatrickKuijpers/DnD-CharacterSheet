@@ -7,22 +7,22 @@ import android.view.ViewGroup;
 
 import nl.tcilegnar.dndcharactersheet.Base.BaseStorageFragment;
 import nl.tcilegnar.dndcharactersheet.Money.Settings.MoneySettings;
-import nl.tcilegnar.dndcharactersheet.Money.ViewGroup.BronzeView;
-import nl.tcilegnar.dndcharactersheet.Money.ViewGroup.GoldView;
-import nl.tcilegnar.dndcharactersheet.Money.ViewGroup.PlatinumView;
-import nl.tcilegnar.dndcharactersheet.Money.ViewGroup.SilverView;
+import nl.tcilegnar.dndcharactersheet.Money.ViewGroup.BronzeEditor;
+import nl.tcilegnar.dndcharactersheet.Money.ViewGroup.GoldEditor;
+import nl.tcilegnar.dndcharactersheet.Money.ViewGroup.PlatinumEditor;
+import nl.tcilegnar.dndcharactersheet.Money.ViewGroup.SilverEditor;
 import nl.tcilegnar.dndcharactersheet.R;
 import nl.tcilegnar.dndcharactersheet.Settings.Settings;
 
 public class MoneyFragment extends BaseStorageFragment {
-    private PlatinumView platinumView;
-    private GoldView goldView;
-    private SilverView silverView;
-    private BronzeView bronzeView;
+    private PlatinumEditor platinumEditor;
+    private GoldEditor goldEditor;
+    private SilverEditor silverEditor;
+    private BronzeEditor bronzeEditor;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_money, container, false);
+        return inflater.inflate(R.layout.fragment_money_editor, container, false);
     }
 
     @Override
@@ -32,10 +32,10 @@ public class MoneyFragment extends BaseStorageFragment {
     }
 
     private void initViews(View view) {
-        platinumView = (PlatinumView) view.findViewById(R.id.platinum_view);
-        goldView = (GoldView) view.findViewById(R.id.gold_view);
-        silverView = (SilverView) view.findViewById(R.id.silver_view);
-        bronzeView = (BronzeView) view.findViewById(R.id.bronze_view);
+        platinumEditor = (PlatinumEditor) view.findViewById(R.id.platinum_editor);
+        goldEditor = (GoldEditor) view.findViewById(R.id.gold_editor);
+        silverEditor = (SilverEditor) view.findViewById(R.id.silver_editor);
+        bronzeEditor = (BronzeEditor) view.findViewById(R.id.bronze_editor);
     }
 
     @Override
@@ -45,25 +45,25 @@ public class MoneyFragment extends BaseStorageFragment {
 
     @Override
     protected void onLoadData() {
-        platinumView.load();
-        goldView.load();
-        silverView.load();
-        bronzeView.load();
+        platinumEditor.load();
+        goldEditor.load();
+        silverEditor.load();
+        bronzeEditor.load();
     }
 
     @Override
     protected void onSaveData() {
-        platinumView.save();
-        goldView.save();
-        silverView.save();
-        bronzeView.save();
+        platinumEditor.save();
+        goldEditor.save();
+        silverEditor.save();
+        bronzeEditor.save();
     }
 
     @Override
     protected void updateSettingsData() {
-        platinumView.updateSettingsData();
-        goldView.updateSettingsData();
-        silverView.updateSettingsData();
-        bronzeView.updateSettingsData();
+        platinumEditor.updateSettingsData();
+        goldEditor.updateSettingsData();
+        silverEditor.updateSettingsData();
+        bronzeEditor.updateSettingsData();
     }
 }

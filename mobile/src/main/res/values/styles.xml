@@ -14,7 +14,11 @@
         <item name="android:paddingRight">@dimen/horizontal_margin</item>
     </style>
 
-    <style name="money_indicator">
+    <style name="fragment_money" parent="fragment_full_screen">
+        <item name="android:orientation">horizontal</item>
+    </style>
+
+    <style name="money_view_list">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:orientation">vertical</item>

@@ -13,19 +13,19 @@ import nl.tcilegnar.dndcharactersheet.Money.View.MoneySlider;
 import nl.tcilegnar.dndcharactersheet.R;
 import nl.tcilegnar.dndcharactersheet.Storage.Storage;
 
-public abstract class MoneyView extends LinearLayout {
+public abstract class MoneyEditor extends LinearLayout {
     protected final Storage storage;
 
     private MoneyInput moneyInput;
     private MoneySlider numberSlider;
     private MoneyPicker numberPicker;
 
-    public MoneyView(Context context, AttributeSet attrs) {
+    public MoneyEditor(Context context, AttributeSet attrs) {
         this(context, attrs, new Storage());
     }
 
     @VisibleForTesting
-    protected MoneyView(Context context, AttributeSet attrs, Storage storage) {
+    protected MoneyEditor(Context context, AttributeSet attrs, Storage storage) {
         super(context, attrs);
         inflate(context, getLayoutResource(), this);
         this.storage = storage;

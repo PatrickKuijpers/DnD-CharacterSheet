@@ -1,6 +1,6 @@
 <resources>
 
-    <style name="money_indicator">
+    <style name="money_view_list">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:orientation">horizontal</item>

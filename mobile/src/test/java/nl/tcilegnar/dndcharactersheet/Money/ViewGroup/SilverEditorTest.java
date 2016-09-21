@@ -20,42 +20,42 @@ import static org.mockito.Mockito.verify;
 
 @RunWith(RobolectricGradleTestRunner.class)
 @Config(constants = BuildConfig.class)
-public class BronzeViewTest {
-    private BronzeView bronzeView;
+public class SilverEditorTest {
+    private SilverEditor silverEditor;
     private Storage storageMock;
 
     @Test
-    public void bronzeViewPublicConstructor() {
+    public void silverEditorPublicConstructor() {
         // Arrange
 
         // Act
-        BronzeView bronzeView = new BronzeView(getContext(), null);
+        SilverEditor silverEditor = new SilverEditor(getContext(), null);
 
         // Assert
-        assertNotNull(bronzeView.storage);
-        Asserts.hasCorrectEditors(bronzeView);
+        assertNotNull(silverEditor.storage);
+        Asserts.hasCorrectEditors(silverEditor);
     }
 
     @Test
     public void getLayoutResource() {
         // Arrange
-        initBronzeView();
+        initSilverEditor();
 
         // Act
-        int resourceId = bronzeView.getLayoutResource();
+        int resourceId = silverEditor.getLayoutResource();
 
         // Assert
-        assertEquals(R.layout.money_bronze_view, resourceId);
+        assertEquals(R.layout.money_silver_editor, resourceId);
     }
 
     @Test
     public void loadMoneyValue() {
         // Arrange
-        initBronzeView();
-        int expectedValue = mockLoadBronze(11);
+        initSilverEditor();
+        int expectedValue = mockLoadSilver(11);
 
         // Act
-        int moneyValue = bronzeView.loadMoneyValue();
+        int moneyValue = silverEditor.loadMoneyValue();
 
         // Assert
         assertEquals(expectedValue, moneyValue);
@@ -64,27 +64,27 @@ public class BronzeViewTest {
     @Test
     public void saveMoneyValue() {
         // Arrange
-        initBronzeView();
+        initSilverEditor();
         int expectedSavedValue = 11;
 
         // Act
-        bronzeView.saveMoneyValue(expectedSavedValue);
+        silverEditor.saveMoneyValue(expectedSavedValue);
 
         // Assert
-        verify(storageMock).saveBronze(expectedSavedValue);
+        verify(storageMock).saveSilver(expectedSavedValue);
     }
 
-    private void initBronzeView() {
+    private void initSilverEditor() {
         storageMock = mock(Storage.class);
-        bronzeView = new BronzeView(getContext(), null, storageMock);
+        silverEditor = new SilverEditor(getContext(), null, storageMock);
     }
 
     private Context getContext() {
         return App.getContext();
     }
 
-    private int mockLoadBronze(int value) {
-        doReturn(value).when(storageMock).loadBronze();
+    private int mockLoadSilver(int value) {
+        doReturn(value).when(storageMock).loadSilver();
         return value;
     }
 }

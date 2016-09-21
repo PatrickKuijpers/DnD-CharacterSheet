@@ -7,28 +7,28 @@ import android.util.AttributeSet;
 import nl.tcilegnar.dndcharactersheet.R;
 import nl.tcilegnar.dndcharactersheet.Storage.Storage;
 
-public class PlatinumView extends MoneyView {
-    public PlatinumView(Context context, AttributeSet attrs) {
+public class SilverEditor extends MoneyEditor {
+    public SilverEditor(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 
     @VisibleForTesting
-    protected PlatinumView(Context context, AttributeSet attrs, Storage storage) {
+    protected SilverEditor(Context context, AttributeSet attrs, Storage storage) {
         super(context, attrs, storage);
     }
 
     @Override
     protected int getLayoutResource() {
-        return R.layout.money_platinum_view;
+        return R.layout.money_silver_editor;
     }
 
     @Override
     protected int loadMoneyValue() {
-        return storage.loadPlatinum();
+        return storage.loadSilver();
     }
 
     @Override
     protected void saveMoneyValue(int value) {
-        storage.savePlatinum(value);
+        storage.saveSilver(value);
     }
 }
