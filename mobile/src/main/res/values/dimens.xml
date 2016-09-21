@@ -17,19 +17,22 @@
     <dimen name="button_square_size">54dp</dimen>
     <dimen name="button_square_size_small">30dp</dimen>
 
-    <dimen name="coin_size">96dp</dimen>
+    <dimen name="icon_size_normal">64dp</dimen>
+    <dimen name="icon_size_big">96dp</dimen>
+
+    <dimen name="coin_size">@dimen/icon_size_big</dimen>
 
     <dimen name="money_view_not_first_margin_left">0dp</dimen>
     <!-- Zou @dimen/vertical_margin moeten zijn, maar vanwege numberpicker scaling probleem is een correctie toegepast-->
     <dimen name="money_view_not_first_margin_top">-10dp</dimen>
     <dimen name="money_subviews_margin_left">@dimen/horizontal_margin</dimen>
     <dimen name="money_subviews_margin_top">0dp</dimen>
-    <dimen name="money_edittext_margin_left">@dimen/money_subviews_margin_left</dimen>
-    <dimen name="money_edittext_margin_top">@dimen/money_subviews_margin_top</dimen>
-    <dimen name="money_numberpicker_base_margin_left">@dimen/money_subviews_margin_left</dimen>
-    <dimen name="money_numberpicker_base_margin_top">@dimen/money_subviews_margin_top</dimen>
-    <dimen name="money_numberpicker_margin_top">@dimen/money_numberpicker_base_margin_top</dimen>
+    <dimen name="money_editors_margin_left">@dimen/horizontal_margin</dimen>
 
-    <dimen name="level_indicator_image_size">96dp</dimen>
-    <dimen name="level_up_image_size">64dp</dimen>
+    <dimen name="level_indicator_image_size">@dimen/icon_size_big</dimen>
+    <dimen name="level_up_image_size">@dimen/icon_size_normal</dimen>
+
+    <dimen name="hp_change_image_size">@dimen/icon_size_normal</dimen>
+
+    <dimen name="money_change_image_size">@dimen/icon_size_normal</dimen>
 </resources>

@@ -4,8 +4,14 @@
 
     <string name="image_description_level_up">Go level up now!</string>
 
+    <string name="image_description_hp_plus">Add hit points</string>
+    <string name="image_description_hp_min">Substract hit points</string>
+
     <string name="image_description_platinum_coin">Een platinum munt</string>
     <string name="image_description_gold_coin">Een gouden munt</string>
     <string name="image_description_silver_coin">Een zilveren munt</string>
     <string name="image_description_bronze_coin">Een bronzen munt</string>
+
+    <string name="image_description_money_plus">Add money</string>
+    <string name="image_description_money_min">Substract money</string>
 </resources>

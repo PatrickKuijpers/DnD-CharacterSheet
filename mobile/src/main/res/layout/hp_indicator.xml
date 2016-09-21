@@ -78,4 +78,30 @@
         android:layout_marginTop="@dimen/horizontal_margin_big"
         android:gravity="center"
         android:textSize="@dimen/textsize_big"/>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/horizontal_margin_big"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:id="@+id/change_money_min_button"
+            android:layout_width="@dimen/hp_change_image_size"
+            android:layout_height="@dimen/hp_change_image_size"
+            android:background="@color/transparent"
+            android:contentDescription="@string/image_description_hp_min"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_hp_min"/>
+
+        <ImageButton
+            android:id="@+id/change_money_plus_button"
+            android:layout_width="@dimen/hp_change_image_size"
+            android:layout_height="@dimen/hp_change_image_size"
+            android:background="@color/transparent"
+            android:contentDescription="@string/image_description_hp_plus"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_hp_plus"/>
+    </LinearLayout>
 </merge>

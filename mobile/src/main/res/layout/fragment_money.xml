@@ -4,23 +4,57 @@
     android:layout_height="match_parent">
 
     <LinearLayout
-        style="@style/fragment_money"
-        android:focusableInTouchMode="true">
+        style="@style/fragment_full_screen"
+        android:focusableInTouchMode="true"
+        android:orientation="horizontal">
 
-        <nl.tcilegnar.dndcharactersheet.Money.ViewGroup.PlatinumView
-            android:id="@+id/platinum_view"
-            style="@style/money_view"/>
+        <LinearLayout style="@style/money_indicator">
 
-        <nl.tcilegnar.dndcharactersheet.Money.ViewGroup.GoldView
-            android:id="@+id/gold_view"
-            style="@style/money_view_not_first"/>
+            <nl.tcilegnar.dndcharactersheet.Money.ViewGroup.PlatinumView
+                android:id="@+id/platinum_view"
+                style="@style/money_view"/>
 
-        <nl.tcilegnar.dndcharactersheet.Money.ViewGroup.SilverView
-            android:id="@+id/silver_view"
-            style="@style/money_view_not_first"/>
+            <nl.tcilegnar.dndcharactersheet.Money.ViewGroup.GoldView
+                android:id="@+id/gold_view"
+                style="@style/money_view_not_first"
+                android:layout_weight="25"/>
 
-        <nl.tcilegnar.dndcharactersheet.Money.ViewGroup.BronzeView
-            android:id="@+id/bronze_view"
-            style="@style/money_view_not_first"/>
+            <nl.tcilegnar.dndcharactersheet.Money.ViewGroup.SilverView
+                android:id="@+id/silver_view"
+                style="@style/money_view_not_first"
+                android:layout_weight="25"/>
+
+            <nl.tcilegnar.dndcharactersheet.Money.ViewGroup.BronzeView
+                android:id="@+id/bronze_view"
+                style="@style/money_view_not_first"
+                android:layout_weight="25"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/horizontal_margin"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageButton
+                android:id="@+id/change_money_plus_button"
+                android:layout_width="@dimen/money_change_image_size"
+                android:layout_height="@dimen/money_change_image_size"
+                android:background="@color/transparent"
+                android:contentDescription="@string/image_description_money_plus"
+                android:scaleType="fitCenter"
+                android:src="@drawable/ic_money_plus"/>
+
+            <ImageButton
+                android:id="@+id/change_money_min_button"
+                android:layout_width="@dimen/money_change_image_size"
+                android:layout_height="@dimen/money_change_image_size"
+                android:layout_marginTop="@dimen/vertical_margin"
+                android:background="@color/transparent"
+                android:contentDescription="@string/image_description_money_min"
+                android:scaleType="fitCenter"
+                android:src="@drawable/ic_money_min"/>
+        </LinearLayout>
     </LinearLayout>
 </ScrollView>
