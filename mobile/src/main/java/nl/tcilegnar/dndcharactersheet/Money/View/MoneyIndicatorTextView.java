@@ -5,8 +5,6 @@ import android.util.AttributeSet;
 import android.widget.TextView;
 
 public class MoneyIndicatorTextView extends TextView {
-    private int moneyValue;
-
     public MoneyIndicatorTextView(Context context, AttributeSet attrs) {
         super(context, attrs);
     }

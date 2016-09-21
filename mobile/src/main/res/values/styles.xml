@@ -116,7 +116,6 @@
     </style>
 
     <style name="money_edittext" parent="@style/base_edittext_number">
-        <item name="android:background">@color/grey_light</item>
         <item name="android:hint">00</item>
         <item name="android:maxLength">2</item>
         <item name="android:visibility">visible</item>
