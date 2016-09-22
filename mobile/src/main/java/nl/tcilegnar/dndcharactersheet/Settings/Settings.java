@@ -4,11 +4,11 @@ import android.preference.Preference;
 
 import java.util.Set;
 
-import nl.tcilegnar.dndcharactersheet.Base.BaseStorageFragment;
+import nl.tcilegnar.dndcharactersheet.Base.BaseFragment;
 import nl.tcilegnar.dndcharactersheet.Storage.SharedPrefs;
 
 public abstract class Settings extends SharedPrefs {
-    private BaseStorageFragment settingsChangedListener;
+    private BaseFragment settingsChangedListener;
 
     @Override
     protected abstract String fileName();
@@ -41,7 +41,7 @@ public abstract class Settings extends SharedPrefs {
         }
     }
 
-    public void setSettingsChangedListener(BaseStorageFragment settingsChangedListener) {
+    public void setSettingsChangedListener(BaseFragment settingsChangedListener) {
         this.settingsChangedListener = settingsChangedListener;
     }
 }

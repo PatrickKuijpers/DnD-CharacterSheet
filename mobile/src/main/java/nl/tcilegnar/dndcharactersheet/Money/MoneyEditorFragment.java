@@ -1,11 +1,13 @@
 package nl.tcilegnar.dndcharactersheet.Money;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 
-import nl.tcilegnar.dndcharactersheet.Base.BaseStorageFragment;
+import nl.tcilegnar.dndcharactersheet.Base.BaseFragment;
 import nl.tcilegnar.dndcharactersheet.Money.Settings.MoneySettings;
 import nl.tcilegnar.dndcharactersheet.Money.ViewGroup.BronzeEditor;
 import nl.tcilegnar.dndcharactersheet.Money.ViewGroup.GoldEditor;
@@ -14,11 +16,20 @@ import nl.tcilegnar.dndcharactersheet.Money.ViewGroup.SilverEditor;
 import nl.tcilegnar.dndcharactersheet.R;
 import nl.tcilegnar.dndcharactersheet.Settings.Settings;
 
-public class MoneyEditorFragment extends BaseStorageFragment {
+public class MoneyEditorFragment extends BaseFragment implements OnClickListener {
     private PlatinumEditor platinumEditor;
     private GoldEditor goldEditor;
     private SilverEditor silverEditor;
     private BronzeEditor bronzeEditor;
+    private ConfirmChangeMoneyListener confirmChangeMoneyListener;
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if (context instanceof ConfirmChangeMoneyListener) {
+            confirmChangeMoneyListener = (ConfirmChangeMoneyListener) context;
+        }
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -29,6 +40,7 @@ public class MoneyEditorFragment extends BaseStorageFragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initViews(view);
+        initClickListeners(view);
     }
 
     private void initViews(View view) {
@@ -38,25 +50,13 @@ public class MoneyEditorFragment extends BaseStorageFragment {
         bronzeEditor = (BronzeEditor) view.findViewById(R.id.bronze_editor);
     }
 
+    private void initClickListeners(View view) {
+        view.findViewById(R.id.change_money_ok_button).setOnClickListener(this);
+    }
+
     @Override
     protected Settings getSettings() {
         return MoneySettings.getInstance();
-    }
-
-    @Override
-    protected void onLoadData() {
-        platinumEditor.load();
-        goldEditor.load();
-        silverEditor.load();
-        bronzeEditor.load();
-    }
-
-    @Override
-    protected void onSaveData() {
-        platinumEditor.save();
-        goldEditor.save();
-        silverEditor.save();
-        bronzeEditor.save();
     }
 
     @Override
@@ -65,5 +65,18 @@ public class MoneyEditorFragment extends BaseStorageFragment {
         goldEditor.updateSettingsData();
         silverEditor.updateSettingsData();
         bronzeEditor.updateSettingsData();
+    }
+
+    @Override
+    public void onClick(View view) {
+        int platinumValue = platinumEditor.getMoneyValue();
+        int goldValue = goldEditor.getMoneyValue();
+        int silverValue = silverEditor.getMoneyValue();
+        int bronzeValue = bronzeEditor.getMoneyValue();
+        confirmChangeMoneyListener.onConfirmChangeMoney(platinumValue, goldValue, silverValue, bronzeValue);
+    }
+
+    public interface ConfirmChangeMoneyListener {
+        void onConfirmChangeMoney(int platinumValue, int goldValue, int silverValue, int bronzeValue);
     }
 }

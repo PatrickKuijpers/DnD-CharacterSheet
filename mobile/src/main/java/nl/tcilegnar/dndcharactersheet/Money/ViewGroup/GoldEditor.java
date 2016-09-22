@@ -12,23 +12,8 @@ public class GoldEditor extends MoneyEditor {
         super(context, attrs);
     }
 
-    @VisibleForTesting
-    protected GoldEditor(Context context, AttributeSet attrs, Storage storage) {
-        super(context, attrs, storage);
-    }
-
     @Override
     protected int getLayoutResource() {
         return R.layout.money_gold_editor;
-    }
-
-    @Override
-    protected int loadMoneyValue() {
-        return storage.loadGold();
-    }
-
-    @Override
-    protected void saveMoneyValue(int value) {
-        storage.saveGold(value);
     }
 }

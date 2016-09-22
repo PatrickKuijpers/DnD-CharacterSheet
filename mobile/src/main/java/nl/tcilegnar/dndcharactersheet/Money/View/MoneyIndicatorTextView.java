@@ -9,11 +9,11 @@ public class MoneyIndicatorTextView extends TextView {
         super(context, attrs);
     }
 
-    public void setMoneyValue(int moneyValue) {
-        setText(String.valueOf(moneyValue));
-    }
-
     public int getMoneyValue() {
         return Integer.valueOf(getText().toString());
+    }
+
+    public void setMoneyValue(int moneyValue) {
+        setText(String.valueOf(moneyValue));
     }
 }

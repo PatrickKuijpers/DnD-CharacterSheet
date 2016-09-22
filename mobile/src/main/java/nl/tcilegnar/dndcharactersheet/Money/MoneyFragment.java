@@ -7,13 +7,11 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import nl.tcilegnar.dndcharactersheet.Base.BaseStorageFragment;
-import nl.tcilegnar.dndcharactersheet.Money.Settings.MoneySettings;
 import nl.tcilegnar.dndcharactersheet.Money.ViewGroup.BronzeView;
 import nl.tcilegnar.dndcharactersheet.Money.ViewGroup.GoldView;
 import nl.tcilegnar.dndcharactersheet.Money.ViewGroup.PlatinumView;
 import nl.tcilegnar.dndcharactersheet.Money.ViewGroup.SilverView;
 import nl.tcilegnar.dndcharactersheet.R;
-import nl.tcilegnar.dndcharactersheet.Settings.Settings;
 
 public class MoneyFragment extends BaseStorageFragment implements View.OnClickListener {
     private PlatinumView platinumView;
@@ -55,11 +53,6 @@ public class MoneyFragment extends BaseStorageFragment implements View.OnClickLi
     }
 
     @Override
-    protected Settings getSettings() {
-        return MoneySettings.getInstance();
-    }
-
-    @Override
     protected void onLoadData() {
         platinumView.load();
         goldView.load();
@@ -76,10 +69,6 @@ public class MoneyFragment extends BaseStorageFragment implements View.OnClickLi
     }
 
     @Override
-    protected void updateSettingsData() {
-    }
-
-    @Override
     public void onClick(View view) {
         int viewId = view.getId();
         if (viewId == R.id.change_money_plus_button) {
@@ -87,6 +76,14 @@ public class MoneyFragment extends BaseStorageFragment implements View.OnClickLi
         } else if (viewId == R.id.change_money_min_button) {
             changeMoneyListener.onSubstractMoneyClicked();
         }
+    }
+
+    public void changeMoney(int platinumValue, int goldValue, int silverValue, int bronzeValue) {
+        platinumView.changeMoneyValue(platinumValue);
+        goldView.changeMoneyValue(goldValue);
+        silverView.changeMoneyValue(silverValue);
+        bronzeView.changeMoneyValue(bronzeValue);
+        onSaveData();
     }
 
     public interface ChangeMoneyListener {

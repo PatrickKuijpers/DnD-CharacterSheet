@@ -9,4 +9,6 @@
     <string name="total_hp_label">Total HP:</string>
 
     <string name="coming_soon">Coming soon!</string>
+
+    <string name="ok">OK</string>
 </resources>

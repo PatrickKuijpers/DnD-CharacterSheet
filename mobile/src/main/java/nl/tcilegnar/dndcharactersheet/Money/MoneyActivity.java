@@ -4,12 +4,18 @@ import android.os.Bundle;
 import android.preference.PreferenceActivity;
 
 import nl.tcilegnar.dndcharactersheet.Base.BaseStorageActivity;
+import nl.tcilegnar.dndcharactersheet.Money.MoneyEditorFragment.ConfirmChangeMoneyListener;
 import nl.tcilegnar.dndcharactersheet.Money.MoneyFragment.ChangeMoneyListener;
 import nl.tcilegnar.dndcharactersheet.Money.Settings.MoneySettingsActivity;
 
 import static nl.tcilegnar.dndcharactersheet.FragmentManager.Anim.SLIDE_RIGHT_TO_LEFT;
 
-public class MoneyActivity extends BaseStorageActivity implements ChangeMoneyListener {
+public class MoneyActivity extends BaseStorageActivity implements ChangeMoneyListener, ConfirmChangeMoneyListener {
+    private MoneyChangeMode moneyChangeMode = MoneyChangeMode.NO_CHANGE;
+
+    public enum MoneyChangeMode {
+        NO_CHANGE, ADD, SUBSTRACT
+    }
 
     @Override
     protected Class<? extends PreferenceActivity> getSettingsActivityClass() {
@@ -27,7 +33,6 @@ public class MoneyActivity extends BaseStorageActivity implements ChangeMoneyLis
 
         if (savedInstanceState == null) {
             fragmentManager.addFirstFragment(getMoneyFragment(), FragTag.MONEY.name());
-            //            fragmentManager.addFirstFragment(getMoneyEditorFragment(), FragTag.MONEY_EDITOR.name());
         }
     }
 
@@ -51,16 +56,39 @@ public class MoneyActivity extends BaseStorageActivity implements ChangeMoneyLis
 
     @Override
     public void onAddMoneyClicked() {
+        moneyChangeMode = MoneyChangeMode.ADD;
         startMoneyEditor();
     }
 
     @Override
     public void onSubstractMoneyClicked() {
+        moneyChangeMode = MoneyChangeMode.SUBSTRACT;
         startMoneyEditor();
     }
 
     private void startMoneyEditor() {
         MoneyEditorFragment moneyEditorFragment = getMoneyEditorFragment();
         fragmentManager.replaceFragment(moneyEditorFragment, FragTag.MONEY_EDITOR.name(), true, SLIDE_RIGHT_TO_LEFT);
+    }
+
+    @Override
+    public void onConfirmChangeMoney(int platinumValue, int goldValue, int silverValue, int bronzeValue) {
+        changeMoney(platinumValue, goldValue, silverValue, bronzeValue);
+        onBackPressed();
+    }
+
+    private void changeMoney(int platinumValue, int goldValue, int silverValue, int bronzeValue) {
+        switch (moneyChangeMode) {
+            case ADD:
+                getMoneyFragment().changeMoney(platinumValue, goldValue, silverValue, bronzeValue);
+                break;
+            case SUBSTRACT:
+                getMoneyFragment().changeMoney(-platinumValue, -goldValue, -silverValue, -bronzeValue);
+                break;
+            case NO_CHANGE:
+            default:
+                break;
+        }
+        moneyChangeMode = MoneyChangeMode.NO_CHANGE;
     }
 }

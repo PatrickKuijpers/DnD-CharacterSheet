@@ -2,7 +2,6 @@ package nl.tcilegnar.dndcharactersheet.Money.ViewGroup;
 
 import android.content.Context;
 import android.support.annotation.LayoutRes;
-import android.support.annotation.VisibleForTesting;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -11,39 +10,33 @@ import nl.tcilegnar.dndcharactersheet.Money.View.MoneyInput;
 import nl.tcilegnar.dndcharactersheet.Money.View.MoneyPicker;
 import nl.tcilegnar.dndcharactersheet.Money.View.MoneySlider;
 import nl.tcilegnar.dndcharactersheet.R;
-import nl.tcilegnar.dndcharactersheet.Storage.Storage;
 
 public abstract class MoneyEditor extends LinearLayout {
-    protected final Storage storage;
-
     private MoneyInput moneyInput;
     private MoneySlider numberSlider;
     private MoneyPicker numberPicker;
 
     public MoneyEditor(Context context, AttributeSet attrs) {
-        this(context, attrs, new Storage());
-    }
-
-    @VisibleForTesting
-    protected MoneyEditor(Context context, AttributeSet attrs, Storage storage) {
         super(context, attrs);
         inflate(context, getLayoutResource(), this);
-        this.storage = storage;
         initView();
+        initValues();
     }
 
     protected abstract
     @LayoutRes
     int getLayoutResource();
 
-    protected abstract int loadMoneyValue();
-
-    protected abstract void saveMoneyValue(int value);
-
     private void initView() {
         moneyInput = (MoneyInput) findViewById(R.id.money_edittext);
         numberSlider = (MoneySlider) findViewById(R.id.money_numberslider);
         numberPicker = (MoneyPicker) findViewById(R.id.money_numberpicker);
+    }
+
+    private void initValues() {
+        moneyInput.setMoneyValue(0);
+        numberSlider.setMoneyValue(0);
+        numberPicker.setMoneyValue(0);
     }
 
     public void updateSettingsData() {
@@ -52,23 +45,7 @@ public abstract class MoneyEditor extends LinearLayout {
         numberPicker.updateSettingsData();
     }
 
-    public void load() {
-        int moneyValue = loadMoneyValue();
-        setMoneyValue(moneyValue);
-    }
-
-    private void setMoneyValue(int moneyValue) {
-        moneyInput.setMoneyValue(moneyValue);
-        numberSlider.setMoneyValue(moneyValue);
-        numberPicker.setMoneyValue(moneyValue);
-    }
-
-    public void save() {
-        int value = getMoneyValue();
-        saveMoneyValue(value);
-    }
-
-    private int getMoneyValue() {
+    public int getMoneyValue() {
         if (moneyInput.getVisibility() == View.VISIBLE) {
             return moneyInput.getInputNumber();
         } else if (numberSlider.getVisibility() == View.VISIBLE) {
