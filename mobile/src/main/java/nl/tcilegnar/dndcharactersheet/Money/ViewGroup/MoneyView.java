@@ -44,18 +44,13 @@ public abstract class MoneyView extends LinearLayout {
         setMoneyValue(moneyValue);
     }
 
-    private int getMoneyValue() {
+    public int getMoneyValue() {
         return moneyIndicatorTextView.getMoneyValue();
     }
 
-    private void setMoneyValue(int moneyValue) {
+    public void setMoneyValue(int moneyValue) {
         moneyIndicatorTextView.setMoneyValue(moneyValue);
-    }
-
-    public void changeMoneyValue(int moneyValueChange) {
-        int currentValue = getMoneyValue();
-        int newValue = currentValue + moneyValueChange;
-        moneyIndicatorTextView.setMoneyValue(newValue);
+        save();
     }
 
     public void save() {

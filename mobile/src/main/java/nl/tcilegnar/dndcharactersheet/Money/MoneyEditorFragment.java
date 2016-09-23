@@ -73,10 +73,11 @@ public class MoneyEditorFragment extends BaseFragment implements OnClickListener
         int goldValue = goldEditor.getMoneyValue();
         int silverValue = silverEditor.getMoneyValue();
         int bronzeValue = bronzeEditor.getMoneyValue();
-        confirmChangeMoneyListener.onConfirmChangeMoney(platinumValue, goldValue, silverValue, bronzeValue);
+        MoneyValues changeMoneyValues = new MoneyValues(platinumValue, goldValue, silverValue, bronzeValue);
+        confirmChangeMoneyListener.onConfirmChangeMoney(changeMoneyValues);
     }
 
     public interface ConfirmChangeMoneyListener {
-        void onConfirmChangeMoney(int platinumValue, int goldValue, int silverValue, int bronzeValue);
+        void onConfirmChangeMoney(MoneyValues changeMoneyValues);
     }
 }

@@ -72,23 +72,38 @@ public class MoneyActivity extends BaseStorageActivity implements ChangeMoneyLis
     }
 
     @Override
-    public void onConfirmChangeMoney(int platinumValue, int goldValue, int silverValue, int bronzeValue) {
-        changeMoney(platinumValue, goldValue, silverValue, bronzeValue);
+    public void onConfirmChangeMoney(MoneyValues changeMoneyValues) {
+        changeMoney(changeMoneyValues);
         onBackPressed();
     }
 
-    private void changeMoney(int platinumValue, int goldValue, int silverValue, int bronzeValue) {
-        switch (moneyChangeMode) {
-            case ADD:
-                getMoneyFragment().changeMoney(platinumValue, goldValue, silverValue, bronzeValue);
-                break;
-            case SUBSTRACT:
-                getMoneyFragment().changeMoney(-platinumValue, -goldValue, -silverValue, -bronzeValue);
-                break;
-            case NO_CHANGE:
-            default:
-                break;
+    private void changeMoney(MoneyValues changeMoneyValues) {
+        MoneyFragment moneyFragment = getMoneyFragment();
+        MoneyValues currentMoneyValues = moneyFragment.getMoneyValues();
+
+        // TODO: tijdelijke snelle oplossing, kan mooier!
+        if (moneyChangeMode == MoneyChangeMode.SUBSTRACT) {
+            changeMoneyValues = convertAllMoneyValuesToMinus(changeMoneyValues);
         }
+
+        try {
+            MoneyCalculator calculator = new MoneyCalculator(currentMoneyValues);
+            MoneyValues newMoneyValues = calculator.calculateNewMoneyValues(changeMoneyValues);
+
+            moneyFragment.changeMoney(newMoneyValues);
+        } catch (MoneyCalculator.NotEnoughMoneyException e) {
+            //TODO
+        }
+
+        // Reset
         moneyChangeMode = MoneyChangeMode.NO_CHANGE;
+    }
+
+    private MoneyValues convertAllMoneyValuesToMinus(MoneyValues newMoneyValues) {
+        int platinumValue = -newMoneyValues.getPlatinumValue();
+        int goldValue = -newMoneyValues.getGoldValue();
+        int silverValue = -newMoneyValues.getSilverValue();
+        int bronzeValue = -newMoneyValues.getBronzeValue();
+        return new MoneyValues(platinumValue, goldValue, silverValue, bronzeValue);
     }
 }

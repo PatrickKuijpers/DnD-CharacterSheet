@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 
 import nl.tcilegnar.dndcharactersheet.Base.BaseStorageFragment;
@@ -13,7 +14,7 @@ import nl.tcilegnar.dndcharactersheet.Money.ViewGroup.PlatinumView;
 import nl.tcilegnar.dndcharactersheet.Money.ViewGroup.SilverView;
 import nl.tcilegnar.dndcharactersheet.R;
 
-public class MoneyFragment extends BaseStorageFragment implements View.OnClickListener {
+public class MoneyFragment extends BaseStorageFragment implements OnClickListener {
     private PlatinumView platinumView;
     private GoldView goldView;
     private SilverView silverView;
@@ -53,22 +54,6 @@ public class MoneyFragment extends BaseStorageFragment implements View.OnClickLi
     }
 
     @Override
-    protected void onLoadData() {
-        platinumView.load();
-        goldView.load();
-        silverView.load();
-        bronzeView.load();
-    }
-
-    @Override
-    protected void onSaveData() {
-        platinumView.save();
-        goldView.save();
-        silverView.save();
-        bronzeView.save();
-    }
-
-    @Override
     public void onClick(View view) {
         int viewId = view.getId();
         if (viewId == R.id.change_money_plus_button) {
@@ -78,12 +63,37 @@ public class MoneyFragment extends BaseStorageFragment implements View.OnClickLi
         }
     }
 
-    public void changeMoney(int platinumValue, int goldValue, int silverValue, int bronzeValue) {
-        platinumView.changeMoneyValue(platinumValue);
-        goldView.changeMoneyValue(goldValue);
-        silverView.changeMoneyValue(silverValue);
-        bronzeView.changeMoneyValue(bronzeValue);
-        onSaveData();
+    @Override
+    protected void onLoadData() {
+        platinumView.load();
+        goldView.load();
+        silverView.load();
+        bronzeView.load();
+    }
+
+    @Override
+    protected void onSaveData() {
+        // TODO Niet meer nodig?
+        platinumView.save();
+        goldView.save();
+        silverView.save();
+        bronzeView.save();
+    }
+
+    public void changeMoney(MoneyValues moneyValues) {
+        // TODO: kan abstracter?
+        platinumView.setMoneyValue(moneyValues.getPlatinumValue());
+        goldView.setMoneyValue(moneyValues.getGoldValue());
+        silverView.setMoneyValue(moneyValues.getSilverValue());
+        bronzeView.setMoneyValue(moneyValues.getBronzeValue());
+    }
+
+    public MoneyValues getMoneyValues() {
+        int platinumValue = platinumView.getMoneyValue();
+        int goldValue = goldView.getMoneyValue();
+        int silverValue = silverView.getMoneyValue();
+        int bronzeValue = bronzeView.getMoneyValue();
+        return new MoneyValues(platinumValue, goldValue, silverValue, bronzeValue);
     }
 
     public interface ChangeMoneyListener {
