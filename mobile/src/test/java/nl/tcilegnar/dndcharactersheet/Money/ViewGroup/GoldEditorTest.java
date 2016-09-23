@@ -10,19 +10,13 @@ import android.content.Context;
 import nl.tcilegnar.dndcharactersheet.App;
 import nl.tcilegnar.dndcharactersheet.BuildConfig;
 import nl.tcilegnar.dndcharactersheet.R;
-import nl.tcilegnar.dndcharactersheet.Storage.Storage;
 
 import static junit.framework.Assert.assertEquals;
-import static junit.framework.Assert.assertNotNull;
-import static org.mockito.Mockito.doReturn;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
 
 @RunWith(RobolectricGradleTestRunner.class)
 @Config(constants = BuildConfig.class)
 public class GoldEditorTest {
     private GoldEditor goldEditor;
-    private Storage storageMock;
 
     @Test
     public void goldEditorPublicConstructor() {
@@ -32,7 +26,6 @@ public class GoldEditorTest {
         GoldEditor goldEditor = new GoldEditor(getContext(), null);
 
         // Assert
-        assertNotNull(goldEditor.storage);
         Asserts.hasCorrectEditors(goldEditor);
     }
 
@@ -48,43 +41,11 @@ public class GoldEditorTest {
         assertEquals(R.layout.money_gold_editor, resourceId);
     }
 
-    @Test
-    public void loadMoneyValue() {
-        // Arrange
-        initGoldEditor();
-        int expectedValue = mockLoadGold(11);
-
-        // Act
-        int moneyValue = goldEditor.loadMoneyValue();
-
-        // Assert
-        assertEquals(expectedValue, moneyValue);
-    }
-
-    @Test
-    public void saveMoneyValue() {
-        // Arrange
-        initGoldEditor();
-        int expectedSavedValue = 11;
-
-        // Act
-        goldEditor.saveMoneyValue(expectedSavedValue);
-
-        // Assert
-        verify(storageMock).saveGold(expectedSavedValue);
-    }
-
     private void initGoldEditor() {
-        storageMock = mock(Storage.class);
-        goldEditor = new GoldEditor(getContext(), null, storageMock);
+        goldEditor = new GoldEditor(getContext(), null);
     }
 
-    private Context getContext() {
+    public Context getContext() {
         return App.getContext();
-    }
-
-    private int mockLoadGold(int value) {
-        doReturn(value).when(storageMock).loadGold();
-        return value;
     }
 }

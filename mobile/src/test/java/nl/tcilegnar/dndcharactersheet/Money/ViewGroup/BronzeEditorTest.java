@@ -10,29 +10,22 @@ import android.content.Context;
 import nl.tcilegnar.dndcharactersheet.App;
 import nl.tcilegnar.dndcharactersheet.BuildConfig;
 import nl.tcilegnar.dndcharactersheet.R;
-import nl.tcilegnar.dndcharactersheet.Storage.Storage;
 
 import static junit.framework.Assert.assertEquals;
-import static junit.framework.Assert.assertNotNull;
-import static org.mockito.Mockito.doReturn;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
 
 @RunWith(RobolectricGradleTestRunner.class)
 @Config(constants = BuildConfig.class)
 public class BronzeEditorTest {
     private BronzeEditor bronzeEditor;
-    private Storage storageMock;
 
     @Test
     public void bronzeEditorPublicConstructor() {
         // Arrange
 
         // Act
-        BronzeEditor bronzeEditor = new BronzeEditor(getContext(), null);
+        BronzeEditor bronzeEditor = new BronzeEditor(App.getContext(), null);
 
         // Assert
-        assertNotNull(bronzeEditor.storage);
         Asserts.hasCorrectEditors(bronzeEditor);
     }
 
@@ -48,43 +41,11 @@ public class BronzeEditorTest {
         assertEquals(R.layout.money_bronze_editor, resourceId);
     }
 
-    @Test
-    public void loadMoneyValue() {
-        // Arrange
-        initBronzeEditor();
-        int expectedValue = mockLoadBronze(11);
-
-        // Act
-        int moneyValue = bronzeEditor.loadMoneyValue();
-
-        // Assert
-        assertEquals(expectedValue, moneyValue);
-    }
-
-    @Test
-    public void saveMoneyValue() {
-        // Arrange
-        initBronzeEditor();
-        int expectedSavedValue = 11;
-
-        // Act
-        bronzeEditor.saveMoneyValue(expectedSavedValue);
-
-        // Assert
-        verify(storageMock).saveBronze(expectedSavedValue);
-    }
-
     private void initBronzeEditor() {
-        storageMock = mock(Storage.class);
-        bronzeEditor = new BronzeEditor(getContext(), null, storageMock);
+        bronzeEditor = new BronzeEditor(getContext(), null);
     }
 
-    private Context getContext() {
+    public Context getContext() {
         return App.getContext();
-    }
-
-    private int mockLoadBronze(int value) {
-        doReturn(value).when(storageMock).loadBronze();
-        return value;
     }
 }
