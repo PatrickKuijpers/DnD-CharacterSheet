@@ -15,6 +15,7 @@ import nl.tcilegnar.dndcharactersheet.Money.ViewGroup.PlatinumEditor;
 import nl.tcilegnar.dndcharactersheet.Money.ViewGroup.SilverEditor;
 import nl.tcilegnar.dndcharactersheet.R;
 import nl.tcilegnar.dndcharactersheet.Settings.Settings;
+import nl.tcilegnar.dndcharactersheet.Utils.KeyboardUtil;
 
 public class MoneyEditorFragment extends BaseFragment implements OnClickListener {
     private PlatinumEditor platinumEditor;
@@ -69,6 +70,7 @@ public class MoneyEditorFragment extends BaseFragment implements OnClickListener
 
     @Override
     public void onClick(View view) {
+        KeyboardUtil.hideKeyboard(getActivity());
         int platinumValue = platinumEditor.getMoneyValue();
         int goldValue = goldEditor.getMoneyValue();
         int silverValue = silverEditor.getMoneyValue();
