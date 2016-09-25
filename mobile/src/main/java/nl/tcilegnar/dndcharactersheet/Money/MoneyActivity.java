@@ -91,7 +91,7 @@ public class MoneyActivity extends BaseStorageActivity implements ChangeMoneyLis
             MoneyValues newMoneyValues = calculator.calculateNewMoneyValues(changeMoneyValues);
 
             moneyFragment.changeMoney(newMoneyValues);
-        } catch (MoneyCalculator.NotEnoughMoneyException e) {
+        } catch (MoneyCalculator.MaxMoneyReachedException | MoneyCalculator.NotEnoughMoneyException e) {
             //TODO
         }
 

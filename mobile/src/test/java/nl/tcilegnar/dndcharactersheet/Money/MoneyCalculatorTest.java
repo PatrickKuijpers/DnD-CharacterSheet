@@ -11,6 +11,7 @@ import nl.tcilegnar.dndcharactersheet.BuildConfig;
 import static junit.framework.Assert.assertEquals;
 import static nl.tcilegnar.dndcharactersheet.Money.MoneyCalculator.MAX_BRONZE_VALUE;
 import static nl.tcilegnar.dndcharactersheet.Money.MoneyCalculator.MAX_GOLD_VALUE;
+import static nl.tcilegnar.dndcharactersheet.Money.MoneyCalculator.MAX_PLATINUM_VALUE;
 import static nl.tcilegnar.dndcharactersheet.Money.MoneyCalculator.MAX_SILVER_VALUE;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
@@ -97,9 +98,9 @@ public class MoneyCalculatorTest {
     }
 
     @Test
-    public void calculateNewMoneyValues_AddUpTo100Bronze_100BronzeConvertedTo1Silver() throws Exception {
+    public void calculateNewMoneyValues_AddUpToMaxBronze_MaxBronzeConvertedTo1Silver() throws Exception {
         // Arrange
-        int CHANGED = getChangedUpTo(100, DEFAULT_BRONZE);
+        int CHANGED = getChangedUpTo(MAX_BRONZE_VALUE, DEFAULT_BRONZE);
         MoneyValues changeValues = getMoneyValues(0, 0, 0, CHANGED);
 
         // Act
@@ -112,9 +113,9 @@ public class MoneyCalculatorTest {
     }
 
     @Test
-    public void calculateNewMoneyValues_AddUpTo100Silver_100SilverConvertedTo1Gold() throws Exception {
+    public void calculateNewMoneyValues_AddUpToMaxSilver_MaxSilverConvertedTo1Gold() throws Exception {
         // Arrange
-        int CHANGED = getChangedUpTo(100, DEFAULT_SILVER);
+        int CHANGED = getChangedUpTo(MAX_SILVER_VALUE, DEFAULT_SILVER);
         MoneyValues changeValues = getMoneyValues(0, 0, CHANGED, 0);
 
         // Act
@@ -127,9 +128,9 @@ public class MoneyCalculatorTest {
     }
 
     @Test
-    public void calculateNewMoneyValues_AddUpTo100Gold_100GoldConvertedTo1Platinum() throws Exception {
+    public void calculateNewMoneyValues_AddUpToMaxGold_MaxGoldConvertedTo1Platinum() throws Exception {
         // Arrange
-        int CHANGED = getChangedUpTo(100, DEFAULT_GOLD);
+        int CHANGED = getChangedUpTo(MAX_GOLD_VALUE, DEFAULT_GOLD);
         MoneyValues changeValues = getMoneyValues(0, CHANGED, 0, 0);
 
         // Act
@@ -141,18 +142,16 @@ public class MoneyCalculatorTest {
         assertNewMoneyValues(expectedPlatinum, expectedGold, DEFAULT_SILVER, DEFAULT_BRONZE);
     }
 
-    @Test
-    public void calculateNewMoneyValues_AddUpTo100Platinum_PlatinumIs100() throws Exception {
+    @Test(expected = MoneyCalculator.MaxMoneyReachedException.class)
+    public void calculateNewMoneyValues_AddUpToMaxPlatinum_MaxMoneyReachedException() throws Exception {
         // Arrange
-        int CHANGED = getChangedUpTo(100, DEFAULT_PLATINUM);
+        int CHANGED = getChangedUpTo(MAX_PLATINUM_VALUE, DEFAULT_PLATINUM);
         MoneyValues changeValues = getMoneyValues(CHANGED, 0, 0, 0);
 
         // Act
         newValues = calculator.calculateNewMoneyValues(changeValues);
 
         // Assert
-        int expectedPlatinum = 100;
-        assertNewMoneyValues(expectedPlatinum, DEFAULT_GOLD, DEFAULT_SILVER, DEFAULT_BRONZE);
     }
 
     @Test

@@ -1,14 +1,15 @@
 package nl.tcilegnar.dndcharactersheet.Money;
 
-import android.widget.Toast;
-
 import nl.tcilegnar.dndcharactersheet.App;
+import nl.tcilegnar.dndcharactersheet.Base.Exceptions.CustomToastException;
 import nl.tcilegnar.dndcharactersheet.R;
 
 public class MoneyCalculator {
     protected static final int MAX_BRONZE_VALUE = 100;
     protected static final int MAX_SILVER_VALUE = 100;
     protected static final int MAX_GOLD_VALUE = 100;
+    protected static final int MAX_PLATINUM_VALUE = (int) Math.pow(10, App.getAppResources().getInteger(R.integer
+            .max_lenght_platinum_value));
 
     private final MoneyValues currentMoneyValues;
 
@@ -21,7 +22,8 @@ public class MoneyCalculator {
         this.currentMoneyValues = currentMoneyValues;
     }
 
-    public MoneyValues calculateNewMoneyValues(MoneyValues changeMoneyValues) throws NotEnoughMoneyException {
+    public MoneyValues calculateNewMoneyValues(MoneyValues changeMoneyValues) throws MaxMoneyReachedException,
+            NotEnoughMoneyException {
         tempCurrentBronze = currentMoneyValues.getBronzeValue();
         tempCurrentSilver = currentMoneyValues.getSilverValue();
         tempCurrentGold = currentMoneyValues.getGoldValue();
@@ -46,13 +48,13 @@ public class MoneyCalculator {
         return new MoneyValues(newPlatinum, newGold, newSilver, newBronze);
     }
 
-    private int correctBronzeValue(int newBronze) throws NotEnoughMoneyException {
+    private int correctBronzeValue(int newBronze) throws MaxMoneyReachedException, NotEnoughMoneyException {
         while (newBronze >= MAX_BRONZE_VALUE) {
             newBronze -= MAX_BRONZE_VALUE;
             tempCurrentSilver++;
             tempCurrentSilver = correctSilverValue(tempCurrentSilver);
         }
-        while (newBronze < 0) { // || tempCurrentSilver < 0 || tempCurrentGold < 0
+        while (newBronze < 0) {
             newBronze += MAX_BRONZE_VALUE;
             tempCurrentSilver--;
             tempCurrentSilver = correctSilverValue(tempCurrentSilver);
@@ -60,13 +62,13 @@ public class MoneyCalculator {
         return newBronze;
     }
 
-    private int correctSilverValue(int newSilver) throws NotEnoughMoneyException {
+    private int correctSilverValue(int newSilver) throws MaxMoneyReachedException, NotEnoughMoneyException {
         while (newSilver >= MAX_SILVER_VALUE) {
             newSilver -= MAX_SILVER_VALUE;
             tempCurrentGold++;
             tempCurrentGold = correctGoldValue(tempCurrentGold);
         }
-        while (newSilver < 0) { // || tempCurrentGold < 0
+        while (newSilver < 0) {
             newSilver += MAX_SILVER_VALUE;
             tempCurrentGold--;
             tempCurrentGold = correctGoldValue(tempCurrentGold);
@@ -74,7 +76,7 @@ public class MoneyCalculator {
         return newSilver;
     }
 
-    private int correctGoldValue(int newGold) throws NotEnoughMoneyException {
+    private int correctGoldValue(int newGold) throws MaxMoneyReachedException, NotEnoughMoneyException {
         while (newGold >= MAX_GOLD_VALUE) {
             newGold -= MAX_GOLD_VALUE;
             tempCurrentPlatinum++;
@@ -87,17 +89,25 @@ public class MoneyCalculator {
         return newGold;
     }
 
-    private int correctPlatinumValue(int newPlatinum) throws NotEnoughMoneyException {
+    private int correctPlatinumValue(int newPlatinum) throws MaxMoneyReachedException, NotEnoughMoneyException {
+        if (newPlatinum >= MAX_PLATINUM_VALUE) {
+            throw new MaxMoneyReachedException(newPlatinum);
+        }
         if (newPlatinum < 0) {
-            throw new NotEnoughMoneyException(newPlatinum);
+            throw new NotEnoughMoneyException();
         }
         return newPlatinum;
     }
 
-    protected class NotEnoughMoneyException extends Exception {
-        public NotEnoughMoneyException(int newPlatinum) {
+    protected class MaxMoneyReachedException extends CustomToastException {
+        public MaxMoneyReachedException(int newPlatinum) {
+            super(String.format(App.getAppResources().getString(R.string.max_money_reached_exception), newPlatinum));
+        }
+    }
+
+    protected class NotEnoughMoneyException extends CustomToastException {
+        public NotEnoughMoneyException() {
             super(App.getAppResources().getString(R.string.not_enough_money_exception));
-            Toast.makeText(App.getContext(), getMessage(), Toast.LENGTH_LONG).show();
         }
     }
 }

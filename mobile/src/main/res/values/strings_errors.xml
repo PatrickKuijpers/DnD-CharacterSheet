@@ -9,5 +9,6 @@
     <string name="current_hp_too_high_exception">The current HP value cannot exceed the total HP</string>
     <string name="temp_hp_too_low_exception">The minimum allowed temporary HP value is %1$d</string>
 
+    <string name="max_money_reached_exception">Maximum money value reached: %1$s Platinum. This is way too heavy for you to carry!</string>
     <string name="not_enough_money_exception">You don\'t own enough money to pay this amount</string>
 </resources>
