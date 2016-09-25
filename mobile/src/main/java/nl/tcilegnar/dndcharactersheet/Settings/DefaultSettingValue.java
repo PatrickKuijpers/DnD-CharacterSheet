@@ -13,6 +13,7 @@ public enum DefaultSettingValue {
     EXP_UPDATE_PICKER_STEPSIZE(R.string.setting_defaultvalue_experience_picker_steps),
     ALLOW_LEVEL_DOWN(R.string.setting_defaultvalue_allow_level_down),
     // Money
+    MONEY_UPDATE_MANUAL(R.string.setting_defaultvalue_money_update_manual),
     MONEY_UPDATE_TYPE(R.string.setting_defaultvalue_money_update_type);
 
     public final String value;

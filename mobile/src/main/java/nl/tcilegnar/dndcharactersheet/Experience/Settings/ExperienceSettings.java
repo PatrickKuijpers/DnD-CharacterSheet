@@ -26,15 +26,15 @@ public class ExperienceSettings extends Settings {
         return "ExperienceSettings";
     }
 
-    public String getExperienceUpdateType() {
-        String key = getKey(R.string.setting_key_experience_update_type);
-        return loadString(key, DefaultSettingValue.EXP_UPDATE_TYPE.value);
-    }
-
     public int getExperiencePickerStepSize() {
         String key = getKey(R.string.setting_key_experience_picker_steps);
         String experiencePickerStepSize = loadString(key, DefaultSettingValue.EXP_UPDATE_PICKER_STEPSIZE.value);
         return Integer.valueOf(experiencePickerStepSize);
+    }
+
+    String getExperienceUpdateType() {
+        String key = getKey(R.string.setting_key_experience_update_type);
+        return loadString(key, DefaultSettingValue.EXP_UPDATE_TYPE.value);
     }
 
     public boolean isLevelDownAllowed() {

@@ -26,7 +26,12 @@ public class MoneySettings extends Settings {
         return "MoneySettings";
     }
 
-    public String getMoneyUpdateType() {
+    public boolean isMoneyUpdateManual() {
+        String key = getKey(R.string.setting_key_money_update_manual);
+        return loadBoolean(key, Boolean.valueOf(DefaultSettingValue.MONEY_UPDATE_MANUAL.value));
+    }
+
+    String getMoneyUpdateType() {
         String key = getKey(R.string.setting_key_money_update_type);
         return loadString(key, DefaultSettingValue.MONEY_UPDATE_TYPE.value);
     }

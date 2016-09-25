@@ -9,6 +9,7 @@
     <string name="setting_key_experience_update_type">experience_update_type</string>
     <string name="setting_key_experience_picker_steps">experience_picker_steps</string>
     <string name="setting_key_allow_level_down">allow_level_down</string>
+    <string name="setting_key_money_update_manual">money_update_manual</string>
     <string name="setting_key_money_update_type">money_update_type</string>
 
     <!-- Settings titels, uitleg & defaultvalue -->
@@ -33,6 +34,7 @@
     <string name="setting_defaultvalue_experience_update_type">@string/setting_entry_experience_update_type_numberpicker</string>
     <string name="setting_defaultvalue_experience_picker_steps">100</string>
     <string name="setting_defaultvalue_allow_level_down">false</string>
+    <string name="setting_defaultvalue_money_update_manual">false</string>
     <string name="setting_defaultvalue_money_update_type">@string/setting_entry_money_update_type_numberpicker</string>
 
     <!-- Dialog values -->

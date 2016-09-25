@@ -49,24 +49,24 @@ public class MoneyIndicatorPickerTest {
         assertEquals(View.INVISIBLE, visibility);
     }
 
-    //    @Test
-    //    public void shouldBeVisible_MoneyUpdateTypeIsNumberPicker_ShouldBeVisible() {
-    //        // Arrange
-    //        initMoneyIndicatorPicker();
-    //        doReturn(true).when(moneySettingsMock).isMoneyUpdateTypeNumberPicker();
-    //
-    //        // Act
-    //        boolean shouldBeVisible = moneyIndicatorPicker.shouldBeVisible();
-    //
-    //        // Assert
-    //        assertEquals(true, shouldBeVisible);
-    //    }
-
     @Test
-    public void shouldBeVisible_MoneyUpdateTypeIsNotNumberPicker_ShouldNotBeVisible() {
+    public void shouldBeVisible_MoneyUpdateTypeIsManual_ShouldBeVisible() {
         // Arrange
         initMoneyIndicatorPicker();
-        doReturn(false).when(moneySettingsMock).isMoneyUpdateTypeNumberPicker();
+        doReturn(true).when(moneySettingsMock).isMoneyUpdateManual();
+
+        // Act
+        boolean shouldBeVisible = moneyIndicatorPicker.shouldBeVisible();
+
+        // Assert
+        assertEquals(true, shouldBeVisible);
+    }
+
+    @Test
+    public void shouldBeVisible_MoneyUpdateTypeIsNotManual_ShouldNotBeVisible() {
+        // Arrange
+        initMoneyIndicatorPicker();
+        doReturn(false).when(moneySettingsMock).isMoneyUpdateManual();
 
         // Act
         boolean shouldBeVisible = moneyIndicatorPicker.shouldBeVisible();
