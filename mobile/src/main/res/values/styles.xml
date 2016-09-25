@@ -117,7 +117,7 @@
 
     <style name="money_edittext" parent="@style/base_edittext_number">
         <item name="android:hint">00</item>
-        <item name="android:maxLength">2</item>
+        <item name="android:maxLength">9</item>
         <item name="android:visibility">visible</item>
         <item name="android:gravity">end</item>
         <item name="android:layout_gravity">center</item>

@@ -34,7 +34,7 @@ public abstract class MoneyEditor extends LinearLayout {
     }
 
     private void initValues() {
-        moneyInput.setMoneyValue(0);
+        // moneyInput.setMoneyValue(0); // Niet invullen, enkel een hint van 0 tonen!
         numberSlider.setMoneyValue(0);
         numberPicker.setMoneyValue(0);
     }
