@@ -24,9 +24,9 @@ public class ExperienceSettingsFragment extends SettingsFragment {
 
     @Override
     protected void initViews() {
-        expUpdateTypePref = (ListPreference) findPreference(getString(R.string.setting_key_experience_update_type));
-        expPickerStepsPref = (ListPreference) findPreference(getString(R.string.setting_key_experience_picker_steps));
-        allowLevelDownPref = (CheckBoxPreference) findPreference(getString(R.string.setting_key_allow_level_down));
+        expUpdateTypePref = (ListPreference) findPreference(R.string.setting_key_experience_update_type);
+        expPickerStepsPref = (ListPreference) findPreference(R.string.setting_key_experience_picker_steps);
+        allowLevelDownPref = (CheckBoxPreference) findPreference(R.string.setting_key_allow_level_down);
     }
 
     @Override

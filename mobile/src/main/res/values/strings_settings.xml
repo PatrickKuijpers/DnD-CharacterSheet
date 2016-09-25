@@ -22,12 +22,14 @@
     <string name="setting_title_experience_update_type">Experience aanpassen</string>
     <string name="setting_title_experience_picker_steps">Experience update stappen</string>
     <string name="setting_title_allow_level_down">Level down</string>
+    <string name="setting_title_money_update_manual">Handmatig of automatisch berekenen</string>
     <string name="setting_title_money_update_type">Money aanpassen</string>
 
     <string name="setting_summary_show_hints">Toon handige tips om de app te leren gebruiken</string>
     <string name="setting_summary_experience_update_type">Invoer type van experience wijzigingen</string>
     <string name="setting_summary_experience_picker_steps">Stappen waarmee je experience kan updaten</string>
     <string name="setting_summary_allow_level_down">Sta toe dat experience onder 0 mag gaan, en je dus levels omlaag kan</string>
+    <string name="setting_summary_money_update_manual">Vink aan om handmatig financiën te berekenen en wijzigen. Alternatief is automatisch laten berekenen door aan te geven hoeveel je ontvangt of betaalt.</string>
     <string name="setting_summary_money_update_type">Invoer type van money wijzigingen</string>
 
     <string name="setting_defaultvalue_show_hints">true</string>

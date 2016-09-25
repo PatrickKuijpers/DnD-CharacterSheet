@@ -9,7 +9,6 @@ import android.widget.LinearLayout;
 
 import nl.tcilegnar.dndcharactersheet.Money.View.MoneyIndicatorPicker;
 import nl.tcilegnar.dndcharactersheet.Money.View.MoneyIndicatorTextView;
-import nl.tcilegnar.dndcharactersheet.Money.View.MoneyPicker;
 import nl.tcilegnar.dndcharactersheet.R;
 import nl.tcilegnar.dndcharactersheet.Storage.Storage;
 
@@ -29,7 +28,6 @@ public abstract class MoneyView extends LinearLayout {
         inflate(context, getLayoutResource(), this);
         this.storage = storage;
         initView();
-        //        initValues();
     }
 
     protected abstract
@@ -45,11 +43,8 @@ public abstract class MoneyView extends LinearLayout {
         moneyIndicatorPicker = (MoneyIndicatorPicker) findViewById(R.id.money_indicator_numberpicker);
     }
 
-    private void initValues() {
-        moneyIndicatorPicker.setMoneyValue(loadMoneyValue());
-    }
-
     public void updateSettingsData() {
+        moneyIndicatorTextView.updateSettingsData();
         moneyIndicatorPicker.updateSettingsData();
     }
 

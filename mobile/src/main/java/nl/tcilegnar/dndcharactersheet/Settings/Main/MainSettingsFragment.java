@@ -2,8 +2,8 @@ package nl.tcilegnar.dndcharactersheet.Settings.Main;
 
 import android.preference.CheckBoxPreference;
 
-import nl.tcilegnar.dndcharactersheet.R;
 import nl.tcilegnar.dndcharactersheet.Base.Settings.SettingsFragment;
+import nl.tcilegnar.dndcharactersheet.R;
 
 public class MainSettingsFragment extends SettingsFragment {
     private CheckBoxPreference showHintsPref;
@@ -20,7 +20,7 @@ public class MainSettingsFragment extends SettingsFragment {
 
     @Override
     protected void initViews() {
-        showHintsPref = (CheckBoxPreference) findPreference(getString(R.string.setting_key_show_hints));
+        showHintsPref = (CheckBoxPreference) findPreference(R.string.setting_key_show_hints);
     }
 
     @Override
