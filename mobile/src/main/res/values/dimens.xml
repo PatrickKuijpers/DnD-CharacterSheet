@@ -23,7 +23,8 @@
     <dimen name="coin_size">@dimen/icon_size_big</dimen>
 
     <dimen name="money_view_not_first_margin_left">0dp</dimen>
-    <dimen name="money_view_not_first_margin_top">@dimen/vertical_margin</dimen>
+    <!-- Zou @dimen/vertical_margin moeten zijn, maar vanwege numberpicker scaling probleem is een correctie toegepast-->
+    <dimen name="money_view_not_first_margin_top">-10dp</dimen>
     <dimen name="money_editor_not_first_margin_left">@dimen/money_view_not_first_margin_left</dimen>
     <!-- Zou @dimen/money_view_not_first_margin_top moeten zijn, maar vanwege numberpicker scaling probleem is een correctie toegepast-->
     <dimen name="money_editor_not_first_margin_top">-10dp</dimen>

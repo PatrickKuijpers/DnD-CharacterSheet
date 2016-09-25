@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="@dimen/money_editors_margin_left">
+
+    <nl.tcilegnar.dndcharactersheet.Money.View.MoneyIndicatorTextView
+        android:id="@+id/money_indicator_text_view"
+        style="@style/money_indicator_text_view"
+        android:maxLength="@integer/max_lenght_platinum_value"/>
+
+    <nl.tcilegnar.dndcharactersheet.Money.View.MoneyIndicatorPicker
+        android:id="@+id/money_indicator_numberpicker"
+        style="@style/money_numberpicker"/>
+</FrameLayout>

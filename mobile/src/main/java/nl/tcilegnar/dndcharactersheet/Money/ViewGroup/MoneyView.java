@@ -4,9 +4,12 @@ import android.content.Context;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.VisibleForTesting;
 import android.util.AttributeSet;
+import android.view.View;
 import android.widget.LinearLayout;
 
+import nl.tcilegnar.dndcharactersheet.Money.View.MoneyIndicatorPicker;
 import nl.tcilegnar.dndcharactersheet.Money.View.MoneyIndicatorTextView;
+import nl.tcilegnar.dndcharactersheet.Money.View.MoneyPicker;
 import nl.tcilegnar.dndcharactersheet.R;
 import nl.tcilegnar.dndcharactersheet.Storage.Storage;
 
@@ -14,6 +17,7 @@ public abstract class MoneyView extends LinearLayout {
     protected final Storage storage;
 
     private MoneyIndicatorTextView moneyIndicatorTextView;
+    private MoneyIndicatorPicker moneyIndicatorPicker;
 
     public MoneyView(Context context, AttributeSet attrs) {
         this(context, attrs, new Storage());
@@ -25,6 +29,7 @@ public abstract class MoneyView extends LinearLayout {
         inflate(context, getLayoutResource(), this);
         this.storage = storage;
         initView();
+        //        initValues();
     }
 
     protected abstract
@@ -37,6 +42,15 @@ public abstract class MoneyView extends LinearLayout {
 
     private void initView() {
         moneyIndicatorTextView = (MoneyIndicatorTextView) findViewById(R.id.money_indicator_text_view);
+        moneyIndicatorPicker = (MoneyIndicatorPicker) findViewById(R.id.money_indicator_numberpicker);
+    }
+
+    private void initValues() {
+        moneyIndicatorPicker.setMoneyValue(loadMoneyValue());
+    }
+
+    public void updateSettingsData() {
+        moneyIndicatorPicker.updateSettingsData();
     }
 
     public void load() {
@@ -45,16 +59,23 @@ public abstract class MoneyView extends LinearLayout {
     }
 
     public int getMoneyValue() {
-        return moneyIndicatorTextView.getMoneyValue();
+        if (moneyIndicatorTextView.getVisibility() == View.VISIBLE) {
+            return moneyIndicatorTextView.getMoneyValue();
+        } else if (moneyIndicatorPicker.getVisibility() == View.VISIBLE) {
+            return moneyIndicatorPicker.getCurrentSelectedNumber();
+        } else {
+            return 0;
+        }
     }
 
     public void setMoneyValue(int moneyValue) {
         moneyIndicatorTextView.setMoneyValue(moneyValue);
+        moneyIndicatorPicker.setMoneyValue(moneyValue);
         save();
     }
 
     public void save() {
-        int value = moneyIndicatorTextView.getMoneyValue();
+        int value = getMoneyValue();
         saveMoneyValue(value);
     }
 }
