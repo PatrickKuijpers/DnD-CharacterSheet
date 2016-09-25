@@ -10,7 +10,12 @@ public class MoneyIndicatorTextView extends TextView {
     }
 
     public int getMoneyValue() {
-        return Integer.valueOf(getText().toString());
+        String s = getText().toString();
+        if (s.length() > 0) {
+            return Integer.valueOf(s);
+        } else {
+            return 0;
+        }
     }
 
     public void setMoneyValue(int moneyValue) {
