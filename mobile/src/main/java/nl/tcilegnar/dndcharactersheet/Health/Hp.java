@@ -116,7 +116,7 @@ public class Hp extends StorageObject {
 
     public class TotalHpTooLowException extends IllegalArgumentException {
         public TotalHpTooLowException() {
-            super(App.getAppResources().getString(R.string.total_hp_too_low_exception + MINIMUM_TOTAL));
+            super(App.getAppResources().getString(R.string.total_hp_too_low_exception) + MINIMUM_TOTAL);
             Toast.makeText(App.getContext(), getMessage(), Toast.LENGTH_LONG).show();
         }
     }
@@ -130,7 +130,7 @@ public class Hp extends StorageObject {
 
     public class TempHpTooLowException extends IllegalArgumentException {
         public TempHpTooLowException() {
-            super(App.getAppResources().getString(R.string.temp_hp_too_low_exception + MINIMUM_TEMP));
+            super(App.getAppResources().getString(R.string.temp_hp_too_low_exception) + MINIMUM_TEMP);
             Toast.makeText(App.getContext(), getMessage(), Toast.LENGTH_LONG).show();
         }
     }
