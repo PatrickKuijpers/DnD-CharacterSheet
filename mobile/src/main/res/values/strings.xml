@@ -5,8 +5,8 @@
 
     <string name="action_settings">Settings</string>
 
-    <string name="experience_label">Exp:</string>
-    <string name="total_hp_label">Total HP:</string>
+    <string name="experience_label">Exp:&#160;</string>
+    <string name="total_hp_label">Total HP:&#160;</string>
 
     <string name="coming_soon">Coming soon!</string>
 

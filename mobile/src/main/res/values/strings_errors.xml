@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="exp_too_low_exception">Level down is not allowed</string>
-    <string name="min_level_reached_exception">Minimum level bereikt: %1$d</string>
-    <string name="max_level_reached_exception">Maximum level bereikt: %1$d</string>
-    <string name="no_max_experience_for_level_exception">Geen maximum experience mogelijk voor level %1$d</string>
-    <string name="total_hp_too_low_exception">The minimum allowed total HP value is %1$d</string>
+    <string name="min_level_reached_exception">Minimum level bereikt:&#160;</string>
+    <string name="max_level_reached_exception">Maximum level bereikt:&#160;</string>
+    <string name="total_hp_too_low_exception">The minimum allowed total HP value is&#160;</string>
 
     <string name="current_hp_too_high_exception">The current HP value cannot exceed the total HP</string>
-    <string name="temp_hp_too_low_exception">The minimum allowed temporary HP value is %1$d</string>
+    <string name="temp_hp_too_low_exception">The minimum allowed temporary HP value is&#160;</string>
 
     <string name="max_money_reached_exception">Maximum money value reached: %1$s Platinum. This is way too heavy for you to carry!</string>
     <string name="not_enough_money_exception">You don\'t own enough money to pay this amount</string>
