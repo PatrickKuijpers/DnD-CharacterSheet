@@ -44,7 +44,7 @@ public class GoldViewTest {
         int resourceId = goldView.getLayoutResource();
 
         // Assert
-        assertEquals(R.layout.money_gold_view, resourceId);
+        assertEquals(R.layout.money_gold_indicator, resourceId);
     }
 
     @Test

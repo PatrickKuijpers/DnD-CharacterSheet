@@ -44,7 +44,7 @@ public class PlatinumViewTest {
         int resourceId = platinumView.getLayoutResource();
 
         // Assert
-        assertEquals(R.layout.money_platinum_view, resourceId);
+        assertEquals(R.layout.money_platinum_indicator, resourceId);
     }
 
     @Test

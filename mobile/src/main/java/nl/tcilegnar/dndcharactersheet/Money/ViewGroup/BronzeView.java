@@ -19,7 +19,7 @@ public class BronzeView extends MoneyView {
 
     @Override
     protected int getLayoutResource() {
-        return R.layout.money_bronze_view;
+        return R.layout.money_bronze_indicator;
     }
 
     @Override
