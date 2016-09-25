@@ -42,7 +42,7 @@ public class LevelTableUtil {
 
     protected static class NoMaxExperienceForLevelException extends IllegalArgumentException {
         protected NoMaxExperienceForLevelException(int level) {
-            super(String.format(App.getAppResources().getString(R.string.max_level_reached_exception), level));
+            super(App.getAppResources().getString(R.string.max_level_reached_exception) + level);
         }
     }
 }
