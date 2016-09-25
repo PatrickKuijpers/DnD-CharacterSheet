@@ -1,7 +1,7 @@
 @org.junit.Test
 public void ${NAME}() {
     // Arrange
-    ${BODY} 
+    ${BODY}
     // Act
     
     // Assert

@@ -10,5 +10,5 @@ import static org.mockito.Mockito.*;
 @RunWith(RobolectricGradleTestRunner.class)
 @Config(constants = BuildConfig.class)
 public class ${NAME} {
-  ${BODY} 
+  ${BODY}
 }
