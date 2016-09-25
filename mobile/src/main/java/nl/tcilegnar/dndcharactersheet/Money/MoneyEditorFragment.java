@@ -14,7 +14,6 @@ import nl.tcilegnar.dndcharactersheet.Money.ViewGroup.GoldEditor;
 import nl.tcilegnar.dndcharactersheet.Money.ViewGroup.PlatinumEditor;
 import nl.tcilegnar.dndcharactersheet.Money.ViewGroup.SilverEditor;
 import nl.tcilegnar.dndcharactersheet.R;
-import nl.tcilegnar.dndcharactersheet.Settings.Settings;
 import nl.tcilegnar.dndcharactersheet.Utils.KeyboardUtil;
 
 public class MoneyEditorFragment extends BaseFragment implements OnClickListener {
@@ -56,7 +55,7 @@ public class MoneyEditorFragment extends BaseFragment implements OnClickListener
     }
 
     @Override
-    protected Settings getSettings() {
+    protected MoneySettings getSettings() {
         return MoneySettings.getInstance();
     }
 

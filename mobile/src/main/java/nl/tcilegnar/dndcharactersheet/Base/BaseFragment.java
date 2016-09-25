@@ -14,7 +14,7 @@ public abstract class BaseFragment extends Fragment {
         super.onCreate(savedInstanceState);
         Settings settings = getSettings();
         if (settings != null) {
-            settings.setSettingsChangedListener(this);
+            settings.addSettingsChangedListener(this);
         }
     }
 
@@ -24,6 +24,15 @@ public abstract class BaseFragment extends Fragment {
         if (settingsChanged) {
             settingsChanged = false;
             updateSettingsData();
+        }
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        Settings settings = getSettings();
+        if (settings != null) {
+            settings.removeSettingsChangedListener(this);
         }
     }
 

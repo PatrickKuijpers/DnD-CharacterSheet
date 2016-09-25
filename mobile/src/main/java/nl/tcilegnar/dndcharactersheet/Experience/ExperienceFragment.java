@@ -18,7 +18,6 @@ import nl.tcilegnar.dndcharactersheet.Level.LevelUp.ViewGroup.LevelChangeView.Le
 import nl.tcilegnar.dndcharactersheet.Level.ViewGroup.LevelIndicatorView;
 import nl.tcilegnar.dndcharactersheet.R;
 import nl.tcilegnar.dndcharactersheet.Settings.Main.MainSettings;
-import nl.tcilegnar.dndcharactersheet.Settings.Settings;
 import nl.tcilegnar.dndcharactersheet.Utils.KeyboardUtil;
 
 public class ExperienceFragment extends BaseStorageFragment implements LevelUpIconVisibilityChangedListener,
@@ -60,7 +59,7 @@ public class ExperienceFragment extends BaseStorageFragment implements LevelUpIc
     }
 
     @Override
-    protected Settings getSettings() {
+    protected ExperienceSettings getSettings() {
         return ExperienceSettings.getInstance();
     }
 

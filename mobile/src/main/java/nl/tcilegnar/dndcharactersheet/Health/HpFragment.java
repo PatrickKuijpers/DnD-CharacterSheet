@@ -9,8 +9,6 @@ import nl.tcilegnar.dndcharactersheet.Base.BaseStorageFragment;
 import nl.tcilegnar.dndcharactersheet.Health.Settings.HpSettings;
 import nl.tcilegnar.dndcharactersheet.Health.ViewGroup.HpIndicator;
 import nl.tcilegnar.dndcharactersheet.R;
-import nl.tcilegnar.dndcharactersheet.Settings.Main.MainSettings;
-import nl.tcilegnar.dndcharactersheet.Settings.Settings;
 
 public class HpFragment extends BaseStorageFragment {
     private HpIndicator hpIndicator;
@@ -29,11 +27,10 @@ public class HpFragment extends BaseStorageFragment {
     private void initViews(View view) {
         hpIndicator = (HpIndicator) view.findViewById(R.id.hp_indicator_view);
         Hp hp = hpIndicator.getHp();
-
     }
 
     @Override
-    protected Settings getSettings() {
+    protected HpSettings getSettings() {
         return HpSettings.getInstance();
     }
 
