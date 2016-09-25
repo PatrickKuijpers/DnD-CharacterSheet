@@ -29,12 +29,12 @@ public class MainSettingsTest {
     @Before
     public void setUp() {
         settings = MainSettings.getInstance();
-        setListeners();
+        setListener();
     }
 
-    private void setListeners() {
+    private void setListener() {
         settingsChangedListener = mock(BaseStorageFragment.class);
-        settings.setSettingsChangedListener(settingsChangedListener);
+        settings.addSettingsChangedListener(settingsChangedListener);
     }
 
     @After
