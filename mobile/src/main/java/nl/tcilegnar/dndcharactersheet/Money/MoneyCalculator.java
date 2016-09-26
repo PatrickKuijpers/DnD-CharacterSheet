@@ -5,11 +5,11 @@ import nl.tcilegnar.dndcharactersheet.Base.Exceptions.CustomToastException;
 import nl.tcilegnar.dndcharactersheet.R;
 
 public class MoneyCalculator {
-    protected static final int MAX_BRONZE_VALUE = 100;
-    protected static final int MAX_SILVER_VALUE = 100;
-    protected static final int MAX_GOLD_VALUE = 100;
+    protected static final int MAX_BRONZE_VALUE = 99;
+    protected static final int MAX_SILVER_VALUE = 99;
+    protected static final int MAX_GOLD_VALUE = 99;
     protected static final int MAX_PLATINUM_VALUE = (int) Math.pow(10, App.getAppResources().getInteger(R.integer
-            .max_lenght_platinum_value));
+            .max_lenght_platinum_value)) - 1;
 
     private final MoneyValues currentMoneyValues;
 
@@ -49,13 +49,13 @@ public class MoneyCalculator {
     }
 
     private int correctBronzeValue(int newBronze) throws MaxMoneyReachedException, NotEnoughMoneyException {
-        while (newBronze >= MAX_BRONZE_VALUE) {
-            newBronze -= MAX_BRONZE_VALUE;
+        while (newBronze > MAX_BRONZE_VALUE) {
+            newBronze -= MAX_BRONZE_VALUE + 1;
             tempCurrentSilver++;
             tempCurrentSilver = correctSilverValue(tempCurrentSilver);
         }
         while (newBronze < 0) {
-            newBronze += MAX_BRONZE_VALUE;
+            newBronze += MAX_BRONZE_VALUE + 1;
             tempCurrentSilver--;
             tempCurrentSilver = correctSilverValue(tempCurrentSilver);
         }
@@ -63,13 +63,13 @@ public class MoneyCalculator {
     }
 
     private int correctSilverValue(int newSilver) throws MaxMoneyReachedException, NotEnoughMoneyException {
-        while (newSilver >= MAX_SILVER_VALUE) {
-            newSilver -= MAX_SILVER_VALUE;
+        while (newSilver > MAX_SILVER_VALUE) {
+            newSilver -= MAX_SILVER_VALUE + 1;
             tempCurrentGold++;
             tempCurrentGold = correctGoldValue(tempCurrentGold);
         }
         while (newSilver < 0) {
-            newSilver += MAX_SILVER_VALUE;
+            newSilver += MAX_SILVER_VALUE + 1;
             tempCurrentGold--;
             tempCurrentGold = correctGoldValue(tempCurrentGold);
         }
@@ -77,12 +77,12 @@ public class MoneyCalculator {
     }
 
     private int correctGoldValue(int newGold) throws MaxMoneyReachedException, NotEnoughMoneyException {
-        while (newGold >= MAX_GOLD_VALUE) {
-            newGold -= MAX_GOLD_VALUE;
+        while (newGold > MAX_GOLD_VALUE) {
+            newGold -= MAX_GOLD_VALUE + 1;
             tempCurrentPlatinum++;
         }
         while (newGold < 0) {
-            newGold += MAX_GOLD_VALUE;
+            newGold += MAX_GOLD_VALUE + 1;
             tempCurrentPlatinum--;
             tempCurrentPlatinum = correctPlatinumValue(tempCurrentPlatinum);
         }
@@ -90,7 +90,7 @@ public class MoneyCalculator {
     }
 
     private int correctPlatinumValue(int newPlatinum) throws MaxMoneyReachedException, NotEnoughMoneyException {
-        if (newPlatinum >= MAX_PLATINUM_VALUE) {
+        if (newPlatinum > MAX_PLATINUM_VALUE) {
             throw new MaxMoneyReachedException(newPlatinum);
         }
         if (newPlatinum < 0) {
