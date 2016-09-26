@@ -8,8 +8,6 @@ import nl.tcilegnar.dndcharactersheet.Money.MoneyEditorFragment.ConfirmChangeMon
 import nl.tcilegnar.dndcharactersheet.Money.MoneyFragment.ChangeMoneyListener;
 import nl.tcilegnar.dndcharactersheet.Money.Settings.MoneySettingsActivity;
 
-import static nl.tcilegnar.dndcharactersheet.FragmentManager.Anim.SLIDE_RIGHT_TO_LEFT;
-
 public class MoneyActivity extends BaseStorageActivity implements ChangeMoneyListener, ConfirmChangeMoneyListener {
     private MoneyChangeMode moneyChangeMode = MoneyChangeMode.NO_CHANGE;
 
@@ -68,7 +66,7 @@ public class MoneyActivity extends BaseStorageActivity implements ChangeMoneyLis
 
     private void startMoneyEditor() {
         MoneyEditorFragment moneyEditorFragment = getMoneyEditorFragment();
-        fragmentManager.replaceFragment(moneyEditorFragment, FragTag.MONEY_EDITOR.name(), true, SLIDE_RIGHT_TO_LEFT);
+        fragmentManager.replaceFragment(moneyEditorFragment, FragTag.MONEY_EDITOR.name());
     }
 
     @Override
