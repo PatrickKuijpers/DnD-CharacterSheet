@@ -78,7 +78,7 @@ public class HpIndicator extends LinearLayout {
     }
 
     private void updateTotalHp(int totalHp) {
-        String totalHpLabelText = App.getAppResources().getString(R.string.total_hp_label);
+        String totalHpLabelText = App.getResourceString(R.string.total_hp_label);
         String totalHpText = totalHpLabelText + totalHp;
         totalHpValue.setText(totalHpText);
     }

@@ -103,7 +103,7 @@ public class ExperienceUpdater {
 
     public class ExpTooLowException extends Exception {
         public ExpTooLowException() {
-            super(App.getAppResources().getString(R.string.exp_too_low_exception));
+            super(App.getResourceString(R.string.exp_too_low_exception));
             Toast.makeText(App.getContext(), getMessage(), Toast.LENGTH_LONG).show();
         }
     }

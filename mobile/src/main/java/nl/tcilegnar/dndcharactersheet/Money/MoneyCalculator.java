@@ -8,8 +8,11 @@ public class MoneyCalculator {
     protected static final int MAX_BRONZE_VALUE = 99;
     protected static final int MAX_SILVER_VALUE = 99;
     protected static final int MAX_GOLD_VALUE = 99;
-    protected static final int MAX_PLATINUM_VALUE = (int) Math.pow(10, App.getAppResources().getInteger(R.integer
-            .max_lenght_platinum_value)) - 1;
+    protected static final int MAX_PLATINUM_VALUE = getMaxPlatinumValue();
+
+    private static int getMaxPlatinumValue() {
+        return (int) Math.pow(10, App.getResourceInteger(R.integer.max_lenght_platinum_value)) - 1;
+    }
 
     private final MoneyValues currentMoneyValues;
 
@@ -101,13 +104,13 @@ public class MoneyCalculator {
 
     protected class MaxMoneyReachedException extends CustomToastException {
         public MaxMoneyReachedException(int newPlatinum) {
-            super(String.format(App.getAppResources().getString(R.string.max_money_reached_exception), newPlatinum));
+            super(String.format(App.getResourceString(R.string.max_money_reached_exception), newPlatinum));
         }
     }
 
     protected class NotEnoughMoneyException extends CustomToastException {
         public NotEnoughMoneyException() {
-            super(App.getAppResources().getString(R.string.not_enough_money_exception));
+            super(App.getResourceString(R.string.not_enough_money_exception));
         }
     }
 }
