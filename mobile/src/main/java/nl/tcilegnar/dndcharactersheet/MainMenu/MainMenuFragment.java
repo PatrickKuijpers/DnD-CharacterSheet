@@ -7,16 +7,19 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import nl.tcilegnar.dndcharactersheet.App;
 import nl.tcilegnar.dndcharactersheet.Base.BaseFragment;
 import nl.tcilegnar.dndcharactersheet.R;
+import nl.tcilegnar.dndcharactersheet.Utils.AppData;
 
 import static android.view.View.OnClickListener;
 
 public class MainMenuFragment extends BaseFragment implements OnClickListener {
     private MainMenuActivity callbackMainMenu;
+    private View data;
 
     @Override
     public void onAttach(Context context) {
@@ -40,6 +43,7 @@ public class MainMenuFragment extends BaseFragment implements OnClickListener {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initViews(view);
+        setVersionNumber(view);
     }
 
     private void initViews(View view) {
@@ -71,5 +75,10 @@ public class MainMenuFragment extends BaseFragment implements OnClickListener {
 
     private void showComingSoon() {
         Toast.makeText(App.getContext(), R.string.coming_soon, Toast.LENGTH_SHORT).show();
+    }
+
+    public void setVersionNumber(View view) {
+        TextView versionNrView = (TextView) view.findViewById(R.id.version_nr);
+        versionNrView.setText(AppData.getAppVersionName());
     }
 }
