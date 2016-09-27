@@ -3,7 +3,6 @@ package nl.tcilegnar.dndcharactersheet.Health.ViewGroup;
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.graphics.PorterDuff;
-import android.os.Build;
 import android.support.annotation.ColorInt;
 import android.support.annotation.VisibleForTesting;
 import android.util.AttributeSet;
@@ -16,6 +15,7 @@ import nl.tcilegnar.dndcharactersheet.App;
 import nl.tcilegnar.dndcharactersheet.Health.HealthState;
 import nl.tcilegnar.dndcharactersheet.Health.Hp;
 import nl.tcilegnar.dndcharactersheet.R;
+import nl.tcilegnar.dndcharactersheet.Utils.DeviceData;
 
 public class HpIndicator extends LinearLayout {
     private final Hp hp;
@@ -112,7 +112,7 @@ public class HpIndicator extends LinearLayout {
         @ColorInt int secondaryColor = currentHealthState.getSecondaryColor();
         @ColorInt int backgroundColor = currentHealthState.getBackgroundColor();
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+        if (DeviceData.isAtLeastLollipop()) {
             currentHpProgressBar.setProgressBackgroundTintList(ColorStateList.valueOf(backgroundColor));
             currentHpProgressBar.setProgressTintList(ColorStateList.valueOf(progressColor));
             //currentHpProgressBar.setSecondaryProgressTintList(ColorStateList.valueOf(secondaryColor));
