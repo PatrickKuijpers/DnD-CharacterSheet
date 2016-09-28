@@ -9,9 +9,9 @@
         android:text="-"
         android:textColor="@color/white"/>
 
-    <nl.tcilegnar.dndcharactersheet.Experience.View.ExperiencePicker
+    <nl.tcilegnar.dndcharactersheet.Experience.View.ExperienceSlider
         android:id="@+id/experience_picker"
-        style="@style/experience_numberpicker"/>
+        style="@style/experience_numberslider"/>
 
     <nl.tcilegnar.dndcharactersheet.Experience.View.ExperienceInput
         android:id="@+id/experience_input"

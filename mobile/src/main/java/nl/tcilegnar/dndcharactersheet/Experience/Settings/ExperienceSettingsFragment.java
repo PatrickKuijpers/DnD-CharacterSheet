@@ -50,7 +50,7 @@ public class ExperienceSettingsFragment extends SettingsFragment {
     }
 
     private void handleDependencyOfExpUpdateType(String selectedValue) {
-        if (selectedValue.equals(getString(R.string.setting_entry_experience_update_type_numberpicker))) {
+        if (selectedValue.equals(getString(R.string.setting_entry_experience_update_type_number_slider))) {
             expPickerStepsPref.setEnabled(true);
         } else {
             expPickerStepsPref.setEnabled(false);

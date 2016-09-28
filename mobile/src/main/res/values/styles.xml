@@ -132,7 +132,7 @@
         <item name="android:descendantFocusability">blocksDescendants</item>
     </style>
 
-    <style name="experience_numberpicker" parent="base_numberpicker">
+    <style name="experience_numberslider" parent="base_numberpicker">
         <item name="android:layout_height">@dimen/experience_picker_height</item>
     </style>
 

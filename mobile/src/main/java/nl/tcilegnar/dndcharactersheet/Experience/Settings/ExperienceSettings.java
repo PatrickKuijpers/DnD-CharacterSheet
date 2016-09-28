@@ -46,7 +46,7 @@ public class ExperienceSettings extends Settings {
         return getExperienceUpdateType().equals(getString(R.string.setting_entry_experience_update_type_input));
     }
 
-    public boolean isExperienceUpdateTypeNumberPicker() {
-        return getExperienceUpdateType().equals(getString(R.string.setting_entry_experience_update_type_numberpicker));
+    public boolean isExperienceUpdateTypeNumberSlider() {
+        return getExperienceUpdateType().equals(getString(R.string.setting_entry_experience_update_type_number_slider));
     }
 }
