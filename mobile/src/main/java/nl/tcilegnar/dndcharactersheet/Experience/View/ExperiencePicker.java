@@ -6,6 +6,7 @@ import android.util.AttributeSet;
 
 import nl.tcilegnar.dndcharactersheet.Base.View.BaseNumberPicker;
 import nl.tcilegnar.dndcharactersheet.Experience.Settings.ExperienceSettings;
+import nl.tcilegnar.dndcharactersheet.R;
 
 public class ExperiencePicker extends BaseNumberPicker {
     private static final int MIN_VALUE = 0;
@@ -30,6 +31,11 @@ public class ExperiencePicker extends BaseNumberPicker {
     protected void initView() {
         super.initView();
         setDividerColorTransparent();
+    }
+
+    @Override
+    protected int getTextsizeDimenRes() {
+        return R.dimen.textsize_numberslider;
     }
 
     @Override

@@ -27,4 +27,9 @@ public class MoneySlider extends MoneyBaseNumberPicker {
     protected boolean shouldBeVisible() {
         return ((MoneySettings) settings).isMoneyUpdateTypeNumberSlider();
     }
+
+    @Override
+    protected int getTextsizeDimenRes() {
+        return R.dimen.textsize_numberslider;
+    }
 }

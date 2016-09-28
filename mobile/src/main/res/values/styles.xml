@@ -125,21 +125,24 @@
     </style>
 
     <style name="base_numberpicker">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:scaleX">0.7</item>
+        <item name="android:scaleY">0.7</item>
         <item name="android:descendantFocusability">blocksDescendants</item>
     </style>
 
-    <style name="experience_numberpicker" parent="base_numberpicker"/>
+    <style name="experience_numberpicker" parent="base_numberpicker">
+        <item name="android:layout_height">@dimen/experience_picker_height</item>
+    </style>
 
     <style name="base_money_numberpicker" parent="base_numberpicker">
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_height">130dp</item>
         <item name="android:layout_gravity">center</item>
     </style>
 
     <style name="money_numberpicker" parent="base_money_numberpicker">
         <item name="android:theme">@style/customize_numberpicker</item>
-        <item name="android:scaleX">0.7</item>
-        <item name="android:scaleY">0.7</item>
     </style>
 
     <style name="customize_numberpicker" parent="@android:style/Theme.Dialog">
@@ -147,8 +150,6 @@
     </style>
 
     <style name="money_numberslider" parent="base_money_numberpicker">
-        <item name="android:layout_height">120dp</item>
-        <item name="android:scaleX">0.8</item>
-        <item name="android:scaleY">0.8</item>
+        <item name="android:layout_height">130dp</item>
     </style>
 </resources>

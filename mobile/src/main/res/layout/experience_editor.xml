@@ -11,9 +11,7 @@
 
     <nl.tcilegnar.dndcharactersheet.Experience.View.ExperiencePicker
         android:id="@+id/experience_picker"
-        style="@style/experience_numberpicker"
-        android:layout_width="wrap_content"
-        android:layout_height="@dimen/experience_picker_height"/>
+        style="@style/experience_numberpicker"/>
 
     <nl.tcilegnar.dndcharactersheet.Experience.View.ExperienceInput
         android:id="@+id/experience_input"

@@ -6,6 +6,7 @@ import android.content.res.Resources;
 import android.support.annotation.BoolRes;
 import android.support.annotation.ColorInt;
 import android.support.annotation.ColorRes;
+import android.support.annotation.DimenRes;
 import android.support.annotation.IntegerRes;
 import android.support.annotation.StringRes;
 import android.support.multidex.MultiDex;
@@ -34,6 +35,10 @@ public class App extends Application {
 
     public static Integer getResourceInteger(@IntegerRes int resId) {
         return getAppResources().getInteger(resId);
+    }
+
+    public static int getResourceDimension(@DimenRes int resId) {
+        return (int) (getAppResources().getDimension(resId) / getAppResources().getDisplayMetrics().density);
     }
 
     public static boolean getResourceBoolean(@BoolRes int resId) {

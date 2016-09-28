@@ -3,6 +3,12 @@
     <dimen name="textsize_normal">16sp</dimen>
     <dimen name="textsize_big">20sp</dimen>
     <dimen name="textsize_very_big">24sp</dimen>
+    <dimen name="textsize_huge">28sp</dimen>
+    <dimen name="textsize_very_huge">32sp</dimen>
+
     <dimen name="textsize_level">@dimen/textsize_very_big</dimen>
-    <dimen name="experience_plus_button_text_size">24sp</dimen>
+    <dimen name="experience_plus_button_text_size">@dimen/textsize_very_big</dimen>
+
+    <dimen name="textsize_numberslider">@dimen/textsize_very_big</dimen>
+    <dimen name="textsize_numberpicker">@dimen/textsize_very_huge</dimen>
 </resources>

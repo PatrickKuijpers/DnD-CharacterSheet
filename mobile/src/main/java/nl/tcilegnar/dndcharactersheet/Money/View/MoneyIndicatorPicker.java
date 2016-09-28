@@ -6,6 +6,7 @@ import android.util.AttributeSet;
 import android.view.View;
 
 import nl.tcilegnar.dndcharactersheet.Money.Settings.MoneySettings;
+import nl.tcilegnar.dndcharactersheet.R;
 
 public class MoneyIndicatorPicker extends MoneyBaseNumberPicker {
     public MoneyIndicatorPicker(Context context, AttributeSet attrs) {
@@ -27,5 +28,10 @@ public class MoneyIndicatorPicker extends MoneyBaseNumberPicker {
     @Override
     protected boolean shouldBeVisible() {
         return ((MoneySettings) settings).isMoneyUpdateManual();
+    }
+
+    @Override
+    protected int getTextsizeDimenRes() {
+        return R.dimen.textsize_numberpicker;
     }
 }
