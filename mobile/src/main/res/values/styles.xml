@@ -53,6 +53,7 @@
         <item name="android:paddingRight">@dimen/horizontal_margin_big</item>
         <item name="android:orientation">vertical</item>
         <item name="android:weightSum">5</item>
+        <item name="android:gravity">center</item>
     </style>
 
     <style name="button_main_menu">
