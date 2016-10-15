@@ -7,4 +7,6 @@
     <dimen name="icon_size_normal">96dp</dimen>
     <dimen name="icon_size_big">160dp</dimen>
 
+    <dimen name="money_numberpicker_height">200dp</dimen>
+
 </resources>
