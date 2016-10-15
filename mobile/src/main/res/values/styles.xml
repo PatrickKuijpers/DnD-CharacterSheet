@@ -96,6 +96,7 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:background">@color/grey_light</item>
         <item name="android:textColorHint">@drawable/edittext_hint_color_hide_on_focus</item>
+        <item name="android:textSize">@dimen/textsize_edittext</item>
         <item name="android:inputType">number</item>
         <item name="android:imeOptions">actionDone</item>
         <item name="android:paddingBottom">@dimen/edittext_padding_vertical</item>
@@ -141,7 +142,7 @@
     </style>
 
     <style name="base_money_numberpicker" parent="base_numberpicker">
-        <item name="android:layout_height">130dp</item>
+        <item name="android:layout_height">@dimen/money_numberpicker_height</item>
         <item name="android:layout_gravity">center</item>
     </style>
 

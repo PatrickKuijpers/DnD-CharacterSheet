@@ -19,5 +19,6 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginLeft="@dimen/horizontal_margin_small"
+        android:textSize="@dimen/textsize_default"
         android:visibility="gone"/>
 </merge>

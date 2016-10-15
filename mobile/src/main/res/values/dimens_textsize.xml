@@ -1,4 +1,5 @@
 <resources>
+    <dimen name="textsize_small">10sp</dimen>
     <dimen name="textsize_default">14sp</dimen>
     <dimen name="textsize_normal">16sp</dimen>
     <dimen name="textsize_big">20sp</dimen>
@@ -7,8 +8,11 @@
     <dimen name="textsize_very_huge">32sp</dimen>
 
     <dimen name="textsize_level">@dimen/textsize_very_big</dimen>
-    <dimen name="experience_plus_button_text_size">@dimen/textsize_very_big</dimen>
+    <dimen name="experience_current_lvl_textsize">@dimen/textsize_big</dimen>
+    <dimen name="experience_min_button_textsize">@dimen/textsize_default</dimen>
+    <dimen name="experience_plus_button_textsize">@dimen/textsize_very_big</dimen>
 
+    <dimen name="textsize_edittext">@dimen/textsize_normal</dimen>
     <dimen name="textsize_numberslider">@dimen/textsize_very_big</dimen>
     <dimen name="textsize_numberpicker">@dimen/textsize_very_huge</dimen>
 </resources>

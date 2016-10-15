@@ -7,7 +7,8 @@
         android:layout_marginRight="@dimen/horizontal_margin"
         android:background="@color/red_transparent"
         android:text="-"
-        android:textColor="@color/white"/>
+        android:textColor="@color/white"
+        android:textSize="@dimen/experience_min_button_textsize"/>
 
     <nl.tcilegnar.dndcharactersheet.Experience.View.ExperienceSlider
         android:id="@+id/experience_picker"
@@ -25,5 +26,5 @@
         android:layout_marginLeft="@dimen/horizontal_margin"
         android:background="@color/green_transparent"
         android:text="+"
-        android:textSize="@dimen/experience_plus_button_text_size"/>
+        android:textSize="@dimen/experience_plus_button_textsize"/>
 </merge>

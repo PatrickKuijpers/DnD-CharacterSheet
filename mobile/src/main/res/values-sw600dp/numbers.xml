@@ -3,4 +3,6 @@
 
     <integer name="button_main_menu_height_weight">0</integer>
 
+    <integer name="max_lenght_platinum_value">2</integer>
+
 </resources>
