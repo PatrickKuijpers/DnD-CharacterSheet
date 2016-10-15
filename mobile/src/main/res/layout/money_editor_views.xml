@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    style="@style/money_editors">
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="@dimen/money_editors_margin_left">
 
     <nl.tcilegnar.dndcharactersheet.Money.View.MoneyInput
         android:id="@+id/money_edittext"
@@ -13,4 +15,4 @@
     <nl.tcilegnar.dndcharactersheet.Money.View.MoneyPicker
         android:id="@+id/money_numberpicker"
         style="@style/money_numberpicker"/>
-</LinearLayout>
+</FrameLayout>

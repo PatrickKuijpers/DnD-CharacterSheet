@@ -72,6 +72,8 @@ public abstract class BaseNumberPicker extends NumberPicker {
 
     protected abstract int maxValue();
 
+    protected abstract int getPickerStepSize();
+
     protected abstract int initialValue();
 
     private String[] generateDisplayedValues() {
@@ -85,8 +87,6 @@ public abstract class BaseNumberPicker extends NumberPicker {
         }
         return experienceValues;
     }
-
-    protected abstract int getPickerStepSize();
 
     @Override
     public Parcelable onSaveInstanceState() {

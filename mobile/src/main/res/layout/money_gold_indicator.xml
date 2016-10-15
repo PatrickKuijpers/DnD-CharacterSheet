@@ -7,6 +7,6 @@
         android:src="@drawable/coin_gold"/>
 
     <include
-        android:id="@+id/money_editors"
-        layout="@layout/money_editors"/>
+        android:id="@+id/money_indicator_edit_views"
+        layout="@layout/money_indicator_edit_views"/>
 </merge>

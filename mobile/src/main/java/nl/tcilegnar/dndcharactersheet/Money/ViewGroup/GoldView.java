@@ -19,7 +19,7 @@ public class GoldView extends MoneyView {
 
     @Override
     protected int getLayoutResource() {
-        return R.layout.money_gold_view;
+        return R.layout.money_gold_indicator;
     }
 
     @Override

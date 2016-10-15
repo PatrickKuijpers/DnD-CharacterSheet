@@ -33,7 +33,6 @@ public class SilverViewTest {
 
         // Assert
         assertNotNull(silverView.storage);
-        Asserts.hasCorrectEditors(silverView);
     }
 
     @Test
@@ -45,7 +44,7 @@ public class SilverViewTest {
         int resourceId = silverView.getLayoutResource();
 
         // Assert
-        assertEquals(R.layout.money_silver_view, resourceId);
+        assertEquals(R.layout.money_silver_indicator, resourceId);
     }
 
     @Test

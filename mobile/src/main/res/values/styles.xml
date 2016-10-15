@@ -15,6 +15,12 @@
     </style>
 
     <style name="fragment_money" parent="fragment_full_screen">
+        <item name="android:orientation">horizontal</item>
+    </style>
+
+    <style name="money_view_list">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
         <item name="android:orientation">vertical</item>
     </style>
 
@@ -22,6 +28,7 @@
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:orientation">horizontal</item>
+        <item name="android:layout_gravity">center|start</item>
         <item name="android:gravity">center_vertical</item>
     </style>
 
@@ -30,7 +37,12 @@
         <item name="android:layout_marginTop">@dimen/money_view_not_first_margin_top</item>
     </style>
 
-    <style name="money_editors" parent="money_view"/>
+    <style name="money_editor" parent="money_view"/>
+
+    <style name="money_editor_not_first" parent="money_editor">
+        <item name="android:layout_marginLeft">@dimen/money_editor_not_first_margin_left</item>
+        <item name="android:layout_marginTop">@dimen/money_editor_not_first_margin_top</item>
+    </style>
 
     <style name="container_button_main_menu">
         <item name="android:layout_width">match_parent</item>
@@ -72,13 +84,14 @@
     <style name="imageview_coin">
         <item name="android:layout_width">@dimen/coin_size</item>
         <item name="android:layout_height">@dimen/coin_size</item>
+        <item name="android:layout_gravity">center</item>
     </style>
 
     <style name="base_edittext_number">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:background">@color/grey_light</item>
-        <item name="android:textColorHint">@color/transparent</item>
+        <item name="android:textColorHint">@drawable/edittext_hint_color_hide_on_focus</item>
         <item name="android:inputType">number</item>
         <item name="android:imeOptions">actionDone</item>
         <item name="android:paddingBottom">@dimen/edittext_padding_vertical</item>
@@ -88,17 +101,27 @@
     </style>
 
     <style name="experience_edittext" parent="@style/base_edittext_number">
-        <item name="android:hint">0000000</item>
-        <item name="android:maxLength">7</item>
+        <item name="android:textColorHint">@color/transparent</item>
+        <item name="android:hint">000000</item>
+        <item name="android:maxLength">9</item>
+        <item name="android:gravity">start</item>
+    </style>
+
+    <style name="money_indicator_text_view">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:maxLength">2</item>
+        <item name="android:gravity">end</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:textSize">@dimen/textsize_very_big</item>
     </style>
 
     <style name="money_edittext" parent="@style/base_edittext_number">
-        <item name="android:background">@color/grey_light</item>
         <item name="android:hint">00</item>
-        <item name="android:maxLength">2</item>
+        <item name="android:maxLength">9</item>
+        <item name="android:gravity">end</item>
+        <item name="android:layout_gravity">center</item>
         <item name="android:visibility">visible</item>
-        <item name="android:layout_marginLeft">@dimen/money_edittext_margin_left</item>
-        <item name="android:layout_marginTop">@dimen/money_edittext_margin_top</item>
     </style>
 
     <style name="base_numberpicker">
@@ -110,15 +133,13 @@
     <style name="base_money_numberpicker" parent="base_numberpicker">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_marginLeft">@dimen/money_numberpicker_base_margin_left</item>
-        <item name="android:layout_marginTop">@dimen/money_numberpicker_base_margin_top</item>
+        <item name="android:layout_gravity">center</item>
     </style>
 
     <style name="money_numberpicker" parent="base_money_numberpicker">
         <item name="android:theme">@style/customize_numberpicker</item>
         <item name="android:scaleX">0.7</item>
         <item name="android:scaleY">0.7</item>
-        <item name="android:layout_marginTop">@dimen/money_numberpicker_margin_top</item>
     </style>
 
     <style name="customize_numberpicker" parent="@android:style/Theme.Dialog">
@@ -126,7 +147,7 @@
     </style>
 
     <style name="money_numberslider" parent="base_money_numberpicker">
-        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_height">120dp</item>
         <item name="android:scaleX">0.8</item>
         <item name="android:scaleY">0.8</item>
     </style>

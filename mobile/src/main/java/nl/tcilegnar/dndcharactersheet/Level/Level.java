@@ -6,11 +6,12 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 import nl.tcilegnar.dndcharactersheet.App;
+import nl.tcilegnar.dndcharactersheet.Base.StorageObject;
 import nl.tcilegnar.dndcharactersheet.Experience.Experience.LevelListener;
 import nl.tcilegnar.dndcharactersheet.Experience.ExperienceUpdater.ExperienceEdgeListener;
 import nl.tcilegnar.dndcharactersheet.Level.LevelUp.LevelsReadyForChange.ChangeLevelListener;
+import nl.tcilegnar.dndcharactersheet.R;
 import nl.tcilegnar.dndcharactersheet.Storage.Storage;
-import nl.tcilegnar.dndcharactersheet.Base.StorageObject;
 
 public class Level extends StorageObject implements ExperienceEdgeListener, ChangeLevelListener, LevelListener {
     public static final int MIN_LEVEL = LevelTable.ONE.level;
@@ -116,14 +117,14 @@ public class Level extends StorageObject implements ExperienceEdgeListener, Chan
 
     public class MinLevelReachedException extends Exception {
         public MinLevelReachedException() {
-            super("Minimum level bereikt: " + MIN_LEVEL);
+            super(App.getResourceString(R.string.min_level_reached_exception) + MIN_LEVEL);
             Toast.makeText(App.getContext(), getMessage(), Toast.LENGTH_LONG).show();
         }
     }
 
     public class MaxLevelReachedException extends Exception {
         public MaxLevelReachedException() {
-            super("Maximum level bereikt: " + MAX_LEVEL);
+            super(App.getResourceString(R.string.max_level_reached_exception) + MAX_LEVEL);
             Toast.makeText(App.getContext(), getMessage(), Toast.LENGTH_LONG).show();
         }
     }

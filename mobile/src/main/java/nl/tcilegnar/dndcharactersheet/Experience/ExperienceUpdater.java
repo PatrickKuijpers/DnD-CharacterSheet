@@ -9,6 +9,7 @@ import nl.tcilegnar.dndcharactersheet.App;
 import nl.tcilegnar.dndcharactersheet.Experience.Settings.ExperienceSettings;
 import nl.tcilegnar.dndcharactersheet.Level.Level.MaxLevelReachedException;
 import nl.tcilegnar.dndcharactersheet.Level.Level.MinLevelReachedException;
+import nl.tcilegnar.dndcharactersheet.R;
 import nl.tcilegnar.dndcharactersheet.Utils.Log;
 
 public class ExperienceUpdater {
@@ -40,7 +41,7 @@ public class ExperienceUpdater {
             int currentExp = experience.getCurrentExp();
             String message = "Nieuwe exp-waarde is te laag: " + currentExp + " + " + expUpdateValue + " = " + newExp;
             Log.w(getClass().getSimpleName(), message);
-            throw new ExpTooLowException("Level down is not allowed");
+            throw new ExpTooLowException();
         }
     }
 
@@ -101,8 +102,8 @@ public class ExperienceUpdater {
     }
 
     public class ExpTooLowException extends Exception {
-        public ExpTooLowException(String message) {
-            super(message);
+        public ExpTooLowException() {
+            super(App.getResourceString(R.string.exp_too_low_exception));
             Toast.makeText(App.getContext(), getMessage(), Toast.LENGTH_LONG).show();
         }
     }

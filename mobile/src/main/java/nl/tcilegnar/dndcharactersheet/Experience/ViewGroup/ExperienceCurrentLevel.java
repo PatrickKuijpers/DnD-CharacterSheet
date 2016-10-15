@@ -46,8 +46,8 @@ public class ExperienceCurrentLevel extends LinearLayout implements ExperienceUp
     }
 
     private void updateProgressText() {
-        String expLabelText = App.getAppResources().getString(R.string.experience_label);
-        String expText = expLabelText + " " + getCurrentExp();
+        String expLabelText = App.getResourceString(R.string.experience_label);
+        String expText = expLabelText + getCurrentExp();
         ((TextView) findViewById(R.id.experience_text)).setText(expText);
     }
 

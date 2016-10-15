@@ -3,7 +3,13 @@ package nl.tcilegnar.dndcharactersheet;
 import android.app.Application;
 import android.content.Context;
 import android.content.res.Resources;
+import android.support.annotation.BoolRes;
+import android.support.annotation.ColorInt;
+import android.support.annotation.ColorRes;
+import android.support.annotation.IntegerRes;
+import android.support.annotation.StringRes;
 import android.support.multidex.MultiDex;
+import android.support.v4.content.ContextCompat;
 
 public class App extends Application {
     private static Context context;
@@ -18,8 +24,26 @@ public class App extends Application {
         return context;
     }
 
-    public static Resources getAppResources() {
+    protected static Resources getAppResources() {
         return context.getResources();
+    }
+
+    public static String getResourceString(@StringRes int resId) {
+        return getAppResources().getString(resId);
+    }
+
+    public static Integer getResourceInteger(@IntegerRes int resId) {
+        return getAppResources().getInteger(resId);
+    }
+
+    public static boolean getResourceBoolean(@BoolRes int resId) {
+        return getAppResources().getBoolean(resId);
+    }
+
+    public static
+    @ColorInt
+    int getResourceColor(@ColorRes int resId) {
+        return ContextCompat.getColor(context, resId);
     }
 
     /** stackoverflow.com/questions/37998266/android-studio-many-error-could-not-find-class-android-xxx#38666791 */

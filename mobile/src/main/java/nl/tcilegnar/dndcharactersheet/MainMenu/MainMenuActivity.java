@@ -11,6 +11,7 @@ import android.support.v4.app.FragmentTransaction;
 
 import nl.tcilegnar.dndcharactersheet.Base.BaseActivity;
 import nl.tcilegnar.dndcharactersheet.Experience.ExperienceActivity;
+import nl.tcilegnar.dndcharactersheet.Health.HpActivity;
 import nl.tcilegnar.dndcharactersheet.Money.MoneyActivity;
 import nl.tcilegnar.dndcharactersheet.R;
 import nl.tcilegnar.dndcharactersheet.Settings.Main.MainSettingsActivity;
@@ -84,6 +85,11 @@ public class MainMenuActivity extends BaseActivity {
     public void startLevelAndExperience() {
         Intent experienceActivity = new Intent(this, ExperienceActivity.class);
         startActivity(experienceActivity);
+    }
+
+    public void startHp() {
+        Intent hpActivity = new Intent(this, HpActivity.class);
+        startActivity(hpActivity);
     }
 
     public void startMoney() {

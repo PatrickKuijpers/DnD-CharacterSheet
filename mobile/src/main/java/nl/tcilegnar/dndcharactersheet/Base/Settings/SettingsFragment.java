@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.PreferenceFragment;
+import android.support.annotation.StringRes;
 
 import nl.tcilegnar.dndcharactersheet.R;
 import nl.tcilegnar.dndcharactersheet.Settings.Settings;
@@ -57,5 +58,9 @@ public abstract class SettingsFragment extends PreferenceFragment implements OnP
     }
 
     protected void updateDependencies(Preference preference, Object newValue) {
+    }
+
+    protected Preference findPreference(@StringRes int keyRes) {
+        return super.findPreference(getString(keyRes));
     }
 }

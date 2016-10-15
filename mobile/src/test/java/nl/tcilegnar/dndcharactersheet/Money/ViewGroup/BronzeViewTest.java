@@ -33,7 +33,6 @@ public class BronzeViewTest {
 
         // Assert
         assertNotNull(bronzeView.storage);
-        Asserts.hasCorrectEditors(bronzeView);
     }
 
     @Test
@@ -45,7 +44,7 @@ public class BronzeViewTest {
         int resourceId = bronzeView.getLayoutResource();
 
         // Assert
-        assertEquals(R.layout.money_bronze_view, resourceId);
+        assertEquals(R.layout.money_bronze_indicator, resourceId);
     }
 
     @Test

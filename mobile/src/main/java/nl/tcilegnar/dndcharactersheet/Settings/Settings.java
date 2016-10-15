@@ -2,13 +2,15 @@ package nl.tcilegnar.dndcharactersheet.Settings;
 
 import android.preference.Preference;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
-import nl.tcilegnar.dndcharactersheet.Base.BaseStorageFragment;
+import nl.tcilegnar.dndcharactersheet.Base.BaseFragment;
 import nl.tcilegnar.dndcharactersheet.Storage.SharedPrefs;
 
 public abstract class Settings extends SharedPrefs {
-    private BaseStorageFragment settingsChangedListener;
+    private List<BaseFragment> settingsChangedListeners = new ArrayList<>();
 
     @Override
     protected abstract String fileName();
@@ -36,12 +38,16 @@ public abstract class Settings extends SharedPrefs {
     }
 
     private void notifyListeners() {
-        if (settingsChangedListener != null) {
+        for (BaseFragment settingsChangedListener : settingsChangedListeners) {
             settingsChangedListener.onSettingsChanged();
         }
     }
 
-    public void setSettingsChangedListener(BaseStorageFragment settingsChangedListener) {
-        this.settingsChangedListener = settingsChangedListener;
+    public void addSettingsChangedListener(BaseFragment settingsChangedListener) {
+        this.settingsChangedListeners.add(settingsChangedListener);
+    }
+
+    public void removeSettingsChangedListener(BaseFragment settingsChangedListener) {
+        this.settingsChangedListeners.remove(settingsChangedListener);
     }
 }

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="exp_too_low_exception">Level down is not allowed</string>
+    <string name="min_level_reached_exception">Minimum level bereikt:&#160;</string>
+    <string name="max_level_reached_exception">Maximum level bereikt:&#160;</string>
+    <string name="total_hp_too_low_exception">The minimum allowed total HP value is&#160;</string>
+
+    <string name="current_hp_too_high_exception">The current HP value cannot exceed the total HP</string>
+    <string name="temp_hp_too_low_exception">The minimum allowed temporary HP value is&#160;</string>
+
+    <string name="max_money_reached_exception">The value was not added because the maximum money value is reached: %1$s Platinum... In a newer version of the app this maximum will be increased!</string>
+    <string name="not_enough_money_exception">You don\'t own enough money to pay this amount.</string>
+</resources>

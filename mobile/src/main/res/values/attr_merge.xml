@@ -13,4 +13,8 @@
     <declare-styleable name="ExperienceEditor">
         <attr name="expEditorStyle" format="reference"/>
     </declare-styleable>
+    <!-- Hp -->
+    <declare-styleable name="HpIndicator">
+        <attr name="hpIndicatorStyle" format="reference"/>
+    </declare-styleable>
 </resources>

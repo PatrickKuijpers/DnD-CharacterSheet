@@ -57,6 +57,31 @@ public class MoneySettingsTest {
     }
 
     @Test
+    public void isMoneyUpdateManual_NotSaved_GetDefault() {
+        // Arrange
+
+        // Act
+        boolean isMoneyUpdateManual = settings.isMoneyUpdateManual();
+
+        // Assert
+        boolean defaultValue = false;
+        assertEquals(defaultValue, isMoneyUpdateManual);
+    }
+
+    @Test
+    public void isMoneyUpdateManual_SavedTrueForIsMoneyUpdateManual_GetDefault() {
+        // Arrange
+        boolean expectedValue = true;
+        savePreference(R.string.setting_key_money_update_manual, expectedValue);
+
+        // Act
+        boolean isMoneyUpdateManual = settings.isMoneyUpdateManual();
+
+        // Assert
+        assertEquals(expectedValue, isMoneyUpdateManual);
+    }
+
+    @Test
     public void isMoneyUpdateTypeInput_NotSaved_GetDefault() {
         // Arrange
 

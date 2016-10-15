@@ -19,7 +19,7 @@ public class PlatinumView extends MoneyView {
 
     @Override
     protected int getLayoutResource() {
-        return R.layout.money_platinum_view;
+        return R.layout.money_platinum_indicator;
     }
 
     @Override

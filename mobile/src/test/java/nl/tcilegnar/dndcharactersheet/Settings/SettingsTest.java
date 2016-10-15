@@ -42,7 +42,7 @@ public class SettingsTest {
     public void savePreferenceValue_RandomValue_SettingsChangedListenerCalled() {
         // Arrange
         BaseStorageFragment settingsChangedListener = mock(BaseStorageFragment.class);
-        settings.setSettingsChangedListener(settingsChangedListener);
+        settings.addSettingsChangedListener(settingsChangedListener);
 
         // Act
         Preference preference = mock(Preference.class);
@@ -129,7 +129,7 @@ public class SettingsTest {
     }
 
     @Test
-    public void testSavePreferenceValue_StringSet_ValueSaved() {
+    public void savePreferenceValue_StringSet_ValueSaved() {
         // Arrange
         String key = "testKey";
         Preference preference = getPreference(key);

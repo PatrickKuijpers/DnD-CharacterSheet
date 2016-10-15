@@ -134,4 +134,43 @@ public class StorageTest {
         // Assert
         assertEquals(expectedBronze, bronze);
     }
+
+    @Test
+    public void saveAndLoadTotalHp() {
+        // Arrange
+        int expectedTotalHp = 12;
+
+        // Act
+        storage.saveTotalHp(expectedTotalHp);
+        int totalHp = storage.loadTotalHp();
+
+        // Assert
+        assertEquals(expectedTotalHp, totalHp);
+    }
+
+    @Test
+    public void saveAndLoadCurrentHp() {
+        // Arrange
+        int expectedCurrentHp = 4;
+
+        // Act
+        storage.saveCurrentHp(expectedCurrentHp);
+        int currentHp = storage.loadCurrentHp();
+
+        // Assert
+        assertEquals(expectedCurrentHp, currentHp);
+    }
+
+    @Test
+    public void saveAndLoadTempHp() {
+        // Arrange
+        int expectedTempHp = 4;
+
+        // Act
+        storage.saveTempHp(expectedTempHp);
+        int tempHp = storage.loadTempHp();
+
+        // Assert
+        assertEquals(expectedTempHp, tempHp);
+    }
 }

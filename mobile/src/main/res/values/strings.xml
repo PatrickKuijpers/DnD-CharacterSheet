@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="version_unknown">Versie onbekend</string>
+
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <string name="action_settings">Settings</string>
 
-    <string name="experience_label">Exp:</string>
-
-    <string name="level_change_info_up">Je zult pas level up gaan zodra je op het icoontje klikt.</string>
-    <string name="level_change_info_down">Je zult pas level down gaan zodra je op het icoontje klikt.</string>
-    <string name="level_change_info_unknown">Je level zal pas veranderen zodra je op het icoontje klikt.</string>
+    <string name="experience_label">Exp:&#160;</string>
+    <string name="total_hp_label">Total HP:&#160;</string>
 
     <string name="coming_soon">Coming soon!</string>
+
+    <string name="ok">OK</string>
 </resources>

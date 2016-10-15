@@ -19,7 +19,7 @@ public class SilverView extends MoneyView {
 
     @Override
     protected int getLayoutResource() {
-        return R.layout.money_silver_view;
+        return R.layout.money_silver_indicator;
     }
 
     @Override
