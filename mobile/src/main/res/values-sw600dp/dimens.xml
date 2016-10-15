@@ -9,4 +9,6 @@
 
     <dimen name="money_numberpicker_height">200dp</dimen>
 
+    <dimen name="money_views_horizontal_margin">@dimen/horizontal_margin_big</dimen>
+
 </resources>
