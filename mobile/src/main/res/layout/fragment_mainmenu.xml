@@ -12,37 +12,8 @@
         android:scaleType="centerInside"
         android:src="@drawable/beta"/>
 
-    <LinearLayout
-        android:id="@+id/main_menu_buttons_container"
-        style="@style/container_button_main_menu"
-        android:layout_alignParentTop="true"
-        android:orientation="vertical">
-
-        <Button
-            android:id="@+id/main_menu_button_basic_character_info"
-            style="@style/button_main_menu_coming_soon"
-            android:text="@string/title_basic_character_info"/>
-
-        <Button
-            android:id="@+id/main_menu_button_level_and_experience"
-            style="@style/button_main_menu"
-            android:text="@string/title_level_and_experience"/>
-
-        <Button
-            android:id="@+id/main_menu_button_abilities"
-            style="@style/button_main_menu_coming_soon"
-            android:text="@string/title_abilities"/>
-
-        <Button
-            android:id="@+id/main_menu_button_hp"
-            style="@style/button_main_menu"
-            android:text="@string/title_hp"/>
-
-        <Button
-            android:id="@+id/main_menu_button_money"
-            style="@style/button_main_menu"
-            android:text="@string/title_money"/>
-    </LinearLayout>
+    <include layout="@layout/mainmenu_buttons"
+        android:layout_alignParentTop="true"/>
 
     <TextView
         android:id="@+id/version_nr"

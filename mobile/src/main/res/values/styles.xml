@@ -51,6 +51,7 @@
         <item name="android:paddingBottom">@dimen/vertical_margin_big</item>
         <item name="android:paddingLeft">@dimen/horizontal_margin_big</item>
         <item name="android:paddingRight">@dimen/horizontal_margin_big</item>
+        <item name="android:orientation">vertical</item>
         <item name="android:weightSum">5</item>
     </style>
 
