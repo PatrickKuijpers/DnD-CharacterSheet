@@ -1,20 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="fragment_main_menu">
+    <style name="fragment_full_screen_base">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">match_parent</item>
     </style>
 
-    <style name="fragment_full_screen">
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">match_parent</item>
+    <style name="fragment_full_screen_paddings" parent="fragment_full_screen_base">
         <item name="android:paddingTop">@dimen/vertical_margin</item>
         <item name="android:paddingBottom">@dimen/vertical_margin</item>
         <item name="android:paddingLeft">@dimen/horizontal_margin</item>
         <item name="android:paddingRight">@dimen/horizontal_margin</item>
     </style>
 
-    <style name="fragment_money" parent="fragment_full_screen">
+    <style name="fragment_main_menu" parent="fragment_full_screen_base">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+    </style>
+
+    <style name="fragment_money" parent="fragment_full_screen_paddings">
         <item name="android:orientation">horizontal</item>
     </style>
 

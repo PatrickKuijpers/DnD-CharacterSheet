@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="fragment_full_screen_paddings" parent="fragment_full_screen_base">
+        <item name="android:paddingTop">@dimen/vertical_margin</item>
+        <item name="android:paddingBottom">@dimen/vertical_margin</item>
+        <item name="android:paddingLeft">@dimen/horizontal_margin_big</item>
+        <item name="android:paddingRight">@dimen/horizontal_margin_big</item>
+    </style>
+
+</resources>
