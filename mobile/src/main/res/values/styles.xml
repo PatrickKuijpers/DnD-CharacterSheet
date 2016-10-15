@@ -51,11 +51,13 @@
         <item name="android:paddingBottom">@dimen/vertical_margin_big</item>
         <item name="android:paddingLeft">@dimen/horizontal_margin_big</item>
         <item name="android:paddingRight">@dimen/horizontal_margin_big</item>
+        <item name="android:weightSum">5</item>
     </style>
 
     <style name="button_main_menu">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">@integer/button_main_menu_height_weight</item>
         <item name="android:layout_marginLeft">@dimen/vertical_margin</item>
         <item name="android:layout_marginRight">@dimen/vertical_margin</item>
         <item name="android:layout_marginTop">@dimen/horizontal_margin</item>
