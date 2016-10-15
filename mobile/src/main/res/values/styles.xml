@@ -132,8 +132,8 @@
     <style name="base_numberpicker">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:scaleX">0.7</item>
-        <item name="android:scaleY">0.7</item>
+        <item name="android:scaleX">@integer/base_numberpicker_scale</item>
+        <item name="android:scaleY">@integer/base_numberpicker_scale</item>
         <item name="android:descendantFocusability">blocksDescendants</item>
     </style>
 
@@ -146,15 +146,21 @@
         <item name="android:layout_gravity">center</item>
     </style>
 
+    <style name="money_numberslider" parent="base_money_numberpicker"/>
+
     <style name="money_numberpicker" parent="base_money_numberpicker">
         <item name="android:theme">@style/customize_numberpicker</item>
+        <item name="android:gravity">center</item>
     </style>
 
     <style name="customize_numberpicker" parent="@android:style/Theme.Dialog">
         <item name="android:textColorPrimary">@android:color/black</item>
     </style>
 
-    <style name="money_numberslider" parent="base_money_numberpicker">
-        <item name="android:layout_height">130dp</item>
+    <style name="change_money_image_button">
+        <item name="android:layout_width">@dimen/money_change_image_size</item>
+        <item name="android:layout_height">@dimen/money_change_image_size</item>
+        <item name="android:background">@color/transparent</item>
+        <item name="android:scaleType">fitCenter</item>
     </style>
 </resources>
