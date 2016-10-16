@@ -4,17 +4,11 @@ import android.os.Bundle;
 import android.preference.PreferenceActivity;
 
 import nl.tcilegnar.dndcharactersheet.Base.BaseStorageActivity;
-import nl.tcilegnar.dndcharactersheet.Money.MoneyEditorFragment.ConfirmChangeMoneyListener;
+import nl.tcilegnar.dndcharactersheet.Money.MoneyEditorFragment.MoneyChangedListener;
 import nl.tcilegnar.dndcharactersheet.Money.MoneyFragment.ChangeMoneyListener;
 import nl.tcilegnar.dndcharactersheet.Money.Settings.MoneySettingsActivity;
 
-public class MoneyActivity extends BaseStorageActivity implements ChangeMoneyListener, ConfirmChangeMoneyListener {
-    private MoneyChangeMode moneyChangeMode = MoneyChangeMode.NO_CHANGE;
-
-    public enum MoneyChangeMode {
-        NO_CHANGE, ADD, SUBSTRACT
-    }
-
+public class MoneyActivity extends BaseStorageActivity implements ChangeMoneyListener, MoneyChangedListener {
     @Override
     protected Class<? extends PreferenceActivity> getSettingsActivityClass() {
         return MoneySettingsActivity.class;
@@ -53,55 +47,30 @@ public class MoneyActivity extends BaseStorageActivity implements ChangeMoneyLis
     }
 
     @Override
-    public void onAddMoneyClicked() {
-        moneyChangeMode = MoneyChangeMode.ADD;
-        startMoneyEditor();
+    public void onChangeMoney(MoneyValues currentMoneyValues) {
+        startMoneyEditor(currentMoneyValues);
     }
 
-    @Override
-    public void onSubstractMoneyClicked() {
-        moneyChangeMode = MoneyChangeMode.SUBSTRACT;
-        startMoneyEditor();
-    }
-
-    private void startMoneyEditor() {
+    private void startMoneyEditor(MoneyValues currentMoneyValues) {
         MoneyEditorFragment moneyEditorFragment = getMoneyEditorFragment();
+        moneyEditorFragment.setCurrentMoneyValues(currentMoneyValues);
         fragmentManager.replaceFragment(moneyEditorFragment, FragTag.MONEY_EDITOR.name());
     }
 
     @Override
-    public void onConfirmChangeMoney(MoneyValues changeMoneyValues) {
-        changeMoney(changeMoneyValues);
-        onBackPressed();
-    }
-
-    private void changeMoney(MoneyValues changeMoneyValues) {
+    public void onMoneyChanged(MoneyValues newMoneyValues) {
         MoneyFragment moneyFragment = getMoneyFragment();
-        MoneyValues currentMoneyValues = moneyFragment.getMoneyValues();
-
-        // TODO: tijdelijke snelle oplossing, kan mooier!
-        if (moneyChangeMode == MoneyChangeMode.SUBSTRACT) {
-            changeMoneyValues = convertAllMoneyValuesToMinus(changeMoneyValues);
-        }
-
-        try {
-            MoneyCalculator calculator = new MoneyCalculator(currentMoneyValues);
-            MoneyValues newMoneyValues = calculator.calculateNewMoneyValues(changeMoneyValues);
-
-            moneyFragment.changeMoney(newMoneyValues);
-        } catch (MoneyCalculator.MaxMoneyReachedException | MoneyCalculator.NotEnoughMoneyException e) {
-            //TODO
-        }
-
-        // Reset
-        moneyChangeMode = MoneyChangeMode.NO_CHANGE;
+        moneyFragment.changeMoney(newMoneyValues); // TODO: mogelijke bug?
+        stopMoneyEditorAndGoBackToMoneyFragment();
     }
 
-    private MoneyValues convertAllMoneyValuesToMinus(MoneyValues newMoneyValues) {
-        int platinumValue = -newMoneyValues.getPlatinumValue();
-        int goldValue = -newMoneyValues.getGoldValue();
-        int silverValue = -newMoneyValues.getSilverValue();
-        int bronzeValue = -newMoneyValues.getBronzeValue();
-        return new MoneyValues(platinumValue, goldValue, silverValue, bronzeValue);
+    @Override
+    public void onMoneyNotChanged() {
+        // TODO (exceptions verwerken) ?
+        stopMoneyEditorAndGoBackToMoneyFragment();
+    }
+
+    private void stopMoneyEditorAndGoBackToMoneyFragment() {
+        onBackPressed();
     }
 }

@@ -21,13 +21,18 @@ public class MoneyEditorFragment extends BaseFragment implements OnClickListener
     private GoldEditor goldEditor;
     private SilverEditor silverEditor;
     private BronzeEditor bronzeEditor;
-    private ConfirmChangeMoneyListener confirmChangeMoneyListener;
+    private MoneyChangedListener moneyChangedListener;
+    private MoneyValues currentMoneyValues;
+
+    private enum MoneyChangeMode {
+        ADD, SUBSTRACT
+    }
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof ConfirmChangeMoneyListener) {
-            confirmChangeMoneyListener = (ConfirmChangeMoneyListener) context;
+        if (context instanceof MoneyChangedListener) {
+            moneyChangedListener = (MoneyChangedListener) context;
         }
     }
 
@@ -51,7 +56,8 @@ public class MoneyEditorFragment extends BaseFragment implements OnClickListener
     }
 
     private void initClickListeners(View view) {
-        view.findViewById(R.id.change_money_ok_button).setOnClickListener(this);
+        view.findViewById(R.id.change_money_plus_button).setOnClickListener(this);
+        view.findViewById(R.id.change_money_min_button).setOnClickListener(this);
     }
 
     @Override
@@ -70,15 +76,52 @@ public class MoneyEditorFragment extends BaseFragment implements OnClickListener
     @Override
     public void onClick(View view) {
         KeyboardUtil.hideKeyboard(getActivity());
+
+        int viewId = view.getId();
+        if (viewId == R.id.change_money_plus_button) {
+            changeMoney(MoneyChangeMode.ADD);
+        } else if (viewId == R.id.change_money_min_button) {
+            changeMoney(MoneyChangeMode.SUBSTRACT);
+        }
+    }
+
+    private void changeMoney(MoneyChangeMode mode) {
+        MoneyValues moneyChangeValues = getMoneyChangeValues(mode);
+        try {
+            MoneyCalculator calculator = new MoneyCalculator(currentMoneyValues);
+            MoneyValues newMoneyValues = calculator.calculateNewMoneyValues(moneyChangeValues);
+
+            moneyChangedListener.onMoneyChanged(newMoneyValues);
+        } catch (MoneyCalculator.MaxMoneyReachedException | MoneyCalculator.NotEnoughMoneyException e) {
+            moneyChangedListener.onMoneyNotChanged();
+        }
+    }
+
+    private MoneyValues getMoneyChangeValues(MoneyChangeMode mode) {
+        MoneyValues moneyChangeValues = null;
+
         int platinumValue = platinumEditor.getMoneyValue();
         int goldValue = goldEditor.getMoneyValue();
         int silverValue = silverEditor.getMoneyValue();
         int bronzeValue = bronzeEditor.getMoneyValue();
-        MoneyValues changeMoneyValues = new MoneyValues(platinumValue, goldValue, silverValue, bronzeValue);
-        confirmChangeMoneyListener.onConfirmChangeMoney(changeMoneyValues);
+        switch (mode) {
+            case ADD:
+                moneyChangeValues = new MoneyValues(platinumValue, goldValue, silverValue, bronzeValue);
+                break;
+            case SUBSTRACT:
+                moneyChangeValues = new MoneyValues(-platinumValue, -goldValue, -silverValue, -bronzeValue);
+                break;
+        }
+        return moneyChangeValues;
     }
 
-    public interface ConfirmChangeMoneyListener {
-        void onConfirmChangeMoney(MoneyValues changeMoneyValues);
+    public void setCurrentMoneyValues(MoneyValues currentMoneyValues) {
+        this.currentMoneyValues = currentMoneyValues;
+    }
+
+    public interface MoneyChangedListener {
+        void onMoneyChanged(MoneyValues newMoneyValues);
+
+        void onMoneyNotChanged();
     }
 }
