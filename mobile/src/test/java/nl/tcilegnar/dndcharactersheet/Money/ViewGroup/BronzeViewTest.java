@@ -9,6 +9,7 @@ import android.content.Context;
 
 import nl.tcilegnar.dndcharactersheet.App;
 import nl.tcilegnar.dndcharactersheet.BuildConfig;
+import nl.tcilegnar.dndcharactersheet.Money.MoneyValues;
 import nl.tcilegnar.dndcharactersheet.R;
 import nl.tcilegnar.dndcharactersheet.Storage.Storage;
 
@@ -71,6 +72,19 @@ public class BronzeViewTest {
 
         // Assert
         verify(storageMock).saveBronze(expectedSavedValue);
+    }
+
+    @Test
+    public void getMoneyValue() {
+        // Arrange
+        initBronzeView();
+        MoneyValues moneyValues = new MoneyValues(1, 2, 3, 4);
+
+        // Act
+        int moneyValue = bronzeView.getMoneyValue(moneyValues);
+
+        // Assert
+        assertEquals(4, moneyValue);
     }
 
     private void initBronzeView() {
