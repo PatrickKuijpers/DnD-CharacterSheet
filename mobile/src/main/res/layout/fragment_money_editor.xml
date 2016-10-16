@@ -34,25 +34,18 @@
             android:gravity="center"
             android:orientation="vertical">
 
-            <Button
-                android:id="@+id/change_money_ok_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/ok"/>
-
             <ImageButton
                 android:id="@+id/change_money_plus_button"
                 style="@style/change_money_image_button"
                 android:contentDescription="@string/image_description_money_plus"
-                android:src="@drawable/ic_money_plus"
-                android:visibility="gone"/>
+                android:src="@drawable/ic_money_plus"/>
 
             <ImageButton
                 android:id="@+id/change_money_min_button"
                 style="@style/change_money_image_button"
+                android:layout_marginTop="@dimen/vertical_margin_big"
                 android:contentDescription="@string/image_description_money_min"
-                android:src="@drawable/ic_money_min"
-                android:visibility="gone"/>
+                android:src="@drawable/ic_money_min"/>
         </LinearLayout>
     </LinearLayout>
 </ScrollView>
