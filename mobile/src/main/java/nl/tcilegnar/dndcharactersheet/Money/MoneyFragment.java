@@ -115,11 +115,10 @@ public class MoneyFragment extends BaseStorageFragment implements OnClickListene
     }
 
     public void changeMoney(MoneyValues moneyValues) {
-        // TODO: kan abstracter?
-        platinumView.setMoneyValue(moneyValues.getPlatinumValue());
-        goldView.setMoneyValue(moneyValues.getGoldValue());
-        silverView.setMoneyValue(moneyValues.getSilverValue());
-        bronzeView.setMoneyValue(moneyValues.getBronzeValue());
+        platinumView.setMoneyValue(moneyValues);
+        goldView.setMoneyValue(moneyValues);
+        silverView.setMoneyValue(moneyValues);
+        bronzeView.setMoneyValue(moneyValues);
     }
 
     public MoneyValues getMoneyValues() {
