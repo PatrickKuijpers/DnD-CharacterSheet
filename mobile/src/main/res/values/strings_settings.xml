@@ -33,7 +33,7 @@
     <string name="setting_summary_money_update_type">Invoer type van money wijzigingen</string>
 
     <string name="setting_defaultvalue_show_hints">true</string>
-    <string name="setting_defaultvalue_experience_update_type">@string/setting_entry_experience_update_type_numberpicker</string>
+    <string name="setting_defaultvalue_experience_update_type">@string/setting_entry_experience_update_type_number_slider</string>
     <string name="setting_defaultvalue_experience_picker_steps">100</string>
     <string name="setting_defaultvalue_allow_level_down">false</string>
     <string name="setting_defaultvalue_money_update_manual">false</string>
@@ -51,11 +51,11 @@
 
     <string-array name="setting_entryvalues_experience_update_type">
         <item>@string/setting_entry_experience_update_type_input</item>
-        <item>@string/setting_entry_experience_update_type_numberpicker</item>
+        <item>@string/setting_entry_experience_update_type_number_slider</item>
     </string-array>
 
     <string name="setting_entry_experience_update_type_input">input</string>
-    <string name="setting_entry_experience_update_type_numberpicker">numberpicker</string>
+    <string name="setting_entry_experience_update_type_number_slider">numberslider</string>
 
     <string-array name="setting_entries_experience_picker_steps">
         <item>1</item>

@@ -9,6 +9,7 @@ import android.support.annotation.ColorRes;
 import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.NumberPicker;
 
 import java.lang.reflect.Field;
@@ -39,16 +40,6 @@ public abstract class BaseNumberPicker extends NumberPicker {
         }
     }
 
-    protected void showView() {
-        setVisibility(View.VISIBLE);
-    }
-
-    protected void hideView() {
-        setVisibility(View.GONE);
-    }
-
-    protected abstract boolean shouldBeVisible();
-
     protected void initView() {
         initPickerValues();
     }
@@ -67,6 +58,16 @@ public abstract class BaseNumberPicker extends NumberPicker {
             setDisplayedValues(displayedValues);
         }
     }
+
+    protected void showView() {
+        setVisibility(View.VISIBLE);
+    }
+
+    protected void hideView() {
+        setVisibility(View.GONE);
+    }
+
+    protected abstract boolean shouldBeVisible();
 
     protected abstract int minValue();
 
@@ -87,6 +88,34 @@ public abstract class BaseNumberPicker extends NumberPicker {
         }
         return experienceValues;
     }
+
+    @Override
+    public void addView(View child) {
+        super.addView(child);
+        updateView(child);
+    }
+
+    @Override
+    public void addView(View child, android.view.ViewGroup.LayoutParams params) {
+        super.addView(child, params);
+        updateView(child);
+    }
+
+    @Override
+    public void addView(View child, int index, android.view.ViewGroup.LayoutParams params) {
+        super.addView(child, index, params);
+        updateView(child);
+    }
+
+    private void updateView(View view) {
+        if (view instanceof EditText) {
+            EditText editText = (EditText) view;
+            editText.setTextSize(App.getResourceDimension(getTextsizeDimenRes()));
+            //editText.setTextColor(Color.parseColor("#333333"));
+        }
+    }
+
+    protected abstract int getTextsizeDimenRes();
 
     @Override
     public Parcelable onSaveInstanceState() {

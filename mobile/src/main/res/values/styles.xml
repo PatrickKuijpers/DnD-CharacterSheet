@@ -1,20 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="fragment_main_menu">
+    <style name="fragment_full_screen_base">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">match_parent</item>
     </style>
 
-    <style name="fragment_full_screen">
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">match_parent</item>
+    <style name="fragment_full_screen_paddings" parent="fragment_full_screen_base">
         <item name="android:paddingTop">@dimen/vertical_margin</item>
         <item name="android:paddingBottom">@dimen/vertical_margin</item>
         <item name="android:paddingLeft">@dimen/horizontal_margin</item>
         <item name="android:paddingRight">@dimen/horizontal_margin</item>
     </style>
 
-    <style name="fragment_money" parent="fragment_full_screen">
+    <style name="fragment_main_menu" parent="fragment_full_screen_base">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+    </style>
+
+    <style name="fragment_money" parent="fragment_full_screen_paddings">
         <item name="android:orientation">horizontal</item>
     </style>
 
@@ -51,15 +55,20 @@
         <item name="android:paddingBottom">@dimen/vertical_margin_big</item>
         <item name="android:paddingLeft">@dimen/horizontal_margin_big</item>
         <item name="android:paddingRight">@dimen/horizontal_margin_big</item>
+        <item name="android:orientation">vertical</item>
+        <item name="android:weightSum">5</item>
+        <item name="android:gravity">center</item>
     </style>
 
     <style name="button_main_menu">
-        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">@integer/button_main_menu_height_weight</item>
         <item name="android:layout_marginLeft">@dimen/vertical_margin</item>
         <item name="android:layout_marginRight">@dimen/vertical_margin</item>
         <item name="android:layout_marginTop">@dimen/horizontal_margin</item>
         <item name="android:padding">0dp</item>
+        <item name="android:layout_gravity">center_horizontal</item>
         <item name="android:textColor">@color/white</item>
         <item name="android:textSize">@dimen/textsize_big</item>
         <item name="android:background">@drawable/button_main_menu</item>
@@ -90,8 +99,9 @@
     <style name="base_edittext_number">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:background">@color/grey_light</item>
+        <item name="android:background">@drawable/edittext_background_bottom_line</item>
         <item name="android:textColorHint">@drawable/edittext_hint_color_hide_on_focus</item>
+        <item name="android:textSize">@dimen/textsize_edittext</item>
         <item name="android:inputType">number</item>
         <item name="android:imeOptions">actionDone</item>
         <item name="android:paddingBottom">@dimen/edittext_padding_vertical</item>
@@ -125,30 +135,37 @@
     </style>
 
     <style name="base_numberpicker">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:scaleX">@integer/base_numberpicker_scale</item>
+        <item name="android:scaleY">@integer/base_numberpicker_scale</item>
         <item name="android:descendantFocusability">blocksDescendants</item>
     </style>
 
-    <style name="experience_numberpicker" parent="base_numberpicker"/>
+    <style name="experience_numberslider" parent="base_numberpicker">
+        <item name="android:layout_height">@dimen/experience_picker_height</item>
+    </style>
 
     <style name="base_money_numberpicker" parent="base_numberpicker">
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_height">@dimen/money_numberpicker_height</item>
         <item name="android:layout_gravity">center</item>
     </style>
 
+    <style name="money_numberslider" parent="base_money_numberpicker"/>
+
     <style name="money_numberpicker" parent="base_money_numberpicker">
         <item name="android:theme">@style/customize_numberpicker</item>
-        <item name="android:scaleX">0.7</item>
-        <item name="android:scaleY">0.7</item>
+        <item name="android:gravity">center</item>
     </style>
 
     <style name="customize_numberpicker" parent="@android:style/Theme.Dialog">
         <item name="android:textColorPrimary">@android:color/black</item>
     </style>
 
-    <style name="money_numberslider" parent="base_money_numberpicker">
-        <item name="android:layout_height">120dp</item>
-        <item name="android:scaleX">0.8</item>
-        <item name="android:scaleY">0.8</item>
+    <style name="change_money_image_button">
+        <item name="android:layout_width">@dimen/money_change_image_size</item>
+        <item name="android:layout_height">@dimen/money_change_image_size</item>
+        <item name="android:background">@color/transparent</item>
+        <item name="android:scaleType">fitCenter</item>
     </style>
 </resources>

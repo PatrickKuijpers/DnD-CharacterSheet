@@ -15,7 +15,7 @@ import nl.tcilegnar.dndcharactersheet.App;
 import nl.tcilegnar.dndcharactersheet.BuildConfig;
 import nl.tcilegnar.dndcharactersheet.Experience.Settings.ExperienceSettings;
 import nl.tcilegnar.dndcharactersheet.Experience.View.ExperienceInput;
-import nl.tcilegnar.dndcharactersheet.Experience.View.ExperiencePicker;
+import nl.tcilegnar.dndcharactersheet.Experience.View.ExperienceSlider;
 import nl.tcilegnar.dndcharactersheet.Experience.ViewGroup.ExperienceEditor.ExperienceUpdateListener;
 import nl.tcilegnar.dndcharactersheet.R;
 
@@ -35,7 +35,7 @@ public class ExperienceEditorTest {
     private ExperienceEditor experienceEditor;
     private ExperienceUpdateListener experienceUpdateListenerMock;
     private ExperienceInput expInput;
-    private ExperiencePicker expPicker;
+    private ExperienceSlider expPicker;
 
     @BeforeClass
     public static void beforeClass() {
@@ -93,9 +93,9 @@ public class ExperienceEditorTest {
     }
 
     @Test
-    public void onClick_PlusButtonUsingNumberPickerAndDefaultValue0_OnUpdateExperienceUsingDefaultExpPickerValue() {
+    public void onClick_PlusButtonUsingNumberSliderAndDefaultValue0_OnUpdateExperienceUsingDefaultExpPickerValue() {
         // Arrange
-        initNewExperienceEditor_WithNumberPicker();
+        initNewExperienceEditor_WithNumberSlider();
 
         // Act
         experienceEditor.onClick(plusButtonMock);
@@ -106,10 +106,10 @@ public class ExperienceEditorTest {
     }
 
     @Test
-    public void onClick_PlusButtonUsingNumberPickerAndValue300_OnUpdateExperienceUsingDefaultExpPickerValue() {
+    public void onClick_PlusButtonUsingNumberSliderAndValue300_OnUpdateExperienceUsingDefaultExpPickerValue() {
         // Arrange
         int pickerValueIndex = 3;
-        initNewExperienceEditor_WithNumberPickerAndSelectedIndex(pickerValueIndex);
+        initNewExperienceEditor_WithNumberSliderAndSelectedIndex(pickerValueIndex);
 
         // Act
         experienceEditor.onClick(plusButtonMock);
@@ -120,9 +120,9 @@ public class ExperienceEditorTest {
     }
 
     @Test
-    public void onClick_PlusButtonUsingNoInputAndNoNumberPicker_OnUpdateExperienceUsingDefaultValue0() {
+    public void onClick_PlusButtonUsingNoInputAndNoNumberSlider_OnUpdateExperienceUsingDefaultValue0() {
         // Arrange
-        initNewExperienceEditor_WithNoInputAndNoNumberPicker();
+        initNewExperienceEditor_WithNoInputAndNoNumberSlider();
 
         // Act
         experienceEditor.onClick(plusButtonMock);
@@ -158,9 +158,9 @@ public class ExperienceEditorTest {
     }
 
     @Test
-    public void onClick_MinButtonUsingNumberPickerAndDefaultValue0_OnUpdateExperienceUsingDefaultExpPickerValue() {
+    public void onClick_MinButtonUsingNumberSliderAndDefaultValue0_OnUpdateExperienceUsingDefaultExpPickerValue() {
         // Arrange
-        initNewExperienceEditor_WithNumberPicker();
+        initNewExperienceEditor_WithNumberSlider();
 
         // Act
         experienceEditor.onClick(minButtonMock);
@@ -171,10 +171,10 @@ public class ExperienceEditorTest {
     }
 
     @Test
-    public void onClick_MinButtonUsingNumberPickerAndValue300_OnUpdateExperienceUsingDefaultExpPickerValue() {
+    public void onClick_MinButtonUsingNumberSliderAndValue300_OnUpdateExperienceUsingDefaultExpPickerValue() {
         // Arrange
         int pickerValueIndex = 3;
-        initNewExperienceEditor_WithNumberPickerAndSelectedIndex(pickerValueIndex);
+        initNewExperienceEditor_WithNumberSliderAndSelectedIndex(pickerValueIndex);
 
         // Act
         experienceEditor.onClick(minButtonMock);
@@ -185,9 +185,9 @@ public class ExperienceEditorTest {
     }
 
     @Test
-    public void onClick_MinButtonUsingNoInputAndNoNumberPicker_OnUpdateExperienceUsingDefaultValue0() {
+    public void onClick_MinButtonUsingNoInputAndNoNumberSlider_OnUpdateExperienceUsingDefaultValue0() {
         // Arrange
-        initNewExperienceEditor_WithNoInputAndNoNumberPicker();
+        initNewExperienceEditor_WithNoInputAndNoNumberSlider();
 
         // Act
         experienceEditor.onClick(minButtonMock);
@@ -223,9 +223,9 @@ public class ExperienceEditorTest {
     }
 
     @Test
-    public void onEditorAction_EnterUsingNumberPickerAndDefaultValue0_OnUpdateExperienceUsingDefaultExpPickerValue() {
+    public void onEditorAction_EnterUsingNumberSliderAndDefaultValue0_OnUpdateExperienceUsingDefaultExpPickerValue() {
         // Arrange
-        initNewExperienceEditor_WithNumberPicker();
+        initNewExperienceEditor_WithNumberSlider();
 
         // Act
         experienceEditor.onEditorAction(expInput, EditorInfo.IME_ACTION_DONE, null);
@@ -236,10 +236,10 @@ public class ExperienceEditorTest {
     }
 
     @Test
-    public void onEditorAction_EnterUsingNumberPickerAndValue300_OnUpdateExperienceUsingDefaultExpPickerValue() {
+    public void onEditorAction_EnterUsingNumberSliderAndValue300_OnUpdateExperienceUsingDefaultExpPickerValue() {
         // Arrange
         int pickerValueIndex = 3;
-        initNewExperienceEditor_WithNumberPickerAndSelectedIndex(pickerValueIndex);
+        initNewExperienceEditor_WithNumberSliderAndSelectedIndex(pickerValueIndex);
 
         // Act
         experienceEditor.onEditorAction(expInput, EditorInfo.IME_ACTION_DONE, null);
@@ -250,9 +250,9 @@ public class ExperienceEditorTest {
     }
 
     @Test
-    public void onEditorAction_EnterUsingNoInputAndNoNumberPicker_OnUpdateExperienceUsingDefaultValue0() {
+    public void onEditorAction_EnterUsingNoInputAndNoNumberSlider_OnUpdateExperienceUsingDefaultValue0() {
         // Arrange
-        initNewExperienceEditor_WithNoInputAndNoNumberPicker();
+        initNewExperienceEditor_WithNoInputAndNoNumberSlider();
 
         // Act
         experienceEditor.onEditorAction(expInput, EditorInfo.IME_ACTION_DONE, null);
@@ -270,27 +270,27 @@ public class ExperienceEditorTest {
         expInput.setText(String.valueOf(inputValue));
     }
 
-    private void initNewExperienceEditor_WithNumberPicker() {
+    private void initNewExperienceEditor_WithNumberSlider() {
         initNewExperienceEditor(false, true);
     }
 
-    private void initNewExperienceEditor_WithNumberPickerAndSelectedIndex(int pickerValueIndex) {
-        initNewExperienceEditor_WithNumberPicker();
+    private void initNewExperienceEditor_WithNumberSliderAndSelectedIndex(int pickerValueIndex) {
+        initNewExperienceEditor_WithNumberSlider();
         expPicker.setValue(pickerValueIndex);
     }
 
-    private void initNewExperienceEditor_WithNoInputAndNoNumberPicker() {
+    private void initNewExperienceEditor_WithNoInputAndNoNumberSlider() {
         initNewExperienceEditor(false, false);
     }
 
     private void initNewExperienceEditor(boolean isExperienceUpdateTypeInput, boolean
-            isExperienceUpdateTypeNumberPicker) {
+            isExperienceUpdateTypeNumberSlider) {
         doReturn(isExperienceUpdateTypeInput).when(settingsMock).isExperienceUpdateTypeInput();
-        doReturn(isExperienceUpdateTypeNumberPicker).when(settingsMock).isExperienceUpdateTypeNumberPicker();
+        doReturn(isExperienceUpdateTypeNumberSlider).when(settingsMock).isExperienceUpdateTypeNumberSlider();
 
         experienceEditor = new ExperienceEditor(App.getContext(), null, settingsMock);
         expInput = (ExperienceInput) experienceEditor.findViewById(R.id.experience_input);
-        expPicker = (ExperiencePicker) experienceEditor.findViewById(R.id.experience_picker);
+        expPicker = (ExperienceSlider) experienceEditor.findViewById(R.id.experience_picker);
         setListeners(experienceEditor);
     }
 

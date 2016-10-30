@@ -29,28 +29,15 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginLeft="@dimen/horizontal_margin"
+            android:layout_marginLeft="@dimen/money_views_horizontal_margin"
             android:gravity="center"
             android:orientation="vertical">
 
             <ImageButton
-                android:id="@+id/change_money_plus_button"
-                android:layout_width="@dimen/money_change_image_size"
-                android:layout_height="@dimen/money_change_image_size"
-                android:background="@color/transparent"
-                android:contentDescription="@string/image_description_money_plus"
-                android:scaleType="fitCenter"
-                android:src="@drawable/ic_money_plus"/>
-
-            <ImageButton
-                android:id="@+id/change_money_min_button"
-                android:layout_width="@dimen/money_change_image_size"
-                android:layout_height="@dimen/money_change_image_size"
-                android:layout_marginTop="@dimen/vertical_margin_big"
-                android:background="@color/transparent"
-                android:contentDescription="@string/image_description_money_min"
-                android:scaleType="fitCenter"
-                android:src="@drawable/ic_money_min"/>
+                android:id="@+id/money_change_button"
+                style="@style/change_money_image_button"
+                android:contentDescription="@string/image_description_money_change"
+                android:src="@drawable/ic_edit"/>
         </LinearLayout>
     </LinearLayout>
 </ScrollView>

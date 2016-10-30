@@ -73,6 +73,20 @@ public class AppTest {
         assertEquals(expectedInteger, actualInteger);
     }
 
+    @Test
+    public void getResourceInteger_ShouldContainSameDimenAsGetDimensionFromApplicationResourcesDividedByDensity() {
+        // Arrange
+
+        // Act
+        int actualDimension = App.getResourceDimension(R.dimen.textsize_default);
+
+        // Assert
+        float density = getApplicationResources().getDisplayMetrics().density;
+        float dimension = getApplicationResources().getDimension(R.dimen.textsize_default);
+        int expectedDimension = (int) (dimension / density);
+        assertEquals(expectedDimension, actualDimension);
+    }
+
     //    @Test
     //    public void getResourceBoolean_ShouldContainSameBooleanAsGetBooleanFromApplicationResources() {
     //        // Arrange

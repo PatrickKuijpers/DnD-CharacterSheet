@@ -7,13 +7,12 @@
         android:layout_marginRight="@dimen/horizontal_margin"
         android:background="@color/red_transparent"
         android:text="-"
-        android:textColor="@color/white"/>
+        android:textColor="@color/white"
+        android:textSize="@dimen/experience_min_button_textsize"/>
 
-    <nl.tcilegnar.dndcharactersheet.Experience.View.ExperiencePicker
+    <nl.tcilegnar.dndcharactersheet.Experience.View.ExperienceSlider
         android:id="@+id/experience_picker"
-        style="@style/experience_numberpicker"
-        android:layout_width="wrap_content"
-        android:layout_height="@dimen/experience_picker_height"/>
+        style="@style/experience_numberslider"/>
 
     <nl.tcilegnar.dndcharactersheet.Experience.View.ExperienceInput
         android:id="@+id/experience_input"
@@ -27,5 +26,5 @@
         android:layout_marginLeft="@dimen/horizontal_margin"
         android:background="@color/green_transparent"
         android:text="+"
-        android:textSize="@dimen/experience_plus_button_text_size"/>
+        android:textSize="@dimen/experience_plus_button_textsize"/>
 </merge>

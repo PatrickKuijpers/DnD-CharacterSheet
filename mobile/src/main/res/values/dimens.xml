@@ -9,33 +9,36 @@
     <dimen name="horizontal_margin_big">32dp</dimen>
     <dimen name="vertical_margin_big">32dp</dimen>
 
-    <dimen name="experience_picker_height">72dp</dimen>
+    <dimen name="experience_picker_height">96dp</dimen>
 
     <dimen name="edittext_padding_vertical">4dp</dimen>
     <dimen name="edittext_padding_horizontal">8dp</dimen>
 
-    <dimen name="button_square_size">54dp</dimen>
     <dimen name="button_square_size_small">30dp</dimen>
+    <dimen name="button_square_size">54dp</dimen>
 
     <dimen name="icon_size_normal">64dp</dimen>
     <dimen name="icon_size_big">96dp</dimen>
 
     <dimen name="coin_size">@dimen/icon_size_big</dimen>
+    <dimen name="money_change_image_size">@dimen/icon_size_normal</dimen>
 
     <dimen name="money_view_not_first_margin_left">0dp</dimen>
     <!-- Zou @dimen/vertical_margin moeten zijn, maar vanwege numberpicker scaling probleem is een correctie toegepast-->
     <dimen name="money_view_not_first_margin_top">-10dp</dimen>
     <dimen name="money_editor_not_first_margin_left">@dimen/money_view_not_first_margin_left</dimen>
-    <!-- Zou @dimen/money_view_not_first_margin_top moeten zijn, maar vanwege numberpicker scaling probleem is een correctie toegepast-->
-    <dimen name="money_editor_not_first_margin_top">-10dp</dimen>
+    <dimen name="money_editor_not_first_margin_top">@dimen/money_view_not_first_margin_top</dimen>
     <dimen name="money_indicator_textview_margin_left">@dimen/horizontal_margin_big</dimen>
     <dimen name="money_indicator_textview_margin_top">0dp</dimen>
-    <dimen name="money_editors_margin_left">@dimen/horizontal_margin</dimen>
+    <dimen name="money_editors_margin_left">@dimen/money_views_horizontal_margin</dimen>
+
+    <dimen name="money_views_horizontal_margin">@dimen/horizontal_margin</dimen>
+
+    <dimen name="money_numberpicker_height">130dp</dimen>
 
     <dimen name="level_indicator_image_size">@dimen/icon_size_big</dimen>
     <dimen name="level_up_image_size">@dimen/icon_size_normal</dimen>
 
     <dimen name="hp_change_image_size">@dimen/icon_size_normal</dimen>
 
-    <dimen name="money_change_image_size">@dimen/icon_size_normal</dimen>
 </resources>

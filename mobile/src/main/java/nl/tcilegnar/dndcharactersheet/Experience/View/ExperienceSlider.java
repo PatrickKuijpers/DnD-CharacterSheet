@@ -6,30 +6,36 @@ import android.util.AttributeSet;
 
 import nl.tcilegnar.dndcharactersheet.Base.View.BaseNumberPicker;
 import nl.tcilegnar.dndcharactersheet.Experience.Settings.ExperienceSettings;
+import nl.tcilegnar.dndcharactersheet.R;
 
-public class ExperiencePicker extends BaseNumberPicker {
+public class ExperienceSlider extends BaseNumberPicker {
     private static final int MIN_VALUE = 0;
     private static final int MAX_VALUE = 1000;
     private static final int INITIAL_VALUE = 0;
 
-    public ExperiencePicker(Context context, AttributeSet attrs) {
+    public ExperienceSlider(Context context, AttributeSet attrs) {
         this(context, attrs, ExperienceSettings.getInstance());
     }
 
     @VisibleForTesting
-    protected ExperiencePicker(Context context, AttributeSet attrs, ExperienceSettings settings) {
+    protected ExperienceSlider(Context context, AttributeSet attrs, ExperienceSettings settings) {
         super(context, attrs, settings);
     }
 
     @Override
     protected boolean shouldBeVisible() {
-        return ((ExperienceSettings) settings).isExperienceUpdateTypeNumberPicker();
+        return ((ExperienceSettings) settings).isExperienceUpdateTypeNumberSlider();
     }
 
     @Override
     protected void initView() {
         super.initView();
         setDividerColorTransparent();
+    }
+
+    @Override
+    protected int getTextsizeDimenRes() {
+        return R.dimen.textsize_numberslider;
     }
 
     @Override

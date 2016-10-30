@@ -226,6 +226,11 @@ public class BaseNumberPickerTest {
         }
 
         @Override
+        protected int getTextsizeDimenRes() {
+            return R.dimen.textsize_numberpicker;
+        }
+
+        @Override
         protected int getPickerStepSize() {
             return stepSize;
         }

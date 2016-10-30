@@ -12,12 +12,12 @@ import android.widget.TextView;
 
 import nl.tcilegnar.dndcharactersheet.Experience.Settings.ExperienceSettings;
 import nl.tcilegnar.dndcharactersheet.Experience.View.ExperienceInput;
-import nl.tcilegnar.dndcharactersheet.Experience.View.ExperiencePicker;
+import nl.tcilegnar.dndcharactersheet.Experience.View.ExperienceSlider;
 import nl.tcilegnar.dndcharactersheet.R;
 
 public class ExperienceEditor extends LinearLayout implements OnClickListener, TextView.OnEditorActionListener {
     private final ExperienceSettings settings;
-    private ExperiencePicker expPicker;
+    private ExperienceSlider expPicker;
     private ExperienceInput expInput;
 
     private ExperienceUpdateListener experienceUpdateListener;
@@ -35,7 +35,7 @@ public class ExperienceEditor extends LinearLayout implements OnClickListener, T
     }
 
     private void init() {
-        expPicker = (ExperiencePicker) findViewById(R.id.experience_picker);
+        expPicker = (ExperienceSlider) findViewById(R.id.experience_picker);
         expInput = (ExperienceInput) findViewById(R.id.experience_input);
         expInput.setOnEditorActionListener(this);
 
@@ -67,7 +67,7 @@ public class ExperienceEditor extends LinearLayout implements OnClickListener, T
     private int getExpValue() {
         if (settings.isExperienceUpdateTypeInput()) {
             return expInput.getInputNumber();
-        } else if (settings.isExperienceUpdateTypeNumberPicker()) {
+        } else if (settings.isExperienceUpdateTypeNumberSlider()) {
             return expPicker.getCurrentSelectedNumber();
         } else {
             return 0;

@@ -157,6 +157,10 @@ public class SettingsTest {
         assertFalse(isSaved);
     }
 
+    // TODO (addSettingsChangedListener)
+
+    // TODO (removeSettingsChangedListener)
+
     private <T> void savePreference(@StringRes int keyId, T value) {
         String key = App.getContext().getString(keyId);
         settings.savePreferenceValue(getPreference(key), value);

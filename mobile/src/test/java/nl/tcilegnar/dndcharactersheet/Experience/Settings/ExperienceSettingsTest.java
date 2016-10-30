@@ -123,9 +123,9 @@ public class ExperienceSettingsTest {
     }
 
     @Test
-    public void isExperienceUpdateTypeInput_SavedNumberPicker_False() {
+    public void isExperienceUpdateTypeInput_SavedNumberSlider_False() {
         // Arrange
-        String savedUpdateType = App.getContext().getString(R.string.setting_entry_experience_update_type_numberpicker);
+        String savedUpdateType = App.getContext().getString(R.string.setting_entry_experience_update_type_number_slider);
         savePreference(R.string.setting_key_experience_update_type, savedUpdateType);
 
         // Act
@@ -151,43 +151,43 @@ public class ExperienceSettingsTest {
     }
 
     @Test
-    public void isExperienceUpdateTypeNumberPicker_NotSaved_GetDefault() {
+    public void isExperienceUpdateTypeNumberslider_NotSaved_GetDefault() {
         // Arrange
 
         // Act
-        boolean isExpUpdateTypeNumberPicker = settings.isExperienceUpdateTypeNumberPicker();
+        boolean isExpUpdateTypeNumberSlider = settings.isExperienceUpdateTypeNumberSlider();
 
         // Assert
         boolean defaultValue = true;
-        assertEquals(defaultValue, isExpUpdateTypeNumberPicker);
+        assertEquals(defaultValue, isExpUpdateTypeNumberSlider);
     }
 
     @Test
-    public void isExperienceUpdateTypeNumberPicker_SavedInput_False() {
+    public void isExperienceUpdateTypeNumberSliderSavedInput_False() {
         // Arrange
         String savedUpdateType = App.getContext().getString(R.string.setting_entry_experience_update_type_input);
         savePreference(R.string.setting_key_experience_update_type, savedUpdateType);
 
         // Act
-        boolean isExpUpdateTypeNumberPicker = settings.isExperienceUpdateTypeNumberPicker();
+        boolean isExpUpdateTypeNumberSlider = settings.isExperienceUpdateTypeNumberSlider();
 
         // Assert
         boolean expectedValue = false;
-        assertEquals(expectedValue, isExpUpdateTypeNumberPicker);
+        assertEquals(expectedValue, isExpUpdateTypeNumberSlider);
     }
 
     @Test
-    public void isExperienceUpdateTypeNumberPicker_SavedNumberPicker_True() {
+    public void isExperienceUpdateTypeNumberSlider_SavedNumberSlider_True() {
         // Arrange
-        String savedUpdateType = App.getContext().getString(R.string.setting_entry_experience_update_type_numberpicker);
+        String savedUpdateType = App.getContext().getString(R.string.setting_entry_experience_update_type_number_slider);
         savePreference(R.string.setting_key_experience_update_type, savedUpdateType);
 
         // Act
-        boolean isExpUpdateTypeNumberPicker = settings.isExperienceUpdateTypeNumberPicker();
+        boolean isExpUpdateTypeNumberSlider = settings.isExperienceUpdateTypeNumberSlider();
 
         // Assert
         boolean expectedValue = true;
-        assertEquals(expectedValue, isExpUpdateTypeNumberPicker);
+        assertEquals(expectedValue, isExpUpdateTypeNumberSlider);
     }
 
     private <T> void savePreference(@StringRes int keyId, T value) {

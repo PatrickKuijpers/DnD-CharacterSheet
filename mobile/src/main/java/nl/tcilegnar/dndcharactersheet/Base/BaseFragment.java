@@ -3,6 +3,7 @@ package nl.tcilegnar.dndcharactersheet.Base;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.ActionBar;
 
 import nl.tcilegnar.dndcharactersheet.Settings.Settings;
 
@@ -16,6 +17,22 @@ public abstract class BaseFragment extends Fragment {
         if (settings != null) {
             settings.addSettingsChangedListener(this);
         }
+
+        setDrawerIconAsBack();
+    }
+
+    private void setDrawerIconAsBack() {
+        if (shouldShowHomeAsUp()) {
+            ActionBar supportActionBar = ((BaseActivity) getActivity()).getSupportActionBar();
+            if (supportActionBar != null) {
+                supportActionBar.setHomeButtonEnabled(true);
+                supportActionBar.setDisplayHomeAsUpEnabled(true);
+            }
+        }
+    }
+
+    protected boolean shouldShowHomeAsUp() {
+        return false;
     }
 
     @Override

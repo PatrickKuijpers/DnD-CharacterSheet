@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="button_square_size_small">36dp</dimen>
+    <dimen name="button_square_size">60dp</dimen>
+
+    <dimen name="icon_size_normal">96dp</dimen>
+    <dimen name="icon_size_big">160dp</dimen>
+
+    <dimen name="money_numberpicker_height">200dp</dimen>
+
+    <dimen name="money_views_horizontal_margin">@dimen/horizontal_margin_big</dimen>
+
+</resources>
