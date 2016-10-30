@@ -1,14 +1,11 @@
 package nl.tcilegnar.dndcharactersheet.Money;
 
 import android.content.Context;
-import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-
-import java.util.Random;
 
 import nl.tcilegnar.dndcharactersheet.Base.BaseFragment;
 import nl.tcilegnar.dndcharactersheet.Money.Settings.MoneySettings;
@@ -18,6 +15,7 @@ import nl.tcilegnar.dndcharactersheet.Money.ViewGroup.PlatinumEditor;
 import nl.tcilegnar.dndcharactersheet.Money.ViewGroup.SilverEditor;
 import nl.tcilegnar.dndcharactersheet.R;
 import nl.tcilegnar.dndcharactersheet.Utils.KeyboardUtil;
+import nl.tcilegnar.dndcharactersheet.Utils.Sound;
 
 public class MoneyEditorFragment extends BaseFragment implements OnClickListener {
     private PlatinumEditor platinumEditor;
@@ -103,28 +101,18 @@ public class MoneyEditorFragment extends BaseFragment implements OnClickListener
 
     private void doMoneySoundEffect(MoneyValues moneyValues) {
         if (moneyValues.isMoneyIncrease()) {
-            playSound(R.raw.sack_of_coins_picked_up_off_wood);
+            Sound.play(R.raw.sack_of_coins_picked_up_off_wood);
         } else if (moneyValues.isMoneyDecrease()) {
             if (moneyValues.isSingleCoinChanged()) {
                 if (moneyValues.isHighValueCoinChanged()) {
-                    playSound(R.raw.large_coin_fall_on_wood);
+                    Sound.play(R.raw.large_coin_fall_on_wood);
                 } else {
-                    playRandomSound(R.raw.single_coin_fall_on_wood, R.raw.single_coin_fall_on_concrete);
+                    Sound.playRandom(R.raw.single_coin_fall_on_wood, R.raw.single_coin_fall_on_concrete);
                 }
             } else {
-                playRandomSound(R.raw.many_coins_fall_on_wood, R.raw.many_coins_falling_on_concrete);
+                Sound.playRandom(R.raw.many_coins_fall_on_wood, R.raw.many_coins_falling_on_concrete);
             }
         }
-    }
-
-    private void playRandomSound(int... resIds) {
-        int randomIndex = new Random().nextInt(resIds.length);
-        int randomResId = resIds[randomIndex];
-        (MediaPlayer.create(getContext(), randomResId)).start();
-    }
-
-    private void playSound(int resId) {
-        (MediaPlayer.create(getContext(), resId)).start();
     }
 
     private MoneyValues getMoneyChangeValues(MoneyChangeMode mode) {
