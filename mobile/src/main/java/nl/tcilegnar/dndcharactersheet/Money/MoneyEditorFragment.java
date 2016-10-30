@@ -88,12 +88,12 @@ public class MoneyEditorFragment extends BaseFragment implements OnClickListener
 
     private void changeMoney(MoneyChangeMode mode) {
         MoneyValues moneyChangeValues = getMoneyChangeValues(mode);
-        doMoneySoundEffect(moneyChangeValues);
         try {
             MoneyCalculator calculator = new MoneyCalculator(currentMoneyValues);
             MoneyValues newMoneyValues = calculator.calculateNewMoneyValues(moneyChangeValues);
 
             moneyChangedListener.onMoneyChanged(newMoneyValues);
+            doMoneySoundEffect(moneyChangeValues);
         } catch (MoneyCalculator.MaxMoneyReachedException | MoneyCalculator.NotEnoughMoneyException e) {
             moneyChangedListener.onMoneyNotChanged();
         }
