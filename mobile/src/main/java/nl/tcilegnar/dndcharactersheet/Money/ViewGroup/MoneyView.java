@@ -1,7 +1,6 @@
 package nl.tcilegnar.dndcharactersheet.Money.ViewGroup;
 
 import android.content.Context;
-import android.media.MediaPlayer;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.VisibleForTesting;
 import android.util.AttributeSet;
