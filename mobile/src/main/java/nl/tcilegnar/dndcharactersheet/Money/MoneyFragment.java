@@ -1,6 +1,7 @@
 package nl.tcilegnar.dndcharactersheet.Money;
 
 import android.content.Context;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -106,11 +107,11 @@ public class MoneyFragment extends BaseStorageFragment implements OnClickListene
         bronzeView.save();
     }
 
-    public void changeMoney(MoneyValues moneyValues) {
-        platinumView.changeMoneyValue(moneyValues);
-        goldView.changeMoneyValue(moneyValues);
-        silverView.changeMoneyValue(moneyValues);
-        bronzeView.changeMoneyValue(moneyValues);
+    public void changeMoney(MoneyValues newMoneyValues) {
+        platinumView.changeMoneyValue(newMoneyValues);
+        goldView.changeMoneyValue(newMoneyValues);
+        silverView.changeMoneyValue(newMoneyValues);
+        bronzeView.changeMoneyValue(newMoneyValues);
     }
 
     public MoneyValues getMoneyValues() {

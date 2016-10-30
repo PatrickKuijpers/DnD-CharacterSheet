@@ -1,6 +1,7 @@
 package nl.tcilegnar.dndcharactersheet.Money.ViewGroup;
 
 import android.content.Context;
+import android.media.MediaPlayer;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.VisibleForTesting;
 import android.util.AttributeSet;
@@ -74,8 +75,8 @@ public abstract class MoneyView extends LinearLayout {
         }
     }
 
-    public void changeMoneyValue(MoneyValues moneyValues) {
-        int newMoneyValue = getMoneyValue(moneyValues);
+    public void changeMoneyValue(MoneyValues newMoneyValues) {
+        int newMoneyValue = getMoneyValue(newMoneyValues);
         coinAnimation(newMoneyValue);
         setMoneyValue(newMoneyValue);
     }
@@ -83,7 +84,7 @@ public abstract class MoneyView extends LinearLayout {
     private void coinAnimation(int newMoneyValue) {
         boolean moneyValueChanged = newMoneyValue != getCurrentMoneyValue();
         if (moneyValueChanged) {
-            final ViewPropertyAnimator firstAnim = moneyIndicatorCoin.animate();
+            ViewPropertyAnimator firstAnim = moneyIndicatorCoin.animate();
             firstAnim.rotationYBy(ROTATE_BY_DEGREES).setDuration(ROTATE_DURATION_MILLIS);
             firstAnim.setInterpolator(AnimationUtils.loadInterpolator(getContext(), ROTATE_INTERPOLATOR));
         }
