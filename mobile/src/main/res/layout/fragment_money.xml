@@ -5,7 +5,7 @@
 
     <LinearLayout
         style="@style/fragment_money"
-        android:orientation="horizontal">
+        android:focusableInTouchMode="true">
 
         <LinearLayout style="@style/money_view_list">
 
