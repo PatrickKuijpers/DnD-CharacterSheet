@@ -110,6 +110,9 @@ public class MoneyEditorFragment extends BaseFragment implements OnClickListener
                     Sound.playRandom(R.raw.single_coin_fall_on_wood, R.raw.single_coin_fall_on_concrete);
                 }
             } else {
+                if (moneyValues.isHighValueCoinChanged()) {
+                    Sound.play(R.raw.large_coin_fall_on_wood);
+                }
                 Sound.playRandom(R.raw.many_coins_fall_on_wood, R.raw.many_coins_falling_on_concrete);
             }
         }
