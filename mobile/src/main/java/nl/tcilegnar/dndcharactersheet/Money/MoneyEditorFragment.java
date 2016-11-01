@@ -116,6 +116,8 @@ public class MoneyEditorFragment extends BaseFragment implements OnClickListener
     }
 
     private MoneyValues getMoneyChangeValues(MoneyChangeMode mode) {
+        removeFocusFromAllViews();
+
         MoneyValues moneyChangeValues = null;
 
         int platinumValue = platinumEditor.getMoneyValue();
@@ -131,6 +133,13 @@ public class MoneyEditorFragment extends BaseFragment implements OnClickListener
                 break;
         }
         return moneyChangeValues;
+    }
+
+    private void removeFocusFromAllViews() {
+        View viewInFocus = getActivity().getCurrentFocus();
+        if (viewInFocus != null) {
+            viewInFocus.clearFocus();
+        }
     }
 
     public void setCurrentMoneyValues(MoneyValues currentMoneyValues) {
