@@ -8,6 +8,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import nl.tcilegnar.dndcharactersheet.App;
+import nl.tcilegnar.dndcharactersheet.Base.Animations.ProgressBarAnimation;
 import nl.tcilegnar.dndcharactersheet.Experience.Experience;
 import nl.tcilegnar.dndcharactersheet.Experience.ExperienceUpdater.ExpTooLowException;
 import nl.tcilegnar.dndcharactersheet.Experience.ViewGroup.ExperienceEditor.ExperienceUpdateListener;
@@ -19,6 +20,7 @@ import nl.tcilegnar.dndcharactersheet.R;
 import static nl.tcilegnar.dndcharactersheet.Experience.ExperienceUpdater.ExperienceEdgeListener;
 
 public class ExperienceCurrentLevel extends LinearLayout implements ExperienceUpdateListener, ExperienceEdgeListener {
+    public static final int PROGRESS_DURATION_MILLIS = 1000;
     private final Experience experience;
     private ProgressBar expProgressBar;
 
@@ -57,7 +59,9 @@ public class ExperienceCurrentLevel extends LinearLayout implements ExperienceUp
     }
 
     private void updateProgressBarProgress() {
-        expProgressBar.setProgress(getCurrentExp());
+        ProgressBarAnimation anim = new ProgressBarAnimation(expProgressBar, getCurrentExp());
+        anim.setDuration(PROGRESS_DURATION_MILLIS);
+        expProgressBar.startAnimation(anim);
     }
 
     public Experience getExperience() {
