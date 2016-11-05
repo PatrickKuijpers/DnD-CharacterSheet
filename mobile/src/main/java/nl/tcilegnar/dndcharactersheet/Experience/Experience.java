@@ -48,14 +48,18 @@ public class Experience extends StorageObject {
         return currentExp;
     }
 
-    public void updateExperience(int expUpdateValue) throws ExpTooLowException {
-        currentExp = expUpdater.getUpdatedExperience(expUpdateValue);
-        onExperienceUpdated(currentExp, expUpdater.numberOfLevelsChanged);
+    public ExperienceUpdater getExperienceUpdater() {
+        return expUpdater;
     }
 
-    private void onExperienceUpdated(int newExp, int numberOfLevelsChanged) {
+    public void updateExperience(int expUpdateValue) throws ExpTooLowException {
+        currentExp = expUpdater.getUpdatedExperience(expUpdateValue);
+        onExperienceUpdated();
+    }
+
+    private void onExperienceUpdated() {
         for (ExperienceUpdatedListener experienceUpdatedListener : experienceUpdatedListeners) {
-            experienceUpdatedListener.onExperienceUpdated(newExp, numberOfLevelsChanged);
+            experienceUpdatedListener.onExperienceUpdated();
         }
     }
 
@@ -76,6 +80,6 @@ public class Experience extends StorageObject {
     }
 
     public interface ExperienceUpdatedListener {
-        void onExperienceUpdated(int newExp, int numberOfLevelsChanged);
+        void onExperienceUpdated();
     }
 }

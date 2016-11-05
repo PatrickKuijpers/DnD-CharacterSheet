@@ -18,7 +18,7 @@ public class ExperienceUpdater {
 
     private ArrayList<ExperienceEdgeListener> experienceEdgeListeners = new ArrayList<>();
 
-    protected int numberOfLevelsChanged;
+    private int numberOfLevelsChanged;
 
     public ExperienceUpdater(Experience experience) {
         this(experience, ExperienceSettings.getInstance());
@@ -28,6 +28,10 @@ public class ExperienceUpdater {
     protected ExperienceUpdater(Experience experience, ExperienceSettings settings) {
         this.experience = experience;
         this.settings = settings;
+    }
+
+    public int getNumberOfLevelsChanged() {
+        return numberOfLevelsChanged;
     }
 
     public int getUpdatedExperience(int expUpdateValue) throws ExpTooLowException {

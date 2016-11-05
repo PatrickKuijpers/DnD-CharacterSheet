@@ -10,7 +10,7 @@ import nl.tcilegnar.dndcharactersheet.Experience.Experience;
 public enum ExperienceProgressBarAnimation implements AnimationListener {
     INSTANCE;
     private static final int PROGRESS_DURATION_MILLIS = 1000;
-    public static final int NO_REPEATS = 0;
+    private static final int NO_REPEATS = 0;
 
     private ProgressBar progressBar;
     private float startProgress;
@@ -18,26 +18,22 @@ public enum ExperienceProgressBarAnimation implements AnimationListener {
     private int numberOfLevelsChanged;
     private int newMaxProgress;
 
-    private Experience experience;
-
     private boolean repeatingAnimationsStarted = false;
     private boolean finalAnimationStarted = false;
     private boolean allAnimationsEnded = true;
 
-    public void start(ProgressBar progressBar, Experience experience, int numberOfLevelsChanged) {
-        init(progressBar, experience, numberOfLevelsChanged);
+    public void start(ProgressBar progressBar, Experience experience) {
+        init(progressBar, experience);
         performInitialAnimation();
     }
 
-    private void init(ProgressBar progressBar, Experience experience, int numberOfLevelsChanged) {
+    private void init(ProgressBar progressBar, Experience experience) {
         this.progressBar = progressBar;
 
         this.startProgress = progressBar.getProgress();
         this.finalProgress = experience.getCurrentExp();
-        this.numberOfLevelsChanged = numberOfLevelsChanged;
+        this.numberOfLevelsChanged = experience.getExperienceUpdater().getNumberOfLevelsChanged();
         this.newMaxProgress = experience.getMax();
-
-        this.experience = experience;
 
         repeatingAnimationsStarted = false;
         finalAnimationStarted = false;

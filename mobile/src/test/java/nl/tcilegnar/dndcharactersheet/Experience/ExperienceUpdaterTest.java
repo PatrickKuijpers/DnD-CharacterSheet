@@ -376,7 +376,7 @@ public class ExperienceUpdaterTest {
 
     private void assertNumberOfLevelsChanged(int expectedNumberOfLevelsChanged) throws MaxLevelReachedException,
             MinLevelReachedException {
-        assertEquals(expectedNumberOfLevelsChanged, experienceUpdater.numberOfLevelsChanged);
+        assertEquals(expectedNumberOfLevelsChanged, experienceUpdater.getNumberOfLevelsChanged());
         assertCorrectListenersCalled(expectedNumberOfLevelsChanged);
     }
 
@@ -385,7 +385,7 @@ public class ExperienceUpdaterTest {
         // 1x extra onExperienceMaxReached:
         assertCorrectListenersCalled(expectedNumberOfLevelsChanged + 1);
         // ...maar hiervoor niet extra lvl up:
-        assertEquals(expectedNumberOfLevelsChanged, experienceUpdater.numberOfLevelsChanged);
+        assertEquals(expectedNumberOfLevelsChanged, experienceUpdater.getNumberOfLevelsChanged());
 
         assertEquals(experienceMock.getMax(), updatedExp);
     }
@@ -395,7 +395,7 @@ public class ExperienceUpdaterTest {
         // 1x extra onExperienceMinPassed:
         assertCorrectListenersCalled(expectedNumberOfLevelsChanged - 1);
         // ...maar hiervoor niet extra lvl down:
-        assertEquals(expectedNumberOfLevelsChanged, experienceUpdater.numberOfLevelsChanged);
+        assertEquals(expectedNumberOfLevelsChanged, experienceUpdater.getNumberOfLevelsChanged());
 
         assertEquals(Experience.EXP_MIN, updatedExp);
     }
