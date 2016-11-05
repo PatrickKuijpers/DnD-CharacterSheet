@@ -58,12 +58,12 @@ public enum ExperienceProgressBarAnimation implements AnimationListener {
         repeatingAnimationsStarted = true;
         if (numberOfLevelsChanged > 1) {
             int numberOfRepeatingAnimations = numberOfLevelsChanged - 1;
-            int repeats = numberOfRepeatingAnimations - 1; // herhaal de repeating animation -1x
-            startAnimationFromMinimumProgressTo(progressBar.getMax(), repeats);
+            int numberOfRepeatingAnimationRepeats = numberOfRepeatingAnimations - 1;
+            startAnimationFromMinimumProgressTo(progressBar.getMax(), numberOfRepeatingAnimationRepeats);
         } else if (numberOfLevelsChanged < -1) {
             int numberOfRepeatingAnimations = -numberOfLevelsChanged - 1;
-            int repeats = numberOfRepeatingAnimations - 1; // herhaal de repeating animation -1x
-            startAnimationFromMaximumProgressTo(0, repeats);
+            int numberOfRepeatingAnimationRepeats = numberOfRepeatingAnimations - 1;
+            startAnimationFromMaximumProgressTo(0, numberOfRepeatingAnimationRepeats);
         } else { // numberOfLevelsChanged == -1 || 0 || 1
             startNextAnimation();
         }
@@ -95,14 +95,14 @@ public enum ExperienceProgressBarAnimation implements AnimationListener {
     }
 
     private void startAnimation(float from, float to) {
-        startAnimation(from, to, 0);
+        startAnimation(from, to, NO_REPEATS);
     }
 
     private void startAnimation(float from, float to, int repeat) {
         ProgressBarAnimation animation = new ProgressBarAnimation(progressBar, from, to);
+        animation.setRepeatCount(repeat);
         animation.setDuration(PROGRESS_DURATION_MILLIS);
         animation.setAnimationListener(this);
-        animation.setRepeatCount(repeat);
         progressBar.startAnimation(animation);
     }
 
