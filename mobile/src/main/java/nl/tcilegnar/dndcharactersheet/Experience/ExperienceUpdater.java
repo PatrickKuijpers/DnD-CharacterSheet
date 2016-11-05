@@ -46,6 +46,12 @@ public class ExperienceUpdater {
     }
 
     private int correctExperienceWhenEdgeIsReached(int newExp) {
+        newExp = correctForMaxExpReached(newExp);
+        newExp = correctForMinExpPassed(newExp);
+        return newExp;
+    }
+
+    private int correctForMaxExpReached(int newExp) {
         while (isMaxExperienceReached(newExp)) {
             try {
                 // Kies eerst max exp voor het huidige (projected) level, en trek dat af van het huidige exp
@@ -57,6 +63,20 @@ public class ExperienceUpdater {
                 break;
             }
         }
+        return newExp;
+    }
+
+    private boolean isMaxExperienceReached(int newExp) {
+        return newExp >= experience.getMax();
+    }
+
+    private void onExperienceMaxReached() throws MaxLevelReachedException {
+        for (ExperienceEdgeListener experienceEdgeListener : experienceEdgeListeners) {
+            experienceEdgeListener.onExperienceMaxReached();
+        }
+    }
+
+    private int correctForMinExpPassed(int newExp) {
         while (isMinExperiencePassed(newExp)) {
             try {
                 // Verlaag eerst het (projected) level
@@ -71,24 +91,14 @@ public class ExperienceUpdater {
         return newExp;
     }
 
-    private void onExperienceMinReached() throws MinLevelReachedException {
-        for (ExperienceEdgeListener experienceEdgeListener : experienceEdgeListeners) {
-            experienceEdgeListener.onExperienceMinPassed();
-        }
-    }
-
-    private void onExperienceMaxReached() throws MaxLevelReachedException {
-        for (ExperienceEdgeListener experienceEdgeListener : experienceEdgeListeners) {
-            experienceEdgeListener.onExperienceMaxReached();
-        }
-    }
-
     private boolean isMinExperiencePassed(int newExp) {
         return newExp < 0;
     }
 
-    private boolean isMaxExperienceReached(int newExp) {
-        return newExp >= experience.getMax();
+    private void onExperienceMinReached() throws MinLevelReachedException {
+        for (ExperienceEdgeListener experienceEdgeListener : experienceEdgeListeners) {
+            experienceEdgeListener.onExperienceMinPassed();
+        }
     }
 
     public void addExperienceEdgeListener(ExperienceEdgeListener experienceEdgeListener) {

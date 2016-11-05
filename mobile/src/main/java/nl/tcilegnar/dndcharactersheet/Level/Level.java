@@ -47,7 +47,7 @@ public class Level extends StorageObject implements ExperienceEdgeListener, Chan
         onReadyForLevelChangeListenerUpdate(-1);
     }
 
-    void onReadyForLevelChangeListenerUpdate(int levelChangeValue) {
+    private void onReadyForLevelChangeListenerUpdate(int levelChangeValue) {
         for (ReadyForLevelChangeListener readyForLevelChangeListener : readyForLevelChangeListeners) {
             readyForLevelChangeListener.onReadyForLevelChange(levelChangeValue);
         }
