@@ -8,18 +8,15 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import nl.tcilegnar.dndcharactersheet.App;
-import nl.tcilegnar.dndcharactersheet.Experience.Animations.ExperienceProgressBarAnimation;
 import nl.tcilegnar.dndcharactersheet.Experience.Experience;
+import nl.tcilegnar.dndcharactersheet.Experience.Experience.ExperienceUpdatedListener;
 import nl.tcilegnar.dndcharactersheet.Experience.ExperienceUpdater.ExpTooLowException;
 import nl.tcilegnar.dndcharactersheet.Experience.ViewGroup.ExperienceEditor.ExperienceUpdateListener;
-import nl.tcilegnar.dndcharactersheet.Level.Level.MaxLevelReachedException;
-import nl.tcilegnar.dndcharactersheet.Level.Level.MinLevelReachedException;
 import nl.tcilegnar.dndcharactersheet.Level.ViewGroup.LevelIndicatorView;
 import nl.tcilegnar.dndcharactersheet.R;
 
-import static nl.tcilegnar.dndcharactersheet.Experience.ExperienceUpdater.ExperienceEdgeListener;
-
-public class ExperienceCurrentLevel extends LinearLayout implements ExperienceUpdateListener, ExperienceEdgeListener {
+public class ExperienceCurrentLevel extends LinearLayout implements ExperienceUpdateListener,
+        ExperienceUpdatedListener {
     private final Experience experience;
     private ProgressBar expProgressBar;
 
@@ -38,35 +35,23 @@ public class ExperienceCurrentLevel extends LinearLayout implements ExperienceUp
 
     private void initViews() {
         expProgressBar = (ProgressBar) findViewById(R.id.experience_progressBar);
-        updateAllValues();
+        setProgressValues();
     }
 
-    private void updateAllValues() {
+    private void setProgressValues() {
         updateProgressText();
-        updateProgressBarValues();
+        expProgressBar.setMax(experience.getMax());
+        expProgressBar.setProgress(experience.getCurrentExp());
     }
 
     private void updateProgressText() {
         String expLabelText = App.getResourceString(R.string.experience_label);
-        String expText = expLabelText + getCurrentExp();
+        String expText = expLabelText + experience.getCurrentExp();
         ((TextView) findViewById(R.id.experience_text)).setText(expText);
-    }
-
-    private void updateProgressBarValues() {
-        expProgressBar.setMax(experience.getMax());
-        updateProgressBarProgress();
-    }
-
-    private void updateProgressBarProgress() {
-        new ExperienceProgressBarAnimation(expProgressBar, getCurrentExp());
     }
 
     public Experience getExperience() {
         return experience;
-    }
-
-    private int getCurrentExp() {
-        return experience.getCurrentExp();
     }
 
     public void save() {
@@ -77,24 +62,13 @@ public class ExperienceCurrentLevel extends LinearLayout implements ExperienceUp
     public void onUpdateExperience(int expUpdateValue) {
         try {
             experience.updateExperience(expUpdateValue);
-            updateCurrentExpValues();
         } catch (ExpTooLowException e) {
             // TODO: iets hiermee doen?
         }
     }
 
-    private void updateCurrentExpValues() {
-        updateProgressText();
-        updateProgressBarProgress();
-    }
-
     @Override
-    public void onExperienceMinPassed() throws MinLevelReachedException {
-        updateProgressBarValues();
-    }
-
-    @Override
-    public void onExperienceMaxReached() throws MaxLevelReachedException {
-        updateProgressBarValues();
+    public void onExperienceUpdated(int newExp, int numberOfLevelsChanged) {
+        setProgressValues();
     }
 }

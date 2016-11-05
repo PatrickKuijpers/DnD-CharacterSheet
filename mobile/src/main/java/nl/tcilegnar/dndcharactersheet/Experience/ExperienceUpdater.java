@@ -34,9 +34,7 @@ public class ExperienceUpdater {
         int newExp = experience.getCurrentExp() + expUpdateValue;
         validate(expUpdateValue, newExp);
 
-        numberOfLevelsChanged = 0;
-        int finalNewExp = correctExperienceWhenEdgeIsReached(newExp);
-        return finalNewExp;
+        return getCorrectedExperienceWhenEdgeIsReached(newExp);
     }
 
     private void validate(int expUpdateValue, int newExp) throws ExpTooLowException {
@@ -48,7 +46,8 @@ public class ExperienceUpdater {
         }
     }
 
-    private int correctExperienceWhenEdgeIsReached(int newExp) {
+    private int getCorrectedExperienceWhenEdgeIsReached(int newExp) {
+        numberOfLevelsChanged = 0;
         newExp = correctForMaxExpReached(newExp);
         newExp = correctForMinExpPassed(newExp);
         return newExp;
