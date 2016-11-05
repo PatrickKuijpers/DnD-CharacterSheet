@@ -15,6 +15,7 @@ import nl.tcilegnar.dndcharactersheet.Level.Level.MinLevelReachedException;
 import nl.tcilegnar.dndcharactersheet.Storage.Storage;
 
 import static junit.framework.Assert.assertEquals;
+import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.mock;
@@ -91,7 +92,7 @@ public class ExperienceUpdaterTest {
 
     @Test
     public void getUpdatedExperience_AddExactlyUpToMaxExp_OnExperienceMaxReachedAndUpdatedExpIsMinExp() throws
-            ExpTooLowException, MaxLevelReachedException {
+            ExpTooLowException, MaxLevelReachedException, MinLevelReachedException {
         // Arrange
         initExp(10);
 
@@ -100,13 +101,13 @@ public class ExperienceUpdaterTest {
         updatedExp = experienceUpdater.getUpdatedExperience(addedExp);
 
         // Assert
-        verify(experienceEdgeListenerMock).onExperienceMaxReached();
+        assertNumberOfLevelsChanged(1);
         assertEquals(Experience.EXP_MIN, updatedExp);
     }
 
     @Test
     public void getUpdatedExperience_AddOverMaxExp_OnExperienceMaxReachedAndNewExpIsLeftoverExp() throws
-            ExpTooLowException, MaxLevelReachedException {
+            ExpTooLowException, MaxLevelReachedException, MinLevelReachedException {
         // Arrange
         initExp(10);
 
@@ -115,13 +116,13 @@ public class ExperienceUpdaterTest {
         updatedExp = experienceUpdater.getUpdatedExperience(addedExp);
 
         // Assert
-        verify(experienceEdgeListenerMock).onExperienceMaxReached();
+        assertNumberOfLevelsChanged(1);
         assertExpIsUpdatedOverMax(addedExp);
     }
 
     @Test
     public void getUpdatedExperience_AddOverMaxExpTwice_OnExperienceMaxReachedTwiceAndNewExpIsLeftoverExp() throws
-            ExpTooLowException, MaxLevelReachedException {
+            ExpTooLowException, MaxLevelReachedException, MinLevelReachedException {
         // Arrange
         initExp(10);
 
@@ -131,13 +132,13 @@ public class ExperienceUpdaterTest {
         updatedExp = experienceUpdater.getUpdatedExperience(addedExp);
 
         // Assert
-        verify(experienceEdgeListenerMock, times(2)).onExperienceMaxReached();
+        assertNumberOfLevelsChanged(2);
         assertExpIsUpdatedOverMax(addedExp, numberOfTimes);
     }
 
     @Test
     public void getUpdatedExperience_AddNotOverMaxExp_NotOnExperienceMaxReached() throws ExpTooLowException,
-            MaxLevelReachedException {
+            MaxLevelReachedException, MinLevelReachedException {
         // Arrange
         initExp(10);
 
@@ -146,12 +147,13 @@ public class ExperienceUpdaterTest {
         experienceUpdater.getUpdatedExperience(addedExp);
 
         // Assert
-        verify(experienceEdgeListenerMock, never()).onExperienceMaxReached();
+        assertNumberOfLevelsChanged(0);
     }
 
     @Test
-    public void getUpdatedExperience_AddOverMaxExpAndMaxLevelReached_OnExperienceMaxReachedAndUpdatedExpIsMax()
-            throws ExpTooLowException, MaxLevelReachedException {
+    public void
+    getUpdatedExperience_AddOverMaxExpAndMaxLevelReached_NoLevelsChangedAndOnExperienceMaxReachedAndUpdatedExpIsMax()
+            throws ExpTooLowException, MaxLevelReachedException, MinLevelReachedException {
         // Arrange
         initExp(10);
         doThrow(new Level().new MaxLevelReachedException()).when(experienceEdgeListenerMock).onExperienceMaxReached();
@@ -161,8 +163,41 @@ public class ExperienceUpdaterTest {
         updatedExp = experienceUpdater.getUpdatedExperience(addedExp);
 
         // Assert
-        verify(experienceEdgeListenerMock).onExperienceMaxReached();
+        assertNumberOfLevelsChangedAndMaxLevelReached(0);
         assertEquals(experienceMock.getMax(), updatedExp);
+    }
+
+    @Test
+    public void getUpdatedExperience_AddOverMaxExpTwiceAndMaxLevelReachedFirstTime_NoLevelUpAndMaxLevelReached()
+            throws ExpTooLowException, MaxLevelReachedException, MinLevelReachedException {
+        // Arrange
+        initExp(10);
+        doThrow(new Level().new MaxLevelReachedException()).when(experienceEdgeListenerMock).onExperienceMaxReached();
+
+        // Act
+        int numberOfTimes = 2;
+        int addedExp = experienceMock.getMax() * numberOfTimes + 1;
+        updatedExp = experienceUpdater.getUpdatedExperience(addedExp);
+
+        // Assert
+        assertNumberOfLevelsChangedAndMaxLevelReached(0);
+    }
+
+    @Test
+    public void getUpdatedExperience_AddOverMaxExpTwiceAndMaxLevelReachedSecondTime_OneLevelUpAndMaxLevelReached()
+            throws ExpTooLowException, MaxLevelReachedException, MinLevelReachedException {
+        // Arrange
+        initExp(10);
+        doNothing().doThrow(new Level().new MaxLevelReachedException()).when(experienceEdgeListenerMock)
+                .onExperienceMaxReached(); // MaxLevelReachedException bij 2e call op onExperienceMaxReached
+
+        // Act
+        int numberOfTimes = 2;
+        int addedExp = experienceMock.getMax() * numberOfTimes + 1;
+        updatedExp = experienceUpdater.getUpdatedExperience(addedExp);
+
+        // Assert
+        assertNumberOfLevelsChangedAndMaxLevelReached(1);
     }
 
     @Test(expected = ExpTooLowException.class)
@@ -178,7 +213,8 @@ public class ExperienceUpdaterTest {
     }
 
     @Test
-    public void getUpdatedExperience_SubstractOverMinExp_ExpNotUpdated() throws ExpTooLowException {
+    public void getUpdatedExperience_SubstractOverMinExp_ExpNotUpdated() throws ExpTooLowException,
+            MinLevelReachedException, MaxLevelReachedException {
         // Arrange
         initExp(10);
 
@@ -191,13 +227,14 @@ public class ExperienceUpdaterTest {
         }
 
         // Assert
+        assertNumberOfLevelsChanged(0);
         assertEquals(Experience.EXP_MIN, updatedExp);
     }
 
     @Test
     public void
     getUpdatedExperience_LevelDownIsAllowedAndSubstractExactlyUpToMinExp_NotOnExperienceMinPassedAndNewExpIsMinExp()
-            throws ExpTooLowException, MinLevelReachedException {
+            throws ExpTooLowException, MinLevelReachedException, MaxLevelReachedException {
         // Arrange
         initExp(10, IS_ALLOWED_LEVEL_DOWN);
 
@@ -206,18 +243,14 @@ public class ExperienceUpdaterTest {
         updatedExp = experienceUpdater.getUpdatedExperience(addedExp);
 
         // Assert
-        verify(experienceEdgeListenerMock, never()).onExperienceMinPassed();
+        assertNumberOfLevelsChanged(0);
         assertEquals(Experience.EXP_MIN, updatedExp);
-    }
-
-    public ExperienceUpdaterTest() {
-        super();
     }
 
     @Test
     public void
     getUpdatedExperience_LevelDownIsAllowedAndSubstractOverMinExp_OnExperienceMinPassedAndNewExpIsLeftoverExp()
-            throws ExpTooLowException, MinLevelReachedException {
+            throws ExpTooLowException, MinLevelReachedException, MaxLevelReachedException {
         // Arrange
         initExp(10, IS_ALLOWED_LEVEL_DOWN);
 
@@ -226,13 +259,13 @@ public class ExperienceUpdaterTest {
         updatedExp = experienceUpdater.getUpdatedExperience(addedExp);
 
         // Assert
-        verify(experienceEdgeListenerMock).onExperienceMinPassed();
+        assertNumberOfLevelsChanged(-1);
         assertExpIsUpdatedBelowMin(addedExp);
     }
 
     @Test
     public void
-    getUpdatedExperience_LevelDownIsAllowedAndSubstractOverMinExpTwice_OnExperienceMinPassedTwiceAndNewExpIsLeftoverExp() throws ExpTooLowException, MinLevelReachedException {
+    getUpdatedExperience_LevelDownIsAllowedAndSubstractOverMinExpTwice_OnExperienceMinPassedTwiceAndNewExpIsLeftoverExp() throws ExpTooLowException, MinLevelReachedException, MaxLevelReachedException {
         // Arrange
         initExp(10, IS_ALLOWED_LEVEL_DOWN);
 
@@ -242,13 +275,13 @@ public class ExperienceUpdaterTest {
         updatedExp = experienceUpdater.getUpdatedExperience(addedExp);
 
         // Assert
-        verify(experienceEdgeListenerMock, times(2)).onExperienceMinPassed();
+        assertNumberOfLevelsChanged(-2);
         assertExpIsUpdatedBelowMin(addedExp, numberOfTimes);
     }
 
     @Test
     public void getUpdatedExperience_LevelDownIsAllowedAndSubstractNotOverMinExp_NotOnExperienceMinPassed() throws
-            ExpTooLowException, MinLevelReachedException {
+            ExpTooLowException, MinLevelReachedException, MaxLevelReachedException {
         // Arrange
         initExp(10, IS_ALLOWED_LEVEL_DOWN);
 
@@ -257,12 +290,47 @@ public class ExperienceUpdaterTest {
         experienceUpdater.getUpdatedExperience(addedExp);
 
         // Assert
-        verify(experienceEdgeListenerMock, never()).onExperienceMinPassed();
+        assertNumberOfLevelsChanged(0);
     }
 
     @Test
-    public void getUpdatedExperience_LevelDownIsAllowedAndSubstractOverMinExpAndMinLevelPassed_UpdatedExpIsMin()
-            throws ExpTooLowException, MinLevelReachedException {
+    public void
+    getUpdatedExperience_LevelDownIsAllowedAndSubstractOverMinExpAndMinLevelPassed_NoLevelsChangedAndMinLevelReached
+            () throws ExpTooLowException, MinLevelReachedException, MaxLevelReachedException {
+        // Arrange
+        initExp(10, IS_ALLOWED_LEVEL_DOWN);
+        doThrow(new Level().new MinLevelReachedException()).when(experienceEdgeListenerMock).onExperienceMinPassed();
+
+        // Act
+        int numberOfTimes = 2;
+        int addedExp = -experienceMock.getMax() * numberOfTimes - 1;
+        updatedExp = experienceUpdater.getUpdatedExperience(addedExp);
+
+        // Assert
+        assertNumberOfLevelsChangedAndMinLevelReached(0);
+    }
+
+    @Test
+    public void
+    getUpdatedExperience_LevelDownIsAllowedAndSubstractOverMinExpAndMinLevelPassed_OneLevelDownAndMinLevelReached()
+            throws ExpTooLowException, MinLevelReachedException, MaxLevelReachedException {
+        // Arrange
+        initExp(10, IS_ALLOWED_LEVEL_DOWN);
+        doNothing().doThrow(new Level().new MinLevelReachedException()).when(experienceEdgeListenerMock)
+                .onExperienceMinPassed(); // MinLevelReachedException bij 2e call op onExperienceMinPassed
+
+        // Act
+        int numberOfTimes = 2;
+        int addedExp = -experienceMock.getMax() * numberOfTimes - 1;
+        updatedExp = experienceUpdater.getUpdatedExperience(addedExp);
+
+        // Assert
+        assertNumberOfLevelsChangedAndMinLevelReached(-1);
+    }
+
+    @Test
+    public void
+    getUpdatedExperience_LevelDownIsAllowedAndSubstractOverMinExpTwiceAndMinLevelPassedFirstTime_NoLevelsChangedAndMinLevelReached() throws ExpTooLowException, MinLevelReachedException, MaxLevelReachedException {
         // Arrange
         initExp(10, IS_ALLOWED_LEVEL_DOWN);
         doThrow(new Level().new MinLevelReachedException()).when(experienceEdgeListenerMock).onExperienceMinPassed();
@@ -272,8 +340,7 @@ public class ExperienceUpdaterTest {
         updatedExp = experienceUpdater.getUpdatedExperience(addedExp);
 
         // Assert
-        verify(experienceEdgeListenerMock).onExperienceMinPassed();
-        assertEquals(Experience.EXP_MIN, updatedExp);
+        assertNumberOfLevelsChangedAndMinLevelReached(0);
     }
 
     private void initExpUpdaterDefault() {
@@ -305,6 +372,50 @@ public class ExperienceUpdaterTest {
     private void initListeners(ExperienceUpdater experienceUpdater) {
         experienceEdgeListenerMock = mock(ExperienceEdgeListener.class);
         experienceUpdater.addExperienceEdgeListener(experienceEdgeListenerMock);
+    }
+
+    private void assertNumberOfLevelsChanged(int expectedNumberOfLevelsChanged) throws MaxLevelReachedException,
+            MinLevelReachedException {
+        assertEquals(expectedNumberOfLevelsChanged, experienceUpdater.numberOfLevelsChanged);
+        assertCorrectListenersCalled(expectedNumberOfLevelsChanged);
+    }
+
+    private void assertNumberOfLevelsChangedAndMaxLevelReached(int expectedNumberOfLevelsChanged) throws
+            MaxLevelReachedException, MinLevelReachedException {
+        // 1x extra onExperienceMaxReached:
+        assertCorrectListenersCalled(expectedNumberOfLevelsChanged + 1);
+        // ...maar hiervoor niet extra lvl up:
+        assertEquals(expectedNumberOfLevelsChanged, experienceUpdater.numberOfLevelsChanged);
+
+        assertEquals(experienceMock.getMax(), updatedExp);
+    }
+
+    private void assertNumberOfLevelsChangedAndMinLevelReached(int expectedNumberOfLevelsChanged) throws
+            MaxLevelReachedException, MinLevelReachedException {
+        // 1x extra onExperienceMinPassed:
+        assertCorrectListenersCalled(expectedNumberOfLevelsChanged - 1);
+        // ...maar hiervoor niet extra lvl down:
+        assertEquals(expectedNumberOfLevelsChanged, experienceUpdater.numberOfLevelsChanged);
+
+        assertEquals(Experience.EXP_MIN, updatedExp);
+    }
+
+    /**
+     * @param expectedExpEdgesReached - het aantal keer dat een expEdge bereikt is: <0 betekent onExperienceMinPassed,
+     *                                >0 betekent onExperienceMaxReached
+     */
+    private void assertCorrectListenersCalled(int expectedExpEdgesReached) throws MinLevelReachedException,
+            MaxLevelReachedException {
+        if (expectedExpEdgesReached < 0) {
+            verify(experienceEdgeListenerMock, times(-expectedExpEdgesReached)).onExperienceMinPassed();
+            verify(experienceEdgeListenerMock, never()).onExperienceMaxReached();
+        } else if (expectedExpEdgesReached > 0) {
+            verify(experienceEdgeListenerMock, never()).onExperienceMinPassed();
+            verify(experienceEdgeListenerMock, times(expectedExpEdgesReached)).onExperienceMaxReached();
+        } else {
+            verify(experienceEdgeListenerMock, never()).onExperienceMinPassed();
+            verify(experienceEdgeListenerMock, never()).onExperienceMaxReached();
+        }
     }
 
     private void assertExpIsUpdatedCorrectly(int addedExp) {

@@ -18,6 +18,8 @@ public class ExperienceUpdater {
 
     private ArrayList<ExperienceEdgeListener> experienceEdgeListeners = new ArrayList<>();
 
+    protected int numberOfLevelsChanged;
+
     public ExperienceUpdater(Experience experience) {
         this(experience, ExperienceSettings.getInstance());
     }
@@ -32,6 +34,7 @@ public class ExperienceUpdater {
         int newExp = experience.getCurrentExp() + expUpdateValue;
         validate(expUpdateValue, newExp);
 
+        numberOfLevelsChanged = 0;
         int finalNewExp = correctExperienceWhenEdgeIsReached(newExp);
         return finalNewExp;
     }
@@ -74,13 +77,14 @@ public class ExperienceUpdater {
         for (ExperienceEdgeListener experienceEdgeListener : experienceEdgeListeners) {
             experienceEdgeListener.onExperienceMaxReached();
         }
+        numberOfLevelsChanged++;
     }
 
     private int correctForMinExpPassed(int newExp) {
         while (isMinExperiencePassed(newExp)) {
             try {
                 // Verlaag eerst het (projected) level
-                onExperienceMinReached();
+                onExperienceMinPassed();
                 // Kies min exp voor het nieuwe (projected) level, en voeg dat toe aan het huidige exp
                 newExp += experience.getMax();
             } catch (MinLevelReachedException e) {
@@ -95,10 +99,11 @@ public class ExperienceUpdater {
         return newExp < 0;
     }
 
-    private void onExperienceMinReached() throws MinLevelReachedException {
+    private void onExperienceMinPassed() throws MinLevelReachedException {
         for (ExperienceEdgeListener experienceEdgeListener : experienceEdgeListeners) {
             experienceEdgeListener.onExperienceMinPassed();
         }
+        numberOfLevelsChanged--;
     }
 
     public void addExperienceEdgeListener(ExperienceEdgeListener experienceEdgeListener) {
