@@ -5,15 +5,15 @@ import android.view.animation.Transformation;
 import android.widget.ProgressBar;
 
 public class ProgressBarAnimation extends Animation {
-    private ProgressBar progressBar;
-    private float from;
-    private float to;
+    protected ProgressBar progressBar;
+    protected float from;
+    protected float to;
 
-    public ProgressBarAnimation(ProgressBar progressBar, float newProgress) {
+    public ProgressBarAnimation(ProgressBar progressBar, float from, float to) {
         super();
         this.progressBar = progressBar;
-        this.from = progressBar.getProgress();
-        this.to = newProgress;
+        this.from = from;
+        this.to = to;
     }
 
     @Override
