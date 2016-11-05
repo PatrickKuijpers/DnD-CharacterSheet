@@ -75,6 +75,6 @@ public class ExperienceCurrentLevel extends LinearLayout implements ExperienceUp
     }
 
     private void animateExperienceProgressBar(int newExp, int numberOfLevelsChanged) {
-        (new ExperienceProgressBarAnimation(expProgressBar, experience, numberOfLevelsChanged)).start();
+        ExperienceProgressBarAnimation.INSTANCE.start(expProgressBar, experience, numberOfLevelsChanged);
     }
 }
