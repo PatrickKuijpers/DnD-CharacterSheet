@@ -8,9 +8,9 @@ import nl.tcilegnar.dndcharactersheet.Base.Animations.ProgressBarAnimation;
 public class ExperienceProgressBarAnimation implements Animation.AnimationListener {
     private static final int PROGRESS_DURATION_MILLIS = 1000;
 
-    protected ProgressBar progressBar;
-    protected float fromInitial;
-    protected float toFinal;
+    private ProgressBar progressBar;
+    private float fromInitial;
+    private float toFinal;
 
     private boolean onProgressMaxReached;
 
@@ -23,13 +23,7 @@ public class ExperienceProgressBarAnimation implements Animation.AnimationListen
     }
 
     private void performInitialAnimation() {
-//        if (fromInitial < toFinal) {
-            startAnimation(fromInitial, toFinal);
-//        } else {
-//            onProgressMaxReached = true;
-//            float toInitial = progressBar.getMax();
-//            startAnimation(fromInitial, toInitial);
-//        }
+        startAnimation(fromInitial, toFinal);
     }
 
     private void performFinalAnimation() {
