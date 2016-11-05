@@ -8,6 +8,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import nl.tcilegnar.dndcharactersheet.App;
+import nl.tcilegnar.dndcharactersheet.Experience.Animations.ExperienceProgressBarAnimation;
 import nl.tcilegnar.dndcharactersheet.Experience.Experience;
 import nl.tcilegnar.dndcharactersheet.Experience.Experience.ExperienceUpdatedListener;
 import nl.tcilegnar.dndcharactersheet.Experience.ExperienceUpdater.ExpTooLowException;
@@ -69,6 +70,11 @@ public class ExperienceCurrentLevel extends LinearLayout implements ExperienceUp
 
     @Override
     public void onExperienceUpdated(int newExp, int numberOfLevelsChanged) {
-        setProgressValues();
+        updateProgressText();
+        animateExperienceProgressBar(newExp, numberOfLevelsChanged);
+    }
+
+    private void animateExperienceProgressBar(int newExp, int numberOfLevelsChanged) {
+        (new ExperienceProgressBarAnimation(expProgressBar, experience, numberOfLevelsChanged)).start();
     }
 }
