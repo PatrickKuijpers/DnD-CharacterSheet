@@ -123,7 +123,7 @@ public class ExperienceCurrentLevelTest {
         experienceCurrentLevel.onUpdateExperience(expUpdateValue);
 
         // Assert
-        assertExperienceUpdated(initialExpValue, expUpdateValue);
+        verify(experienceMock).updateExperience(expUpdateValue);
     }
 
     @Test
@@ -137,7 +137,7 @@ public class ExperienceCurrentLevelTest {
         experienceCurrentLevel.onUpdateExperience(expUpdateValue);
 
         // Assert
-        assertExperienceUpdated(initialExpValue, expUpdateValue);
+        verify(experienceMock).updateExperience(expUpdateValue);
     }
 
     @Test
@@ -151,7 +151,7 @@ public class ExperienceCurrentLevelTest {
         experienceCurrentLevel.onUpdateExperience(expUpdateValue);
 
         // Assert
-        assertExperienceUpdated(initialExpValue, expUpdateValue);
+        verify(experienceMock).updateExperience(expUpdateValue);
     }
 
     @Test
@@ -165,9 +165,7 @@ public class ExperienceCurrentLevelTest {
         experienceCurrentLevel.onUpdateExperience(expUpdateValue);
 
         // Assert
-        verify(experienceMock, times(1)).updateExperience(expUpdateValue);
-        assertProgressbarProgressValue(initialExpValue);
-        assertExperienceLabelValues(initialExpValue);
+        verify(experienceMock).updateExperience(expUpdateValue);
     }
 
     private ExperienceCurrentLevel getNewExperienceCurrentLevel_WithDefaultValues() {
@@ -192,7 +190,6 @@ public class ExperienceCurrentLevelTest {
     }
 
     private void assertExperienceUpdated(int initialExpValue, int expUpdateValue) throws ExpTooLowException {
-        verify(experienceMock, times(1)).updateExperience(expUpdateValue);
         int newExpValue = initialExpValue + expUpdateValue;
         assertProgressbarProgressValue(newExpValue);
         assertExperienceLabelValues(newExpValue);

@@ -5,9 +5,9 @@ import android.view.animation.Transformation;
 import android.widget.ProgressBar;
 
 public class ProgressBarAnimation extends Animation {
-    protected ProgressBar progressBar;
-    protected float from;
-    protected float to;
+    private ProgressBar progressBar;
+    private float from;
+    private float to;
 
     public ProgressBarAnimation(ProgressBar progressBar, float from, float to) {
         super();
