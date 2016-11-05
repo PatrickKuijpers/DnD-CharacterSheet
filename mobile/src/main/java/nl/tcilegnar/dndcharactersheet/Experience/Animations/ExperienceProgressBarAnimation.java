@@ -10,6 +10,7 @@ import nl.tcilegnar.dndcharactersheet.Experience.Experience;
 public enum ExperienceProgressBarAnimation implements AnimationListener {
     INSTANCE;
     private static final int PROGRESS_DURATION_MILLIS = 1000;
+    public static final int NO_REPEATS = 0;
 
     private ProgressBar progressBar;
     private float startProgress;
@@ -19,9 +20,9 @@ public enum ExperienceProgressBarAnimation implements AnimationListener {
 
     private Experience experience;
 
-    private boolean repeatingAnimationsEnded = false;
-    private boolean finalAnimationEnded = true;
-    private int repeatsLeft = 0;
+    private boolean repeatingAnimationsStarted = false;
+    private boolean finalAnimationStarted = false;
+    private boolean allAnimationsEnded = true;
 
     public void start(ProgressBar progressBar, Experience experience, int numberOfLevelsChanged) {
         init(progressBar, experience, numberOfLevelsChanged);
@@ -38,20 +39,9 @@ public enum ExperienceProgressBarAnimation implements AnimationListener {
 
         this.experience = experience;
 
-        int repeats = getNumberOfRepeatingAnimations(numberOfLevelsChanged);
-        this.repeatsLeft = repeats;
-        repeatingAnimationsEnded = false;
-        finalAnimationEnded = false;
-    }
-
-    private int getNumberOfRepeatingAnimations(int numberOfLevelsChanged) {
-        if (numberOfLevelsChanged > 1) {
-            return numberOfLevelsChanged - 1;
-        } else if (numberOfLevelsChanged < -1) {
-            return numberOfLevelsChanged + 1;
-        } else { // numberOfLevelsChanged == -1 || 0 || 1
-            return 0;
-        }
+        repeatingAnimationsStarted = false;
+        finalAnimationStarted = false;
+        allAnimationsEnded = false;
     }
 
     private void performInitialAnimation() {
@@ -65,46 +55,54 @@ public enum ExperienceProgressBarAnimation implements AnimationListener {
     }
 
     private void performRepeatingAnimation() {
-        if (repeatsLeft > 0) {
-            repeatsLeft--;
-            startAnimationFromMinimumProgressTo(progressBar.getMax());
-        } else if (repeatsLeft < 0) {
-            repeatsLeft++;
-            startAnimationFromMaximumProgressTo(0);
-        } else { // repeatsLeft == 0
-            repeatingAnimationsEnded = true;
-            performFinalAnimation();
+        repeatingAnimationsStarted = true;
+        if (numberOfLevelsChanged > 1) {
+            int numberOfRepeatingAnimations = numberOfLevelsChanged - 1;
+            int repeats = numberOfRepeatingAnimations - 1; // herhaal de repeating animation -1x
+            startAnimationFromMinimumProgressTo(progressBar.getMax(), repeats);
+        } else if (numberOfLevelsChanged < -1) {
+            int numberOfRepeatingAnimations = -numberOfLevelsChanged - 1;
+            int repeats = numberOfRepeatingAnimations - 1; // herhaal de repeating animation -1x
+            startAnimationFromMaximumProgressTo(0, repeats);
+        } else { // numberOfLevelsChanged == -1 || 0 || 1
+            startNextAnimation();
         }
     }
 
     private void performFinalAnimation() {
+        finalAnimationStarted = true;
         if (numberOfLevelsChanged > 0) {
             progressBar.setMax(newMaxProgress);
-            startAnimationFromMinimumProgressTo(finalProgress);
+            startAnimationFromMinimumProgressTo(finalProgress, NO_REPEATS);
         } else if (numberOfLevelsChanged < 0) {
             progressBar.setMax(newMaxProgress);
-            startAnimationFromMaximumProgressTo(finalProgress);
+            startAnimationFromMaximumProgressTo(finalProgress, NO_REPEATS);
         } else { // numberOfLevelsChanged == 0
-            // Hier hoeft niets meer te gebeuren
+            startNextAnimation();
         }
     }
 
-    private void startAnimationFromMinimumProgressTo(float to) {
-        int from = 0;
-        progressBar.setProgress(from);
-        startAnimation(from, to);
+    private void startAnimationFromMinimumProgressTo(float to, int repeats) {
+        float from = 0;
+        progressBar.setProgress((int) from);
+        startAnimation(from, to, repeats);
     }
 
-    private void startAnimationFromMaximumProgressTo(float to) {
+    private void startAnimationFromMaximumProgressTo(float to, int repeats) {
         float from = progressBar.getMax();
         progressBar.setProgress((int) from);
-        startAnimation(from, to);
+        startAnimation(from, to, repeats);
     }
 
     private void startAnimation(float from, float to) {
+        startAnimation(from, to, 0);
+    }
+
+    private void startAnimation(float from, float to, int repeat) {
         ProgressBarAnimation animation = new ProgressBarAnimation(progressBar, from, to);
         animation.setDuration(PROGRESS_DURATION_MILLIS);
         animation.setAnimationListener(this);
+        animation.setRepeatCount(repeat);
         progressBar.startAnimation(animation);
     }
 
@@ -114,10 +112,16 @@ public enum ExperienceProgressBarAnimation implements AnimationListener {
 
     @Override
     public void onAnimationEnd(Animation animation) {
-        if (!repeatingAnimationsEnded) {
+        startNextAnimation();
+    }
+
+    private void startNextAnimation() {
+        if (!repeatingAnimationsStarted) {
             performRepeatingAnimation();
+        } else if (!finalAnimationStarted) {
+            performFinalAnimation();
         } else {
-            finalAnimationEnded = true;
+            allAnimationsEnded = true;
         }
     }
 
@@ -126,6 +130,6 @@ public enum ExperienceProgressBarAnimation implements AnimationListener {
     }
 
     public boolean hasAnimationEnded() {
-        return finalAnimationEnded;
+        return allAnimationsEnded;
     }
 }
