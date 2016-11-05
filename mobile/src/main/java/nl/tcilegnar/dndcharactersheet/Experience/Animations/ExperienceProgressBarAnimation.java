@@ -23,6 +23,7 @@ public enum ExperienceProgressBarAnimation implements AnimationListener {
     private boolean onProgressMaxReached;
 
     private boolean finalAnimationStarted = false;
+    private boolean finalAnimationEnded = true;
 
     public void start(ProgressBar progressBar, Experience experience, int numberOfLevelsChanged) {
         init(progressBar, experience, numberOfLevelsChanged);
@@ -41,6 +42,7 @@ public enum ExperienceProgressBarAnimation implements AnimationListener {
         this.experience = experience;
 
         finalAnimationStarted = false;
+        finalAnimationEnded = false;
     }
 
     private void performInitialAnimation(ProgressBar progressBar, int numberOfLevelsChanged) {
@@ -84,10 +86,16 @@ public enum ExperienceProgressBarAnimation implements AnimationListener {
     public void onAnimationEnd(Animation animation) {
         if (!finalAnimationStarted) {
             performFinalAnimation();
+        } else {
+            finalAnimationEnded = true;
         }
     }
 
     @Override
     public void onAnimationRepeat(Animation animation) {
+    }
+
+    public boolean hasAnimationEnded() {
+        return finalAnimationEnded;
     }
 }

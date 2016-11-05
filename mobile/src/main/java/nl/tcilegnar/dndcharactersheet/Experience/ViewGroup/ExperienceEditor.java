@@ -10,6 +10,7 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import nl.tcilegnar.dndcharactersheet.Experience.Animations.ExperienceProgressBarAnimation;
 import nl.tcilegnar.dndcharactersheet.Experience.Settings.ExperienceSettings;
 import nl.tcilegnar.dndcharactersheet.Experience.View.ExperienceInput;
 import nl.tcilegnar.dndcharactersheet.Experience.View.ExperienceSlider;
@@ -46,11 +47,13 @@ public class ExperienceEditor extends LinearLayout implements OnClickListener, T
     @Override
     public void onClick(View view) {
         int viewId = view.getId();
-        if (viewId == R.id.experience_plus_button) {
-            addExperience();
-        }
-        if (viewId == R.id.experience_min_button) {
-            substractExperience();
+        if (ExperienceProgressBarAnimation.INSTANCE.hasAnimationEnded()) {
+            if (viewId == R.id.experience_plus_button) {
+                addExperience();
+            }
+            if (viewId == R.id.experience_min_button) {
+                substractExperience();
+            }
         }
     }
 
