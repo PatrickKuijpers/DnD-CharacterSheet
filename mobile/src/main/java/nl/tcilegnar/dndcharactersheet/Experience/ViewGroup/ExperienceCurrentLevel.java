@@ -20,17 +20,20 @@ public class ExperienceCurrentLevel extends LinearLayout implements ExperienceUp
         ExperienceUpdatedListener {
     private final Experience experience;
     private ProgressBar expProgressBar;
+    private ExperienceProgressBarAnimation experienceProgressBarAnimation;
 
     public ExperienceCurrentLevel(Context context, AttributeSet attrs) {
-        this(context, attrs, new Experience());
+        this(context, attrs, new Experience(), new ExperienceProgressBarAnimation());
     }
 
     @VisibleForTesting
-    protected ExperienceCurrentLevel(Context context, AttributeSet attrs, Experience experience) {
+    protected ExperienceCurrentLevel(Context context, AttributeSet attrs, Experience experience,
+                                     ExperienceProgressBarAnimation expProgressBarAnimation) {
         super(context, attrs, R.attr.expCurrentLvlStyle);
         inflate(context, R.layout.experience_current_lvl, this);
         experience.setCurrentProjectedLevelListener(new LevelIndicatorView(App.getContext(), null));
         this.experience = experience;
+        this.experienceProgressBarAnimation = expProgressBarAnimation;
         initViews();
     }
 
@@ -75,6 +78,11 @@ public class ExperienceCurrentLevel extends LinearLayout implements ExperienceUp
     }
 
     private void animateExperienceProgressBar() {
-        ExperienceProgressBarAnimation.INSTANCE.start(expProgressBar, experience);
+        experienceProgressBarAnimation.start(expProgressBar, experience);
+    }
+
+    @Override
+    public boolean hasExperienceUpdateAnimationFinished() {
+        return experienceProgressBarAnimation.isFinished();
     }
 }

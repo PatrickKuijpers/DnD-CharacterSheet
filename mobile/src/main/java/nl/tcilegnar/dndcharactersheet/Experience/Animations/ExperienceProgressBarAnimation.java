@@ -7,37 +7,39 @@ import android.widget.ProgressBar;
 import nl.tcilegnar.dndcharactersheet.Base.Animations.ProgressBarAnimation;
 import nl.tcilegnar.dndcharactersheet.Experience.Experience;
 
-public enum ExperienceProgressBarAnimation implements AnimationListener {
-    INSTANCE;
+public class ExperienceProgressBarAnimation implements AnimationListener {
     private static final int PROGRESS_DURATION_MILLIS = 1000;
     private static final int NO_REPEATS = 0;
-
-    private ProgressBar progressBar;
-    private float startProgress;
-    private float finalProgress;
-    private int numberOfLevelsChanged;
-    private int newMaxProgress;
 
     private boolean repeatingAnimationsStarted = false;
     private boolean finalAnimationStarted = false;
     private boolean allAnimationsEnded = true;
 
+    private ProgressBar progressBar;
+    private float startProgress;
+    private float finalProgress;
+    private int newMaxProgress;
+    private int numberOfLevelsChanged;
+
     public void start(ProgressBar progressBar, Experience experience) {
-        init(progressBar, experience);
-        performInitialAnimation();
+        if (allAnimationsEnded) {
+            init(progressBar, experience);
+            performInitialAnimation();
+        }
     }
 
     private void init(ProgressBar progressBar, Experience experience) {
+        repeatingAnimationsStarted = false;
+        finalAnimationStarted = false;
+        allAnimationsEnded = false;
+
         this.progressBar = progressBar;
 
         this.startProgress = progressBar.getProgress();
         this.finalProgress = experience.getCurrentExp();
-        this.numberOfLevelsChanged = experience.getExperienceUpdater().getNumberOfLevelsChanged();
         this.newMaxProgress = experience.getMax();
 
-        repeatingAnimationsStarted = false;
-        finalAnimationStarted = false;
-        allAnimationsEnded = false;
+        this.numberOfLevelsChanged = experience.getExperienceUpdater().getNumberOfLevelsChanged();
     }
 
     private void performInitialAnimation() {
@@ -125,7 +127,7 @@ public enum ExperienceProgressBarAnimation implements AnimationListener {
     public void onAnimationRepeat(Animation animation) {
     }
 
-    public boolean hasAnimationEnded() {
+    public boolean isFinished() {
         return allAnimationsEnded;
     }
 }

@@ -1,7 +1,6 @@
 package nl.tcilegnar.dndcharactersheet.Experience.ViewGroup;
 
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricGradleTestRunner;
@@ -12,12 +11,14 @@ import android.widget.TextView;
 
 import nl.tcilegnar.dndcharactersheet.App;
 import nl.tcilegnar.dndcharactersheet.BuildConfig;
+import nl.tcilegnar.dndcharactersheet.Experience.Animations.ExperienceProgressBarAnimation;
 import nl.tcilegnar.dndcharactersheet.Experience.Experience;
 import nl.tcilegnar.dndcharactersheet.Experience.ExperienceUpdater.ExpTooLowException;
 import nl.tcilegnar.dndcharactersheet.R;
 
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertTrue;
+import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyInt;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.doThrow;
@@ -32,6 +33,7 @@ public class ExperienceCurrentLevelTest {
     private static final int DEFAULT_CURRENT_EXP = 0;
     private ExperienceCurrentLevel experienceCurrentLevel;
     private Experience experienceMock;
+    private ExperienceProgressBarAnimation experienceProgressBarAnimationMock;
 
     @Before
     public void setUp() {
@@ -39,8 +41,7 @@ public class ExperienceCurrentLevelTest {
     }
 
     @Test
-    @Ignore("Werkt niet meer na MAX exp wijziging")
-    public void newExperienceCurrentLevel_DefaultExperience_InitViewsAndValuesWithDefaultExperienceValues() {
+    public void newExperienceCurrentLevel_DefaultConstructor_InitViewsAndValuesWithDefaultExperienceValues() {
         // Arrange
 
         // Act
@@ -75,19 +76,6 @@ public class ExperienceCurrentLevelTest {
         // Assert
         assertProgressbarValues(expectedExpMax, expectedCurrentExp);
         assertExperienceLabelValues(expectedCurrentExp);
-    }
-
-    @Test
-    @Ignore("Werkt niet meer na MAX exp wijziging")
-    public void getExperience_DefaultConstructor_NewExperienceIsSet() {
-        // Arrange
-
-        // Act
-        experienceCurrentLevel = new ExperienceCurrentLevel(App.getContext(), null);
-
-        // Assert
-        Experience experience = experienceCurrentLevel.getExperience();
-        assertIsDefaultNewExperience(experience);
     }
 
     @Test
@@ -168,6 +156,58 @@ public class ExperienceCurrentLevelTest {
         verify(experienceMock).updateExperience(expUpdateValue);
     }
 
+    @Test
+    public void onExperienceUpdated_ZeroExp_TextviewContainsZeroExpValue() {
+        // Arrange
+        int currentExp = 0;
+        doReturn(currentExp).when(experienceMock).getCurrentExp();
+
+        // Act
+        experienceCurrentLevel.onExperienceUpdated();
+
+        // Assert
+        assertExperienceViewsUpdated(currentExp);
+    }
+
+    @Test
+    public void onExperienceUpdated_PositiveExp_AllViewValuesAreUpdated() {
+        // Arrange
+        int currentExp = 123;
+        doReturn(currentExp).when(experienceMock).getCurrentExp();
+
+        // Act
+        experienceCurrentLevel.onExperienceUpdated();
+
+        // Assert
+        assertExperienceViewsUpdated(currentExp);
+    }
+
+    @Test
+    public void hasExperienceUpdateAnimationFinished_True() {
+        // Arrange
+        boolean expectedValue = true;
+        doReturn(expectedValue).when(experienceProgressBarAnimationMock).isFinished();
+
+        // Act
+        boolean hasFinished = experienceCurrentLevel.hasExperienceUpdateAnimationFinished();
+
+        // Assert
+        assertEquals(expectedValue, hasFinished);
+    }
+
+    @Test
+    public void hasExperienceUpdateAnimationFinished_False() {
+        // Arrange
+        boolean expectedValue = false;
+        doReturn(expectedValue).when(experienceProgressBarAnimationMock).isFinished();
+
+        // Act
+        boolean hasFinished = experienceCurrentLevel.hasExperienceUpdateAnimationFinished();
+
+        // Assert
+        assertEquals(expectedValue, hasFinished);
+    }
+
     private ExperienceCurrentLevel getNewExperienceCurrentLevel_WithDefaultValues() {
         return getNewExperienceCurrentLevel(DEFAULT_EXP_MAX, DEFAULT_CURRENT_EXP);
     }
@@ -176,7 +216,8 @@ public class ExperienceCurrentLevelTest {
         experienceMock = mock(Experience.class);
         doReturn(expMax).when(experienceMock).getMax();
         doReturn(currentExp).when(experienceMock).getCurrentExp();
-        return new ExperienceCurrentLevel(App.getContext(), null, experienceMock);
+        experienceProgressBarAnimationMock = mock(ExperienceProgressBarAnimation.class);
+        return new ExperienceCurrentLevel(App.getContext(), null, experienceMock, experienceProgressBarAnimationMock);
     }
 
     private void prepareOnUpdateExperienceTest(int initialExpValue, int expUpdateValue) throws ExpTooLowException {
@@ -189,10 +230,9 @@ public class ExperienceCurrentLevelTest {
         }
     }
 
-    private void assertExperienceUpdated(int initialExpValue, int expUpdateValue) throws ExpTooLowException {
-        int newExpValue = initialExpValue + expUpdateValue;
-        assertProgressbarProgressValue(newExpValue);
-        assertExperienceLabelValues(newExpValue);
+    private void assertExperienceViewsUpdated(int currentExp) {
+        assertExperienceLabelValues(currentExp);
+        verify(experienceProgressBarAnimationMock).start(any(ProgressBar.class), any(Experience.class));
     }
 
     private void assertProgressbarValues(int expMax, int currentExp) {
@@ -205,11 +245,6 @@ public class ExperienceCurrentLevelTest {
         assertEquals(currentExp, progressBar.getProgress());
     }
 
-    private void assertProgressbarProgressValue(int currentExp) {
-        ProgressBar progressBar = (ProgressBar) experienceCurrentLevel.findViewById(R.id.experience_progressBar);
-        assertProgressbarProgressValue(progressBar, currentExp);
-    }
-
     private void assertExperienceLabelValues(int currentExpValue) {
         TextView expLabel = (TextView) experienceCurrentLevel.findViewById(R.id.experience_text);
         String labelText = expLabel.getText().toString();
@@ -219,8 +254,6 @@ public class ExperienceCurrentLevelTest {
 
     private void assertIsDefaultNewExperience(Experience experience) {
         Experience expectedExperience = new Experience();
-        assertEquals(expectedExperience.getCurrentExp(), experience.getCurrentExp());
-        assertEquals(expectedExperience.getMin(), experience.getMin());
-        assertEquals(expectedExperience.getMax(), experience.getMax());
+        assertEquals(expectedExperience, experience);
     }
 }

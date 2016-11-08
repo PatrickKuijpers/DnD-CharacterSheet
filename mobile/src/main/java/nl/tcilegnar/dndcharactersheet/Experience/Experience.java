@@ -82,4 +82,17 @@ public class Experience extends StorageObject {
     public interface ExperienceUpdatedListener {
         void onExperienceUpdated();
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        boolean isEqual = false;
+        if (obj instanceof Experience) {
+            Experience exp = (Experience) obj;
+            isEqual = getCurrentExp() == exp.getCurrentExp() && getMin() == exp.getMin();
+            if (isEqual && currentProjectedLevelListener != null) {
+                isEqual = getMax() == exp.getMax();
+            }
+        }
+        return isEqual;
+    }
 }
