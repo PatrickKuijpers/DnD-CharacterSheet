@@ -22,8 +22,8 @@ import static org.mockito.Mockito.mock;
 @RunWith(RobolectricGradleTestRunner.class)
 @Config(constants = BuildConfig.class)
 public class MoneyIndicatorTextViewTest {
-    private static final boolean MANUAL = true;
-    private static final boolean NOT_MANUAL = !MANUAL;
+    private static final boolean AUTOMATICALLY = true;
+    private static final boolean MANUAL = !AUTOMATICALLY;
     private MoneySettings settingsMock;
 
     @Test
@@ -79,12 +79,12 @@ public class MoneyIndicatorTextViewTest {
     }
 
     @Test
-    public void updateSettingsData_StartWithSettingsManualAndSwitchToSettingsNotManual_ShouldBeVisible() {
+    public void updateSettingsData_StartWithSettingsManualAndSwitchToSettingsAutomatically_ShouldNotBeVisible() {
         // Arrange
         MoneyIndicatorTextView moneyIndicatorTextView = getMoneyIndicatorTextView(MANUAL);
         assertNotEquals(View.VISIBLE, moneyIndicatorTextView.getVisibility());
 
-        doReturn(NOT_MANUAL).when(settingsMock).isMoneyUpdateManual();
+        doReturn(AUTOMATICALLY).when(settingsMock).isMoneyUpdateCalculatedAutomatically();
 
         // Act
         moneyIndicatorTextView.updateSettingsData();
@@ -94,12 +94,12 @@ public class MoneyIndicatorTextViewTest {
     }
 
     @Test
-    public void updateSettingsData_StartWithSettingsNotManualAndSwitchToSettingsManual_ShouldNotBeVisible() {
+    public void updateSettingsData_StartWithSettingsAutomaticallyAndSwitchToSettingsManual_ShouldBeVisible() {
         // Arrange
-        MoneyIndicatorTextView moneyIndicatorTextView = getMoneyIndicatorTextView(NOT_MANUAL);
+        MoneyIndicatorTextView moneyIndicatorTextView = getMoneyIndicatorTextView(AUTOMATICALLY);
         assertEquals(View.VISIBLE, moneyIndicatorTextView.getVisibility());
 
-        doReturn(MANUAL).when(settingsMock).isMoneyUpdateManual();
+        doReturn(MANUAL).when(settingsMock).isMoneyUpdateCalculatedAutomatically();
 
         // Act
         moneyIndicatorTextView.updateSettingsData();
@@ -109,12 +109,12 @@ public class MoneyIndicatorTextViewTest {
     }
 
     private MoneyIndicatorTextView getMoneyIndicatorTextView() {
-        return getMoneyIndicatorTextView(NOT_MANUAL);
+        return getMoneyIndicatorTextView(MANUAL);
     }
 
-    private MoneyIndicatorTextView getMoneyIndicatorTextView(boolean manual) {
+    private MoneyIndicatorTextView getMoneyIndicatorTextView(boolean calculatedAutomatically) {
         settingsMock = mock(MoneySettings.class);
-        doReturn(manual).when(settingsMock).isMoneyUpdateManual();
+        doReturn(calculatedAutomatically).when(settingsMock).isMoneyUpdateCalculatedAutomatically();
         return new MoneyIndicatorTextView(getContext(), null, settingsMock);
     }
 

@@ -2,9 +2,9 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
     <PreferenceCategory android:title="@string/setting_category_title_money">
         <CheckBoxPreference
-            android:defaultValue="@string/setting_defaultvalue_money_update_manual"
-            android:key="@string/setting_key_money_update_manual"
-            android:summary="@string/setting_summary_money_update_manual"
+            android:defaultValue="@string/setting_defaultvalue_money_update_calculated"
+            android:key="@string/setting_key_money_update_calculated"
+            android:summary="@string/setting_summary_money_update_calculated"
             android:title="@string/setting_title_money_update_type"/>
         <ListPreference
             android:defaultValue="@string/setting_defaultvalue_money_update_type"

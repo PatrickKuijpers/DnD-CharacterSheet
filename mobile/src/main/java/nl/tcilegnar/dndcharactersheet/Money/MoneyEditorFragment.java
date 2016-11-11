@@ -74,7 +74,7 @@ public class MoneyEditorFragment extends BaseFragment implements OnClickListener
 
     @Override
     protected void updateSettingsData() {
-        boolean shouldLeaveThisFragment = getSettings().isMoneyUpdateManual();
+        boolean shouldLeaveThisFragment = !getSettings().isMoneyUpdateCalculatedAutomatically();
         if (shouldLeaveThisFragment) {
             getActivity().onBackPressed();
         } else {
