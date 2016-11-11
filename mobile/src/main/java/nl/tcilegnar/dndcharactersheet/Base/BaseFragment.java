@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBar;
+import android.view.View;
 
 import nl.tcilegnar.dndcharactersheet.Settings.Settings;
 
@@ -17,21 +18,34 @@ public abstract class BaseFragment extends Fragment {
         if (settings != null) {
             settings.addSettingsChangedListener(this);
         }
-
-        setDrawerIconAsBack();
     }
 
-    private void setDrawerIconAsBack() {
-        if (shouldShowHomeAsUp()) {
-            ActionBar supportActionBar = ((BaseActivity) getActivity()).getSupportActionBar();
-            if (supportActionBar != null) {
-                supportActionBar.setHomeButtonEnabled(true);
-                supportActionBar.setDisplayHomeAsUpEnabled(true);
-            }
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        initActionBar();
+    }
+
+    private void initActionBar() {
+        ActionBar supportActionBar = ((BaseActivity) getActivity()).getSupportActionBar();
+        if (supportActionBar != null) {
+            supportActionBar.setTitle(getTitle());
+            handleDrawerIcon(supportActionBar);
         }
     }
 
-    protected boolean shouldShowHomeAsUp() {
+    protected String getTitle() {
+        return getActivity().getTitle().toString();
+    }
+
+    private void handleDrawerIcon(ActionBar supportActionBar) {
+        if (shouldShowHomeAsBack()) {
+            supportActionBar.setHomeButtonEnabled(true);
+            supportActionBar.setDisplayHomeAsUpEnabled(true);
+        }
+    }
+
+    protected boolean shouldShowHomeAsBack() {
         return false;
     }
 

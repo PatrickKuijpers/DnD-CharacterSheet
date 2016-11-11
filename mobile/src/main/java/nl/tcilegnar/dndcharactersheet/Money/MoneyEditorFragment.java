@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 
+import nl.tcilegnar.dndcharactersheet.App;
 import nl.tcilegnar.dndcharactersheet.Base.BaseFragment;
 import nl.tcilegnar.dndcharactersheet.Money.Settings.MoneySettings;
 import nl.tcilegnar.dndcharactersheet.Money.ViewGroup.BronzeEditor;
@@ -59,6 +60,11 @@ public class MoneyEditorFragment extends BaseFragment implements OnClickListener
     private void initClickListeners(View view) {
         view.findViewById(R.id.change_money_plus_button).setOnClickListener(this);
         view.findViewById(R.id.change_money_min_button).setOnClickListener(this);
+    }
+
+    @Override
+    public String getTitle() {
+        return App.getResourceString(R.string.title_money_editor);
     }
 
     @Override
