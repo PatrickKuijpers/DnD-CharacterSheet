@@ -68,10 +68,15 @@ public class MoneyEditorFragment extends BaseFragment implements OnClickListener
 
     @Override
     protected void updateSettingsData() {
-        platinumEditor.updateSettingsData();
-        goldEditor.updateSettingsData();
-        silverEditor.updateSettingsData();
-        bronzeEditor.updateSettingsData();
+        boolean shouldLeaveThisFragment = getSettings().isMoneyUpdateManual();
+        if (shouldLeaveThisFragment) {
+            getActivity().onBackPressed();
+        } else {
+            platinumEditor.updateSettingsData();
+            goldEditor.updateSettingsData();
+            silverEditor.updateSettingsData();
+            bronzeEditor.updateSettingsData();
+        }
     }
 
     @Override
