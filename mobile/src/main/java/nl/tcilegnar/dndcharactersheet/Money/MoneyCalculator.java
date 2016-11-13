@@ -5,10 +5,14 @@ import nl.tcilegnar.dndcharactersheet.Base.Exceptions.CustomToastException;
 import nl.tcilegnar.dndcharactersheet.R;
 
 public class MoneyCalculator {
-    protected static final int MAX_BRONZE_VALUE = 99;
-    protected static final int MAX_SILVER_VALUE = 99;
-    protected static final int MAX_GOLD_VALUE = 99;
+    protected static final int MAX_BRONZE_VALUE = getMaxMoneyValue();
+    protected static final int MAX_SILVER_VALUE = MAX_BRONZE_VALUE;
+    protected static final int MAX_GOLD_VALUE = MAX_SILVER_VALUE;
     protected static final int MAX_PLATINUM_VALUE = getMaxPlatinumValue();
+
+    private static int getMaxMoneyValue() {
+        return (int) Math.pow(10, App.getResourceInteger(R.integer.max_length_money_value)) - 1;
+    }
 
     private static int getMaxPlatinumValue() {
         return (int) Math.pow(10, App.getResourceInteger(R.integer.max_length_platinum_value)) - 1;
