@@ -2,6 +2,7 @@
 <merge xmlns:android="http://schemas.android.com/apk/res/android">
 
     <ImageView
+        android:id="@+id/money_indicator_coin"
         style="@style/imageview_coin"
         android:contentDescription="@string/image_description_silver_coin"
         android:src="@drawable/coin_silver"/>

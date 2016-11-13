@@ -60,8 +60,8 @@ public class MoneyActivity extends BaseStorageActivity implements ChangeMoneyLis
     @Override
     public void onMoneyChanged(MoneyValues newMoneyValues) {
         MoneyFragment moneyFragment = getMoneyFragment();
-        moneyFragment.changeMoney(newMoneyValues); // TODO: mogelijke bug?
         stopMoneyEditorAndGoBackToMoneyFragment();
+        moneyFragment.changeMoney(newMoneyValues); // TODO: mogelijke bug?
     }
 
     @Override

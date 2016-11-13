@@ -30,4 +30,9 @@ public class MainSettings extends Settings {
         String key = getKey(R.string.setting_key_show_hints);
         return loadBoolean(key, Boolean.valueOf(DefaultSettingValue.SHOW_HINTS.value));
     }
+
+    public boolean shouldPlaySounds() {
+        String key = getKey(R.string.setting_key_play_sounds);
+        return loadBoolean(key, Boolean.valueOf(DefaultSettingValue.PLAY_SOUND.value));
+    }
 }

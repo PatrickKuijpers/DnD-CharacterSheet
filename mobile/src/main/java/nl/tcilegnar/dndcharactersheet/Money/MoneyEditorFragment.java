@@ -15,6 +15,7 @@ import nl.tcilegnar.dndcharactersheet.Money.ViewGroup.PlatinumEditor;
 import nl.tcilegnar.dndcharactersheet.Money.ViewGroup.SilverEditor;
 import nl.tcilegnar.dndcharactersheet.R;
 import nl.tcilegnar.dndcharactersheet.Utils.KeyboardUtil;
+import nl.tcilegnar.dndcharactersheet.Utils.Sound;
 
 public class MoneyEditorFragment extends BaseFragment implements OnClickListener {
     private PlatinumEditor platinumEditor;
@@ -92,12 +93,34 @@ public class MoneyEditorFragment extends BaseFragment implements OnClickListener
             MoneyValues newMoneyValues = calculator.calculateNewMoneyValues(moneyChangeValues);
 
             moneyChangedListener.onMoneyChanged(newMoneyValues);
+            doMoneySoundEffect(moneyChangeValues);
         } catch (MoneyCalculator.MaxMoneyReachedException | MoneyCalculator.NotEnoughMoneyException e) {
             moneyChangedListener.onMoneyNotChanged();
         }
     }
 
+    private void doMoneySoundEffect(MoneyValues moneyValues) {
+        if (moneyValues.isMoneyIncrease()) {
+            Sound.play(R.raw.sack_of_coins_picked_up_off_wood);
+        } else if (moneyValues.isMoneyDecrease()) {
+            if (moneyValues.isSingleCoinChanged()) {
+                if (moneyValues.isHighValueCoinChanged()) {
+                    Sound.play(R.raw.large_coin_fall_on_wood);
+                } else {
+                    Sound.playRandom(R.raw.single_coin_fall_on_wood, R.raw.single_coin_fall_on_concrete);
+                }
+            } else {
+                if (moneyValues.isHighValueCoinChanged()) {
+                    Sound.play(R.raw.large_coin_fall_on_wood);
+                }
+                Sound.playRandom(R.raw.many_coins_fall_on_wood, R.raw.many_coins_falling_on_concrete);
+            }
+        }
+    }
+
     private MoneyValues getMoneyChangeValues(MoneyChangeMode mode) {
+        removeFocusFromAllViews();
+
         MoneyValues moneyChangeValues = null;
 
         int platinumValue = platinumEditor.getMoneyValue();
@@ -113,6 +136,13 @@ public class MoneyEditorFragment extends BaseFragment implements OnClickListener
                 break;
         }
         return moneyChangeValues;
+    }
+
+    private void removeFocusFromAllViews() {
+        View viewInFocus = getActivity().getCurrentFocus();
+        if (viewInFocus != null) {
+            viewInFocus.clearFocus();
+        }
     }
 
     public void setCurrentMoneyValues(MoneyValues currentMoneyValues) {

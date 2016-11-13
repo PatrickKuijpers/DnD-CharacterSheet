@@ -106,18 +106,18 @@ public class MoneyFragment extends BaseStorageFragment implements OnClickListene
         bronzeView.save();
     }
 
-    public void changeMoney(MoneyValues moneyValues) {
-        platinumView.setMoneyValue(moneyValues);
-        goldView.setMoneyValue(moneyValues);
-        silverView.setMoneyValue(moneyValues);
-        bronzeView.setMoneyValue(moneyValues);
+    public void changeMoney(MoneyValues newMoneyValues) {
+        platinumView.changeMoneyValue(newMoneyValues);
+        goldView.changeMoneyValue(newMoneyValues);
+        silverView.changeMoneyValue(newMoneyValues);
+        bronzeView.changeMoneyValue(newMoneyValues);
     }
 
     public MoneyValues getMoneyValues() {
-        int platinumValue = platinumView.getMoneyValue();
-        int goldValue = goldView.getMoneyValue();
-        int silverValue = silverView.getMoneyValue();
-        int bronzeValue = bronzeView.getMoneyValue();
+        int platinumValue = platinumView.getCurrentMoneyValue();
+        int goldValue = goldView.getCurrentMoneyValue();
+        int silverValue = silverView.getCurrentMoneyValue();
+        int bronzeValue = bronzeView.getCurrentMoneyValue();
         return new MoneyValues(platinumValue, goldValue, silverValue, bronzeValue);
     }
 

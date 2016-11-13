@@ -6,6 +6,11 @@
             android:key="@string/setting_key_show_hints"
             android:summary="@string/setting_summary_show_hints"
             android:title="@string/setting_title_show_hints"/>
+        <CheckBoxPreference
+            android:defaultValue="@string/setting_defaultvalue_play_sounds"
+            android:key="@string/setting_key_play_sounds"
+            android:summary="@string/setting_summary_play_sounds"
+            android:title="@string/setting_title_play_sounds"/>
     </PreferenceCategory>
     <PreferenceCategory android:title="@string/setting_category_title_confirm">
         <Preference
