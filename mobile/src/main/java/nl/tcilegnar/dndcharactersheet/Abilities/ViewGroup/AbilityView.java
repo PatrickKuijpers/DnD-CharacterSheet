@@ -42,6 +42,6 @@ public class AbilityView extends LinearLayout {
         abilityImageview.setImageResource(ability.getImageRes());
         abilityImageview.setContentDescription(ability.getImageDescription());
         abilityAbbreviation.setText(ability.getAbbreviation());
-        abilityIndicator.setText("1");
+        abilityIndicator.setText(String.valueOf(ability.loadValue()));
     }
 }
