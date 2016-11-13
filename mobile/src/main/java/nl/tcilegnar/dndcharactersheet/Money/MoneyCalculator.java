@@ -11,7 +11,7 @@ public class MoneyCalculator {
     protected static final int MAX_PLATINUM_VALUE = getMaxPlatinumValue();
 
     private static int getMaxPlatinumValue() {
-        return (int) Math.pow(10, App.getResourceInteger(R.integer.max_lenght_platinum_value)) - 1;
+        return (int) Math.pow(10, App.getResourceInteger(R.integer.max_length_platinum_value)) - 1;
     }
 
     private final MoneyValues currentMoneyValues;

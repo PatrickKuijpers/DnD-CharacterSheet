@@ -3,7 +3,8 @@
 
     <integer name="button_main_menu_height_weight">1</integer>
 
-    <integer name="max_lenght_platinum_value">2</integer>
+    <integer name="max_length_money_value">2</integer>
+    <integer name="max_length_platinum_value">@integer/max_length_money_value</integer>
 
     <item name="base_numberpicker_scale" format="float" type="integer">0.7</item>
 
