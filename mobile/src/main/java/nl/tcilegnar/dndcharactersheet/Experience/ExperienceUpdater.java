@@ -1,11 +1,11 @@
 package nl.tcilegnar.dndcharactersheet.Experience;
 
 import android.support.annotation.VisibleForTesting;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
 import nl.tcilegnar.dndcharactersheet.App;
+import nl.tcilegnar.dndcharactersheet.Base.Exceptions.CustomToastException;
 import nl.tcilegnar.dndcharactersheet.Experience.Settings.ExperienceSettings;
 import nl.tcilegnar.dndcharactersheet.Level.Level.MaxLevelReachedException;
 import nl.tcilegnar.dndcharactersheet.Level.Level.MinLevelReachedException;
@@ -119,10 +119,9 @@ public class ExperienceUpdater {
         void onExperienceMaxReached() throws MaxLevelReachedException;
     }
 
-    public class ExpTooLowException extends Exception {
+    public class ExpTooLowException extends CustomToastException {
         public ExpTooLowException() {
             super(App.getResourceString(R.string.exp_too_low_exception));
-            Toast.makeText(App.getContext(), getMessage(), Toast.LENGTH_LONG).show();
         }
     }
 }

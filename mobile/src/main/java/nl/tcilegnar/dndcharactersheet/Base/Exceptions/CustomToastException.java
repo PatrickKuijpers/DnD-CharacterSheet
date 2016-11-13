@@ -7,10 +7,7 @@ import nl.tcilegnar.dndcharactersheet.App;
 public abstract class CustomToastException extends Exception {
     public CustomToastException(String message) {
         super(message);
-        showToastWithWarningMessage();
-    }
-
-    private void showToastWithWarningMessage() {
-        Toast.makeText(App.getContext(), getMessage(), Toast.LENGTH_LONG).show();
+        SingleToast.INSTANCE.show(App.getContext(), getMessage(), Toast.LENGTH_LONG);
+        SingleToast.INSTANCE.show(App.getContext(), "some other message", Toast.LENGTH_LONG);
     }
 }
