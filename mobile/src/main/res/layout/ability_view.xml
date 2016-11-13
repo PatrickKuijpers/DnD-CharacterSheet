@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/ability_image"
+        android:layout_width="@dimen/icon_size_big"
+        android:layout_height="@dimen/icon_size_big"
+        android:layout_alignParentTop="true"
+        android:scaleType="centerInside"/>
+
+    <TextView
+        android:id="@+id/ability_abbreviation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@id/ability_image"
+        android:layout_alignRight="@id/ability_image"
+        android:layout_below="@id/ability_image"
+        android:gravity="center_horizontal"
+        android:textSize="@dimen/ability_abbr_textsize"/>
+
+    <TextView
+        android:id="@+id/ability_indicator"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_alignBottom="@id/ability_image"
+        android:layout_alignTop="@id/ability_image"
+        android:layout_marginLeft="@dimen/horizontal_margin"
+        android:layout_toRightOf="@id/ability_image"
+        android:gravity="center_vertical"
+        android:textSize="@dimen/ability_value_textsize"/>
+</RelativeLayout>

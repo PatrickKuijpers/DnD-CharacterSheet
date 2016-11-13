@@ -3,6 +3,8 @@
 
     <integer name="button_main_menu_height_weight">1</integer>
 
+    <integer name="gridview_columns_abilities">2</integer>
+
     <integer name="max_length_money_value">2</integer>
     <integer name="max_length_platinum_value">@integer/max_length_money_value</integer>
 

@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.preference.PreferenceActivity;
 import android.support.v4.app.FragmentTransaction;
 
+import nl.tcilegnar.dndcharactersheet.Abilities.AbilitiesActivity;
 import nl.tcilegnar.dndcharactersheet.Base.BaseActivity;
 import nl.tcilegnar.dndcharactersheet.Experience.ExperienceActivity;
 import nl.tcilegnar.dndcharactersheet.Health.HpActivity;
@@ -85,6 +86,11 @@ public class MainMenuActivity extends BaseActivity {
     public void startLevelAndExperience() {
         Intent experienceActivity = new Intent(this, ExperienceActivity.class);
         startActivity(experienceActivity);
+    }
+
+    public void startAbilities() {
+        Intent abilitiesActivity = new Intent(this, AbilitiesActivity.class);
+        startActivity(abilitiesActivity);
     }
 
     public void startHp() {
