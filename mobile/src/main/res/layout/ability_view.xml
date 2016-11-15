@@ -63,12 +63,13 @@
         android:visibility="visible"/>
 
     <ImageButton
-        android:id="@+id/ability_edit_button"
-        style="@style/edit_ability_image_button"
+        android:id="@+id/ability_save_button"
+        style="@style/save_ability_image_button"
         android:layout_alignBottom="@id/ability_abbreviation"
         android:layout_alignLeft="@id/ability_editor"
         android:layout_alignRight="@id/ability_editor"
         android:layout_alignTop="@id/ability_abbreviation"
-        android:contentDescription="@string/image_description_ability_edit"
-        android:src="@drawable/ic_edit"/>
+        android:contentDescription="@string/image_description_ability_save"
+        android:src="@drawable/ic_action_save"
+        android:visibility="invisible"/>
 </RelativeLayout>

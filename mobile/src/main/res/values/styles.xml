@@ -136,7 +136,7 @@
         <item name="android:textSize">@dimen/ability_value_textsize</item>
     </style>
 
-    <style name="edit_ability_image_button">
+    <style name="save_ability_image_button">
         <item name="android:layout_width">@dimen/money_change_image_size</item>
         <item name="android:layout_height">@dimen/money_change_image_size</item>
         <item name="android:background">@color/transparent</item>

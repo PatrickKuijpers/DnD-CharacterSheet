@@ -15,7 +15,6 @@ import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
 
 import nl.tcilegnar.dndcharactersheet.Abilities.Ability;
-import nl.tcilegnar.dndcharactersheet.App;
 import nl.tcilegnar.dndcharactersheet.R;
 import nl.tcilegnar.dndcharactersheet.Utils.KeyboardUtil;
 
@@ -28,7 +27,7 @@ public class AbilityView extends LinearLayout implements OnClickListener, OnEdit
     private TextView abilityIndicator;
     private View abilityEditor;
     private EditText abilityEditText;
-    private ImageButton abilityEditButton;
+    private ImageButton abilitySaveButton;
     private Button abilityEditorButtonPlus;
     private Button abilityEditorButtonMin;
 
@@ -52,14 +51,15 @@ public class AbilityView extends LinearLayout implements OnClickListener, OnEdit
         abilityEditorButtonPlus = (Button) findViewById(R.id.ability_editor_button_plus);
         abilityEditorButtonMin = (Button) findViewById(R.id.ability_editor_button_min);
 
-        abilityEditButton = (ImageButton) findViewById(R.id.ability_edit_button);
+        abilitySaveButton = (ImageButton) findViewById(R.id.ability_save_button);
 
         abilityEditText.setOnEditorActionListener(this);
         setOnClickListeners();
     }
 
     private void setOnClickListeners() {
-        abilityEditButton.setOnClickListener(this);
+        abilityIndicator.setOnClickListener(this);
+        abilitySaveButton.setOnClickListener(this);
         abilityEditorButtonPlus.setOnClickListener(this);
         abilityEditorButtonMin.setOnClickListener(this);
     }
@@ -75,8 +75,10 @@ public class AbilityView extends LinearLayout implements OnClickListener, OnEdit
     @Override
     public void onClick(View view) {
         int viewId = view.getId();
-        if (viewId == R.id.ability_edit_button) {
-            toggleEditor();
+        if (viewId == R.id.ability_indicator) {
+            startEdit();
+        } else if (viewId == R.id.ability_save_button) {
+            finishEdit();
         } else if (viewId == R.id.ability_editor_button_plus) {
             addValue();
         } else if (viewId == R.id.ability_editor_button_min) {
@@ -84,20 +86,17 @@ public class AbilityView extends LinearLayout implements OnClickListener, OnEdit
         }
     }
 
-    private void toggleEditor() {
-        boolean startEditting = abilityIndicator.getVisibility() == VISIBLE;
-        if (startEditting) {
-            abilityIndicator.setVisibility(INVISIBLE);
-            abilityEditor.setVisibility(VISIBLE);
-            abilityEditButton.setImageResource(R.drawable.ic_action_save);
-            abilityEditButton.setContentDescription(App.getResourceString(R.string.image_description_ability_save));
-        } else {
-            saveAbilityValue();
-            abilityIndicator.setVisibility(VISIBLE);
-            abilityEditor.setVisibility(INVISIBLE);
-            abilityEditButton.setImageResource(R.drawable.ic_edit);
-            abilityEditButton.setContentDescription(App.getResourceString(R.string.image_description_ability_edit));
-        }
+    private void startEdit() {
+        abilityIndicator.setVisibility(INVISIBLE);
+        abilityEditor.setVisibility(VISIBLE);
+        abilitySaveButton.setVisibility(VISIBLE);
+    }
+
+    private void finishEdit() {
+        saveAbilityValue();
+        abilityIndicator.setVisibility(VISIBLE);
+        abilityEditor.setVisibility(INVISIBLE);
+        abilitySaveButton.setVisibility(INVISIBLE);
     }
 
     private void saveAbilityValue() {
@@ -105,6 +104,13 @@ public class AbilityView extends LinearLayout implements OnClickListener, OnEdit
         ability.saveValue(getEditorNumberValue());
         abilityIndicator.setText(getEditorValue());
         KeyboardUtil.hideKeyboard(abilityEditText);
+    }
+
+    private void validateInput(TextView textView) {
+        String value = textView.getText().toString();
+        if (value.isEmpty()) {
+            setEditorNumberValue(0);
+        }
     }
 
     private int getEditorNumberValue() {
@@ -134,15 +140,8 @@ public class AbilityView extends LinearLayout implements OnClickListener, OnEdit
     @Override
     public boolean onEditorAction(TextView textView, int actionId, KeyEvent keyEvent) {
         if (actionId == EditorInfo.IME_ACTION_DONE) {
-            toggleEditor();
+            finishEdit();
         }
         return false; // Voer de standaard action uit: done = verberg soft keyboard
-    }
-
-    private void validateInput(TextView textView) {
-        String value = textView.getText().toString();
-        if (value.isEmpty()) {
-            setEditorNumberValue(0);
-        }
     }
 }
