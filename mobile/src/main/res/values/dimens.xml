@@ -17,8 +17,9 @@
     <dimen name="edittext_padding_vertical">4dp</dimen>
     <dimen name="edittext_padding_horizontal">8dp</dimen>
 
-    <dimen name="button_square_size_small">30dp</dimen>
-    <dimen name="button_square_size">54dp</dimen>
+    <dimen name="button_square_size_small">32dp</dimen>
+    <dimen name="button_square_size_medium">40dp</dimen>
+    <dimen name="button_square_size_large">56dp</dimen>
 
     <dimen name="icon_size_normal">64dp</dimen>
     <dimen name="icon_size_big">96dp</dimen>

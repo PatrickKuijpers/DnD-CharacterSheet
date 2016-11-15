@@ -6,11 +6,16 @@
         <item name="android:layout_height">match_parent</item>
     </style>
 
-    <style name="fragment_full_screen_paddings" parent="fragment_full_screen_base">
+    <style name="fragment_full_screen" parent="fragment_full_screen_base">
         <item name="android:paddingTop">@dimen/vertical_margin</item>
         <item name="android:paddingBottom">@dimen/vertical_margin</item>
         <item name="android:paddingLeft">@dimen/horizontal_margin</item>
         <item name="android:paddingRight">@dimen/horizontal_margin</item>
+    </style>
+
+    <style name="fragment_full_screen_with_scrollview" parent="fragment_full_screen_base">
+        <item name="android:paddingLeft">@dimen/horizontal_margin_small</item>
+        <item name="android:paddingRight">@dimen/horizontal_margin_small</item>
     </style>
 
     <style name="fragment_main_menu" parent="fragment_full_screen_base">
@@ -18,7 +23,7 @@
         <item name="android:layout_height">match_parent</item>
     </style>
 
-    <style name="fragment_money" parent="fragment_full_screen_paddings">
+    <style name="fragment_money" parent="fragment_full_screen">
         <item name="android:orientation">horizontal</item>
     </style>
 
@@ -78,15 +83,21 @@
         <item name="android:alpha">0.6</item>
     </style>
 
-    <style name="button_square">
-        <item name="android:layout_width">@dimen/button_square_size</item>
-        <item name="android:layout_height">@dimen/button_square_size</item>
-        <item name="android:padding">0dp</item>
-    </style>
-
     <style name="button_square_small">
         <item name="android:layout_width">@dimen/button_square_size_small</item>
         <item name="android:layout_height">@dimen/button_square_size_small</item>
+        <item name="android:padding">0dp</item>
+    </style>
+
+    <style name="button_square_medium">
+        <item name="android:layout_width">@dimen/button_square_size_medium</item>
+        <item name="android:layout_height">@dimen/button_square_size_medium</item>
+        <item name="android:padding">0dp</item>
+    </style>
+
+    <style name="button_square_large">
+        <item name="android:layout_width">@dimen/button_square_size_large</item>
+        <item name="android:layout_height">@dimen/button_square_size_large</item>
         <item name="android:padding">0dp</item>
     </style>
 
