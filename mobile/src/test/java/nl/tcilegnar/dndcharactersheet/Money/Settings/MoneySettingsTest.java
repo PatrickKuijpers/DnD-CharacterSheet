@@ -57,28 +57,28 @@ public class MoneySettingsTest {
     }
 
     @Test
-    public void isMoneyUpdateManual_NotSaved_GetDefault() {
+    public void isMoneyUpdateCalculated_NotSaved_GetDefault() {
         // Arrange
 
         // Act
-        boolean isMoneyUpdateManual = settings.isMoneyUpdateManual();
+        boolean isMoneyUpdateCalculated = settings.isMoneyUpdateCalculatedAutomatically();
 
         // Assert
-        boolean defaultValue = false;
-        assertEquals(defaultValue, isMoneyUpdateManual);
+        boolean defaultValue = true;
+        assertEquals(defaultValue, isMoneyUpdateCalculated);
     }
 
     @Test
-    public void isMoneyUpdateManual_SavedTrueForIsMoneyUpdateManual_GetDefault() {
+    public void isMoneyUpdateCalculated_SavedFalseForIsMoneyUpdateCalculated_GetDefault() {
         // Arrange
-        boolean expectedValue = true;
-        savePreference(R.string.setting_key_money_update_manual, expectedValue);
+        boolean expectedValue = false;
+        savePreference(R.string.setting_key_money_update_calculated, expectedValue);
 
         // Act
-        boolean isMoneyUpdateManual = settings.isMoneyUpdateManual();
+        boolean isMoneyUpdateCalculated = settings.isMoneyUpdateCalculatedAutomatically();
 
         // Assert
-        assertEquals(expectedValue, isMoneyUpdateManual);
+        assertEquals(expectedValue, isMoneyUpdateCalculated);
     }
 
     @Test

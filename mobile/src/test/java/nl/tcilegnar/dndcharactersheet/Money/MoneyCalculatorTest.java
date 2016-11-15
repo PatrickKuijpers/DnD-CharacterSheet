@@ -9,17 +9,16 @@ import org.robolectric.annotation.Config;
 import nl.tcilegnar.dndcharactersheet.BuildConfig;
 
 import static junit.framework.Assert.assertEquals;
-import static nl.tcilegnar.dndcharactersheet.Money.MoneyCalculator.MAX_PLATINUM_VALUE;
+import static nl.tcilegnar.dndcharactersheet.Money.MoneyConstants.MAX_BRONZE_VALUE;
+import static nl.tcilegnar.dndcharactersheet.Money.MoneyConstants.MAX_GOLD_VALUE;
+import static nl.tcilegnar.dndcharactersheet.Money.MoneyConstants.MAX_PLATINUM_VALUE;
+import static nl.tcilegnar.dndcharactersheet.Money.MoneyConstants.MAX_SILVER_VALUE;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
 
 @RunWith(RobolectricGradleTestRunner.class)
 @Config(constants = BuildConfig.class)
 public class MoneyCalculatorTest {
-    private static final int MAX_BRONZE_VALUE = MoneyCalculator.MAX_BRONZE_VALUE;
-    private static final int MAX_SILVER_VALUE = MoneyCalculator.MAX_SILVER_VALUE;
-    private static final int MAX_GOLD_VALUE = MoneyCalculator.MAX_GOLD_VALUE;
-
     private static final int DEFAULT_PLATINUM = 3;
     private static final int DEFAULT_GOLD = 12;
     private static final int DEFAULT_SILVER = 45;

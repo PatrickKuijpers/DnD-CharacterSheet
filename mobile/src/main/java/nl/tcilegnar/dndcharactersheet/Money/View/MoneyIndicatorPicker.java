@@ -27,7 +27,7 @@ public class MoneyIndicatorPicker extends MoneyBaseNumberPicker {
 
     @Override
     protected boolean shouldBeVisible() {
-        return ((MoneySettings) settings).isMoneyUpdateManual();
+        return !((MoneySettings) settings).isMoneyUpdateCalculatedAutomatically();
     }
 
     @Override

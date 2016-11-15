@@ -7,6 +7,7 @@
     <string name="title_abilities">Abilities</string>
     <string name="title_hp">Health</string>
     <string name="title_money">Money</string>
+    <string name="title_money_editor">Money calculation</string>
 
     <string name="title_settings_main">General settings</string>
     <string name="title_settings_basic_character_info">Character info settings</string>

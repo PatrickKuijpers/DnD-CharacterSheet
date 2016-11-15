@@ -26,9 +26,9 @@ public class MoneySettings extends Settings {
         return "MoneySettings";
     }
 
-    public boolean isMoneyUpdateManual() {
-        String key = getKey(R.string.setting_key_money_update_manual);
-        return loadBoolean(key, Boolean.valueOf(DefaultSettingValue.MONEY_UPDATE_MANUAL.value));
+    public boolean isMoneyUpdateCalculatedAutomatically() {
+        String key = getKey(R.string.setting_key_money_update_calculated);
+        return loadBoolean(key, Boolean.valueOf(DefaultSettingValue.MONEY_UPDATE_CALCULATED.value));
     }
 
     String getMoneyUpdateType() {

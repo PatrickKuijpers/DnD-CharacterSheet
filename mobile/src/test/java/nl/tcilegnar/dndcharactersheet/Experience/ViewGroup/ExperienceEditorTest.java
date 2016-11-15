@@ -20,8 +20,10 @@ import nl.tcilegnar.dndcharactersheet.Experience.ViewGroup.ExperienceEditor.Expe
 import nl.tcilegnar.dndcharactersheet.R;
 
 import static junit.framework.Assert.assertTrue;
+import static org.mockito.Matchers.anyInt;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 
 @RunWith(RobolectricGradleTestRunner.class)
@@ -64,6 +66,32 @@ public class ExperienceEditorTest {
 
         // Assert
         assertOnClickListenersInitialized();
+    }
+
+    @Test
+    public void onClick_PlusButtonAndExperienceUpdateAnimationFinishedIsFalse_OnUpdateExperienceNotCalled() {
+        // Arrange
+        initNewExperienceEditor_WithInput();
+        doReturn(false).when(experienceUpdateListenerMock).hasExperienceUpdateAnimationFinished();
+
+        // Act
+        experienceEditor.onClick(plusButtonMock);
+
+        // Assert
+        verify(experienceUpdateListenerMock, never()).onUpdateExperience(anyInt());
+    }
+
+    @Test
+    public void onClick_MinButtonAndExperienceUpdateAnimationFinishedIsFalse_OnUpdateExperienceNotCalled() {
+        // Arrange
+        initNewExperienceEditor_WithInput();
+        doReturn(false).when(experienceUpdateListenerMock).hasExperienceUpdateAnimationFinished();
+
+        // Act
+        experienceEditor.onClick(minButtonMock);
+
+        // Assert
+        verify(experienceUpdateListenerMock, never()).onUpdateExperience(anyInt());
     }
 
     @Test
@@ -296,6 +324,7 @@ public class ExperienceEditorTest {
 
     private void setListeners(ExperienceEditor experienceEditor) {
         experienceUpdateListenerMock = mock(ExperienceUpdateListener.class);
+        doReturn(true).when(experienceUpdateListenerMock).hasExperienceUpdateAnimationFinished();
         experienceEditor.setExperienceUpdateListener(experienceUpdateListenerMock);
     }
 

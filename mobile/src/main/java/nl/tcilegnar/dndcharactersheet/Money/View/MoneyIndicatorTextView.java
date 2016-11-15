@@ -49,6 +49,6 @@ public class MoneyIndicatorTextView extends TextView {
     }
 
     private boolean shouldBeVisible() {
-        return !((MoneySettings) settings).isMoneyUpdateManual();
+        return ((MoneySettings) settings).isMoneyUpdateCalculatedAutomatically();
     }
 }

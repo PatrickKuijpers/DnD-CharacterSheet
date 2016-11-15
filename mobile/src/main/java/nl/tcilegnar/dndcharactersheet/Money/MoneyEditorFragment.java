@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 
+import nl.tcilegnar.dndcharactersheet.App;
 import nl.tcilegnar.dndcharactersheet.Base.BaseFragment;
 import nl.tcilegnar.dndcharactersheet.Money.Settings.MoneySettings;
 import nl.tcilegnar.dndcharactersheet.Money.ViewGroup.BronzeEditor;
@@ -62,16 +63,26 @@ public class MoneyEditorFragment extends BaseFragment implements OnClickListener
     }
 
     @Override
+    public String getTitle() {
+        return App.getResourceString(R.string.title_money_editor);
+    }
+
+    @Override
     protected MoneySettings getSettings() {
         return MoneySettings.getInstance();
     }
 
     @Override
     protected void updateSettingsData() {
-        platinumEditor.updateSettingsData();
-        goldEditor.updateSettingsData();
-        silverEditor.updateSettingsData();
-        bronzeEditor.updateSettingsData();
+        boolean shouldLeaveThisFragment = !getSettings().isMoneyUpdateCalculatedAutomatically();
+        if (shouldLeaveThisFragment) {
+            getActivity().onBackPressed();
+        } else {
+            platinumEditor.updateSettingsData();
+            goldEditor.updateSettingsData();
+            silverEditor.updateSettingsData();
+            bronzeEditor.updateSettingsData();
+        }
     }
 
     @Override

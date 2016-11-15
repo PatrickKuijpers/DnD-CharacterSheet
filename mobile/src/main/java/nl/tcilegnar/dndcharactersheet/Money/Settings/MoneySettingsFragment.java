@@ -7,7 +7,7 @@ import nl.tcilegnar.dndcharactersheet.Base.Settings.SettingsFragment;
 import nl.tcilegnar.dndcharactersheet.R;
 
 public class MoneySettingsFragment extends SettingsFragment {
-    private CheckBoxPreference moneyUpdateManualPref;
+    private CheckBoxPreference moneyUpdateCalculatedPref;
     private ListPreference moneyUpdateTypePref;
 
     @Override
@@ -22,7 +22,7 @@ public class MoneySettingsFragment extends SettingsFragment {
 
     @Override
     protected void initViews() {
-        moneyUpdateManualPref = (CheckBoxPreference) findPreference(R.string.setting_key_money_update_manual);
+        moneyUpdateCalculatedPref = (CheckBoxPreference) findPreference(R.string.setting_key_money_update_calculated);
         moneyUpdateTypePref = (ListPreference) findPreference(R.string.setting_key_money_update_type);
     }
 
@@ -30,8 +30,8 @@ public class MoneySettingsFragment extends SettingsFragment {
     protected void initValues() {
         MoneySettings settings = getSettings();
 
-        boolean isManual = settings.isMoneyUpdateManual();
-        moneyUpdateManualPref.setChecked(isManual);
+        boolean isCalculated = settings.isMoneyUpdateCalculatedAutomatically();
+        moneyUpdateCalculatedPref.setChecked(isCalculated);
 
         String moneyUpdateType = settings.getMoneyUpdateType();
         moneyUpdateTypePref.setValue(moneyUpdateType);
@@ -39,7 +39,7 @@ public class MoneySettingsFragment extends SettingsFragment {
 
     @Override
     protected void setPreferenceChangeListeners() {
-        moneyUpdateManualPref.setOnPreferenceChangeListener(this);
+        moneyUpdateCalculatedPref.setOnPreferenceChangeListener(this);
         moneyUpdateTypePref.setOnPreferenceChangeListener(this);
     }
 }

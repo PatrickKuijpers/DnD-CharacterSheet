@@ -49,7 +49,7 @@ public class ExperienceFragment extends BaseStorageFragment implements LevelUpIc
         expCurrentLevel = (ExperienceCurrentLevel) view.findViewById(R.id.experience_current_level);
         Experience experience = expCurrentLevel.getExperience();
         experience.addExperienceEdgeListener(level);
-        experience.addExperienceEdgeListener(expCurrentLevel);
+        experience.addExperienceUpdatedListener(expCurrentLevel);
         experience.setCurrentProjectedLevelListener(levelIndicatorView);
 
         expEditor = (ExperienceEditor) view.findViewById(R.id.experience_editor);

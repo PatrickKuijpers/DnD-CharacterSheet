@@ -62,21 +62,21 @@ public class MoneyFragment extends BaseStorageFragment implements OnClickListene
 
     @Override
     protected void updateSettingsData() {
+        updateButtonsVisibility();
         platinumView.updateSettingsData();
         goldView.updateSettingsData();
         silverView.updateSettingsData();
         bronzeView.updateSettingsData();
-        updateButtonsVisibility();
     }
 
     private void updateButtonsVisibility() {
-        boolean moneyUpdateManual = getSettings().isMoneyUpdateManual();
-        if (moneyUpdateManual) {
-            moneyChangeButton.setVisibility(View.GONE);
-            moneyChangeButton.setOnClickListener(null);
-        } else {
+        boolean moneyUpdateCalculated = getSettings().isMoneyUpdateCalculatedAutomatically();
+        if (moneyUpdateCalculated) {
             moneyChangeButton.setVisibility(View.VISIBLE);
             moneyChangeButton.setOnClickListener(this);
+        } else {
+            moneyChangeButton.setVisibility(View.GONE);
+            moneyChangeButton.setOnClickListener(null);
         }
     }
 

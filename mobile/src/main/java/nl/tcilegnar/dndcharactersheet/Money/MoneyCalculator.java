@@ -4,16 +4,12 @@ import nl.tcilegnar.dndcharactersheet.App;
 import nl.tcilegnar.dndcharactersheet.Base.Exceptions.CustomToastException;
 import nl.tcilegnar.dndcharactersheet.R;
 
+import static nl.tcilegnar.dndcharactersheet.Money.MoneyConstants.MAX_BRONZE_VALUE;
+import static nl.tcilegnar.dndcharactersheet.Money.MoneyConstants.MAX_GOLD_VALUE;
+import static nl.tcilegnar.dndcharactersheet.Money.MoneyConstants.MAX_PLATINUM_VALUE;
+import static nl.tcilegnar.dndcharactersheet.Money.MoneyConstants.MAX_SILVER_VALUE;
+
 public class MoneyCalculator {
-    protected static final int MAX_BRONZE_VALUE = 99;
-    protected static final int MAX_SILVER_VALUE = 99;
-    protected static final int MAX_GOLD_VALUE = 99;
-    protected static final int MAX_PLATINUM_VALUE = getMaxPlatinumValue();
-
-    private static int getMaxPlatinumValue() {
-        return (int) Math.pow(10, App.getResourceInteger(R.integer.max_lenght_platinum_value)) - 1;
-    }
-
     private final MoneyValues currentMoneyValues;
 
     private int tempCurrentPlatinum;
