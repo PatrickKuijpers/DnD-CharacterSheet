@@ -9,9 +9,14 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView.OnEditorActionListener;
 
+import nl.tcilegnar.dndcharactersheet.App;
+import nl.tcilegnar.dndcharactersheet.Base.Exceptions.CustomToastException;
 import nl.tcilegnar.dndcharactersheet.R;
 
 public class AbilityNumberEditor extends LinearLayout implements OnClickListener {
+    private static final int MAX_VALUE = 99;
+    private static final int MIN_VALUE = 0;
+
     private EditText editText;
     private Button buttonPlus;
     private Button buttonMin;
@@ -52,7 +57,21 @@ public class AbilityNumberEditor extends LinearLayout implements OnClickListener
     }
 
     public void setValue(int value) {
-        editText.setText(String.valueOf(value));
+        try {
+            validateNewValue(value);
+            editText.setText(String.valueOf(value));
+        } catch (MinAbilityReachedException | MaxAbilityReachedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void validateNewValue(int value) throws MinAbilityReachedException, MaxAbilityReachedException {
+        if (value < MIN_VALUE) {
+            throw new MinAbilityReachedException();
+        }
+        if (value > MAX_VALUE) {
+            throw new MaxAbilityReachedException();
+        }
     }
 
     public int getNumberValue() {
@@ -77,5 +96,17 @@ public class AbilityNumberEditor extends LinearLayout implements OnClickListener
 
     public void setOnEditorActionListener(OnEditorActionListener onEditorActionListener) {
         editText.setOnEditorActionListener(onEditorActionListener);
+    }
+
+    public class MinAbilityReachedException extends CustomToastException {
+        public MinAbilityReachedException() {
+            super(App.getResourceString(R.string.min_ability_reached_exception) + MIN_VALUE);
+        }
+    }
+
+    public class MaxAbilityReachedException extends CustomToastException {
+        public MaxAbilityReachedException() {
+            super(App.getResourceString(R.string.max_ability_reached_exception) + MAX_VALUE);
+        }
     }
 }
