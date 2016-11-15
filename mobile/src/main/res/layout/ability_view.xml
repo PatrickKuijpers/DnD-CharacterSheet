@@ -24,7 +24,6 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_alignBottom="@id/ability_image"
-        android:layout_marginLeft="@dimen/horizontal_margin_small"
         android:layout_toRightOf="@id/ability_image"
         android:visibility="invisible"/>
 

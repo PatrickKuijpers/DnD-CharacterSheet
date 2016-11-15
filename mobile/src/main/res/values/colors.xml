@@ -24,4 +24,11 @@
     <color name="green_medium">#090</color>
 
     <color name="level">@color/white</color>
+
+    <color name="str">#7F0124</color>
+    <color name="dex">#103546</color>
+    <color name="con">#004120</color>
+    <color name="wis">#430140</color>
+    <color name="intl">#936218</color>
+    <color name="cha">#8e0e48</color>
 </resources>

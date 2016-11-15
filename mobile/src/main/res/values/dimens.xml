@@ -11,6 +11,7 @@
 
     <dimen name="abilities_horizontal_spacing">@dimen/horizontal_margin</dimen>
     <dimen name="abilities_vertical_spacing">@dimen/vertical_margin</dimen>
+    <dimen name="ability_editor_button_distance">-10dp</dimen>
 
     <dimen name="experience_picker_height">96dp</dimen>
 

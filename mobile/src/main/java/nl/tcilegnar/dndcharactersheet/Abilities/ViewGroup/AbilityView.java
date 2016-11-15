@@ -13,6 +13,7 @@ import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
 
 import nl.tcilegnar.dndcharactersheet.Abilities.Ability;
+import nl.tcilegnar.dndcharactersheet.App;
 import nl.tcilegnar.dndcharactersheet.R;
 import nl.tcilegnar.dndcharactersheet.Utils.KeyboardUtil;
 
@@ -34,6 +35,7 @@ public class AbilityView extends LinearLayout implements OnClickListener, OnEdit
         this.ability = ability;
         initView();
         initValues(ability);
+        setTextColor();
     }
 
     private void initView() {
@@ -76,6 +78,13 @@ public class AbilityView extends LinearLayout implements OnClickListener, OnEdit
             modifierText = "+" + modifierText;
         }
         return modifierText;
+    }
+
+    private void setTextColor() {
+        int color = App.getResourceColor(ability.getColorRes());
+        abilityAbbreviation.setTextColor(color);
+        abilityValue.setTextColor(color);
+        abilityModifier.setTextColor(color);
     }
 
     @Override
