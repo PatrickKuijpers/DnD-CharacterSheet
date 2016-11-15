@@ -128,7 +128,7 @@
         <item name="android:gravity">start</item>
     </style>
 
-    <style name="ability_edittext" parent="@style/base_edittext_number">
+    <style name="ability_number_editor_edittext" parent="@style/base_edittext_number">
         <item name="android:background">@color/transparent</item>
         <item name="android:hint">00</item>
         <item name="android:maxLength">2</item>
@@ -141,6 +141,8 @@
         <item name="android:layout_height">@dimen/money_change_image_size</item>
         <item name="android:background">@color/transparent</item>
         <item name="android:scaleType">fitCenter</item>
+        <item name="android:src">@drawable/ic_action_save</item>
+        <item name="android:contentDescription">@string/image_description_ability_save</item>
     </style>
 
     <style name="money_indicator_text_view">

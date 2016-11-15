@@ -6,8 +6,6 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.inputmethod.EditorInfo;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -19,57 +17,48 @@ import nl.tcilegnar.dndcharactersheet.R;
 import nl.tcilegnar.dndcharactersheet.Utils.KeyboardUtil;
 
 public class AbilityView extends LinearLayout implements OnClickListener, OnEditorActionListener {
-    private final Context context;
-    private final Ability ability;
+    private Ability ability;
 
     private ImageView abilityImageview;
     private TextView abilityAbbreviation;
+
     private TextView abilityIndicator;
-    private View abilityEditor;
-    private EditText abilityEditText;
+    private AbilityNumberEditor abilityNumberEditor;
     private ImageButton abilitySaveButton;
-    private Button abilityEditorButtonPlus;
-    private Button abilityEditorButtonMin;
 
     @VisibleForTesting
     public AbilityView(Context context, Ability ability) {
         super(context);
         inflate(context, R.layout.ability_view, this);
-        this.context = context;
         this.ability = ability;
         initView();
-        initValues();
+        initValues(ability);
     }
 
     private void initView() {
         abilityImageview = (ImageView) findViewById(R.id.ability_image);
         abilityAbbreviation = (TextView) findViewById(R.id.ability_abbreviation);
+
         abilityIndicator = (TextView) findViewById(R.id.ability_indicator);
-
-        abilityEditor = findViewById(R.id.ability_editor);
-        abilityEditText = (EditText) findViewById(R.id.ability_editor_edittext);
-        abilityEditorButtonPlus = (Button) findViewById(R.id.ability_editor_button_plus);
-        abilityEditorButtonMin = (Button) findViewById(R.id.ability_editor_button_min);
-
+        abilityNumberEditor = (AbilityNumberEditor) findViewById(R.id.ability_editor);
         abilitySaveButton = (ImageButton) findViewById(R.id.ability_save_button);
 
-        abilityEditText.setOnEditorActionListener(this);
+        abilityNumberEditor.setOnEditorActionListener(this);
         setOnClickListeners();
     }
 
     private void setOnClickListeners() {
         abilityIndicator.setOnClickListener(this);
         abilitySaveButton.setOnClickListener(this);
-        abilityEditorButtonPlus.setOnClickListener(this);
-        abilityEditorButtonMin.setOnClickListener(this);
     }
 
-    private void initValues() {
+    private void initValues(Ability ability) {
         abilityImageview.setImageResource(ability.getImageRes());
         abilityImageview.setContentDescription(ability.getImageDescription());
         abilityAbbreviation.setText(ability.getAbbreviation());
+
         abilityIndicator.setText(String.valueOf(ability.loadValue()));
-        setEditorNumberValue(ability.loadValue());
+        abilityNumberEditor.setValue(ability.loadValue());
     }
 
     @Override
@@ -79,62 +68,27 @@ public class AbilityView extends LinearLayout implements OnClickListener, OnEdit
             startEdit();
         } else if (viewId == R.id.ability_save_button) {
             finishEdit();
-        } else if (viewId == R.id.ability_editor_button_plus) {
-            addValue();
-        } else if (viewId == R.id.ability_editor_button_min) {
-            substractValue();
         }
     }
 
     private void startEdit() {
         abilityIndicator.setVisibility(INVISIBLE);
-        abilityEditor.setVisibility(VISIBLE);
+        abilityNumberEditor.setVisibility(VISIBLE);
         abilitySaveButton.setVisibility(VISIBLE);
     }
 
     private void finishEdit() {
         saveAbilityValue();
         abilityIndicator.setVisibility(VISIBLE);
-        abilityEditor.setVisibility(INVISIBLE);
+        abilityNumberEditor.setVisibility(INVISIBLE);
         abilitySaveButton.setVisibility(INVISIBLE);
     }
 
     private void saveAbilityValue() {
-        validateInput(abilityEditText);
-        ability.saveValue(getEditorNumberValue());
-        abilityIndicator.setText(getEditorValue());
-        KeyboardUtil.hideKeyboard(abilityEditText);
-    }
-
-    private void validateInput(TextView textView) {
-        String value = textView.getText().toString();
-        if (value.isEmpty()) {
-            setEditorNumberValue(0);
-        }
-    }
-
-    private int getEditorNumberValue() {
-        return Integer.valueOf(getEditorValue());
-    }
-
-    private String getEditorValue() {
-        return abilityEditText.getText().toString();
-    }
-
-    private void addValue() {
-        int editorValue = getEditorNumberValue();
-        editorValue++;
-        setEditorNumberValue(editorValue);
-    }
-
-    private void substractValue() {
-        int editorValue = getEditorNumberValue();
-        editorValue--;
-        setEditorNumberValue(editorValue);
-    }
-
-    private void setEditorNumberValue(int editorValue) {
-        abilityEditText.setText(String.valueOf(editorValue));
+        abilityNumberEditor.validateInput();
+        ability.saveValue(abilityNumberEditor.getNumberValue());
+        abilityIndicator.setText(abilityNumberEditor.getValue());
+        KeyboardUtil.hideKeyboard(abilityNumberEditor);
     }
 
     @Override

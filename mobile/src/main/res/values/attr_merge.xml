@@ -13,6 +13,10 @@
     <declare-styleable name="ExperienceEditor">
         <attr name="expEditorStyle" format="reference"/>
     </declare-styleable>
+    <!-- Abilities -->
+    <declare-styleable name="AbilityNumberEditor">
+        <attr name="abilityNumberEditorStyle" format="reference"/>
+    </declare-styleable>
     <!-- Hp -->
     <declare-styleable name="HpIndicator">
         <attr name="hpIndicatorStyle" format="reference"/>

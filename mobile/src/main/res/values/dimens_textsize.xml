@@ -7,7 +7,7 @@
     <dimen name="textsize_huge">28sp</dimen>
     <dimen name="textsize_very_huge">32sp</dimen>
 
-    <dimen name="edittext_textsize">@dimen/textsize_normal</dimen>
+    <dimen name="edittext_textsize">@dimen/textsize_big</dimen>
     <dimen name="numberslider_textsize">@dimen/textsize_very_big</dimen>
     <dimen name="numberpicker_textsize">@dimen/textsize_very_huge</dimen>
 

@@ -8,51 +8,29 @@
         android:id="@+id/ability_image"
         android:layout_width="@dimen/icon_size_big"
         android:layout_height="@dimen/icon_size_big"
-        android:layout_alignParentTop="true"
         android:scaleType="centerInside"/>
 
     <TextView
         android:id="@+id/ability_abbreviation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@id/ability_image"
         android:layout_alignRight="@id/ability_image"
         android:layout_below="@id/ability_image"
         android:gravity="center_horizontal"
         android:textSize="@dimen/ability_abbr_textsize"/>
 
-    <LinearLayout
+    <nl.tcilegnar.dndcharactersheet.Abilities.ViewGroup.AbilityNumberEditor
         android:id="@+id/ability_editor"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_alignBottom="@id/ability_image"
-        android:layout_alignTop="@id/ability_image"
         android:layout_marginLeft="@dimen/horizontal_margin_small"
         android:layout_toRightOf="@id/ability_image"
-        android:gravity="center"
-        android:orientation="vertical"
-        android:visibility="invisible">
-
-        <Button
-            android:id="@+id/ability_editor_button_plus"
-            style="@style/button_square_medium"
-            android:layout_marginBottom="-10dp"
-            android:text="@string/plus"/>
-
-        <EditText
-            android:id="@+id/ability_editor_edittext"
-            style="@style/ability_edittext"/>
-
-        <Button
-            android:id="@+id/ability_editor_button_min"
-            style="@style/button_square_medium"
-            android:layout_marginTop="-10dp"
-            android:text="@string/min"/>
-    </LinearLayout>
+        android:visibility="invisible"/>
 
     <TextView
         android:id="@+id/ability_indicator"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignBottom="@id/ability_editor"
         android:layout_alignLeft="@id/ability_editor"
@@ -69,7 +47,5 @@
         android:layout_alignLeft="@id/ability_editor"
         android:layout_alignRight="@id/ability_editor"
         android:layout_alignTop="@id/ability_abbreviation"
-        android:contentDescription="@string/image_description_ability_save"
-        android:src="@drawable/ic_action_save"
         android:visibility="invisible"/>
 </RelativeLayout>
