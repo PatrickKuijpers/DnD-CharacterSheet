@@ -20,7 +20,7 @@
         <item name="android:orientation">horizontal</item>
     </style>
 
-    <style name="abilityEditorStyle">
+    <style name="abilityNumberEditorStyle">
         <item name="android:orientation">vertical</item>
         <item name="android:gravity">center</item>
     </style>
