@@ -22,7 +22,8 @@ public class AbilityView extends LinearLayout implements OnClickListener, OnEdit
     private ImageView abilityImageview;
     private TextView abilityAbbreviation;
 
-    private TextView abilityIndicator;
+    private TextView abilityValue;
+    private TextView abilityModifier;
     private AbilityNumberEditor abilityNumberEditor;
     private ImageButton abilitySaveButton;
 
@@ -39,7 +40,8 @@ public class AbilityView extends LinearLayout implements OnClickListener, OnEdit
         abilityImageview = (ImageView) findViewById(R.id.ability_image);
         abilityAbbreviation = (TextView) findViewById(R.id.ability_abbreviation);
 
-        abilityIndicator = (TextView) findViewById(R.id.ability_indicator);
+        abilityValue = (TextView) findViewById(R.id.ability_value);
+        abilityModifier = (TextView) findViewById(R.id.ability_modifier);
         abilityNumberEditor = (AbilityNumberEditor) findViewById(R.id.ability_editor);
         abilitySaveButton = (ImageButton) findViewById(R.id.ability_save_button);
 
@@ -48,7 +50,8 @@ public class AbilityView extends LinearLayout implements OnClickListener, OnEdit
     }
 
     private void setOnClickListeners() {
-        abilityIndicator.setOnClickListener(this);
+        abilityValue.setOnClickListener(this);
+        abilityModifier.setOnClickListener(this);
         abilitySaveButton.setOnClickListener(this);
     }
 
@@ -57,14 +60,28 @@ public class AbilityView extends LinearLayout implements OnClickListener, OnEdit
         abilityImageview.setContentDescription(ability.getImageDescription());
         abilityAbbreviation.setText(ability.getAbbreviation());
 
-        abilityIndicator.setText(String.valueOf(ability.loadValue()));
-        abilityNumberEditor.setValue(ability.loadValue());
+        updateValues(ability.loadValue());
+    }
+
+    private void updateValues(int value) {
+        abilityValue.setText(String.valueOf(value));
+        abilityNumberEditor.setValue(value);
+        abilityModifier.setText(getModifierText(value));
+    }
+
+    private String getModifierText(int value) {
+        int modifier = (value - 10) / 2;
+        String modifierText = String.valueOf(modifier);
+        if (modifier > 0) {
+            modifierText = "+" + modifierText;
+        }
+        return modifierText;
     }
 
     @Override
     public void onClick(View view) {
         int viewId = view.getId();
-        if (viewId == R.id.ability_indicator) {
+        if (viewId == R.id.ability_value || viewId == R.id.ability_modifier) {
             startEdit();
         } else if (viewId == R.id.ability_save_button) {
             finishEdit();
@@ -72,22 +89,25 @@ public class AbilityView extends LinearLayout implements OnClickListener, OnEdit
     }
 
     private void startEdit() {
-        abilityIndicator.setVisibility(INVISIBLE);
+        abilityValue.setVisibility(INVISIBLE);
+        abilityModifier.setVisibility(INVISIBLE);
         abilityNumberEditor.setVisibility(VISIBLE);
         abilitySaveButton.setVisibility(VISIBLE);
     }
 
     private void finishEdit() {
         saveAbilityValue();
-        abilityIndicator.setVisibility(VISIBLE);
+        abilityValue.setVisibility(VISIBLE);
+        abilityModifier.setVisibility(VISIBLE);
         abilityNumberEditor.setVisibility(INVISIBLE);
         abilitySaveButton.setVisibility(INVISIBLE);
     }
 
     private void saveAbilityValue() {
         abilityNumberEditor.validateInput();
-        ability.saveValue(abilityNumberEditor.getNumberValue());
-        abilityIndicator.setText(abilityNumberEditor.getValue());
+        int value = abilityNumberEditor.getNumberValue();
+        ability.saveValue(value);
+        updateValues(value);
         KeyboardUtil.hideKeyboard(abilityNumberEditor);
     }
 

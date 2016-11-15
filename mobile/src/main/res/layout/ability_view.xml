@@ -28,8 +28,17 @@
         android:layout_toRightOf="@id/ability_image"
         android:visibility="invisible"/>
 
+    <ImageButton
+        android:id="@+id/ability_save_button"
+        style="@style/save_ability_image_button"
+        android:layout_alignBottom="@id/ability_abbreviation"
+        android:layout_alignLeft="@id/ability_editor"
+        android:layout_alignRight="@id/ability_editor"
+        android:layout_alignTop="@id/ability_abbreviation"
+        android:visibility="invisible"/>
+
     <TextView
-        android:id="@+id/ability_indicator"
+        android:id="@+id/ability_value"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignBottom="@id/ability_editor"
@@ -40,12 +49,14 @@
         android:textSize="@dimen/ability_value_textsize"
         android:visibility="visible"/>
 
-    <ImageButton
-        android:id="@+id/ability_save_button"
-        style="@style/save_ability_image_button"
+    <TextView
+        android:id="@+id/ability_modifier"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_alignBottom="@id/ability_abbreviation"
         android:layout_alignLeft="@id/ability_editor"
         android:layout_alignRight="@id/ability_editor"
         android:layout_alignTop="@id/ability_abbreviation"
-        android:visibility="invisible"/>
+        android:gravity="center"
+        android:visibility="visible"/>
 </RelativeLayout>
