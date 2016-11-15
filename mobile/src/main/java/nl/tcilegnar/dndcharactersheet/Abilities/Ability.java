@@ -13,7 +13,7 @@ public enum Ability {
     STRENGTH(Key.STRENGTH, get(R.string.ability_str), get(R.string.ability_str_abbr), R.drawable.strength),
     WISDOM(Key.WISDOM, get(R.string.ability_wis), get(R.string.ability_wis_abbr), R.drawable.wisdom),
     DEXTERITY(Key.DEXTERITY, get(R.string.ability_dex), get(R.string.ability_dex_abbr), R.drawable.dexterity),
-    INTELLIGENCE(Key.STRENGTH, get(R.string.ability_int), get(R.string.ability_int_abbr), R.drawable.intelligence),
+    INTELLIGENCE(Key.INTELLIGENCE, get(R.string.ability_int), get(R.string.ability_int_abbr), R.drawable.intelligence),
     CONSTITUTION(Key.CONSTITUTION, get(R.string.ability_con), get(R.string.ability_con_abbr), R.drawable.constitution),
     CHARISMA(Key.CHARISMA, get(R.string.ability_cha), get(R.string.ability_cha_abbr), R.drawable.charisma);
 
