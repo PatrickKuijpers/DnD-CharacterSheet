@@ -24,6 +24,7 @@
     <dimen name="icon_size_big">96dp</dimen>
 
     <dimen name="coin_size">@dimen/icon_size_big</dimen>
+    <dimen name="edit_ability_image_size">@dimen/button_square_size_small</dimen>
     <dimen name="money_change_image_size">@dimen/icon_size_normal</dimen>
 
     <dimen name="money_view_not_first_margin_left">0dp</dimen>

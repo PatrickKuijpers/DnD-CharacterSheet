@@ -8,6 +8,8 @@
     <string name="image_description_hp_min">Substract hit points</string>
 
     <string name="image_description_ability">$1%s representing image</string>
+    <string name="image_description_ability_edit">Change abilities</string>
+    <string name="image_description_ability_save">Save abilities</string>
 
     <string name="image_description_platinum_coin">Een platinum munt</string>
     <string name="image_description_gold_coin">Een gouden munt</string>

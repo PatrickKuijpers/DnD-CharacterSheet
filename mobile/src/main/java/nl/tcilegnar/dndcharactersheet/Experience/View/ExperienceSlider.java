@@ -35,7 +35,7 @@ public class ExperienceSlider extends BaseNumberPicker {
 
     @Override
     protected int getTextsizeDimenRes() {
-        return R.dimen.textsize_numberslider;
+        return R.dimen.numberslider_textsize;
     }
 
     @Override

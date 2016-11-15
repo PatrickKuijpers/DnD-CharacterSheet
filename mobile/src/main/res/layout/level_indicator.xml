@@ -8,7 +8,7 @@
         android:background="@drawable/ic_level_indicator"
         android:gravity="center"
         android:textColor="@color/level"
-        android:textSize="@dimen/textsize_level"/>
+        android:textSize="@dimen/level_textsize"/>
 
     <nl.tcilegnar.dndcharactersheet.Level.LevelUp.ViewGroup.LevelChangeView
         android:id="@+id/level_change_view"

@@ -20,14 +20,54 @@
         android:gravity="center_horizontal"
         android:textSize="@dimen/ability_abbr_textsize"/>
 
-    <TextView
-        android:id="@+id/ability_indicator"
+    <LinearLayout
+        android:id="@+id/ability_editor"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_alignBottom="@id/ability_image"
         android:layout_alignTop="@id/ability_image"
         android:layout_marginLeft="@dimen/horizontal_margin"
         android:layout_toRightOf="@id/ability_image"
-        android:gravity="center_vertical"
-        android:textSize="@dimen/ability_value_textsize"/>
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="invisible">
+
+        <Button
+            android:id="@+id/ability_editor_button_plus"
+            style="@style/button_square_small"
+            android:layout_marginBottom="-12dp"
+            android:text="@string/plus"/>
+
+        <EditText
+            android:id="@+id/ability_editor_edittext"
+            style="@style/ability_edittext"/>
+
+        <Button
+            android:id="@+id/ability_editor_button_min"
+            style="@style/button_square_small"
+            android:layout_marginTop="-12dp"
+            android:text="@string/min"/>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/ability_indicator"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_alignBottom="@id/ability_editor"
+        android:layout_alignLeft="@id/ability_editor"
+        android:layout_alignRight="@id/ability_editor"
+        android:layout_alignTop="@id/ability_editor"
+        android:gravity="center"
+        android:textSize="@dimen/ability_value_textsize"
+        android:visibility="visible"/>
+
+    <ImageButton
+        android:id="@+id/ability_edit_button"
+        style="@style/edit_ability_image_button"
+        android:layout_alignBottom="@id/ability_abbreviation"
+        android:layout_alignLeft="@id/ability_editor"
+        android:layout_alignRight="@id/ability_editor"
+        android:layout_alignTop="@id/ability_abbreviation"
+        android:contentDescription="@string/image_description_ability_edit"
+        android:src="@drawable/ic_edit"/>
 </RelativeLayout>

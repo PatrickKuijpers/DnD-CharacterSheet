@@ -7,15 +7,15 @@
     <dimen name="textsize_huge">28sp</dimen>
     <dimen name="textsize_very_huge">32sp</dimen>
 
-    <dimen name="textsize_level">@dimen/textsize_very_big</dimen>
+    <dimen name="edittext_textsize">@dimen/textsize_normal</dimen>
+    <dimen name="numberslider_textsize">@dimen/textsize_very_big</dimen>
+    <dimen name="numberpicker_textsize">@dimen/textsize_very_huge</dimen>
+
+    <dimen name="level_textsize">@dimen/textsize_very_big</dimen>
     <dimen name="experience_current_lvl_textsize">@dimen/textsize_big</dimen>
     <dimen name="experience_min_button_textsize">@dimen/textsize_default</dimen>
     <dimen name="experience_plus_button_textsize">@dimen/textsize_very_big</dimen>
 
     <dimen name="ability_abbr_textsize">@dimen/textsize_normal</dimen>
-    <dimen name="ability_value_textsize">@dimen/textsize_big</dimen>
-
-    <dimen name="textsize_edittext">@dimen/textsize_normal</dimen>
-    <dimen name="textsize_numberslider">@dimen/textsize_very_big</dimen>
-    <dimen name="textsize_numberpicker">@dimen/textsize_very_huge</dimen>
+    <dimen name="ability_value_textsize">@dimen/textsize_very_big</dimen>
 </resources>

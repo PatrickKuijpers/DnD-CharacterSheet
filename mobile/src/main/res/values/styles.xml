@@ -101,7 +101,7 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:background">@drawable/edittext_background_bottom_line</item>
         <item name="android:textColorHint">@drawable/edittext_hint_color_hide_on_focus</item>
-        <item name="android:textSize">@dimen/textsize_edittext</item>
+        <item name="android:textSize">@dimen/edittext_textsize</item>
         <item name="android:inputType">number</item>
         <item name="android:imeOptions">actionDone</item>
         <item name="android:paddingBottom">@dimen/edittext_padding_vertical</item>
@@ -115,6 +115,21 @@
         <item name="android:hint">000000</item>
         <item name="android:maxLength">9</item>
         <item name="android:gravity">start</item>
+    </style>
+
+    <style name="ability_edittext" parent="@style/base_edittext_number">
+        <item name="android:background">@color/transparent</item>
+        <item name="android:hint">00</item>
+        <item name="android:maxLength">2</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">@dimen/ability_value_textsize</item>
+    </style>
+
+    <style name="edit_ability_image_button">
+        <item name="android:layout_width">@dimen/money_change_image_size</item>
+        <item name="android:layout_height">@dimen/money_change_image_size</item>
+        <item name="android:background">@color/transparent</item>
+        <item name="android:scaleType">fitCenter</item>
     </style>
 
     <style name="money_indicator_text_view">
