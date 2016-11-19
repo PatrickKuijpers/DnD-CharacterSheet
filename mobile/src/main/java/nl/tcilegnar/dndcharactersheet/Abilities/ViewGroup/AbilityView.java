@@ -1,4 +1,4 @@
-package nl.tcilegnar.dndcharactersheet.Abilities.ViewGroup;
+package nl.tcilegnar.dndcharactersheet.abilities.viewGroup;
 
 import android.content.Context;
 import android.support.annotation.ColorInt;
@@ -13,7 +13,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
 
-import nl.tcilegnar.dndcharactersheet.Abilities.Ability;
+import nl.tcilegnar.dndcharactersheet.abilities.entities.Ability;
 import nl.tcilegnar.dndcharactersheet.R;
 import nl.tcilegnar.dndcharactersheet.Utils.KeyboardUtil;
 

@@ -1,4 +1,4 @@
-package nl.tcilegnar.dndcharactersheet.Abilities;
+package nl.tcilegnar.dndcharactersheet.abilities.entities;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -8,7 +8,6 @@ import org.robolectric.annotation.Config;
 import android.support.annotation.ColorInt;
 import android.support.annotation.DrawableRes;
 
-import nl.tcilegnar.dndcharactersheet.Abilities.Ability;
 import nl.tcilegnar.dndcharactersheet.BuildConfig;
 import nl.tcilegnar.dndcharactersheet.Storage.Storage;
 

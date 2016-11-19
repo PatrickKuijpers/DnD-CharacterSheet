@@ -1,4 +1,4 @@
-package nl.tcilegnar.dndcharactersheet.Abilities;
+package nl.tcilegnar.dndcharactersheet.abilities;
 
 import android.os.Bundle;
 import android.preference.PreferenceActivity;

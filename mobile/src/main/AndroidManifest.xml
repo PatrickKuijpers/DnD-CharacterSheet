@@ -24,7 +24,7 @@
             android:label="@string/title_level_and_experience"
             android:theme="@style/AppTheme.NoActionBar"/>
         <activity
-            android:name=".Abilities.AbilitiesActivity"
+            android:name=".abilities.AbilitiesActivity"
             android:label="@string/title_abilities"
             android:theme="@style/AppTheme.NoActionBar"/>
         <activity

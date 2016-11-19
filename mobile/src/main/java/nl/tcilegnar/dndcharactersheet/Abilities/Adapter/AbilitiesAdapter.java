@@ -1,12 +1,12 @@
-package nl.tcilegnar.dndcharactersheet.Abilities.Adapter;
+package nl.tcilegnar.dndcharactersheet.abilities.adapter;
 
 import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 
-import nl.tcilegnar.dndcharactersheet.Abilities.Ability;
-import nl.tcilegnar.dndcharactersheet.Abilities.ViewGroup.AbilityView;
+import nl.tcilegnar.dndcharactersheet.abilities.entities.Ability;
+import nl.tcilegnar.dndcharactersheet.abilities.viewGroup.AbilityView;
 
 public class AbilitiesAdapter extends BaseAdapter {
     private final Context activityContext;
