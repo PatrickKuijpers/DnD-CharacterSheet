@@ -13,21 +13,25 @@ import nl.tcilegnar.dndcharactersheet.Storage.Storage;
 
 public class Experience extends StorageObject {
     public static final int EXP_MIN = 0;
-    private int currentExp = storage.loadExperience();
+
+    private final LevelTableUtil levelTableUtil;
     private ExperienceUpdater expUpdater;
+
+    private int currentExp = storage.loadExperience();
 
     private CurrentProjectedLevelListener currentProjectedLevelListener;
     private ArrayList<ExperienceUpdatedListener> experienceUpdatedListeners = new ArrayList<>();
 
     public Experience() {
-        this(new Storage(), null);
+        this(new Storage(), null, new LevelTableUtil());
         this.expUpdater = new ExperienceUpdater(this);
     }
 
     @VisibleForTesting
-    protected Experience(Storage storage, ExperienceUpdater expUpdater) {
+    protected Experience(Storage storage, ExperienceUpdater expUpdater, LevelTableUtil levelTableUtil) {
         super(storage);
         this.expUpdater = expUpdater;
+        this.levelTableUtil = levelTableUtil;
     }
 
     @Override
@@ -41,7 +45,7 @@ public class Experience extends StorageObject {
 
     public int getMax() {
         int currentLevel = currentProjectedLevelListener.getCurrentProjectedLevel();
-        return LevelTableUtil.getMaxExperience(currentLevel);
+        return levelTableUtil.getMaxExperience(currentLevel);
     }
 
     public int getCurrentExp() {

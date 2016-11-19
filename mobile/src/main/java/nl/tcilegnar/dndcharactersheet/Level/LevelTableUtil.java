@@ -9,7 +9,7 @@ public class LevelTableUtil {
     /** TODO: Geef een hoog willekeurig getal terug zodat je na lvl 20 evt verder kan gaan met exp verzamelen */
     public static final int MAX_EXP_FOR_MAX_LEVEL = 0;
 
-    public static int getMaxExperience(@IntRange(from = 1, to = 20) final int level) {
+    public int getMaxExperience(@IntRange(from = 1, to = 20) final int level) {
         validate(level);
 
         final int nextLevel = level + 1;
@@ -26,17 +26,17 @@ public class LevelTableUtil {
         throw new NoMaxExperienceForLevelException(level);
     }
 
-    private static void validate(int level) {
+    private void validate(int level) {
         if (level < LevelTable.ONE.level || level > maxLevel()) {
             throw new NoMaxExperienceForLevelException(level);
         }
     }
 
-    private static int maxLevel() {
+    private int maxLevel() {
         return LevelTable.values().length;
     }
 
-    private static boolean isMaxLevel(int level) {
+    private boolean isMaxLevel(int level) {
         return level == maxLevel();
     }
 

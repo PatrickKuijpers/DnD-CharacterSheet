@@ -31,7 +31,7 @@ import static org.mockito.Mockito.verify;
 @Config(constants = BuildConfig.class)
 public class ExperienceCurrentLevelTest {
     private static final int DEFAULT_LEVEL = 1;
-    private static final int DEFAULT_EXP_MAX = LevelTableUtil.getMaxExperience(DEFAULT_LEVEL);
+    private static final int DEFAULT_EXP_MAX = new LevelTableUtil().getMaxExperience(DEFAULT_LEVEL);
     private static final int DEFAULT_CURRENT_EXP = 0;
     private ExperienceCurrentLevel experienceCurrentLevel;
     private Experience experienceMock;
