@@ -9,9 +9,9 @@ import org.robolectric.annotation.Config;
 import nl.tcilegnar.dndcharactersheet.BuildConfig;
 
 import static junit.framework.Assert.assertTrue;
-import static nl.tcilegnar.dndcharactersheet.Level.LevelTable.TWENTY;
-import static nl.tcilegnar.dndcharactersheet.Level.LevelTable.TWO;
-import static nl.tcilegnar.dndcharactersheet.Level.LevelTable.values;
+import static nl.tcilegnar.dndcharactersheet.Level.entities.LevelTable.TWENTY;
+import static nl.tcilegnar.dndcharactersheet.Level.entities.LevelTable.TWO;
+import static nl.tcilegnar.dndcharactersheet.Level.entities.LevelTable.values;
 import static nl.tcilegnar.dndcharactersheet.Level.LevelTableUtil.MAX_EXP_FOR_MAX_LEVEL;
 import static nl.tcilegnar.dndcharactersheet.Level.LevelTableUtil.NoMaxExperienceForLevelException;
 import static org.junit.Assert.assertEquals;

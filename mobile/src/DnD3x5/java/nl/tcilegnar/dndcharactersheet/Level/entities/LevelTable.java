@@ -1,4 +1,4 @@
-package nl.tcilegnar.dndcharactersheet.Level;
+package nl.tcilegnar.dndcharactersheet.Level.entities;
 
 public enum LevelTable {
     ONE(1, 0),

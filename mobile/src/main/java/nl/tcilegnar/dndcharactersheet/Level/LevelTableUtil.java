@@ -3,6 +3,7 @@ package nl.tcilegnar.dndcharactersheet.Level;
 import android.support.annotation.IntRange;
 
 import nl.tcilegnar.dndcharactersheet.App;
+import nl.tcilegnar.dndcharactersheet.Level.entities.LevelTable;
 import nl.tcilegnar.dndcharactersheet.R;
 
 public class LevelTableUtil {
