@@ -21,8 +21,8 @@ public class AbilitiesAdapter extends BaseAdapter {
     }
 
     @Override
-    public Object getItem(int i) {
-        return null;
+    public Ability getItem(int i) {
+        return getAbilities()[i];
     }
 
     @Override
@@ -31,7 +31,7 @@ public class AbilitiesAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup viewGroup) {
+    public AbilityView getView(int position, View convertView, ViewGroup viewGroup) {
         AbilityView abilityView;
 
         if (convertView == null) {

@@ -13,9 +13,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
 
-import nl.tcilegnar.dndcharactersheet.abilities.entities.Ability;
 import nl.tcilegnar.dndcharactersheet.R;
 import nl.tcilegnar.dndcharactersheet.Utils.KeyboardUtil;
+import nl.tcilegnar.dndcharactersheet.abilities.entities.Ability;
 
 public class AbilityView extends LinearLayout implements OnClickListener, OnEditorActionListener {
     private Ability ability;
@@ -97,6 +97,14 @@ public class AbilityView extends LinearLayout implements OnClickListener, OnEdit
         }
     }
 
+    @Override
+    public boolean onEditorAction(TextView textView, int actionId, KeyEvent keyEvent) {
+        if (actionId == EditorInfo.IME_ACTION_DONE) {
+            finishEdit();
+        }
+        return false; // Voer de standaard action uit: done = verberg soft keyboard
+    }
+
     private void startEdit() {
         abilityValue.setVisibility(INVISIBLE);
         abilityModifier.setVisibility(INVISIBLE);
@@ -120,11 +128,17 @@ public class AbilityView extends LinearLayout implements OnClickListener, OnEdit
         KeyboardUtil.hideKeyboard(abilityNumberEditor);
     }
 
+    public Ability getAbility() {
+        return ability;
+    }
+
     @Override
-    public boolean onEditorAction(TextView textView, int actionId, KeyEvent keyEvent) {
-        if (actionId == EditorInfo.IME_ACTION_DONE) {
-            finishEdit();
+    public boolean equals(Object obj) {
+        boolean isEqual = false;
+        if (obj instanceof AbilityView) {
+            AbilityView abilityView = (AbilityView) obj;
+            isEqual = abilityView.getAbility().equals(this.ability);
         }
-        return false; // Voer de standaard action uit: done = verberg soft keyboard
+        return isEqual;
     }
 }
