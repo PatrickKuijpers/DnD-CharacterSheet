@@ -84,6 +84,20 @@ public class StorageTest {
     }
 
     @Test
+    public void saveAndLoadAbility() {
+        // Arrange
+        int expectedAbilityValue = 11;
+        Storage.Key expectedAbilityKey = Storage.Key.CHARISMA;
+
+        // Act
+        storage.saveAbility(expectedAbilityKey, expectedAbilityValue);
+        int abilityValue = storage.loadAbility(expectedAbilityKey);
+
+        // Assert
+        assertEquals(expectedAbilityValue, abilityValue);
+    }
+
+    @Test
     public void saveAndLoadPlatinum() {
         // Arrange
         int expectedPlatinum = 12;

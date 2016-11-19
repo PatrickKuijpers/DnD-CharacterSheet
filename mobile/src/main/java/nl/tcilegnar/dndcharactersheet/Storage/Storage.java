@@ -66,6 +66,10 @@ public class Storage extends SharedPrefs {
         return loadInt(key.name(), key.defaultValue);
     }
 
+    /**
+     * In tegenstelling tot andere save & load methoden is bij deze de key als extra parameter vereist. Dit is gedaan om
+     * te voorkomen dat voor elke ability een aparte methode gedefinieerd moet worden
+     */
     public void saveAbility(Key key, int value) {
         save(key.name(), value);
     }
