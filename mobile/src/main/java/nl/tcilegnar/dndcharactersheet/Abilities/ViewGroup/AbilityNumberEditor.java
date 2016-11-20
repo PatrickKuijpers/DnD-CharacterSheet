@@ -1,4 +1,4 @@
-package nl.tcilegnar.dndcharactersheet.Abilities.ViewGroup;
+package nl.tcilegnar.dndcharactersheet.abilities.viewGroup;
 
 import android.content.Context;
 import android.util.AttributeSet;

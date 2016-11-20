@@ -14,6 +14,7 @@ import nl.tcilegnar.dndcharactersheet.Storage.Storage;
 import static junit.framework.Assert.assertEquals;
 import static nl.tcilegnar.dndcharactersheet.Experience.Experience.EXP_MIN;
 import static nl.tcilegnar.dndcharactersheet.Level.Level.CurrentProjectedLevelListener;
+import static org.mockito.Matchers.anyInt;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.mock;
@@ -27,13 +28,14 @@ public class ExperienceTest {
     private static final int DEFAULT_LEVEL = Storage.Key.CURRENT_LEVEL.defaultValue;
     private static final int DEFAULT_READY_FOR_LEVEL_CHANGE = Storage.Key.READY_FOR_LEVEL_CHANGE.defaultValue;
     private static final int DEFAULT_CURRENT_PROJECTED_LEVEL = DEFAULT_LEVEL + DEFAULT_READY_FOR_LEVEL_CHANGE;
+    private static final int DEFAULT_MAX_EXP = 0;
     private static Experience exp;
     private Storage storageMock;
     private ExperienceUpdater experienceUpdaterMock;
+    private LevelTableUtil levelTableUtilMock;
     private CurrentProjectedLevelListener currentProjectedLevelListener;
     private int initialExp;
     private int expectedNewExp;
-    private int currentLevel;
 
     @Test
     public void newExperience_Default_LevelLoadedAndDefaultLevelIsSetAsCurrentLevel() {
@@ -56,7 +58,7 @@ public class ExperienceTest {
         doReturn(expectedSavedExperience).when(storageMock).loadExperience();
 
         // Act
-        Experience exp = new Experience(storageMock, experienceUpdaterMock);
+        Experience exp = new Experience(storageMock, experienceUpdaterMock, levelTableUtilMock);
 
         // Assert
         verify(storageMock, times(1)).loadExperience();
@@ -117,7 +119,7 @@ public class ExperienceTest {
     }
 
     @Test
-    public void getMax_NoMaxSet_IsBiggerThanZero() {
+    public void getMax_NoMaxSet_IsDefaultValue() {
         // Arrange
         initExpDefault();
 
@@ -125,20 +127,21 @@ public class ExperienceTest {
         int max = exp.getMax();
 
         // Assert
-        assertMaxIsCorrect(max);
+        assertMaxIsCorrectRequestedByLevelTableUtil(DEFAULT_MAX_EXP, max);
     }
 
     @Test
-    public void getMax_MaxDefinedByCurrentLevel_IsBiggerThanZero() {
+    public void getMax_MaxDefinedByCurrentLevel_IsCorrectMockedValueRequestedByLevelTableUtil() {
         // Arrange
+        int expectedMax = 31000;
         initExpDefault();
-        mockCurrentLevel(2);
+        mockCurrentLevelAndMaxExp(7, expectedMax);
 
         // Act
         int max = exp.getMax();
 
         // Assert
-        assertMaxIsCorrect(max);
+        assertMaxIsCorrectRequestedByLevelTableUtil(expectedMax, max);
     }
 
     @Test
@@ -225,7 +228,8 @@ public class ExperienceTest {
         storageMock = mock(Storage.class);
         experienceUpdaterMock = mock(ExperienceUpdater.class);
         doReturn(initialSavedExperience).when(storageMock).loadExperience();
-        Experience exp = new Experience(storageMock, experienceUpdaterMock);
+        levelTableUtilMock = mock(LevelTableUtil.class);
+        Experience exp = new Experience(storageMock, experienceUpdaterMock, levelTableUtilMock);
         setListeners(exp);
         return exp;
     }
@@ -233,17 +237,26 @@ public class ExperienceTest {
     private void setListeners(Experience exp) {
         currentProjectedLevelListener = mock(CurrentProjectedLevelListener.class);
         mockCurrentLevel(DEFAULT_CURRENT_PROJECTED_LEVEL);
+        mockMaxExpForCurrentLevel(DEFAULT_MAX_EXP, DEFAULT_CURRENT_PROJECTED_LEVEL);
         exp.setCurrentProjectedLevelListener(currentProjectedLevelListener);
     }
 
     private void mockCurrentLevel(int currentLevel) {
         doReturn(currentLevel).when(currentProjectedLevelListener).getCurrentProjectedLevel();
-        this.currentLevel = currentLevel;
     }
 
-    private void assertMaxIsCorrect(int max) {
-        int expectedMax = LevelTableUtil.getMaxExperience(currentLevel);
-        assertEquals("max is not equal to expectedMax for level " + currentLevel, expectedMax, max);
+    private void mockMaxExpForCurrentLevel(int maxExp, int currentLevel) {
+        doReturn(maxExp).when(levelTableUtilMock).getMaxExperience(currentLevel);
+    }
+
+    private void mockCurrentLevelAndMaxExp(int currentLevel, int maxExp) {
+        mockCurrentLevel(currentLevel);
+        mockMaxExpForCurrentLevel(maxExp, currentLevel);
+    }
+
+    private void assertMaxIsCorrectRequestedByLevelTableUtil(int expectedMax, int max) {
+        verify(levelTableUtilMock).getMaxExperience(anyInt());
+        assertEquals("max is not equal to expectedMax for level", expectedMax, max);
     }
 
     private void mockUpdatedExperience(int addedExp) throws ExpTooLowException {

@@ -1,6 +1,7 @@
-package nl.tcilegnar.dndcharactersheet.Abilities.ViewGroup;
+package nl.tcilegnar.dndcharactersheet.abilities.viewGroup;
 
 import android.content.Context;
+import android.support.annotation.ColorInt;
 import android.support.annotation.VisibleForTesting;
 import android.view.KeyEvent;
 import android.view.View;
@@ -12,10 +13,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
 
-import nl.tcilegnar.dndcharactersheet.Abilities.Ability;
-import nl.tcilegnar.dndcharactersheet.App;
 import nl.tcilegnar.dndcharactersheet.R;
 import nl.tcilegnar.dndcharactersheet.Utils.KeyboardUtil;
+import nl.tcilegnar.dndcharactersheet.abilities.entities.Ability;
 
 public class AbilityView extends LinearLayout implements OnClickListener, OnEditorActionListener {
     private Ability ability;
@@ -81,7 +81,7 @@ public class AbilityView extends LinearLayout implements OnClickListener, OnEdit
     }
 
     private void setTextColor() {
-        int color = App.getResourceColor(ability.getColorRes());
+        @ColorInt int color = ability.getColor();
         abilityAbbreviation.setTextColor(color);
         abilityValue.setTextColor(color);
         abilityModifier.setTextColor(color);
@@ -95,6 +95,14 @@ public class AbilityView extends LinearLayout implements OnClickListener, OnEdit
         } else if (viewId == R.id.ability_save_button) {
             finishEdit();
         }
+    }
+
+    @Override
+    public boolean onEditorAction(TextView textView, int actionId, KeyEvent keyEvent) {
+        if (actionId == EditorInfo.IME_ACTION_DONE) {
+            finishEdit();
+        }
+        return false; // Voer de standaard action uit: done = verberg soft keyboard
     }
 
     private void startEdit() {
@@ -120,11 +128,17 @@ public class AbilityView extends LinearLayout implements OnClickListener, OnEdit
         KeyboardUtil.hideKeyboard(abilityNumberEditor);
     }
 
+    public Ability getAbility() {
+        return ability;
+    }
+
     @Override
-    public boolean onEditorAction(TextView textView, int actionId, KeyEvent keyEvent) {
-        if (actionId == EditorInfo.IME_ACTION_DONE) {
-            finishEdit();
+    public boolean equals(Object obj) {
+        boolean isEqual = false;
+        if (obj instanceof AbilityView) {
+            AbilityView abilityView = (AbilityView) obj;
+            isEqual = abilityView.getAbility().equals(this.ability);
         }
-        return false; // Voer de standaard action uit: done = verberg soft keyboard
+        return isEqual;
     }
 }

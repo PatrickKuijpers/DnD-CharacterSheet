@@ -9,7 +9,7 @@ import android.os.Bundle;
 import android.preference.PreferenceActivity;
 import android.support.v4.app.FragmentTransaction;
 
-import nl.tcilegnar.dndcharactersheet.Abilities.AbilitiesActivity;
+import nl.tcilegnar.dndcharactersheet.abilities.AbilitiesActivity;
 import nl.tcilegnar.dndcharactersheet.Base.BaseActivity;
 import nl.tcilegnar.dndcharactersheet.Experience.ExperienceActivity;
 import nl.tcilegnar.dndcharactersheet.Health.HpActivity;
