@@ -7,12 +7,13 @@ import org.robolectric.RobolectricGradleTestRunner;
 import org.robolectric.annotation.Config;
 
 import nl.tcilegnar.dndcharactersheet.BuildConfig;
+import nl.tcilegnar.dndcharactersheet.Level.entities.LevelTable;
 
 import static junit.framework.Assert.assertTrue;
-import static nl.tcilegnar.dndcharactersheet.Level.entities.LevelTable.TWENTY;
-import static nl.tcilegnar.dndcharactersheet.Level.entities.LevelTable.TWO;
-import static nl.tcilegnar.dndcharactersheet.Level.entities.LevelTable.values;
+import static nl.tcilegnar.dndcharactersheet.Level.LevelTableUtil.ALL_LEVELS;
 import static nl.tcilegnar.dndcharactersheet.Level.LevelTableUtil.MAX_EXP_FOR_MAX_LEVEL;
+import static nl.tcilegnar.dndcharactersheet.Level.LevelTableUtil.MAX_LVL;
+import static nl.tcilegnar.dndcharactersheet.Level.LevelTableUtil.MIN_LVL;
 import static nl.tcilegnar.dndcharactersheet.Level.LevelTableUtil.NoMaxExperienceForLevelException;
 import static org.junit.Assert.assertEquals;
 
@@ -60,33 +61,35 @@ public class LevelTableUtilTest {
     }
 
     @Test
-    public void getMaxExperience_LevelOne_IsStartingExpFromOneLevelHigher() {
+    public void getMaxExperience_FirstLevel_IsStartingExpFromOneLevelHigher() {
         // Arrange
-        int currentLevel = 1;
+        int currentLevel = MIN_LVL;
 
         // Act
         int maxExp = levelTableUtil.getMaxExperience(currentLevel);
 
         // Assert
-        assertEquals(TWO.startingExp, maxExp);
+        LevelTable nextLevel = getLevelEnum(currentLevel + 1);
+        assertEquals(nextLevel.startingExp, maxExp);
     }
 
     @Test
     public void getMaxExperience_MaxLevelMinusOne_IsStartingExpFromMaxLevel() {
         // Arrange
-        int currentLevel = values().length - 1;
+        int currentLevel = MAX_LVL - 1;
 
         // Act
         int maxExp = levelTableUtil.getMaxExperience(currentLevel);
 
         // Assert
-        assertEquals(TWENTY.startingExp, maxExp);
+        LevelTable lastLevel = getLevelEnum(MAX_LVL);
+        assertEquals(lastLevel.startingExp, maxExp);
     }
 
     @Test
     public void getMaxExperience_MaxLevel_IsMaxExpForMaxLevel() {
         // Arrange
-        int currentLevel = values().length;
+        int currentLevel = MAX_LVL;
 
         // Act
         int maxExp = levelTableUtil.getMaxExperience(currentLevel);
@@ -98,11 +101,15 @@ public class LevelTableUtilTest {
     @Test(expected = NoMaxExperienceForLevelException.class)
     public void getMaxExperience_MaxLevelPlusOne_IllegalArgumentException() {
         // Arrange
-        int currentLevel = values().length + 1;
+        int currentLevel = ALL_LEVELS.length + 1;
 
         // Act
         levelTableUtil.getMaxExperience(currentLevel);
 
         // Assert
+    }
+
+    private LevelTable getLevelEnum(int currentLevel) {
+        return ALL_LEVELS[currentLevel - 1];
     }
 }
