@@ -18,15 +18,18 @@ import static org.mockito.Mockito.mock;
 
 @RunWith(RobolectricGradleTestRunner.class)
 @Config(constants = BuildConfig.class)
-public class MoneyCalculatorTest {
-    private static final int DEFAULT_PLATINUM = 3;
-    private static final int DEFAULT_GOLD = 12;
-    private static final int DEFAULT_SILVER = 45;
-    private static final int DEFAULT_BRONZE = 98;
+public abstract class MoneyCalculatorTest {
+    protected static final int DEFAULT_13_PLATINUM = 13;
+    protected static final int DEFAULT_2_GOLD = 2;
+    protected static final int DEFAULT_5_SILVER = 5;
+    protected static final int DEFAULT_7_BRONZE = 7;
 
-    private MoneyCalculator calculator;
-    private MoneyValues defaultCurrentValuesMock;
-    private MoneyValues newValues;
+    protected static final int CORRECT_OVER_MAX = -10; // Als eenheid over max is gegaan
+    protected static final int ADD_EXTRA = 1; // Als de direct lagere eenheid over max is gegaan
+
+    protected MoneyCalculator calculator;
+    protected MoneyValues newValues;
+    protected MoneyValues defaultCurrentValuesMock;
 
     @Before
     public void setUp() {
@@ -42,7 +45,7 @@ public class MoneyCalculatorTest {
         newValues = calculator.calculateNewMoneyValues(changeValues);
 
         // Assert
-        assertNewMoneyValues(DEFAULT_PLATINUM, DEFAULT_GOLD, DEFAULT_SILVER, DEFAULT_BRONZE);
+        assertNewMoneyValues(DEFAULT_13_PLATINUM, DEFAULT_2_GOLD, DEFAULT_5_SILVER, DEFAULT_7_BRONZE);
     }
 
     @Test
@@ -55,7 +58,7 @@ public class MoneyCalculatorTest {
         newValues = calculator.calculateNewMoneyValues(changeValues);
 
         // Assert
-        assertNewMoneyValues(DEFAULT_PLATINUM, DEFAULT_GOLD, DEFAULT_SILVER, DEFAULT_BRONZE + CHANGED);
+        assertNewMoneyValues(DEFAULT_13_PLATINUM, DEFAULT_2_GOLD, DEFAULT_5_SILVER, DEFAULT_7_BRONZE + CHANGED);
     }
 
     @Test
@@ -68,20 +71,20 @@ public class MoneyCalculatorTest {
         newValues = calculator.calculateNewMoneyValues(changeValues);
 
         // Assert
-        assertNewMoneyValues(DEFAULT_PLATINUM, DEFAULT_GOLD, DEFAULT_SILVER + CHANGED, DEFAULT_BRONZE);
+        assertNewMoneyValues(DEFAULT_13_PLATINUM, DEFAULT_2_GOLD, DEFAULT_5_SILVER + CHANGED, DEFAULT_7_BRONZE);
     }
 
     @Test
     public void calculateNewMoneyValues_AddGold() throws Exception {
         // Arrange
-        int CHANGED = 11;
+        int CHANGED = 1;
         MoneyValues changeValues = getMoneyValues(0, CHANGED, 0, 0);
 
         // Act
         newValues = calculator.calculateNewMoneyValues(changeValues);
 
         // Assert
-        assertNewMoneyValues(DEFAULT_PLATINUM, DEFAULT_GOLD + CHANGED, DEFAULT_SILVER, DEFAULT_BRONZE);
+        assertNewMoneyValues(DEFAULT_13_PLATINUM, DEFAULT_2_GOLD + CHANGED, DEFAULT_5_SILVER, DEFAULT_7_BRONZE);
     }
 
     @Test
@@ -94,72 +97,26 @@ public class MoneyCalculatorTest {
         newValues = calculator.calculateNewMoneyValues(changeValues);
 
         // Assert
-        assertNewMoneyValues(DEFAULT_PLATINUM + CHANGED, DEFAULT_GOLD, DEFAULT_SILVER, DEFAULT_BRONZE);
+        assertNewMoneyValues(DEFAULT_13_PLATINUM + CHANGED, DEFAULT_2_GOLD, DEFAULT_5_SILVER, DEFAULT_7_BRONZE);
     }
 
     @Test
-    public void calculateNewMoneyValues_AddUpToMaxBronzePlus1_MaxBronzeConvertedTo1Silver() throws Exception {
+    public void calculateNewMoneyValues_AddUpToMaxPlatinum_MaxPlatinumAndNoMaxMoneyReachedException() throws Exception {
         // Arrange
-        int CHANGED = getChangedUpTo(MAX_BRONZE_VALUE + 1, DEFAULT_BRONZE);
-        MoneyValues changeValues = getMoneyValues(0, 0, 0, CHANGED);
-
-        // Act
-        newValues = calculator.calculateNewMoneyValues(changeValues);
-
-        // Assert
-        int expectedBronze = 0;
-        int expectedSilver = DEFAULT_SILVER + 1;
-        assertNewMoneyValues(DEFAULT_PLATINUM, DEFAULT_GOLD, expectedSilver, expectedBronze);
-    }
-
-    @Test
-    public void calculateNewMoneyValues_AddUpToMaxSilverPlus1_MaxSilverConvertedTo1Gold() throws Exception {
-        // Arrange
-        int CHANGED = getChangedUpTo(MAX_SILVER_VALUE + 1, DEFAULT_SILVER);
-        MoneyValues changeValues = getMoneyValues(0, 0, CHANGED, 0);
-
-        // Act
-        newValues = calculator.calculateNewMoneyValues(changeValues);
-
-        // Assert
-        int expectedSilver = 0;
-        int expectedGold = DEFAULT_GOLD + 1;
-        assertNewMoneyValues(DEFAULT_PLATINUM, expectedGold, expectedSilver, DEFAULT_BRONZE);
-    }
-
-    @Test
-    public void calculateNewMoneyValues_AddUpToMaxGoldPlus1_MaxGoldConvertedTo1Platinum() throws Exception {
-        // Arrange
-        int CHANGED = getChangedUpTo(MAX_GOLD_VALUE + 1, DEFAULT_GOLD);
-        MoneyValues changeValues = getMoneyValues(0, CHANGED, 0, 0);
-
-        // Act
-        newValues = calculator.calculateNewMoneyValues(changeValues);
-
-        // Assert
-        int expectedGold = 0;
-        int expectedPlatinum = DEFAULT_PLATINUM + 1;
-        assertNewMoneyValues(expectedPlatinum, expectedGold, DEFAULT_SILVER, DEFAULT_BRONZE);
-    }
-
-    @Test
-    public void calculateNewMoneyValues_AddUpToMaxPlatinum_MaxMoneyReachedException() throws Exception {
-        // Arrange
-        int CHANGED = getChangedUpTo(MAX_PLATINUM_VALUE, DEFAULT_PLATINUM);
+        int CHANGED = getChangedUpTo(MAX_PLATINUM_VALUE, DEFAULT_13_PLATINUM);
         MoneyValues changeValues = getMoneyValues(CHANGED, 0, 0, 0);
 
         // Act
         newValues = calculator.calculateNewMoneyValues(changeValues);
 
         // Assert
-        int expectedPlatinum = MAX_PLATINUM_VALUE;
-        assertNewMoneyValues(expectedPlatinum, DEFAULT_GOLD, DEFAULT_SILVER, DEFAULT_BRONZE);
+        assertNewMoneyValues(MAX_PLATINUM_VALUE, DEFAULT_2_GOLD, DEFAULT_5_SILVER, DEFAULT_7_BRONZE);
     }
 
     @Test(expected = MoneyCalculator.MaxMoneyReachedException.class)
-    public void calculateNewMoneyValues_AddUpToMaxPlatinumPlus1_MaxMoneyReachedException() throws Exception {
+    public void calculateNewMoneyValues_AddOverMaxPlatinum_MaxMoneyReachedException() throws Exception {
         // Arrange
-        int CHANGED = getChangedUpTo(MAX_PLATINUM_VALUE + 1, DEFAULT_PLATINUM);
+        int CHANGED = getChangedUpTo(MAX_PLATINUM_VALUE + 1, DEFAULT_13_PLATINUM);
         MoneyValues changeValues = getMoneyValues(CHANGED, 0, 0, 0);
 
         // Act
@@ -169,230 +126,266 @@ public class MoneyCalculatorTest {
     }
 
     @Test
-    public void calculateNewMoneyValues_AddUpTo111Bronze_111BronzeConvertedTo1SilverAnd11Bronze() throws Exception {
+    public void calculateNewMoneyValues_Add10Bronze_ConvertedTo1Silver() throws Exception {
         // Arrange
-        int CHANGED = getChangedUpTo(111, DEFAULT_BRONZE);
-        MoneyValues changeValues = getMoneyValues(0, 0, 0, CHANGED);
+        MoneyValues changeValues = getMoneyValues(0, 0, 0, 10);
 
         // Act
         newValues = calculator.calculateNewMoneyValues(changeValues);
 
         // Assert
-        int expectedBronze = 11;
-        int expectedSilver = DEFAULT_SILVER + 1;
-        assertNewMoneyValues(DEFAULT_PLATINUM, DEFAULT_GOLD, expectedSilver, expectedBronze);
+        assertNewMoneyValues(DEFAULT_13_PLATINUM, DEFAULT_2_GOLD, DEFAULT_5_SILVER + 1, DEFAULT_7_BRONZE);
     }
 
     @Test
-    public void calculateNewMoneyValues_AddUpTo200Bronze_200BronzeConvertedTo2Silver() throws Exception {
+    public void calculateNewMoneyValues_Add10Silver_ConvertedTo1Gold() throws Exception {
         // Arrange
-        int CHANGED = getChangedUpTo(200, DEFAULT_BRONZE);
-        MoneyValues changeValues = getMoneyValues(0, 0, 0, CHANGED);
+        MoneyValues changeValues = getMoneyValues(0, 0, 10, 0);
 
         // Act
         newValues = calculator.calculateNewMoneyValues(changeValues);
 
         // Assert
-        int expectedBronze = 0;
-        int expectedSilver = DEFAULT_SILVER + 2;
-        assertNewMoneyValues(DEFAULT_PLATINUM, DEFAULT_GOLD, expectedSilver, expectedBronze);
+        assertNewMoneyValues(DEFAULT_13_PLATINUM, DEFAULT_2_GOLD + 1, DEFAULT_5_SILVER, DEFAULT_7_BRONZE);
     }
 
     @Test
-    public void calculateNewMoneyValues_AddUpTo300Silver_300SilverConvertedTo3Gold() throws Exception {
+    public void calculateNewMoneyValues_Add10Gold_ConvertedTo1Platinum() throws Exception {
         // Arrange
-        int CHANGED = getChangedUpTo(300, DEFAULT_SILVER);
-        MoneyValues changeValues = getMoneyValues(0, 0, CHANGED, 0);
+        MoneyValues changeValues = getMoneyValues(0, 10, 0, 0);
 
         // Act
         newValues = calculator.calculateNewMoneyValues(changeValues);
 
         // Assert
-        int expectedSilver = 0;
-        int expectedGold = DEFAULT_GOLD + 3;
-        assertNewMoneyValues(DEFAULT_PLATINUM, expectedGold, expectedSilver, DEFAULT_BRONZE);
+        assertNewMoneyValues(DEFAULT_13_PLATINUM + 1, DEFAULT_2_GOLD, DEFAULT_5_SILVER, DEFAULT_7_BRONZE);
     }
 
     @Test
-    public void calculateNewMoneyValues_AddUpTo500Gold_500GoldConvertedTo5Platinum() throws Exception {
+    public void calculateNewMoneyValues_Add11Bronze_ConvertedTo1SilverAnd1Bronze() throws Exception {
         // Arrange
-        int CHANGED = getChangedUpTo(101, DEFAULT_GOLD);
-        MoneyValues changeValues = getMoneyValues(12, CHANGED, 0, 0);
+        MoneyValues changeValues = getMoneyValues(0, 0, 0, 11);
 
         // Act
         newValues = calculator.calculateNewMoneyValues(changeValues);
 
         // Assert
-        int expectedGold = 1;
-        int expectedPlatinum = DEFAULT_PLATINUM + 12 + 1;
-        assertNewMoneyValues(expectedPlatinum, expectedGold, DEFAULT_SILVER, DEFAULT_BRONZE);
+        assertNewMoneyValues(DEFAULT_13_PLATINUM, DEFAULT_2_GOLD, DEFAULT_5_SILVER + 1, DEFAULT_7_BRONZE + 1);
     }
 
     @Test
-    public void calculateNewMoneyValues_AddUpTo1000Bronze_1000BronzeConvertedTo100Silver() throws Exception {
+    public void calculateNewMoneyValues_Add20Bronze_ConvertedTo2Silver() throws Exception {
         // Arrange
-        int CHANGED = getChangedUpTo(1000, DEFAULT_BRONZE);
-        MoneyValues changeValues = getMoneyValues(0, 0, 0, CHANGED);
+        MoneyValues changeValues = getMoneyValues(0, 0, 0, 20);
 
         // Act
         newValues = calculator.calculateNewMoneyValues(changeValues);
 
         // Assert
-        int expectedBronze = 0;
-        int expectedSilver = DEFAULT_SILVER + 10;
-        assertNewMoneyValues(DEFAULT_PLATINUM, DEFAULT_GOLD, expectedSilver, expectedBronze);
+        assertNewMoneyValues(DEFAULT_13_PLATINUM, DEFAULT_2_GOLD, DEFAULT_5_SILVER + 2, DEFAULT_7_BRONZE);
     }
 
     @Test
-    public void calculateNewMoneyValues_AddUpTo10300Bronze_10300BronzeConvertedTo1GoldAnd3Silver() throws Exception {
+    public void calculateNewMoneyValues_Add30Silver_ConvertedTo3Gold() throws Exception {
         // Arrange
-        int CHANGED = getChangedUpTo(10300, DEFAULT_BRONZE);
-        MoneyValues changeValues = getMoneyValues(0, 0, 0, CHANGED);
+        MoneyValues changeValues = getMoneyValues(0, 0, 30, 0);
 
         // Act
         newValues = calculator.calculateNewMoneyValues(changeValues);
 
         // Assert
-        int expectedBronze = 0;
-        int expectedSilver = DEFAULT_SILVER + 3;
-        int expectedGold = DEFAULT_GOLD + 1;
-        assertNewMoneyValues(DEFAULT_PLATINUM, expectedGold, expectedSilver, expectedBronze);
+        assertNewMoneyValues(DEFAULT_13_PLATINUM, DEFAULT_2_GOLD + 3, DEFAULT_5_SILVER, DEFAULT_7_BRONZE);
+    }
+
+    @Test
+    public void calculateNewMoneyValues_Add50Gold_ConvertedTo5Platinum() throws Exception {
+        // Arrange
+        MoneyValues changeValues = getMoneyValues(0, 50, 0, 0);
+
+        // Act
+        newValues = calculator.calculateNewMoneyValues(changeValues);
+
+        // Assert
+        assertNewMoneyValues(DEFAULT_13_PLATINUM + 5, DEFAULT_2_GOLD, DEFAULT_5_SILVER, DEFAULT_7_BRONZE);
+    }
+
+    @Test
+    public void calculateNewMoneyValues_Add100Bronze_ConvertedTo1Gold() throws Exception {
+        // Arrange
+        MoneyValues changeValues = getMoneyValues(0, 0, 0, 100);
+
+        // Act
+        newValues = calculator.calculateNewMoneyValues(changeValues);
+
+        // Assert
+        assertNewMoneyValues(DEFAULT_13_PLATINUM, DEFAULT_2_GOLD + 1, DEFAULT_5_SILVER, DEFAULT_7_BRONZE);
+    }
+
+    @Test
+    public void calculateNewMoneyValues_Add1000Bronze_ConvertedTo1Platinum() throws Exception {
+        // Arrange
+        MoneyValues changeValues = getMoneyValues(0, 0, 0, 1000);
+
+        // Act
+        newValues = calculator.calculateNewMoneyValues(changeValues);
+
+        // Assert
+        assertNewMoneyValues(DEFAULT_13_PLATINUM + 1, DEFAULT_2_GOLD, DEFAULT_5_SILVER, DEFAULT_7_BRONZE);
+    }
+
+    @Test
+    public void calculateNewMoneyValues_Add132Bronze_ConvertedTo1Gold3SilverAnd2Bronze() throws Exception {
+        // Arrange
+        MoneyValues changeValues = getMoneyValues(0, 0, 0, 132);
+
+        // Act
+        newValues = calculator.calculateNewMoneyValues(changeValues);
+
+        // Assert
+        assertNewMoneyValues(DEFAULT_13_PLATINUM, DEFAULT_2_GOLD + 1, DEFAULT_5_SILVER + 3, DEFAULT_7_BRONZE + 2);
+    }
+
+    @Test
+    public void calculateNewMoneyValues_Add2648Bronze_ConvertedTo2Platinum6Gold5SilverAnd8Bronze() throws Exception {
+        // Arrange
+        MoneyValues changeValues = getMoneyValues(0, 0, 0, 2648);
+
+        // Act
+        newValues = calculator.calculateNewMoneyValues(changeValues);
+
+        // Assert
+        int expectedPlatinum = DEFAULT_13_PLATINUM + 2;
+        int expectedGold = DEFAULT_2_GOLD + 6 + ADD_EXTRA;
+        int expectedSilver = DEFAULT_5_SILVER + 4 + ADD_EXTRA + CORRECT_OVER_MAX;
+        int expectedBronze = DEFAULT_7_BRONZE + 8 + CORRECT_OVER_MAX;
+        assertNewMoneyValues(expectedPlatinum, expectedGold, expectedSilver, expectedBronze);
     }
 
     @Test
     public void
-    calculateNewMoneyValues_AddUpTo19011030Bronze10205Silver101Gold12Platinum_AllTogetherConvertedTo45Platinum4Gold15SilverAnd30Bronze() throws Exception {
+    calculateNewMoneyValues_Add19113Bronze125Silver11Gold12Platinum_AllTogetherConvertedTo33Platinum4Gold6SilverAnd3Bronze() throws Exception {
         // Arrange
-        int CHANGED_BRONZE = getChangedUpTo(19011030, DEFAULT_BRONZE); // +19P +1G +10S +30B
-        int CHANGED_SILVER = getChangedUpTo(100205, DEFAULT_SILVER); // +10P +2G +5S
-        int CHANGED_GOLD = getChangedUpTo(101, DEFAULT_GOLD); // +1P +1G
-        MoneyValues changeValues = getMoneyValues(12, CHANGED_GOLD, CHANGED_SILVER, CHANGED_BRONZE);
+        MoneyValues changeValues = getMoneyValues(12, 11, 125, 19113);
 
         // Act
         newValues = calculator.calculateNewMoneyValues(changeValues);
 
         // Assert
-        int expectedBronze = 30;
-        int expectedSilver = 5 + 10;
-        int expectedGold = 1 + 2 + 1;
-        int expectedPlatinum = DEFAULT_PLATINUM + 12 + 1 + 10 + 19;
+        int expectedPlatinum = DEFAULT_13_PLATINUM + 19 + 1 + 1 + 12;
+        int expectedGold = DEFAULT_2_GOLD + 1 + 2 + 1 + ADD_EXTRA;
+        int expectedSilver = DEFAULT_5_SILVER + 5 + 1 + ADD_EXTRA + CORRECT_OVER_MAX;
+        int expectedBronze = DEFAULT_7_BRONZE + 3 + CORRECT_OVER_MAX;
         assertNewMoneyValues(expectedPlatinum, expectedGold, expectedSilver, expectedBronze);
     }
 
     @Test
     public void calculateNewMoneyValues_SubstractBronze() throws Exception {
         // Arrange
-        int CHANGED = -DEFAULT_BRONZE + 1;
+        int CHANGED = -6;
         MoneyValues changeValues = getMoneyValues(0, 0, 0, CHANGED);
 
         // Act
         newValues = calculator.calculateNewMoneyValues(changeValues);
 
         // Assert
-        assertNewMoneyValues(DEFAULT_PLATINUM, DEFAULT_GOLD, DEFAULT_SILVER, DEFAULT_BRONZE + CHANGED);
+        assertNewMoneyValues(DEFAULT_13_PLATINUM, DEFAULT_2_GOLD, DEFAULT_5_SILVER, DEFAULT_7_BRONZE + CHANGED);
     }
 
     @Test
     public void calculateNewMoneyValues_SubstractSilver() throws Exception {
         // Arrange
-        int CHANGED = -DEFAULT_SILVER + 1;
+        int CHANGED = -4;
         MoneyValues changeValues = getMoneyValues(0, 0, CHANGED, 0);
 
         // Act
         newValues = calculator.calculateNewMoneyValues(changeValues);
 
         // Assert
-        assertNewMoneyValues(DEFAULT_PLATINUM, DEFAULT_GOLD, DEFAULT_SILVER + CHANGED, DEFAULT_BRONZE);
+        assertNewMoneyValues(DEFAULT_13_PLATINUM, DEFAULT_2_GOLD, DEFAULT_5_SILVER + CHANGED, DEFAULT_7_BRONZE);
     }
 
     @Test
     public void calculateNewMoneyValues_SubstractGold() throws Exception {
         // Arrange
-        int CHANGED = -DEFAULT_GOLD + 1;
+        int CHANGED = -1;
         MoneyValues changeValues = getMoneyValues(0, CHANGED, 0, 0);
 
         // Act
         newValues = calculator.calculateNewMoneyValues(changeValues);
 
         // Assert
-        assertNewMoneyValues(DEFAULT_PLATINUM, DEFAULT_GOLD + CHANGED, DEFAULT_SILVER, DEFAULT_BRONZE);
+        assertNewMoneyValues(DEFAULT_13_PLATINUM, DEFAULT_2_GOLD + CHANGED, DEFAULT_5_SILVER, DEFAULT_7_BRONZE);
     }
 
     @Test
     public void calculateNewMoneyValues_SubstractPlatinum() throws Exception {
         // Arrange
-        int CHANGED = -DEFAULT_PLATINUM + 1;
+        int CHANGED = -11;
         MoneyValues changeValues = getMoneyValues(CHANGED, 0, 0, 0);
 
         // Act
         newValues = calculator.calculateNewMoneyValues(changeValues);
 
         // Assert
-        assertNewMoneyValues(DEFAULT_PLATINUM + CHANGED, DEFAULT_GOLD, DEFAULT_SILVER, DEFAULT_BRONZE);
+        assertNewMoneyValues(DEFAULT_13_PLATINUM + CHANGED, DEFAULT_2_GOLD, DEFAULT_5_SILVER, DEFAULT_7_BRONZE);
     }
 
     @Test
     public void calculateNewMoneyValues_SubstractDownTo0Bronze() throws Exception {
         // Arrange
-        int CHANGED = -DEFAULT_BRONZE;
+        int CHANGED = -DEFAULT_7_BRONZE;
         MoneyValues changeValues = getMoneyValues(0, 0, 0, CHANGED);
 
         // Act
         newValues = calculator.calculateNewMoneyValues(changeValues);
 
         // Assert
-        assertNewMoneyValues(DEFAULT_PLATINUM, DEFAULT_GOLD, DEFAULT_SILVER, 0);
+        assertNewMoneyValues(DEFAULT_13_PLATINUM, DEFAULT_2_GOLD, DEFAULT_5_SILVER, 0);
     }
 
     @Test
     public void calculateNewMoneyValues_SubstractDownToMinus1Bronze_Convert1SilverToMaxBronze() throws Exception {
         // Arrange
-        int CHANGED = -DEFAULT_BRONZE - 1;
+        int CHANGED = -DEFAULT_7_BRONZE - 1;
         MoneyValues changeValues = getMoneyValues(0, 0, 0, CHANGED);
 
         // Act
         newValues = calculator.calculateNewMoneyValues(changeValues);
 
         // Assert
-        int expectedBronze = MAX_BRONZE_VALUE;
-        int expectedSilver = DEFAULT_SILVER - 1;
-        assertNewMoneyValues(DEFAULT_PLATINUM, DEFAULT_GOLD, expectedSilver, expectedBronze);
+        assertNewMoneyValues(DEFAULT_13_PLATINUM, DEFAULT_2_GOLD, DEFAULT_5_SILVER - 1, MAX_BRONZE_VALUE);
     }
 
     @Test
     public void calculateNewMoneyValues_SubstractDownToMinus1Silver_Convert1GoldToMaxSilver() throws Exception {
         // Arrange
-        int CHANGED = -DEFAULT_SILVER - 1;
+        int CHANGED = -DEFAULT_5_SILVER - 1;
         MoneyValues changeValues = getMoneyValues(0, 0, CHANGED, 0);
 
         // Act
         newValues = calculator.calculateNewMoneyValues(changeValues);
 
         // Assert
-        int expectedSilver = MAX_SILVER_VALUE;
-        int expectedGold = DEFAULT_GOLD - 1;
-        assertNewMoneyValues(DEFAULT_PLATINUM, expectedGold, expectedSilver, DEFAULT_BRONZE);
+        assertNewMoneyValues(DEFAULT_13_PLATINUM, DEFAULT_2_GOLD - 1, MAX_SILVER_VALUE, DEFAULT_7_BRONZE);
     }
 
     @Test
     public void calculateNewMoneyValues_SubstractDownToMinus1Gold_Convert1PlatinumToMaxGold() throws Exception {
         // Arrange
-        int CHANGED = -DEFAULT_GOLD - 1;
+        int CHANGED = -DEFAULT_2_GOLD - 1;
         MoneyValues changeValues = getMoneyValues(0, CHANGED, 0, 0);
 
         // Act
         newValues = calculator.calculateNewMoneyValues(changeValues);
 
         // Assert
-        int expectedGold = MAX_GOLD_VALUE;
-        int expectedPlatinum = DEFAULT_PLATINUM - 1;
-        assertNewMoneyValues(expectedPlatinum, expectedGold, DEFAULT_SILVER, DEFAULT_BRONZE);
+        assertNewMoneyValues(DEFAULT_13_PLATINUM - 1, MAX_GOLD_VALUE, DEFAULT_5_SILVER, DEFAULT_7_BRONZE);
     }
 
     @Test(expected = MoneyCalculator.NotEnoughMoneyException.class)
     public void calculateNewMoneyValues_SubstractDownToMinus1Platinum_NotEnoughMoneyException() throws Exception {
         // Arrange
-        int CHANGED = -DEFAULT_PLATINUM - 1;
+        int CHANGED = -DEFAULT_13_PLATINUM - 1;
         MoneyValues changeValues = getMoneyValues(CHANGED, 0, 0, 0);
 
         // Act
@@ -406,7 +399,7 @@ public class MoneyCalculatorTest {
     calculateNewMoneyValues_SubstractDownToMinus1BronzeAndNoSilverLeft_Convert1GoldToMaxSilverAndMaxBronze() throws
             Exception {
         // Arrange
-        int CHANGED = -DEFAULT_BRONZE - 1;
+        int CHANGED = -DEFAULT_7_BRONZE - 1;
         MoneyValues changeValues = getMoneyValues(0, 0, 0, CHANGED);
         doReturn(0).when(defaultCurrentValuesMock).getSilverValue();
 
@@ -414,17 +407,14 @@ public class MoneyCalculatorTest {
         newValues = calculator.calculateNewMoneyValues(changeValues);
 
         // Assert
-        int expectedBronze = MAX_BRONZE_VALUE;
-        int expectedSilver = MAX_SILVER_VALUE;
-        int expectedGold = DEFAULT_GOLD - 1;
-        assertNewMoneyValues(DEFAULT_PLATINUM, expectedGold, expectedSilver, expectedBronze);
+        assertNewMoneyValues(DEFAULT_13_PLATINUM, DEFAULT_2_GOLD - 1, MAX_SILVER_VALUE, MAX_BRONZE_VALUE);
     }
 
     @Test
     public void
     calculateNewMoneyValues_SubstractDownToMinus1BronzeAndNoSilverOrGoldLeft_Convert1PlatinumToMaxGoldMaxSilverAndMaxBronze() throws Exception {
         // Arrange
-        int CHANGED = -DEFAULT_BRONZE - 1;
+        int CHANGED = -DEFAULT_7_BRONZE - 1;
         MoneyValues changeValues = getMoneyValues(0, 0, 0, CHANGED);
         doReturn(0).when(defaultCurrentValuesMock).getSilverValue();
         doReturn(0).when(defaultCurrentValuesMock).getGoldValue();
@@ -433,18 +423,14 @@ public class MoneyCalculatorTest {
         newValues = calculator.calculateNewMoneyValues(changeValues);
 
         // Assert
-        int expectedBronze = MAX_BRONZE_VALUE;
-        int expectedSilver = MAX_SILVER_VALUE;
-        int expectedGold = MAX_GOLD_VALUE;
-        int expectedPlatinum = DEFAULT_PLATINUM - 1;
-        assertNewMoneyValues(expectedPlatinum, expectedGold, expectedSilver, expectedBronze);
+        assertNewMoneyValues(DEFAULT_13_PLATINUM - 1, MAX_GOLD_VALUE, MAX_SILVER_VALUE, MAX_BRONZE_VALUE);
     }
 
     @Test(expected = MoneyCalculator.NotEnoughMoneyException.class)
     public void calculateNewMoneyValues_SubstractDownToMinus1BronzeAndNoMoneyLeft_NotEnoughMoneyException() throws
             Exception {
         // Arrange
-        int CHANGED = -DEFAULT_BRONZE - 1;
+        int CHANGED = -DEFAULT_7_BRONZE - 1;
         MoneyValues changeValues = getMoneyValues(0, 0, 0, CHANGED);
         doReturn(0).when(defaultCurrentValuesMock).getSilverValue();
         doReturn(0).when(defaultCurrentValuesMock).getGoldValue();
@@ -457,25 +443,23 @@ public class MoneyCalculatorTest {
     }
 
     @Test
-    public void calculateNewMoneyValues_SubstractDownToMinus101Bronze_Convert2SilverTo99Bronze() throws Exception {
+    public void calculateNewMoneyValues_SubstractDownToMinus11Bronze_Convert2SilverTo9Bronze() throws Exception {
         // Arrange
-        int CHANGED = -DEFAULT_BRONZE - 101;
+        int CHANGED = -DEFAULT_7_BRONZE - 11;
         MoneyValues changeValues = getMoneyValues(0, 0, 0, CHANGED);
 
         // Act
         newValues = calculator.calculateNewMoneyValues(changeValues);
 
         // Assert
-        int expectedBronze = MAX_BRONZE_VALUE;
-        int expectedSilver = DEFAULT_SILVER - 2;
-        assertNewMoneyValues(DEFAULT_PLATINUM, DEFAULT_GOLD, expectedSilver, expectedBronze);
+        assertNewMoneyValues(DEFAULT_13_PLATINUM, DEFAULT_2_GOLD, DEFAULT_5_SILVER - 2, MAX_BRONZE_VALUE);
     }
 
     @Test
-    public void calculateNewMoneyValues_SubstractDownToMinus101BronzeNoSilverLeft_Convert1GoldTo98SilverAnd99Bronze()
+    public void calculateNewMoneyValues_SubstractDownToMinus11BronzeNoSilverLeft_Convert1GoldTo8SilverAnd9Bronze()
             throws Exception {
         // Arrange
-        int CHANGED = -DEFAULT_BRONZE - 101;
+        int CHANGED = -DEFAULT_7_BRONZE - 11;
         MoneyValues changeValues = getMoneyValues(0, 0, 0, CHANGED);
         doReturn(0).when(defaultCurrentValuesMock).getSilverValue();
 
@@ -483,17 +467,15 @@ public class MoneyCalculatorTest {
         newValues = calculator.calculateNewMoneyValues(changeValues);
 
         // Assert
-        int expectedBronze = MAX_BRONZE_VALUE;
-        int expectedSilver = MAX_SILVER_VALUE - 1;
-        int expectedGold = DEFAULT_GOLD - 1;
-        assertNewMoneyValues(DEFAULT_PLATINUM, expectedGold, expectedSilver, expectedBronze);
+        assertNewMoneyValues(DEFAULT_13_PLATINUM, DEFAULT_2_GOLD - 1, MAX_SILVER_VALUE - 1, MAX_BRONZE_VALUE);
     }
 
     @Test
     public void
-    calculateNewMoneyValues_SubstractDownToMinus101BronzeNoSilverOrGoldLeft_Convert1PlatinumTo99Gold98SilverAnd99Bronze() throws Exception {
+    calculateNewMoneyValues_SubstractDownToMinus11BronzeNoSilverOrGoldLeft_Convert1PlatinumTo9Gold8SilverAnd9Bronze()
+            throws Exception {
         // Arrange
-        int CHANGED = -DEFAULT_BRONZE - 101;
+        int CHANGED = -DEFAULT_7_BRONZE - 11;
         MoneyValues changeValues = getMoneyValues(0, 0, 0, CHANGED);
         doReturn(0).when(defaultCurrentValuesMock).getSilverValue();
         doReturn(0).when(defaultCurrentValuesMock).getGoldValue();
@@ -502,52 +484,43 @@ public class MoneyCalculatorTest {
         newValues = calculator.calculateNewMoneyValues(changeValues);
 
         // Assert
-        int expectedBronze = MAX_BRONZE_VALUE;
-        int expectedSilver = MAX_SILVER_VALUE - 1;
-        int expectedGold = MAX_GOLD_VALUE;
-        int expectedPlatinum = DEFAULT_PLATINUM - 1;
-        assertNewMoneyValues(expectedPlatinum, expectedGold, expectedSilver, expectedBronze);
+        assertNewMoneyValues(DEFAULT_13_PLATINUM - 1, MAX_GOLD_VALUE, MAX_SILVER_VALUE - 1, MAX_BRONZE_VALUE);
     }
 
     @Test
-    public void calculateNewMoneyValues_SubstractDownToMinus10101Bronze_Convert1GoldEtc() throws Exception {
+    public void calculateNewMoneyValues_SubstractDownToMinus111Bronze_Convert1GoldEtc() throws Exception {
         // Arrange
-        int CHANGED = -DEFAULT_BRONZE - 10101;
+        int CHANGED = -DEFAULT_7_BRONZE - 111;
         MoneyValues changeValues = getMoneyValues(0, 0, 0, CHANGED);
 
         // Act
         newValues = calculator.calculateNewMoneyValues(changeValues);
 
         // Assert
-        int expectedBronze = MAX_BRONZE_VALUE;
-        int expectedSilver = DEFAULT_SILVER - 2;
-        int expectedGold = DEFAULT_GOLD - 1;
-        assertNewMoneyValues(DEFAULT_PLATINUM, expectedGold, expectedSilver, expectedBronze);
+        assertNewMoneyValues(DEFAULT_13_PLATINUM, DEFAULT_2_GOLD - 1, DEFAULT_5_SILVER - 2, MAX_BRONZE_VALUE);
     }
 
     @Test
-    public void calculateNewMoneyValues_SubstractDownToMinus10101BronzeNoSilverLeft_Convert2GoldTo98SilverAnd99Bronze
+    public void calculateNewMoneyValues_SubstractDownToMinus111BronzeNoSilverLeft_Convert2GoldTo8SilverAnd9Bronze()
+            throws Exception {
+        // Arrange
+        int CHANGED = -DEFAULT_7_BRONZE - 111;
+        MoneyValues changeValues = getMoneyValues(0, 0, 0, CHANGED);
+        doReturn(0).when(defaultCurrentValuesMock).getSilverValue();
+
+        // Act
+        newValues = calculator.calculateNewMoneyValues(changeValues);
+
+        // Assert
+        assertNewMoneyValues(DEFAULT_13_PLATINUM, DEFAULT_2_GOLD - 2, MAX_SILVER_VALUE - 1, MAX_BRONZE_VALUE);
+    }
+
+    @Test
+    public void
+    calculateNewMoneyValues_SubstractDownToMinus111BronzeNoSilverOrGoldLeft_Convert1PlatinumTo8Gold8SilverAnd9Bronze
             () throws Exception {
         // Arrange
-        int CHANGED = -DEFAULT_BRONZE - 10101;
-        MoneyValues changeValues = getMoneyValues(0, 0, 0, CHANGED);
-        doReturn(0).when(defaultCurrentValuesMock).getSilverValue();
-
-        // Act
-        newValues = calculator.calculateNewMoneyValues(changeValues);
-
-        // Assert
-        int expectedBronze = MAX_BRONZE_VALUE;
-        int expectedSilver = MAX_SILVER_VALUE - 1;
-        int expectedGold = DEFAULT_GOLD - 2;
-        assertNewMoneyValues(DEFAULT_PLATINUM, expectedGold, expectedSilver, expectedBronze);
-    }
-
-    @Test
-    public void
-    calculateNewMoneyValues_SubstractDownToMinus10101BronzeNoSilverOrGoldLeft_Convert1PlatinumTo98Gold98SilverAnd99Bronze() throws Exception {
-        // Arrange
-        int CHANGED = -DEFAULT_BRONZE - 10101;
+        int CHANGED = -DEFAULT_7_BRONZE - 111;
         MoneyValues changeValues = getMoneyValues(0, 0, 0, CHANGED);
         doReturn(0).when(defaultCurrentValuesMock).getSilverValue();
         doReturn(0).when(defaultCurrentValuesMock).getGoldValue();
@@ -556,33 +529,46 @@ public class MoneyCalculatorTest {
         newValues = calculator.calculateNewMoneyValues(changeValues);
 
         // Assert
-        int expectedBronze = MAX_BRONZE_VALUE;
-        int expectedSilver = MAX_SILVER_VALUE - 1;
-        int expectedGold = MAX_GOLD_VALUE - 1;
-        int expectedPlatinum = DEFAULT_PLATINUM - 1;
-        assertNewMoneyValues(expectedPlatinum, expectedGold, expectedSilver, expectedBronze);
+        assertNewMoneyValues(DEFAULT_13_PLATINUM - 1, MAX_GOLD_VALUE - 1, MAX_SILVER_VALUE - 1, MAX_BRONZE_VALUE);
     }
 
     @Test
-    public void calculateNewMoneyValues_SubstractDownToMinus101Silver_Convert2GoldToMaxSilver() throws Exception {
+    public void
+    calculateNewMoneyValues_SubstractDownToMinus1111BronzeNoSilverOrGoldLeft_Convert2PlatinumTo8Gold8SilverAnd9Bronze
+            () throws Exception {
         // Arrange
-        int CHANGED = -DEFAULT_SILVER - 101;
+        int CHANGED = -DEFAULT_7_BRONZE - 1111;
+        MoneyValues changeValues = getMoneyValues(0, 0, 0, CHANGED);
+        doReturn(0).when(defaultCurrentValuesMock).getSilverValue();
+        doReturn(0).when(defaultCurrentValuesMock).getGoldValue();
+
+        // Act
+        newValues = calculator.calculateNewMoneyValues(changeValues);
+
+        // Assert
+        int expectedPlatinum = DEFAULT_13_PLATINUM - ADD_EXTRA - 1; // = 13 - 1 - 1 = 11
+        int expectedGold = MAX_GOLD_VALUE - CORRECT_OVER_MAX - 11; // = 9 + 10 - 11 = 8
+        assertNewMoneyValues(expectedPlatinum, expectedGold, MAX_SILVER_VALUE - 1, MAX_BRONZE_VALUE);
+    }
+
+    @Test
+    public void calculateNewMoneyValues_SubstractDownToMinus11Silver_Convert2GoldToMaxSilver() throws Exception {
+        // Arrange
+        int CHANGED = -DEFAULT_5_SILVER - 11;
         MoneyValues changeValues = getMoneyValues(0, 0, CHANGED, 0);
 
         // Act
         newValues = calculator.calculateNewMoneyValues(changeValues);
 
         // Assert
-        int expectedSilver = MAX_SILVER_VALUE;
-        int expectedGold = DEFAULT_GOLD - 2;
-        assertNewMoneyValues(DEFAULT_PLATINUM, expectedGold, expectedSilver, DEFAULT_BRONZE);
+        assertNewMoneyValues(DEFAULT_13_PLATINUM, DEFAULT_2_GOLD - 2, MAX_SILVER_VALUE, DEFAULT_7_BRONZE);
     }
 
     @Test
-    public void calculateNewMoneyValues_SubstractDownToMinus101SilverNoGoldLeft_Convert1PlatinumTo98GoldAndMaxSilver
-            () throws Exception {
+    public void calculateNewMoneyValues_SubstractDownToMinus11SilverNoGoldLeft_Convert1PlatinumTo8GoldAndMaxSilver()
+            throws Exception {
         // Arrange
-        int CHANGED = -DEFAULT_SILVER - 101;
+        int CHANGED = -DEFAULT_5_SILVER - 11;
         MoneyValues changeValues = getMoneyValues(0, 0, CHANGED, 0);
         doReturn(0).when(defaultCurrentValuesMock).getGoldValue();
 
@@ -590,39 +576,36 @@ public class MoneyCalculatorTest {
         newValues = calculator.calculateNewMoneyValues(changeValues);
 
         // Assert
-        int expectedSilver = MAX_SILVER_VALUE;
-        int expectedGold = MAX_GOLD_VALUE - 1;
-        int expectedPlatinum = DEFAULT_PLATINUM - 1;
-        assertNewMoneyValues(expectedPlatinum, expectedGold, expectedSilver, DEFAULT_BRONZE);
+        assertNewMoneyValues(DEFAULT_13_PLATINUM - 1, MAX_GOLD_VALUE - 1, MAX_SILVER_VALUE, DEFAULT_7_BRONZE);
     }
 
     @Test
-    public void calculateNewMoneyValues_SubstractDownToMinus10101BronzeMinus19SilverMinus3GoldAnd1Platinum___()
+    public void calculateNewMoneyValues_SubstractDownToMinus1241BronzeMinus29SilverMinus3GoldAnd1Platinum_Etc()
             throws Exception {
         // Arrange
-        int CHANGED_BRONZE = -DEFAULT_BRONZE - 1120401; // -1P -13G -5S -1B
-        int CHANGED_SILVER = -DEFAULT_SILVER - 219; // -2G -19S
-        int CHANGED_GOLD = -DEFAULT_GOLD - 3; // -1P -3G
         int CHANGED_PLATINUM = -1;
+        int CHANGED_GOLD = -DEFAULT_2_GOLD - 3; // -1P -3G
+        int CHANGED_SILVER = -DEFAULT_5_SILVER - 29; // -(1+2)G -9S
+        int CHANGED_BRONZE = -DEFAULT_7_BRONZE - 1241;// - 1241; // -1P -3G -5S -1B
         MoneyValues changeValues = getMoneyValues(CHANGED_PLATINUM, CHANGED_GOLD, CHANGED_SILVER, CHANGED_BRONZE);
 
         // Act
         newValues = calculator.calculateNewMoneyValues(changeValues);
 
         // Assert
-        int expectedBronze = MAX_BRONZE_VALUE + 1 - 1; // 99
-        int expectedSilver = MAX_SILVER_VALUE + 1 - 19 - 5; // 76
-        int expectedGold = MAX_GOLD_VALUE + 1 - 3 - 2 - 13; // 82
-        int expectedPlatinum = DEFAULT_PLATINUM - 1 - 1 - 1; // 0
+        int expectedPlatinum = DEFAULT_13_PLATINUM - 1 - 1 - 1;
+        int expectedGold = MAX_GOLD_VALUE + 1 - 3 - (1 + 2) - ADD_EXTRA - 2;
+        int expectedSilver = MAX_SILVER_VALUE + 1 - 9 - (1 + 4) - CORRECT_OVER_MAX;
+        int expectedBronze = MAX_BRONZE_VALUE;
         assertNewMoneyValues(expectedPlatinum, expectedGold, expectedSilver, expectedBronze);
     }
 
     public MoneyCalculator getDefaultMoneyCalculator() {
         defaultCurrentValuesMock = mock(MoneyValues.class);
-        doReturn(DEFAULT_PLATINUM).when(defaultCurrentValuesMock).getPlatinumValue();
-        doReturn(DEFAULT_GOLD).when(defaultCurrentValuesMock).getGoldValue();
-        doReturn(DEFAULT_SILVER).when(defaultCurrentValuesMock).getSilverValue();
-        doReturn(DEFAULT_BRONZE).when(defaultCurrentValuesMock).getBronzeValue();
+        doReturn(DEFAULT_13_PLATINUM).when(defaultCurrentValuesMock).getPlatinumValue();
+        doReturn(DEFAULT_2_GOLD).when(defaultCurrentValuesMock).getGoldValue();
+        doReturn(DEFAULT_5_SILVER).when(defaultCurrentValuesMock).getSilverValue();
+        doReturn(DEFAULT_7_BRONZE).when(defaultCurrentValuesMock).getBronzeValue();
         return new MoneyCalculator(defaultCurrentValuesMock);
     }
 
@@ -630,12 +613,15 @@ public class MoneyCalculatorTest {
         return new MoneyValues(platinumValue, goldValue, silverValue, bronzeValue);
     }
 
-    private int getChangedUpTo(int addedUpTo, int defaultValue) {
+    protected int getChangedUpTo(int addedUpTo, int defaultValue) {
         return addedUpTo - defaultValue;
     }
 
-    private void assertNewMoneyValues(int expectedPlatinum, int expectedGold, int expectedSilver, int expectedBronze) {
-        MoneyValues expectedValues = getMoneyValues(expectedPlatinum, expectedGold, expectedSilver, expectedBronze);
-        assertEquals(expectedValues, newValues);
+    protected void assertNewMoneyValues(int expectedPlatinum, int expectedGold, int expectedSilver, int
+            expectedBronze) {
+        assertEquals(expectedPlatinum, newValues.getPlatinumValue());
+        assertEquals(expectedGold, newValues.getGoldValue());
+        assertEquals(expectedSilver, newValues.getSilverValue());
+        assertEquals(expectedBronze, newValues.getBronzeValue());
     }
 }
