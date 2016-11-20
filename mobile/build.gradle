@@ -36,6 +36,9 @@ android {
         DnD3x5 {
             applicationId "nl.tcilegnar.dndcharactersheet.version_three_five"
         }
+        DnD4x0 {
+            applicationId "nl.tcilegnar.dndcharactersheet.version_four_zero"
+        }
         DnD5x0 {
             applicationId "nl.tcilegnar.dndcharactersheet.version_five_zero"
         }
