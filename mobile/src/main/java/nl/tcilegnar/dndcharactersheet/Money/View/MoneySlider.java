@@ -30,6 +30,6 @@ public class MoneySlider extends MoneyBaseNumberPicker {
 
     @Override
     protected int getTextsizeDimenRes() {
-        return R.dimen.textsize_numberslider;
+        return R.dimen.numberslider_textsize;
     }
 }

@@ -9,13 +9,14 @@ import android.view.View.OnClickListener;
 import android.view.inputmethod.EditorInfo;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.TextView.OnEditorActionListener;
 
 import nl.tcilegnar.dndcharactersheet.Experience.Settings.ExperienceSettings;
 import nl.tcilegnar.dndcharactersheet.Experience.View.ExperienceInput;
 import nl.tcilegnar.dndcharactersheet.Experience.View.ExperienceSlider;
 import nl.tcilegnar.dndcharactersheet.R;
 
-public class ExperienceEditor extends LinearLayout implements OnClickListener, TextView.OnEditorActionListener {
+public class ExperienceEditor extends LinearLayout implements OnClickListener, OnEditorActionListener {
     private final ExperienceSettings settings;
     private ExperienceSlider expPicker;
     private ExperienceInput expInput;

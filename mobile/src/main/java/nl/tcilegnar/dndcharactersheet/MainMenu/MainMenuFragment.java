@@ -65,7 +65,7 @@ public class MainMenuFragment extends BaseFragment implements OnClickListener {
         } else if (viewId == R.id.main_menu_button_level_and_experience) {
             callbackMainMenu.startLevelAndExperience();
         } else if (viewId == R.id.main_menu_button_abilities) {
-            showComingSoon();
+            callbackMainMenu.startAbilities();
         } else if (viewId == R.id.main_menu_button_hp) {
             showComingSoon();
         } else if (viewId == R.id.main_menu_button_money) {

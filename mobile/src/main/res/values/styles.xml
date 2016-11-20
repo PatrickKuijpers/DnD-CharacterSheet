@@ -6,11 +6,16 @@
         <item name="android:layout_height">match_parent</item>
     </style>
 
-    <style name="fragment_full_screen_paddings" parent="fragment_full_screen_base">
+    <style name="fragment_full_screen" parent="fragment_full_screen_base">
         <item name="android:paddingTop">@dimen/vertical_margin</item>
         <item name="android:paddingBottom">@dimen/vertical_margin</item>
         <item name="android:paddingLeft">@dimen/horizontal_margin</item>
         <item name="android:paddingRight">@dimen/horizontal_margin</item>
+    </style>
+
+    <style name="fragment_full_screen_with_scrollview" parent="fragment_full_screen_base">
+        <item name="android:paddingLeft">@dimen/horizontal_margin_small</item>
+        <item name="android:paddingRight">@dimen/horizontal_margin_small</item>
     </style>
 
     <style name="fragment_main_menu" parent="fragment_full_screen_base">
@@ -18,7 +23,7 @@
         <item name="android:layout_height">match_parent</item>
     </style>
 
-    <style name="fragment_money" parent="fragment_full_screen_paddings">
+    <style name="fragment_money" parent="fragment_full_screen">
         <item name="android:orientation">horizontal</item>
     </style>
 
@@ -78,15 +83,21 @@
         <item name="android:alpha">0.6</item>
     </style>
 
-    <style name="button_square">
-        <item name="android:layout_width">@dimen/button_square_size</item>
-        <item name="android:layout_height">@dimen/button_square_size</item>
-        <item name="android:padding">0dp</item>
-    </style>
-
     <style name="button_square_small">
         <item name="android:layout_width">@dimen/button_square_size_small</item>
         <item name="android:layout_height">@dimen/button_square_size_small</item>
+        <item name="android:padding">0dp</item>
+    </style>
+
+    <style name="button_square_medium">
+        <item name="android:layout_width">@dimen/button_square_size_medium</item>
+        <item name="android:layout_height">@dimen/button_square_size_medium</item>
+        <item name="android:padding">0dp</item>
+    </style>
+
+    <style name="button_square_large">
+        <item name="android:layout_width">@dimen/button_square_size_large</item>
+        <item name="android:layout_height">@dimen/button_square_size_large</item>
         <item name="android:padding">0dp</item>
     </style>
 
@@ -101,7 +112,7 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:background">@drawable/edittext_background_bottom_line</item>
         <item name="android:textColorHint">@drawable/edittext_hint_color_hide_on_focus</item>
-        <item name="android:textSize">@dimen/textsize_edittext</item>
+        <item name="android:textSize">@dimen/edittext_textsize</item>
         <item name="android:inputType">number</item>
         <item name="android:imeOptions">actionDone</item>
         <item name="android:paddingBottom">@dimen/edittext_padding_vertical</item>
@@ -115,6 +126,23 @@
         <item name="android:hint">000000</item>
         <item name="android:maxLength">9</item>
         <item name="android:gravity">start</item>
+    </style>
+
+    <style name="ability_number_editor_edittext" parent="@style/base_edittext_number">
+        <item name="android:background">@color/transparent</item>
+        <item name="android:hint">00</item>
+        <item name="android:maxLength">2</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">@dimen/ability_value_textsize</item>
+    </style>
+
+    <style name="save_ability_image_button">
+        <item name="android:layout_width">@dimen/money_change_image_size</item>
+        <item name="android:layout_height">@dimen/money_change_image_size</item>
+        <item name="android:background">@color/transparent</item>
+        <item name="android:scaleType">fitCenter</item>
+        <item name="android:src">@drawable/ic_action_save</item>
+        <item name="android:contentDescription">@string/image_description_ability_save</item>
     </style>
 
     <style name="money_indicator_text_view">

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GridView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/gridview_abilities"
+    style="@style/fragment_full_screen_with_scrollview"
+    android:columnWidth="100dp"
+    android:horizontalSpacing="@dimen/abilities_horizontal_spacing"
+    android:numColumns="@integer/gridview_columns_abilities"
+    android:stretchMode="columnWidth"/>
+
+    <!-- https://github.com/jess-anders/two-way-gridview -->

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    style="@style/fragment_full_screen_paddings">
+    style="@style/fragment_full_screen">
 
     <nl.tcilegnar.dndcharactersheet.Health.ViewGroup.HpIndicator
         android:id="@+id/hp_indicator_view"

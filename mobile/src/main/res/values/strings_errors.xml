@@ -3,8 +3,11 @@
     <string name="exp_too_low_exception">Level down is not allowed</string>
     <string name="min_level_reached_exception">Minimum level bereikt:&#160;</string>
     <string name="max_level_reached_exception">Maximum level bereikt:&#160;</string>
-    <string name="total_hp_too_low_exception">The minimum allowed total HP value is&#160;</string>
 
+    <string name="min_ability_reached_exception">Minimum ability waarde bereikt:&#160;</string>
+    <string name="max_ability_reached_exception">Maximum ability waarde bereikt:&#160;</string>
+
+    <string name="total_hp_too_low_exception">The minimum allowed total HP value is&#160;</string>
     <string name="current_hp_too_high_exception">The current HP value cannot exceed the total HP</string>
     <string name="temp_hp_too_low_exception">The minimum allowed temporary HP value is&#160;</string>
 

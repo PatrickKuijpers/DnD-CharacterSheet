@@ -227,7 +227,7 @@ public class BaseNumberPickerTest {
 
         @Override
         protected int getTextsizeDimenRes() {
-            return R.dimen.textsize_numberpicker;
+            return R.dimen.numberpicker_textsize;
         }
 
         @Override

@@ -2,7 +2,7 @@
 <resources>
 
     <dimen name="button_square_size_small">36dp</dimen>
-    <dimen name="button_square_size">60dp</dimen>
+    <dimen name="button_square_size_large">60dp</dimen>
 
     <dimen name="icon_size_normal">96dp</dimen>
     <dimen name="icon_size_big">160dp</dimen>

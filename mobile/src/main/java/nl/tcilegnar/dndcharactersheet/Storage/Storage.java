@@ -10,12 +10,17 @@ public class Storage extends SharedPrefs {
         return "Storage";
     }
 
-    // TODO (Patrick): public voor unittest
     public enum Key {
         // Deze enums nooit veranderen!
         CURRENT_EXP(Experience.EXP_MIN),
         CURRENT_LEVEL(Level.MIN_LEVEL),
         READY_FOR_LEVEL_CHANGE(0),
+        STRENGTH(0),
+        DEXTERITY(0),
+        CONSTITUTION(0),
+        WISDOM(0),
+        INTELLIGENCE(0),
+        CHARISMA(0),
         PLATINUM(0),
         GOLD(0),
         SILVER(0),
@@ -58,6 +63,14 @@ public class Storage extends SharedPrefs {
 
     public int loadReadyForLevelChange() {
         Key key = Key.READY_FOR_LEVEL_CHANGE;
+        return loadInt(key.name(), key.defaultValue);
+    }
+
+    public void saveAbility(Key key, int value) {
+        save(key.name(), value);
+    }
+
+    public int loadAbility(Key key) {
         return loadInt(key.name(), key.defaultValue);
     }
 

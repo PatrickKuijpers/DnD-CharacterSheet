@@ -22,7 +22,7 @@
 
     <Button
         android:id="@+id/experience_plus_button"
-        style="@style/button_square"
+        style="@style/button_square_large"
         android:layout_marginLeft="@dimen/horizontal_margin"
         android:background="@color/green_transparent"
         android:text="+"
