@@ -7,7 +7,7 @@
     <nl.tcilegnar.dndcharactersheet.Money.View.MoneyIndicatorTextView
         android:id="@+id/money_indicator_text_view"
         style="@style/money_indicator_text_view"
-        android:maxLength="@integer/max_length_money_value"/>
+        android:maxLength="@integer/max_length_platinum_value"/>
 
     <nl.tcilegnar.dndcharactersheet.Money.View.MoneyIndicatorPicker
         android:id="@+id/money_indicator_numberpicker"

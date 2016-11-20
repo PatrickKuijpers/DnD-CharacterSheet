@@ -10,7 +10,7 @@ import nl.tcilegnar.dndcharactersheet.Money.Settings.MoneySettings;
 
 public abstract class MoneyBaseNumberPicker extends BaseNumberPicker {
     private static final int MIN_VALUE = 0;
-    private static final int MAX_VALUE = MoneyConstants.MAX_MONEY_VALUE;
+    private static final int MAX_VALUE = MoneyConstants.MAX_PLATINUM_VALUE;
     private static final int INITIAL_VALUE = 0;
     private static final int PICKER_STEP_SIZE = 1;
 
