@@ -2,7 +2,7 @@
 <resources>
 
     <integer name="max_length_platinum_value">2</integer>
-    <integer name="max_length_gold_value">1</integer>
+    <integer name="max_length_gold_value">2</integer>
     <integer name="max_length_silver_value">1</integer>
     <integer name="max_length_bronze_value">1</integer>
 
