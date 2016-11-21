@@ -36,6 +36,7 @@ public abstract class MoneyView extends LinearLayout {
         inflate(context, getLayoutResource(), this);
         this.storage = storage;
         initView();
+        initValues();
     }
 
     protected abstract
@@ -53,6 +54,13 @@ public abstract class MoneyView extends LinearLayout {
         moneyIndicatorTextView = (MoneyIndicatorTextView) findViewById(R.id.money_indicator_text_view);
         moneyIndicatorPicker = (MoneyIndicatorPicker) findViewById(R.id.money_indicator_numberpicker);
     }
+
+    private void initValues() {
+        int maxValue = getMaxValue();
+        moneyIndicatorPicker.setMaxMoneyValue(maxValue);
+    }
+
+    protected abstract int getMaxValue();
 
     public void updateSettingsData() {
         moneyIndicatorTextView.updateSettingsData();

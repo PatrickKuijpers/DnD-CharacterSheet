@@ -3,6 +3,7 @@ package nl.tcilegnar.dndcharactersheet.Money.ViewGroup;
 import android.content.Context;
 import android.util.AttributeSet;
 
+import nl.tcilegnar.dndcharactersheet.Money.MoneyConstants;
 import nl.tcilegnar.dndcharactersheet.R;
 
 public class BronzeEditor extends MoneyEditor {
@@ -13,5 +14,10 @@ public class BronzeEditor extends MoneyEditor {
     @Override
     protected int getLayoutResource() {
         return R.layout.money_bronze_editor;
+    }
+
+    @Override
+    protected int getMaxValue() {
+        return MoneyConstants.MAX_BRONZE_VALUE;
     }
 }

@@ -5,12 +5,11 @@ import android.support.annotation.VisibleForTesting;
 import android.util.AttributeSet;
 
 import nl.tcilegnar.dndcharactersheet.Base.View.BaseNumberPicker;
-import nl.tcilegnar.dndcharactersheet.Money.MoneyConstants;
 import nl.tcilegnar.dndcharactersheet.Money.Settings.MoneySettings;
 
 public abstract class MoneyBaseNumberPicker extends BaseNumberPicker {
     private static final int MIN_VALUE = 0;
-    private static final int MAX_VALUE = MoneyConstants.MAX_PLATINUM_VALUE;
+    private int maxValue;
     private static final int INITIAL_VALUE = 0;
     private static final int PICKER_STEP_SIZE = 1;
 
@@ -25,8 +24,7 @@ public abstract class MoneyBaseNumberPicker extends BaseNumberPicker {
 
     @Override
     protected void initView() {
-        super.initView();
-        // TODO: automatisch values setten uit storage?
+        // init na setten van maxValue
     }
 
     @Override
@@ -36,7 +34,7 @@ public abstract class MoneyBaseNumberPicker extends BaseNumberPicker {
 
     @Override
     protected int maxValue() {
-        return MAX_VALUE;
+        return maxValue;
     }
 
     @Override
@@ -51,5 +49,10 @@ public abstract class MoneyBaseNumberPicker extends BaseNumberPicker {
 
     public void setMoneyValue(int moneyValue) {
         setValue(moneyValue);
+    }
+
+    public void setMaxMoneyValue(int maxMoneyValue) {
+        this.maxValue = maxMoneyValue;
+        super.initView();
     }
 }
