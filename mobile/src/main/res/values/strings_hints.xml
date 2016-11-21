@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="level_change_info_up">Je zult pas level up gaan zodra je op het icoontje klikt.</string>
-    <string name="level_change_info_down">Je zult pas level down gaan zodra je op het icoontje klikt.</string>
-    <string name="level_change_info_unknown">Je level zal pas veranderen zodra je op het icoontje klikt.</string>
+    <string name="level_change_info_up">You\'ll level up the moment you click the icon.</string>
+    <string name="level_change_info_down">You\'ll level down the moment you click the icon.</string>
+    <string name="level_change_info_unknown">You\'re level will change the moment you click the icon.</string>
 </resources>

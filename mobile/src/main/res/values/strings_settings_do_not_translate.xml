@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Keys voor de settings. Verander deze nooit! -->
+    <string name="setting_key_confirm">OK</string>
+    <string name="setting_key_show_hints">show_hints</string>
+    <string name="setting_key_play_sounds">play_sounds</string>
+    <string name="setting_key_experience_update_type">experience_update_type</string>
+    <string name="setting_key_experience_picker_steps">experience_picker_steps</string>
+    <string name="setting_key_allow_level_down">allow_level_down</string>
+    <string name="setting_key_money_update_calculated">money_update_calculated</string>
+    <string name="setting_key_money_update_type">money_update_type</string>
+
+    <string name="setting_defaultvalue_show_hints">true</string>
+    <string name="setting_defaultvalue_play_sounds">true</string>
+    <string name="setting_defaultvalue_experience_update_type">@string/setting_entry_experience_update_type_number_slider</string>
+    <string name="setting_defaultvalue_experience_picker_steps">100</string>
+    <string name="setting_defaultvalue_allow_level_down">false</string>
+    <string name="setting_defaultvalue_money_update_calculated">true</string>
+    <string name="setting_defaultvalue_money_update_type">@string/setting_entry_money_update_type_numberpicker</string>
+
+    <string-array name="setting_entryvalues_experience_update_type">
+        <item>@string/setting_entry_experience_update_type_input</item>
+        <item>@string/setting_entry_experience_update_type_number_slider</item>
+    </string-array>
+    <string name="setting_entry_experience_update_type_input">input</string>
+    <string name="setting_entry_experience_update_type_number_slider">numberslider</string>
+
+    <string-array name="setting_entries_experience_picker_steps">
+        <item>1</item>
+        <item>5</item>
+        <item>10</item>
+        <item>25</item>
+        <item>100</item>
+        <item>250</item>
+        <item>500</item>
+        <item>1000</item>
+    </string-array>
+
+    <string-array name="setting_entryvalues_experience_picker_steps">
+        <item>"1"</item>
+        <item>"5"</item>
+        <item>"10"</item>
+        <item>"25"</item>
+        <item>"100"</item>
+        <item>"250"</item>
+        <item>"500"</item>
+        <item>"1000"</item>
+    </string-array>
+
+    <string-array name="setting_entryvalues_money_update_type">
+        <item>@string/setting_entry_money_update_type_input</item>
+        <item>@string/setting_entry_money_update_type_numberslider</item>
+        <item>@string/setting_entry_money_update_type_numberpicker</item>
+    </string-array>
+    <string name="setting_entry_money_update_type_input">input</string>
+    <string name="setting_entry_money_update_type_numberslider">numberslider</string>
+    <string name="setting_entry_money_update_type_numberpicker">numberpicker</string>
+</resources>

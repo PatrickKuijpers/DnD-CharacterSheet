@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">DnD Character Sheet</string>
+
+    <string name="version_unknown">Versie onbekend</string>
+
+    <string name="action_settings">Instellingen</string>
+
+    <string name="experience_label">Exp:&#160;</string>
+    <string name="total_hp_label">Totaal HP:&#160;</string>
+
+    <string name="coming_soon">Binnenkort beschikbaar!</string>
+
+    <string name="ok">OK</string>
+</resources>

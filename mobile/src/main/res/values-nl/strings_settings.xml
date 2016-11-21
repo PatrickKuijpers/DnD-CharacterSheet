@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="setting_title_show_hints">Tips tonen</string>
+    <string name="setting_title_play_sounds">Geluiden afspelen</string>
+    <string name="setting_title_experience_update_type">Experience wijzigen</string>
+    <string name="setting_title_experience_picker_steps">Experience wijzigen stappen</string>
+    <string name="setting_title_allow_level_down">Level omlaag</string>
+    <string name="setting_title_money_update_calculated">Handmatig of automatisch berekenen</string>
+    <string name="setting_title_money_update_type">Money berekenen</string>
+
+    <string name="setting_summary_show_hints">Toon handige tips om de app te leren gebruiken</string>
+    <string name="setting_summary_play_sounds">Zet hiermee de geluidseffecten in de app aan</string>
+    <string name="setting_summary_experience_update_type">Invoer type van experience wijzigingen</string>
+    <string name="setting_summary_experience_picker_steps">Stappen waarmee je experience kan updaten</string>
+    <string name="setting_summary_allow_level_down">Sta toe dat experience onder 0 mag gaan, en je dus levels omlaag kan</string>
+    <string name="setting_summary_money_update_calculated">Vink aan om automatisch je financiën te laten berekenen door aan te geven hoeveel je ontvangt of verliest. \nAlternatief is zelf berekenen en handmatig aanpassen, zoals bij een standaard character sheet.</string>
+    <string name="setting_summary_money_update_type">Invoer type van money wijzigingen</string>
+
+    <string name="setting_dialogtitle_experience_update_type">Hoe wil je de experience kunnen wijzigen?</string>
+    <string name="setting_dialogtitle_experience_picker_steps">@string/setting_title_experience_picker_steps</string>
+    <string name="setting_dialogtitle_money_update_type">Hoe wil je money kunnen wijzigen?</string>
+
+    <string-array name="setting_entries_experience_update_type">
+        <item>"Handmatig invoeren"</item>
+        <item>"Scrollen door vooraf ingestelde waarden"</item>
+    </string-array>
+
+    <string-array name="setting_entries_money_update_type">
+        <item>"Handmatig invoeren"</item>
+        <item>"Snel scrollen door vooraf ingestelde waarden"</item>
+        <item>"Plus en min knoppen"</item>
+    </string-array>
+</resources>
