@@ -1,6 +1,8 @@
 package nl.tcilegnar.dndcharactersheet.Money;
 
-public class MoneyValues {
+import java.io.Serializable;
+
+public class MoneyValues implements Serializable {
     private final int platinumValue;
     private final int goldValue;
     private final int silverValue;

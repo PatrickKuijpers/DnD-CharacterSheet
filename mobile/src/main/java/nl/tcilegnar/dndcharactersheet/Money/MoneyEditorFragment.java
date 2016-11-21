@@ -19,11 +19,15 @@ import nl.tcilegnar.dndcharactersheet.Utils.KeyboardUtil;
 import nl.tcilegnar.dndcharactersheet.Utils.Sound;
 
 public class MoneyEditorFragment extends BaseFragment implements OnClickListener {
+    private static final String CURRENT_MONEY_VALUES = "CURRENT_MONEY_VALUES";
+
     private PlatinumEditor platinumEditor;
     private GoldEditor goldEditor;
     private SilverEditor silverEditor;
     private BronzeEditor bronzeEditor;
+
     private MoneyChangedListener moneyChangedListener;
+
     private MoneyValues currentMoneyValues;
 
     private enum MoneyChangeMode {
@@ -46,8 +50,17 @@ public class MoneyEditorFragment extends BaseFragment implements OnClickListener
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        if (savedInstanceState != null) {
+            currentMoneyValues = (MoneyValues) savedInstanceState.getSerializable(CURRENT_MONEY_VALUES);
+        }
         initViews(view);
         initClickListeners(view);
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putSerializable(CURRENT_MONEY_VALUES, currentMoneyValues);
     }
 
     private void initViews(View view) {
