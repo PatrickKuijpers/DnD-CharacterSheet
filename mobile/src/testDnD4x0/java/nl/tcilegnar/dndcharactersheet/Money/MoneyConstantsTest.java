@@ -23,7 +23,7 @@ public class MoneyConstantsTest {
 
     @Test
     public void maxGoldValue() {
-        assertEquals(9, MAX_GOLD_VALUE);
+        assertEquals(99, MAX_GOLD_VALUE);
     }
 
     @Test

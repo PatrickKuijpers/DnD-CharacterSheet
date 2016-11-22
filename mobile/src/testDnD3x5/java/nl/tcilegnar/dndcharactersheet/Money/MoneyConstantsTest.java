@@ -18,7 +18,7 @@ import static nl.tcilegnar.dndcharactersheet.Money.MoneyConstants.MAX_SILVER_VAL
 public class MoneyConstantsTest {
     @Test
     public void maxPlatinumValue() {
-        assertEquals(9, MAX_PLATINUM_VALUE);
+        assertEquals(99, MAX_PLATINUM_VALUE);
     }
 
     @Test
