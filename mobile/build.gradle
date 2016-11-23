@@ -43,6 +43,31 @@ android {
             applicationId "nl.tcilegnar.dndcharactersheet.version_five_zero"
         }
     }
+
+    // Voorkom dat errors van lint builds breken in Jenkins
+    lintOptions {
+        abortOnError false
+    }
+    aaptOptions {
+        cruncherEnabled false
+    }
+    /*
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['libs']
+        }
+    }
+    testOptions {
+        unitTests.all {
+            jacoco {
+                includeNoLocationClasses true
+            }
+        }
+    }
+     */
+    dexOptions {
+        jumboMode true
+    }
 }
 
 repositories {
