@@ -76,7 +76,7 @@
         <item name="android:layout_gravity">center_horizontal</item>
         <item name="android:textColor">@color/white</item>
         <item name="android:textSize">@dimen/textsize_big</item>
-        <item name="android:background">@drawable/button_main_menu</item>
+        <item name="android:background">@drawable/test_new_button_name</item>
     </style>
 
     <style name="button_main_menu_coming_soon" parent="button_main_menu">
