@@ -48,10 +48,11 @@ android {
     lintOptions {
         abortOnError false
     }
+
+    /*
     aaptOptions {
         cruncherEnabled false
     }
-    /*
     sourceSets {
         main {
             jniLibs.srcDirs = ['libs']
@@ -64,7 +65,8 @@ android {
             }
         }
     }
-     */
+    */
+
     dexOptions {
         jumboMode true
     }
