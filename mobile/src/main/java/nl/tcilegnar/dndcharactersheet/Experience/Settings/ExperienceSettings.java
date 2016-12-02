@@ -2,7 +2,7 @@ package nl.tcilegnar.dndcharactersheet.Experience.Settings;
 
 import nl.tcilegnar.dndcharactersheet.R;
 import nl.tcilegnar.dndcharactersheet.Settings.DefaultSettingValue;
-import nl.tcilegnar.dndcharactersheet.Settings.Settings;
+import nl.tcilegnar.dndcharactersheet.Base.Settings.Settings;
 
 public class ExperienceSettings extends Settings {
     private static ExperienceSettings instance;

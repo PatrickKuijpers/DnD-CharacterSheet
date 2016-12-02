@@ -36,7 +36,7 @@
             android:label="@string/title_money"
             android:theme="@style/AppTheme.NoActionBar"/>
         <activity
-            android:name=".Settings.Main.MainSettingsActivity"
+            android:name=".MainMenu.Settings.MainSettingsActivity"
             android:label="@string/title_settings_main"/>
         <activity
             android:name=".Experience.Settings.ExperienceSettingsActivity"

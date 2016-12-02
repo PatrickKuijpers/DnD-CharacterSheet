@@ -1,6 +1,6 @@
 package nl.tcilegnar.dndcharactersheet.Health.Settings;
 
-import nl.tcilegnar.dndcharactersheet.Settings.Settings;
+import nl.tcilegnar.dndcharactersheet.Base.Settings.Settings;
 
 public class HpSettings extends Settings {
     private static HpSettings instance;

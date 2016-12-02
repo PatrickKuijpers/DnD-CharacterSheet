@@ -1,8 +1,8 @@
-package nl.tcilegnar.dndcharactersheet.Settings.Main;
+package nl.tcilegnar.dndcharactersheet.MainMenu.Settings;
 
 import nl.tcilegnar.dndcharactersheet.R;
 import nl.tcilegnar.dndcharactersheet.Settings.DefaultSettingValue;
-import nl.tcilegnar.dndcharactersheet.Settings.Settings;
+import nl.tcilegnar.dndcharactersheet.Base.Settings.Settings;
 
 public class MainSettings extends Settings {
     private static MainSettings instance;

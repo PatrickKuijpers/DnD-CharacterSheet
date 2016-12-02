@@ -1,13 +1,13 @@
 package nl.tcilegnar.dndcharactersheet.abilities;
 
 import android.os.Bundle;
-import android.preference.PreferenceActivity;
 
 import nl.tcilegnar.dndcharactersheet.Base.BaseStorageActivity;
+import nl.tcilegnar.dndcharactersheet.Base.Settings.SettingsActivity;
 
 public class AbilitiesActivity extends BaseStorageActivity {
     @Override
-    protected Class<? extends PreferenceActivity> getSettingsActivityClass() {
+    protected Class<? extends SettingsActivity> getSettingsActivityClass() {
         return null;
     }
 

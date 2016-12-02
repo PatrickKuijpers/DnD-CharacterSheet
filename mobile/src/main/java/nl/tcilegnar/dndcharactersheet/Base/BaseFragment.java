@@ -6,7 +6,7 @@ import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBar;
 import android.view.View;
 
-import nl.tcilegnar.dndcharactersheet.Settings.Settings;
+import nl.tcilegnar.dndcharactersheet.Base.Settings.Settings;
 
 public abstract class BaseFragment extends Fragment {
     private boolean settingsChanged;

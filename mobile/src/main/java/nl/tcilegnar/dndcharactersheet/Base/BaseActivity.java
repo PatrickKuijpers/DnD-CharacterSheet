@@ -3,7 +3,6 @@ package nl.tcilegnar.dndcharactersheet.Base;
 import android.app.ActivityOptions;
 import android.content.Intent;
 import android.os.Bundle;
-import android.preference.PreferenceActivity;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.NavigationView.OnNavigationItemSelectedListener;
 import android.support.v4.view.GravityCompat;
@@ -16,6 +15,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 
 import nl.tcilegnar.dndcharactersheet.App;
+import nl.tcilegnar.dndcharactersheet.Base.Settings.SettingsActivity;
 import nl.tcilegnar.dndcharactersheet.FragmentManager;
 import nl.tcilegnar.dndcharactersheet.R;
 
@@ -57,7 +57,7 @@ public abstract class BaseActivity extends AppCompatActivity implements OnNaviga
         // Inflate the menu; this adds items to the action bar if it is present.
         MenuInflater menuInflater = getMenuInflater();
 
-        Class<? extends PreferenceActivity> settingsActivityClass = getSettingsActivityClass();
+        Class<? extends SettingsActivity> settingsActivityClass = getSettingsActivityClass();
         if (settingsActivityClass != null) {
             menuInflater.inflate(R.menu.settings_menu, menu);
         }
@@ -90,7 +90,7 @@ public abstract class BaseActivity extends AppCompatActivity implements OnNaviga
     }
 
     private void startSettingsActivity() {
-        Class<? extends PreferenceActivity> settingsActivityClass = getSettingsActivityClass();
+        Class<? extends SettingsActivity> settingsActivityClass = getSettingsActivityClass();
         if (settingsActivityClass != null) {
             Intent settingsActivity = new Intent(this, settingsActivityClass);
             Bundle animation = ActivityOptions.makeCustomAnimation(App.getContext(), R.anim.anim_enter_from_right, R
@@ -100,7 +100,7 @@ public abstract class BaseActivity extends AppCompatActivity implements OnNaviga
         }
     }
 
-    protected abstract Class<? extends PreferenceActivity> getSettingsActivityClass();
+    protected abstract Class<? extends SettingsActivity> getSettingsActivityClass();
 
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {

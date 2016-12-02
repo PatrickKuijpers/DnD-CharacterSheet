@@ -2,7 +2,7 @@ package nl.tcilegnar.dndcharactersheet.Money.Settings;
 
 import nl.tcilegnar.dndcharactersheet.R;
 import nl.tcilegnar.dndcharactersheet.Settings.DefaultSettingValue;
-import nl.tcilegnar.dndcharactersheet.Settings.Settings;
+import nl.tcilegnar.dndcharactersheet.Base.Settings.Settings;
 
 public class MoneySettings extends Settings {
     private static MoneySettings instance;

@@ -7,7 +7,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import nl.tcilegnar.dndcharactersheet.Money.Settings.MoneySettings;
-import nl.tcilegnar.dndcharactersheet.Settings.Settings;
+import nl.tcilegnar.dndcharactersheet.Base.Settings.Settings;
 
 public class MoneyIndicatorTextView extends TextView {
     public final Settings settings;

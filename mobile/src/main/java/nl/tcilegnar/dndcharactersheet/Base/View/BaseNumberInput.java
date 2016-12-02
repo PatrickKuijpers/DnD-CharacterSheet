@@ -5,7 +5,7 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.widget.EditText;
 
-import nl.tcilegnar.dndcharactersheet.Settings.Settings;
+import nl.tcilegnar.dndcharactersheet.Base.Settings.Settings;
 
 public abstract class BaseNumberInput extends EditText {
     public final Settings settings; // TODO public voor unittest zou niet nodig hoeven zijn?

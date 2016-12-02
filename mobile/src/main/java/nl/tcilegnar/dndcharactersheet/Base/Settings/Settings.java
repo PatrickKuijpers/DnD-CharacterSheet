@@ -1,4 +1,4 @@
-package nl.tcilegnar.dndcharactersheet.Settings;
+package nl.tcilegnar.dndcharactersheet.Base.Settings;
 
 import android.preference.Preference;
 

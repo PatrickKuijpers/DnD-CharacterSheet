@@ -7,7 +7,6 @@ import android.preference.PreferenceFragment;
 import android.support.annotation.StringRes;
 
 import nl.tcilegnar.dndcharactersheet.R;
-import nl.tcilegnar.dndcharactersheet.Settings.Settings;
 
 public abstract class SettingsFragment extends PreferenceFragment implements OnPreferenceChangeListener {
     @Override
