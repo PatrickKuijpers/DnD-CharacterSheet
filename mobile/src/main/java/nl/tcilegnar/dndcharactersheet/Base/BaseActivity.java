@@ -1,6 +1,5 @@
 package nl.tcilegnar.dndcharactersheet.Base;
 
-import android.app.ActivityOptions;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -14,7 +13,6 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 
-import nl.tcilegnar.dndcharactersheet.App;
 import nl.tcilegnar.dndcharactersheet.Base.Settings.SettingsActivity;
 import nl.tcilegnar.dndcharactersheet.FragmentManager;
 import nl.tcilegnar.dndcharactersheet.R;
@@ -53,6 +51,20 @@ public abstract class BaseActivity extends AppCompatActivity implements OnNaviga
     }
 
     @Override
+    public boolean onNavigationItemSelected(MenuItem item) {
+        // Handle navigation view item clicks here.
+        int id = item.getItemId();
+
+        //        if (id == R.id.nav_char_A) {
+        //        } else if (id == R.id.nav_char_B) {
+        //        }
+
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer.closeDrawer(GravityCompat.START);
+        return true;
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         MenuInflater menuInflater = getMenuInflater();
@@ -62,16 +74,6 @@ public abstract class BaseActivity extends AppCompatActivity implements OnNaviga
             menuInflater.inflate(R.menu.settings_menu, menu);
         }
         return true;
-    }
-
-    @Override
-    public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
-        } else {
-            super.onBackPressed();
-        }
     }
 
     @Override
@@ -103,16 +105,12 @@ public abstract class BaseActivity extends AppCompatActivity implements OnNaviga
     protected abstract Class<? extends SettingsActivity> getSettingsActivityClass();
 
     @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
-        int id = item.getItemId();
-
-        //        if (id == R.id.nav_char_A) {
-        //        } else if (id == R.id.nav_char_B) {
-        //        }
-
+    public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
-        return true;
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
+        }
     }
 }
