@@ -95,14 +95,27 @@ public abstract class BaseActivity extends AppCompatActivity implements OnNaviga
         Class<? extends SettingsActivity> settingsActivityClass = getSettingsActivityClass();
         if (settingsActivityClass != null) {
             Intent settingsActivity = new Intent(this, settingsActivityClass);
-            Bundle animation = ActivityOptions.makeCustomAnimation(App.getContext(), R.anim.anim_enter_from_right, R
-                    .anim.anim_exit_to_left).toBundle();
-
-            startActivity(settingsActivity, animation);
+            startActivity(settingsActivity);
         }
     }
 
     protected abstract Class<? extends SettingsActivity> getSettingsActivityClass();
+
+    @Override
+    public void startActivity(Intent intent) {
+        super.startActivity(intent);
+        onStartNewActivity();
+    }
+
+    @Override
+    public void startActivity(Intent intent, Bundle options) {
+        super.startActivity(intent, options);
+        onStartNewActivity();
+    }
+
+    protected void onStartNewActivity() {
+        overridePendingTransition(R.anim.anim_enter_from_right, R.anim.anim_exit_to_left);
+    }
 
     @Override
     public void onBackPressed() {
@@ -112,5 +125,15 @@ public abstract class BaseActivity extends AppCompatActivity implements OnNaviga
         } else {
             super.onBackPressed();
         }
+    }
+
+    @Override
+    public void finish() {
+        super.finish();
+        onLeaveThisActivity();
+    }
+
+    protected void onLeaveThisActivity() {
+        overridePendingTransition(R.anim.anim_enter_from_left, R.anim.anim_exit_to_right);
     }
 }
