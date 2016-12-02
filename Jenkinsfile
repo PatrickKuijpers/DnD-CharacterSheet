@@ -14,7 +14,7 @@ node {
 //    }
 
     // Alleen develop branch uploaden naar HockeyApp?
-    if (BRANCH_NAME == 'develop') {
+    if (BRANCH_NAME.contains('develop')) {
         stage('Upload HockeyApp') {
             build job: 'DnD, all - Upload HockeyApp', parameters: [string(name: 'BRANCH_NAME', value: BRANCH_NAME)]
         }
