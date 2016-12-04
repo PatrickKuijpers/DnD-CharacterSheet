@@ -11,7 +11,7 @@ import android.content.Context;
 import nl.tcilegnar.dndcharactersheet.App;
 import nl.tcilegnar.dndcharactersheet.BuildConfig;
 import nl.tcilegnar.dndcharactersheet.abilities.entities.Ability;
-import nl.tcilegnar.dndcharactersheet.abilities.viewGroup.AbilityView;
+import nl.tcilegnar.dndcharactersheet.abilities.viewgroup.AbilityView;
 
 import static org.junit.Assert.assertEquals;
 

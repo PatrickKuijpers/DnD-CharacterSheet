@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="exp_too_low_exception">Level verlagen is niet toegestaan</string>
+    <string name="min_level_reached_exception">Minimum level bereikt:&#160;</string>
+    <string name="max_level_reached_exception">Maximum level bereikt:&#160;</string>
+
+    <string name="min_ability_reached_exception">Minimum ability waarde bereikt:&#160;</string>
+    <string name="max_ability_reached_exception">Maximum ability waarde bereikt:&#160;</string>
+
+    <string name="total_hp_too_low_exception">De minimum toegestande totale HP waarde is&#160;</string>
+    <string name="current_hp_too_high_exception">De huidige HP waarde kan niet de totale HP overschreiden</string>
+    <string name="temp_hp_too_low_exception">De minimum toegestane tijdelijke HP waarde is&#160;</string>
+
+    <string name="max_money_reached_exception">Het geld is niet toegevoegd omdat de maximum waarde is bereikt: %1$s Platinum. In een nieuwere versie van de app zal dit maximum verhoogd worden!</string>
+    <string name="not_enough_money_exception">Je hebt niet genoeg geld om zo veel te betalen.</string>
+</resources>

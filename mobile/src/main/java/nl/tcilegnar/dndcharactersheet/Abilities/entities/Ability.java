@@ -31,6 +31,8 @@ public enum Ability {
     private final String imageDescription;
     private final int color;
 
+    public final static int DEFAULT_VALUE = 10;
+
     Ability(Key storageKey, @StringRes int nameRes, @StringRes int abbreviationRes, @DrawableRes int imageRes,
             @ColorRes int colorRes) {
         this.storageKey = storageKey;

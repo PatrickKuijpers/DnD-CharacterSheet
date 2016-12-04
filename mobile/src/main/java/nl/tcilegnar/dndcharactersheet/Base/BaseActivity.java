@@ -1,9 +1,7 @@
 package nl.tcilegnar.dndcharactersheet.Base;
 
-import android.app.ActivityOptions;
 import android.content.Intent;
 import android.os.Bundle;
-import android.preference.PreferenceActivity;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.NavigationView.OnNavigationItemSelectedListener;
 import android.support.v4.view.GravityCompat;
@@ -15,7 +13,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 
-import nl.tcilegnar.dndcharactersheet.App;
+import nl.tcilegnar.dndcharactersheet.Base.Settings.SettingsActivity;
 import nl.tcilegnar.dndcharactersheet.FragmentManager;
 import nl.tcilegnar.dndcharactersheet.R;
 
@@ -40,7 +38,7 @@ public abstract class BaseActivity extends AppCompatActivity implements OnNaviga
     private void initDrawerMenu(Toolbar toolbar) {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string
-                .navigation_drawer_open, R.string.navigation_drawer_close);
+                .content_description_navigation_drawer_open, R.string.content_description_navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
@@ -53,25 +51,29 @@ public abstract class BaseActivity extends AppCompatActivity implements OnNaviga
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        MenuInflater menuInflater = getMenuInflater();
+    public boolean onNavigationItemSelected(MenuItem item) {
+        // Handle navigation view item clicks here.
+        int id = item.getItemId();
 
-        Class<? extends PreferenceActivity> settingsActivityClass = getSettingsActivityClass();
-        if (settingsActivityClass != null) {
-            menuInflater.inflate(R.menu.settings_menu, menu);
-        }
+        //        if (id == R.id.nav_char_A) {
+        //        } else if (id == R.id.nav_char_B) {
+        //        }
+
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer.closeDrawer(GravityCompat.START);
         return true;
     }
 
     @Override
-    public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
-        } else {
-            super.onBackPressed();
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        MenuInflater menuInflater = getMenuInflater();
+
+        Class<? extends SettingsActivity> settingsActivityClass = getSettingsActivityClass();
+        if (settingsActivityClass != null) {
+            menuInflater.inflate(R.menu.settings_menu, menu);
         }
+        return true;
     }
 
     @Override
@@ -90,29 +92,48 @@ public abstract class BaseActivity extends AppCompatActivity implements OnNaviga
     }
 
     private void startSettingsActivity() {
-        Class<? extends PreferenceActivity> settingsActivityClass = getSettingsActivityClass();
+        Class<? extends SettingsActivity> settingsActivityClass = getSettingsActivityClass();
         if (settingsActivityClass != null) {
             Intent settingsActivity = new Intent(this, settingsActivityClass);
-            Bundle animation = ActivityOptions.makeCustomAnimation(App.getContext(), R.anim.anim_enter_from_right, R
-                    .anim.anim_exit_to_left).toBundle();
-
-            startActivity(settingsActivity, animation);
+            startActivity(settingsActivity);
         }
     }
 
-    protected abstract Class<? extends PreferenceActivity> getSettingsActivityClass();
+    protected abstract Class<? extends SettingsActivity> getSettingsActivityClass();
 
     @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
-        int id = item.getItemId();
+    public void startActivity(Intent intent) {
+        super.startActivity(intent);
+        onStartNewActivity();
+    }
 
-        //        if (id == R.id.nav_char_A) {
-        //        } else if (id == R.id.nav_char_B) {
-        //        }
+    @Override
+    public void startActivity(Intent intent, Bundle options) {
+        super.startActivity(intent, options);
+        onStartNewActivity();
+    }
 
+    protected void onStartNewActivity() {
+        overridePendingTransition(R.anim.anim_enter_from_right, R.anim.anim_exit_to_left);
+    }
+
+    @Override
+    public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
-        return true;
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
+        }
+    }
+
+    @Override
+    public void finish() {
+        super.finish();
+        onLeaveThisActivity();
+    }
+
+    protected void onLeaveThisActivity() {
+        overridePendingTransition(R.anim.anim_enter_from_left, R.anim.anim_exit_to_right);
     }
 }

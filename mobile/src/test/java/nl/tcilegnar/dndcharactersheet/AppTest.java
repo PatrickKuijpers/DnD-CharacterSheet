@@ -66,10 +66,10 @@ public class AppTest {
         // Arrange
 
         // Act
-        Integer actualInteger = App.getResourceInteger(R.integer.max_length_money_value);
+        Integer actualInteger = App.getResourceInteger(R.integer.max_length_bronze_value);
 
         // Assert
-        Integer expectedInteger = getApplicationResources().getInteger(R.integer.max_length_money_value);
+        Integer expectedInteger = getApplicationResources().getInteger(R.integer.max_length_bronze_value);
         assertEquals(expectedInteger, actualInteger);
     }
 

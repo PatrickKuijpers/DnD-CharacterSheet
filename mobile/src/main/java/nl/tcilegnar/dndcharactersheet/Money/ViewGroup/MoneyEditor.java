@@ -37,7 +37,13 @@ public abstract class MoneyEditor extends LinearLayout {
         // moneyInput.setMoneyValue(0); // Niet invullen, enkel een hint van 0 tonen!
         numberSlider.setMoneyValue(0);
         numberPicker.setMoneyValue(0);
+
+        int maxValue = getMaxValue();
+        numberSlider.setMaxMoneyValue(maxValue);
+        numberPicker.setMaxMoneyValue(maxValue);
     }
+
+    protected abstract int getMaxValue();
 
     public void updateSettingsData() {
         moneyInput.updateSettingsData();

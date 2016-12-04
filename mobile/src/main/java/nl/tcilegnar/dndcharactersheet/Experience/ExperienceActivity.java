@@ -1,14 +1,14 @@
 package nl.tcilegnar.dndcharactersheet.Experience;
 
 import android.os.Bundle;
-import android.preference.PreferenceActivity;
 
 import nl.tcilegnar.dndcharactersheet.Base.BaseStorageActivity;
+import nl.tcilegnar.dndcharactersheet.Base.Settings.SettingsActivity;
 import nl.tcilegnar.dndcharactersheet.Experience.Settings.ExperienceSettingsActivity;
 
 public class ExperienceActivity extends BaseStorageActivity {
     @Override
-    protected Class<? extends PreferenceActivity> getSettingsActivityClass() {
+    protected Class<? extends SettingsActivity> getSettingsActivityClass() {
         return ExperienceSettingsActivity.class;
     }
 

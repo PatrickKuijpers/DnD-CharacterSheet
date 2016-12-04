@@ -2,6 +2,7 @@ package nl.tcilegnar.dndcharactersheet.Storage;
 
 import nl.tcilegnar.dndcharactersheet.Experience.Experience;
 import nl.tcilegnar.dndcharactersheet.Level.Level;
+import nl.tcilegnar.dndcharactersheet.abilities.entities.Ability;
 
 public class Storage extends SharedPrefs {
     @Override
@@ -15,12 +16,12 @@ public class Storage extends SharedPrefs {
         CURRENT_EXP(Experience.EXP_MIN),
         CURRENT_LEVEL(Level.MIN_LEVEL),
         READY_FOR_LEVEL_CHANGE(0),
-        STRENGTH(0),
-        DEXTERITY(0),
-        CONSTITUTION(0),
-        WISDOM(0),
-        INTELLIGENCE(0),
-        CHARISMA(0),
+        STRENGTH(Ability.DEFAULT_VALUE),
+        DEXTERITY(Ability.DEFAULT_VALUE),
+        CONSTITUTION(Ability.DEFAULT_VALUE),
+        WISDOM(Ability.DEFAULT_VALUE),
+        INTELLIGENCE(Ability.DEFAULT_VALUE),
+        CHARISMA(Ability.DEFAULT_VALUE),
         PLATINUM(0),
         GOLD(0),
         SILVER(0),

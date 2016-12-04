@@ -1,14 +1,14 @@
 package nl.tcilegnar.dndcharactersheet.Health;
 
 import android.os.Bundle;
-import android.preference.PreferenceActivity;
 
 import nl.tcilegnar.dndcharactersheet.Base.BaseStorageActivity;
+import nl.tcilegnar.dndcharactersheet.Base.Settings.SettingsActivity;
 import nl.tcilegnar.dndcharactersheet.Health.Settings.HpSettingsActivity;
 
 public class HpActivity extends BaseStorageActivity {
     @Override
-    protected Class<? extends PreferenceActivity> getSettingsActivityClass() {
+    protected Class<? extends SettingsActivity> getSettingsActivityClass() {
         return HpSettingsActivity.class;
     }
 

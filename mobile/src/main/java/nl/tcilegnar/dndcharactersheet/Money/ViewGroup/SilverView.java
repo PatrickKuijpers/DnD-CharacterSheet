@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.annotation.VisibleForTesting;
 import android.util.AttributeSet;
 
+import nl.tcilegnar.dndcharactersheet.Money.MoneyConstants;
 import nl.tcilegnar.dndcharactersheet.Money.MoneyValues;
 import nl.tcilegnar.dndcharactersheet.R;
 import nl.tcilegnar.dndcharactersheet.Storage.Storage;
@@ -21,6 +22,11 @@ public class SilverView extends MoneyView {
     @Override
     protected int getLayoutResource() {
         return R.layout.money_silver_indicator;
+    }
+
+    @Override
+    protected int getMaxValue() {
+        return MoneyConstants.MAX_SILVER_VALUE;
     }
 
     @Override

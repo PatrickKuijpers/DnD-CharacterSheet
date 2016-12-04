@@ -1,4 +1,4 @@
-package nl.tcilegnar.dndcharactersheet.abilities.viewGroup;
+package nl.tcilegnar.dndcharactersheet.abilities.viewgroup;
 
 import android.content.Context;
 import android.support.annotation.ColorInt;

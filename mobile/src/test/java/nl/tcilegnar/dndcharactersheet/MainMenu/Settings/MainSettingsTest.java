@@ -1,4 +1,4 @@
-package nl.tcilegnar.dndcharactersheet.Settings.Main;
+package nl.tcilegnar.dndcharactersheet.MainMenu.Settings;
 
 import org.junit.After;
 import org.junit.Before;

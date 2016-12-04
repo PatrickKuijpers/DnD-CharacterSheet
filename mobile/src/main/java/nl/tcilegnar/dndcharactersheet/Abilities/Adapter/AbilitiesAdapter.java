@@ -6,7 +6,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 
 import nl.tcilegnar.dndcharactersheet.abilities.entities.Ability;
-import nl.tcilegnar.dndcharactersheet.abilities.viewGroup.AbilityView;
+import nl.tcilegnar.dndcharactersheet.abilities.viewgroup.AbilityView;
 
 public class AbilitiesAdapter extends BaseAdapter {
     private final Context activityContext;

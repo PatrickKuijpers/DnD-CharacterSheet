@@ -6,25 +6,25 @@ import net.hockeyapp.android.UpdateManager;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.preference.PreferenceActivity;
 import android.support.v4.app.FragmentTransaction;
 
-import nl.tcilegnar.dndcharactersheet.abilities.AbilitiesActivity;
 import nl.tcilegnar.dndcharactersheet.Base.BaseActivity;
+import nl.tcilegnar.dndcharactersheet.Base.Settings.SettingsActivity;
 import nl.tcilegnar.dndcharactersheet.Experience.ExperienceActivity;
 import nl.tcilegnar.dndcharactersheet.Health.HpActivity;
+import nl.tcilegnar.dndcharactersheet.MainMenu.Settings.MainSettingsActivity;
 import nl.tcilegnar.dndcharactersheet.Money.MoneyActivity;
 import nl.tcilegnar.dndcharactersheet.R;
-import nl.tcilegnar.dndcharactersheet.Settings.Main.MainSettingsActivity;
 import nl.tcilegnar.dndcharactersheet.Utils.Log;
 import nl.tcilegnar.dndcharactersheet.Utils.MyBuildConfig;
 import nl.tcilegnar.dndcharactersheet.Utils.MyProperties;
+import nl.tcilegnar.dndcharactersheet.abilities.AbilitiesActivity;
 
 public class MainMenuActivity extends BaseActivity {
     MyBuildConfig myBuildConfig = new MyBuildConfig();
 
     @Override
-    protected Class<? extends PreferenceActivity> getSettingsActivityClass() {
+    protected Class<? extends SettingsActivity> getSettingsActivityClass() {
         return MainSettingsActivity.class;
     }
 

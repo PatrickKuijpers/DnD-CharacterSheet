@@ -7,8 +7,8 @@ android {
     defaultConfig {
         minSdkVersion 16
         targetSdkVersion 25
-        versionCode 9
-        versionName "0.3.1"
+        versionCode 10
+        versionName "0.3.2"
         multiDexEnabled true
     }
     signingConfigs {
@@ -42,6 +42,33 @@ android {
         DnD5x0 {
             applicationId "nl.tcilegnar.dndcharactersheet.version_five_zero"
         }
+    }
+
+    // Voorkom dat errors van lint builds breken in Jenkins
+    lintOptions {
+        abortOnError false
+    }
+
+    /*
+    aaptOptions {
+        cruncherEnabled false
+    }
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['libs']
+        }
+    }
+    testOptions {
+        unitTests.all {
+            jacoco {
+                includeNoLocationClasses true
+            }
+        }
+    }
+    */
+
+    dexOptions {
+        jumboMode true
     }
 }
 

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="image_description_beta_banner">Een rode banner of lintje dat aangeeft dat dit een beta-versie van de app is</string>
+
+    <string name="image_description_level_up">Ga nu level up!</string>
+
+    <string name="image_description_hp_plus">Voeg levens toe</string>
+    <string name="image_description_hp_min">Verlaag levens</string>
+
+    <string name="image_description_ability">Afbeelding voor $1%s</string>
+    <string name="image_description_ability_save">Sla ability op</string>
+
+    <string name="image_description_platinum_coin">Een platinum munt</string>
+    <string name="image_description_gold_coin">Een gouden munt</string>
+    <string name="image_description_silver_coin">Een zilveren munt</string>
+    <string name="image_description_bronze_coin">Een bronzen munt</string>
+
+    <string name="image_description_money_change">Wijzig je geld (nieuwe waarden worden automatisch berekend and toegevoegd of afgetrokken)</string>
+    <string name="image_description_money_plus">Ontvang geld</string>
+    <string name="image_description_money_min">Verlies geld</string>
+</resources>

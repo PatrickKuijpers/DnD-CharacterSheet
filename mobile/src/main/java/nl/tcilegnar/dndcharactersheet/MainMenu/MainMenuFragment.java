@@ -19,7 +19,6 @@ import static android.view.View.OnClickListener;
 
 public class MainMenuFragment extends BaseFragment implements OnClickListener {
     private MainMenuActivity callbackMainMenu;
-    private View data;
 
     @Override
     public void onAttach(Context context) {

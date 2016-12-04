@@ -1,13 +1,11 @@
 package nl.tcilegnar.dndcharactersheet.Money.Settings;
 
-import android.os.Bundle;
-import android.preference.PreferenceActivity;
+import nl.tcilegnar.dndcharactersheet.Base.Settings.SettingsActivity;
+import nl.tcilegnar.dndcharactersheet.Base.Settings.SettingsFragment;
 
-public class MoneySettingsActivity extends PreferenceActivity {
+public class MoneySettingsActivity extends SettingsActivity {
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        MoneySettingsFragment settingsFragment = new MoneySettingsFragment();
-        getFragmentManager().beginTransaction().replace(android.R.id.content, settingsFragment).commit();
+    protected SettingsFragment getSettingsFragment() {
+        return new MoneySettingsFragment();
     }
 }

@@ -16,7 +16,7 @@ import java.lang.reflect.Field;
 
 import nl.tcilegnar.dndcharactersheet.App;
 import nl.tcilegnar.dndcharactersheet.R;
-import nl.tcilegnar.dndcharactersheet.Settings.Settings;
+import nl.tcilegnar.dndcharactersheet.Base.Settings.Settings;
 
 public abstract class BaseNumberPicker extends NumberPicker {
     public final Settings settings; // TODO public voor unittest zou niet nodig hoeven zijn?

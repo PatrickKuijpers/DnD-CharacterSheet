@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="title_money_editor">Money berekenen</string>
+
+    <string name="title_settings_main">Algemene instellingen</string>
+    <string name="title_settings_basic_character_info">Character info instellingen</string>
+    <string name="title_settings_experience">Level &amp; experience instellingen</string>
+    <string name="title_settings_abilities">Abilities instellingen</string>
+    <string name="title_settings_hp">Health instellingen</string>
+    <string name="title_settings_money">Money instellingen</string>
+</resources>

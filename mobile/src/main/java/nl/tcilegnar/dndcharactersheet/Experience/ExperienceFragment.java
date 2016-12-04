@@ -17,7 +17,7 @@ import nl.tcilegnar.dndcharactersheet.Level.LevelUp.ViewGroup.LevelChangeView;
 import nl.tcilegnar.dndcharactersheet.Level.LevelUp.ViewGroup.LevelChangeView.LevelUpIconVisibilityChangedListener;
 import nl.tcilegnar.dndcharactersheet.Level.ViewGroup.LevelIndicatorView;
 import nl.tcilegnar.dndcharactersheet.R;
-import nl.tcilegnar.dndcharactersheet.Settings.Main.MainSettings;
+import nl.tcilegnar.dndcharactersheet.MainMenu.Settings.MainSettings;
 import nl.tcilegnar.dndcharactersheet.Utils.KeyboardUtil;
 
 public class ExperienceFragment extends BaseStorageFragment implements LevelUpIconVisibilityChangedListener,

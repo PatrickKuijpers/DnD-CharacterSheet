@@ -1,16 +1,16 @@
 package nl.tcilegnar.dndcharactersheet.Money;
 
 import android.os.Bundle;
-import android.preference.PreferenceActivity;
 
 import nl.tcilegnar.dndcharactersheet.Base.BaseStorageActivity;
+import nl.tcilegnar.dndcharactersheet.Base.Settings.SettingsActivity;
 import nl.tcilegnar.dndcharactersheet.Money.MoneyEditorFragment.MoneyChangedListener;
 import nl.tcilegnar.dndcharactersheet.Money.MoneyFragment.ChangeMoneyListener;
 import nl.tcilegnar.dndcharactersheet.Money.Settings.MoneySettingsActivity;
 
 public class MoneyActivity extends BaseStorageActivity implements ChangeMoneyListener, MoneyChangedListener {
     @Override
-    protected Class<? extends PreferenceActivity> getSettingsActivityClass() {
+    protected Class<? extends SettingsActivity> getSettingsActivityClass() {
         return MoneySettingsActivity.class;
     }
 

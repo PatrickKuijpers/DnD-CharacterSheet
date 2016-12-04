@@ -1,15 +1,11 @@
 package nl.tcilegnar.dndcharactersheet.Experience.Settings;
 
-import android.os.Bundle;
-import android.preference.PreferenceActivity;
-
 import nl.tcilegnar.dndcharactersheet.Base.Settings.SettingsFragment;
+import nl.tcilegnar.dndcharactersheet.Base.Settings.SettingsActivity;
 
-public class ExperienceSettingsActivity extends PreferenceActivity {
+public class ExperienceSettingsActivity extends SettingsActivity {
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        SettingsFragment settingsFragment = new ExperienceSettingsFragment();
-        getFragmentManager().beginTransaction().replace(android.R.id.content, settingsFragment).commit();
+    protected SettingsFragment getSettingsFragment() {
+        return new ExperienceSettingsFragment();
     }
 }

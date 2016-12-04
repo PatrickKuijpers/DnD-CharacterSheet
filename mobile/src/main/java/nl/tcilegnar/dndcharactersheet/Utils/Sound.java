@@ -5,7 +5,7 @@ import android.media.MediaPlayer;
 import java.util.Random;
 
 import nl.tcilegnar.dndcharactersheet.App;
-import nl.tcilegnar.dndcharactersheet.Settings.Main.MainSettings;
+import nl.tcilegnar.dndcharactersheet.MainMenu.Settings.MainSettings;
 
 /** Origin of sounds: http://www.freesfx.co.uk/sfx */
 public class Sound {

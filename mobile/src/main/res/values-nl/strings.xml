@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="version_unknown">Versie onbekend</string>
+
+    <string name="action_settings">Instellingen</string>
+
+    <string name="experience_label">Exp:&#160;</string>
+    <string name="total_hp_label">Totaal HP:&#160;</string>
+
+    <string name="coming_soon">Binnenkort beschikbaar!</string>
+
+    <string name="ok">OK</string>
+
+    <string name="drawer_menu_item_1">Here be dragons!</string>
+    <string name="drawer_menu_item_2">En coole opties komen later&#8230;</string>
+</resources>
