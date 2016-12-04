@@ -16,13 +16,13 @@ node {
     // Alleen develop branch uploaden naar HockeyApp?
     if (BRANCH_NAME.contains('develop')) {
         stage('Upload HockeyApp') {
-            build job: 'DnD, develop - Upload HockeyApp', parameters: [string(name: 'BRANCH_NAME', value: BRANCH_NAME)]
+            build job: 'DnD, HockeyApp, dev', parameters: [string(name: 'BRANCH_NAME', value: BRANCH_NAME)]
         }
     }
     // Release branch naar HockeyApp voor beta-testers
-    else if (BRANCH_NAME.contains('release')) {
-        stage('Upload HockeyApp') {
-            build job: 'DnD, release beta - Upload HockeyApp', parameters: [string(name: 'BRANCH_NAME', value:
+    else if (BRANCH_NAME.contains('release/')) {
+        stage('Upload HockeyApp voor beta-testers') {
+            build job: 'DnD, HockeyApp, alpha', parameters: [string(name: 'BRANCH_NAME', value:
                     BRANCH_NAME)]
         }
     }
