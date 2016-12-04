@@ -16,9 +16,16 @@ node {
     // Alleen develop branch uploaden naar HockeyApp?
     if (BRANCH_NAME.contains('develop')) {
         stage('Upload HockeyApp') {
-            build job: 'DnD, all - Upload HockeyApp', parameters: [string(name: 'BRANCH_NAME', value: BRANCH_NAME)]
+            build job: 'DnD, develop - Upload HockeyApp', parameters: [string(name: 'BRANCH_NAME', value: BRANCH_NAME)]
         }
     }
-    // Bovenstaande constructie is vooral handig als we alleen Release naar HockeyApp willen builden!
-    // http://stackoverflow.com/questions/27069701/groovy-how-to-check-if-a-string-contains-any-element-of-an-array
+    // Release branch naar HockeyApp voor beta-testers
+    else if (BRANCH_NAME.contains('release')) {
+        stage('Upload HockeyApp') {
+            build job: 'DnD, release beta - Upload HockeyApp', parameters: [string(name: 'BRANCH_NAME', value:
+                    BRANCH_NAME)]
+        }
+    }
+// Bovenstaande constructie is vooral handig als we alleen Release naar HockeyApp willen builden!
+// http://stackoverflow.com/questions/27069701/groovy-how-to-check-if-a-string-contains-any-element-of-an-array
 }
