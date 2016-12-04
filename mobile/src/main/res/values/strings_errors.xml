@@ -12,5 +12,5 @@
     <string name="temp_hp_too_low_exception">The minimum allowed temporary HP value is&#160;</string>
 
     <string name="max_money_reached_exception">The value was not added because the maximum money value is reached: %1$s Platinum. In a newer version of the app this maximum will be increased!</string>
-    <string name="not_enough_money_exception">You don\'t own enough money to pay this amount.</string>
+    <string name="not_enough_money_exception">You don\'t own enough money to pay this much.</string>
 </resources>

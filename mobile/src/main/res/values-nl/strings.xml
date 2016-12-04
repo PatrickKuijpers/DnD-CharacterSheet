@@ -10,4 +10,7 @@
     <string name="coming_soon">Binnenkort beschikbaar!</string>
 
     <string name="ok">OK</string>
+
+    <string name="drawer_menu_item_1">Here be dragons!</string>
+    <string name="drawer_menu_item_2">En coole opties komen later&#8230;</string>
 </resources>

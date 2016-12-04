@@ -8,6 +8,7 @@ import nl.tcilegnar.dndcharactersheet.Base.Animations.ProgressBarAnimation;
 import nl.tcilegnar.dndcharactersheet.Experience.Experience;
 
 public class ExperienceProgressBarAnimation implements AnimationListener {
+    private static final int PROGRESS_DURATION_IMMEDIATE = 0;
     private static final int PROGRESS_DURATION_MILLIS = 1000;
     private static final int NO_REPEATS = 0;
 
@@ -97,9 +98,16 @@ public class ExperienceProgressBarAnimation implements AnimationListener {
     }
 
     private void startAnimation(float from, float to, int repeat) {
+        startAnimation(from, to, repeat, PROGRESS_DURATION_MILLIS);
+    }
+
+    private void startAnimation(float from, float to, int repeat, int duration) {
+        if (from == to) {
+            duration = PROGRESS_DURATION_IMMEDIATE;
+        }
         ProgressBarAnimation animation = new ProgressBarAnimation(progressBar, from, to);
         animation.setRepeatCount(repeat);
-        animation.setDuration(PROGRESS_DURATION_MILLIS);
+        animation.setDuration(duration);
         animation.setAnimationListener(this);
         progressBar.startAnimation(animation);
     }

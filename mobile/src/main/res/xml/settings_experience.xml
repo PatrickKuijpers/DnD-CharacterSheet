@@ -10,6 +10,7 @@
             android:summary="@string/setting_summary_experience_update_type"
             android:title="@string/setting_title_experience_update_type"/>
         <ListPreference
+            android:defaultValue="@string/setting_defaultvalue_experience_picker_steps"
             android:dialogTitle="@string/setting_dialogtitle_experience_picker_steps"
             android:entries="@array/setting_entries_experience_picker_steps"
             android:entryValues="@array/setting_entryvalues_experience_picker_steps"
