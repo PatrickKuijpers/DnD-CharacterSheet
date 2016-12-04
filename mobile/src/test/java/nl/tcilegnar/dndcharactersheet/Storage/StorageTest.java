@@ -8,6 +8,7 @@ import org.robolectric.annotation.Config;
 
 import nl.tcilegnar.dndcharactersheet.BuildConfig;
 
+import static nl.tcilegnar.dndcharactersheet.Storage.Storage.Key;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
@@ -58,6 +59,18 @@ public class StorageTest {
     }
 
     @Test
+    public void loadExperience_DefaultValue() {
+        // Arrange
+        int defaultValue = Key.CURRENT_EXP.defaultValue;
+
+        // Act
+        int experience = storage.loadExperience();
+
+        // Assert
+        assertEquals(defaultValue, experience);
+    }
+
+    @Test
     public void saveAndLoadLevel() {
         // Arrange
         int expectedLevel = 12;
@@ -68,6 +81,18 @@ public class StorageTest {
 
         // Assert
         assertEquals(expectedLevel, level);
+    }
+
+    @Test
+    public void loadLevel_DefaultValue() {
+        // Arrange
+        int defaultValue = Key.CURRENT_LEVEL.defaultValue;
+
+        // Act
+        int level = storage.loadLevel();
+
+        // Assert
+        assertEquals(defaultValue, level);
     }
 
     @Test
@@ -84,10 +109,22 @@ public class StorageTest {
     }
 
     @Test
+    public void loadReadyForLevelChange_DefaultValue() {
+        // Arrange
+        int defaultValue = Key.READY_FOR_LEVEL_CHANGE.defaultValue;
+
+        // Act
+        int readyForLevelChange = storage.loadReadyForLevelChange();
+
+        // Assert
+        assertEquals(defaultValue, readyForLevelChange);
+    }
+
+    @Test
     public void saveAndLoadAbility() {
         // Arrange
         int expectedAbilityValue = 11;
-        Storage.Key expectedAbilityKey = Storage.Key.CHARISMA;
+        Key expectedAbilityKey = Key.CHARISMA;
 
         // Act
         storage.saveAbility(expectedAbilityKey, expectedAbilityValue);
@@ -95,6 +132,18 @@ public class StorageTest {
 
         // Assert
         assertEquals(expectedAbilityValue, abilityValue);
+    }
+
+    @Test
+    public void loadAbility_DefaultValue() {
+        // Arrange
+        Key expectedAbilityKey = Key.CHARISMA;
+
+        // Act
+        int abilityValue = storage.loadAbility(expectedAbilityKey);
+
+        // Assert
+        assertEquals(expectedAbilityKey.defaultValue, abilityValue);
     }
 
     @Test
@@ -111,6 +160,18 @@ public class StorageTest {
     }
 
     @Test
+    public void loadPlatinum_DefaultValue() {
+        // Arrange
+        int defaultValue = Key.PLATINUM.defaultValue;
+
+        // Act
+        int platinum = storage.loadPlatinum();
+
+        // Assert
+        assertEquals(defaultValue, platinum);
+    }
+
+    @Test
     public void saveAndLoadGold() {
         // Arrange
         int expectedGold = 12;
@@ -121,6 +182,18 @@ public class StorageTest {
 
         // Assert
         assertEquals(expectedGold, gold);
+    }
+
+    @Test
+    public void loadGold_DefaultValue() {
+        // Arrange
+        int defaultValue = Key.GOLD.defaultValue;
+
+        // Act
+        int gold = storage.loadGold();
+
+        // Assert
+        assertEquals(defaultValue, gold);
     }
 
     @Test
@@ -137,6 +210,18 @@ public class StorageTest {
     }
 
     @Test
+    public void loadSilver_DefaultValue() {
+        // Arrange
+        int defaultValue = Key.SILVER.defaultValue;
+
+        // Act
+        int silver = storage.loadSilver();
+
+        // Assert
+        assertEquals(defaultValue, silver);
+    }
+
+    @Test
     public void saveAndLoadBronze() {
         // Arrange
         int expectedBronze = 12;
@@ -147,6 +232,18 @@ public class StorageTest {
 
         // Assert
         assertEquals(expectedBronze, bronze);
+    }
+
+    @Test
+    public void loadBronze_DefaultValue() {
+        // Arrange
+        int defaultValue = Key.BRONZE.defaultValue;
+
+        // Act
+        int bronze = storage.loadBronze();
+
+        // Assert
+        assertEquals(defaultValue, bronze);
     }
 
     @Test
@@ -163,6 +260,18 @@ public class StorageTest {
     }
 
     @Test
+    public void loadTotalHp_DefaultValue() {
+        // Arrange
+        int defaultValue = Key.TOTAL_HP.defaultValue;
+
+        // Act
+        int totalHp = storage.loadTotalHp();
+
+        // Assert
+        assertEquals(defaultValue, totalHp);
+    }
+
+    @Test
     public void saveAndLoadCurrentHp() {
         // Arrange
         int expectedCurrentHp = 4;
@@ -176,6 +285,18 @@ public class StorageTest {
     }
 
     @Test
+    public void loadCurrentHp_DefaultValue() {
+        // Arrange
+        int defaultValue = Key.CURRENT_HP.defaultValue;
+
+        // Act
+        int currentHp = storage.loadCurrentHp();
+
+        // Assert
+        assertEquals(defaultValue, currentHp);
+    }
+
+    @Test
     public void saveAndLoadTempHp() {
         // Arrange
         int expectedTempHp = 4;
@@ -186,5 +307,17 @@ public class StorageTest {
 
         // Assert
         assertEquals(expectedTempHp, tempHp);
+    }
+
+    @Test
+    public void loadTempHp_DefaultValue() {
+        // Arrange
+        int defaultValue = Key.TEMP_HP.defaultValue;
+
+        // Act
+        int tempHp = storage.loadTempHp();
+
+        // Assert
+        assertEquals(defaultValue, tempHp);
     }
 }
