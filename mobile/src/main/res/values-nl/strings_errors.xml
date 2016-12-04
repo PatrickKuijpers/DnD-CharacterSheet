@@ -12,5 +12,5 @@
     <string name="temp_hp_too_low_exception">De minimum toegestane tijdelijke HP waarde is&#160;</string>
 
     <string name="max_money_reached_exception">Het geld is niet toegevoegd omdat de maximum waarde is bereikt: %1$s Platinum. In een nieuwere versie van de app zal dit maximum verhoogd worden!</string>
-    <string name="not_enough_money_exception">Je bezit niet genoeg geld om dit te betalen.</string>
+    <string name="not_enough_money_exception">Je hebt niet genoeg geld om zo veel te betalen.</string>
 </resources>

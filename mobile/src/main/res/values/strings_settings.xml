@@ -7,20 +7,20 @@
     <string name="setting_category_title_money">@string/title_settings_money</string>
 
     <string name="setting_title_confirm">@string/ok</string>
-    <string name="setting_title_show_hints">Show hints</string>
-    <string name="setting_title_play_sounds">Play sounds</string>
+    <string name="setting_title_show_hints">Hints</string>
+    <string name="setting_title_play_sounds">Sounds</string>
     <string name="setting_title_experience_update_type">Change experience</string>
     <string name="setting_title_experience_picker_steps">Change experience step-size</string>
     <string name="setting_title_allow_level_down">Level down</string>
-    <string name="setting_title_money_update_calculated">Calculate manually or automatically</string>
+    <string name="setting_title_money_update_calculated">Calculate automatically</string>
     <string name="setting_title_money_update_type">Change money</string>
 
     <string name="setting_summary_show_hints">Show useful hints to learn how to use this app</string>
     <string name="setting_summary_play_sounds">Turn on the sound effects of the app</string>
     <string name="setting_summary_experience_update_type">Change input type of experience</string>
     <string name="setting_summary_experience_picker_steps">Choose the size of the steps with which you\'ll update your experience</string>
-    <string name="setting_summary_allow_level_down">Allow experience to fall below 0, resulting in levelling down</string>
-    <string name="setting_summary_money_update_calculated">Check this to calculate your money automatically, and enter how much money you received or lost. \nThe other option is to calculate everything yourself and change the values manually, just like an original character sheet</string>
+    <string name="setting_summary_allow_level_down">Allow experience to fall below 0, which will result in a level down</string>
+    <string name="setting_summary_money_update_calculated">Check to automatically calculate your finances by stating how much money you\'ve received or lost. \nAlternatively, calculate and adjust manually, as with a standard character sheet</string>
     <string name="setting_summary_money_update_type">Change the input type of money</string>
 
     <string name="setting_dialogtitle_experience_update_type">How would you like to change your experience?</string>
