@@ -8,7 +8,7 @@ android {
         minSdkVersion 16
         targetSdkVersion 25
         versionCode 11
-        versionName "0.3.2 dev"
+        versionName "0.3.2"
         multiDexEnabled true
     }
     signingConfigs {
@@ -24,12 +24,18 @@ android {
     }
     buildTypes {
         release {
-            minifyEnabled false
             signingConfig signingConfigs.release
+            minifyEnabled false
         }
         debug {
-            applicationIdSuffix ".test"
             signingConfig signingConfigs.debug
+            applicationIdSuffix ".test"
+            versionNameSuffix ".test"
+        }
+        dev {
+            initWith debug
+            applicationIdSuffix ".dev"
+            versionNameSuffix ".dev"
         }
     }
     productFlavors {
@@ -78,12 +84,10 @@ repositories {
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
-
     compile 'com.android.support:appcompat-v7:25.0.1'
     compile 'com.android.support:design:25.0.1'
     compile 'com.android.support:multidex:1.0.1'
     compile 'net.hockeyapp.android:HockeySDK:4.0.0'
-
     testCompile 'junit:junit:4.12'
     testCompile 'org.robolectric:robolectric:3.1'
     testCompile 'org.mockito:mockito-all:1.9.5'
