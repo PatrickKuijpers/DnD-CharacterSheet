@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
     <!-- Keys voor de settings. Verander deze nooit! -->
     <string name="setting_key_confirm">OK</string>
     <string name="setting_key_show_hints">show_hints</string>
@@ -9,6 +9,14 @@
     <string name="setting_key_allow_level_down">allow_level_down</string>
     <string name="setting_key_money_update_calculated">money_update_calculated</string>
     <string name="setting_key_money_update_type">money_update_type</string>
+
+    <string name="setting_category_title_confirm"/>
+    <string name="setting_category_title_general">@string/title_settings_main</string>
+    <string name="setting_category_title_experience_and_level">@string/title_settings_experience</string>
+    <string name="setting_category_title_hp">@string/title_settings_hp</string>
+    <string name="setting_category_title_money">@string/title_settings_money</string>
+
+    <string name="setting_title_confirm">@string/ok</string>
 
     <string name="setting_defaultvalue_show_hints">true</string>
     <string name="setting_defaultvalue_play_sounds">true</string>

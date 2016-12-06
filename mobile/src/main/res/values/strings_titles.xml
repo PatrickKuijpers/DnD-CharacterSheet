@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="title_main_menu">@string/app_name</string>
+    <string name="title_main_menu" translatable="false">@string/app_name</string>
 
-    <string name="title_basic_character_info">Character info</string>
-    <string name="title_level_and_experience">Level &amp; experience</string>
-    <string name="title_abilities">Abilities</string>
-    <string name="title_hp">Health</string>
-    <string name="title_money">Money</string>
+    <string name="title_basic_character_info" translatable="false">Character info</string>
+    <string name="title_level_and_experience" translatable="false">Level &amp; experience</string>
+    <string name="title_abilities" translatable="false">Abilities</string>
+    <string name="title_hp" translatable="false">Health</string>
+    <string name="title_money" translatable="false">Money</string>
+
     <string name="title_money_editor">Money calculation</string>
 
     <string name="title_settings_main">General settings</string>
