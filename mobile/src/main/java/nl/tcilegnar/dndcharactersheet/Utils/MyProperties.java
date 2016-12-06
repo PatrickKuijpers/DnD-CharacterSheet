@@ -9,7 +9,7 @@ import nl.tcilegnar.dndcharactersheet.App;
 
 public class MyProperties {
     public static String getHockeyAppId() throws Exception {
-        return getProperty("DnD.HockeyApp.AppId");
+        return getProperty("DnD_HockeyApp_AppId");
     }
 
     private static String getProperty(String propertyKey) throws Exception {
