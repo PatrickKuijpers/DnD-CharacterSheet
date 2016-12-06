@@ -5,25 +5,25 @@ import org.robolectric.RobolectricGradleTestRunner;
 import org.robolectric.annotation.Config;
 
 import nl.tcilegnar.dndcharactersheet.BuildConfig;
-import nl.tcilegnar.dndcharactersheet.Utils.MyBuildConfigTest;
 
-import static junit.framework.TestCase.assertFalse;
+import static junit.framework.Assert.assertFalse;
+import static junit.framework.Assert.assertTrue;
 
 @RunWith(RobolectricGradleTestRunner.class)
 @Config(constants = BuildConfig.class)
 public class MyBuildConfigTestForDev extends MyBuildConfigTest {
     @Override
-    public void isDebug_DependsOnBuildType() {
-        isDebug_False();
+    public void isProduction_DependsOnBuildType() {
+        assertFalse(buildConfig.isProduction());
     }
 
-    private void isDebug_False() {
-        // Arrange
+    @Override
+    public void isTest_DependsOnBuildType() {
+        assertFalse(buildConfig.isTest());
+    }
 
-        // Act
-        boolean isDebug = buildConfig.isDebug();
-
-        // Assert
-        assertFalse(isDebug);
+    @Override
+    public void isDevelop_DependsOnBuildType() {
+        assertTrue(buildConfig.isDevelop());
     }
 }

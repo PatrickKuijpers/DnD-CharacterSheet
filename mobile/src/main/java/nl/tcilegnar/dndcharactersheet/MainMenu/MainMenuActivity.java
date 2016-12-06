@@ -41,13 +41,15 @@ public class MainMenuActivity extends BaseActivity {
     }
 
     private void registerHockeyAppManagers() {
-        try {
-            String hockeyAppId = MyProperties.getHockeyAppId();
-            checkForCrashes(hockeyAppId);
-            checkForUpdates(hockeyAppId);
-        } catch (Exception e) {
-            Log.w(LOGTAG, "Helaas geen crash reports & andere handige tools van HockeyApp");
-            e.printStackTrace();
+        if (!myBuildConfig.isProduction()) {
+            try {
+                String hockeyAppId = MyProperties.getHockeyAppId();
+                checkForCrashes(hockeyAppId);
+                checkForUpdates(hockeyAppId);
+            } catch (Exception e) {
+                Log.w(LOGTAG, "Helaas geen crash reports & andere handige tools van HockeyApp");
+                e.printStackTrace();
+            }
         }
     }
 
@@ -60,27 +62,19 @@ public class MainMenuActivity extends BaseActivity {
     }
 
     private void checkForUpdates(String hockeyAppId) {
-        if (myBuildConfig.isDebug()) {
-            UpdateManager.register(this, hockeyAppId, true);
-        }
+        UpdateManager.register(this, hockeyAppId, true);
     }
 
-    private void hockeyAppUnregisterManagers() {
-        if (myBuildConfig.isDebug()) {
+    private void unregisterHockeyAppManagers() {
+        if (!myBuildConfig.isProduction()) {
             UpdateManager.unregister();
         }
     }
 
     @Override
-    public void onPause() {
-        super.onPause();
-        hockeyAppUnregisterManagers();
-    }
-
-    @Override
     public void onDestroy() {
         super.onDestroy();
-        hockeyAppUnregisterManagers();
+        unregisterHockeyAppManagers();
     }
 
     public void startLevelAndExperience() {

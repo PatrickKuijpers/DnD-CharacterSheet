@@ -7,7 +7,6 @@ import org.robolectric.RobolectricGradleTestRunner;
 import org.robolectric.annotation.Config;
 
 import nl.tcilegnar.dndcharactersheet.BuildConfig;
-import nl.tcilegnar.dndcharactersheet.Utils.MyBuildConfig;
 
 @RunWith(RobolectricGradleTestRunner.class)
 @Config(constants = BuildConfig.class)
@@ -20,5 +19,11 @@ public abstract class MyBuildConfigTest {
     }
 
     @Test
-    public abstract void isDebug_DependsOnBuildType();
+    public abstract void isProduction_DependsOnBuildType();
+
+    @Test
+    public abstract void isTest_DependsOnBuildType();
+
+    @Test
+    public abstract void isDevelop_DependsOnBuildType();
 }

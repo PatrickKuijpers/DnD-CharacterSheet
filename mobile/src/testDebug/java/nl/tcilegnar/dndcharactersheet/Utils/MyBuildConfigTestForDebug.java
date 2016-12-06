@@ -12,17 +12,17 @@ import static junit.framework.Assert.assertTrue;
 @Config(constants = BuildConfig.class)
 public class MyBuildConfigTestForDebug extends MyBuildConfigTest {
     @Override
-    public void isDebug_DependsOnBuildType() {
-        isDebug_True();
+    public void isProduction_DependsOnBuildType() {
+        assertFalse(buildConfig.isProduction());
     }
 
-    private void isDebug_True() {
-        // Arrange
+    @Override
+    public void isTest_DependsOnBuildType() {
+        assertTrue(buildConfig.isTest());
+    }
 
-        // Act
-        boolean isDebug = buildConfig.isDebug();
-
-        // Assert
-        assertTrue(isDebug);
+    @Override
+    public void isDevelop_DependsOnBuildType() {
+        assertFalse(buildConfig.isDevelop());
     }
 }
