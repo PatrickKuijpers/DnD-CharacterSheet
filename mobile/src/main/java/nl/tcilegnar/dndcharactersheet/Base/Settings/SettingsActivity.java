@@ -3,7 +3,6 @@ package nl.tcilegnar.dndcharactersheet.Base.Settings;
 import android.os.Bundle;
 import android.preference.PreferenceActivity;
 
-import nl.tcilegnar.dndcharactersheet.Base.Settings.SettingsFragment;
 import nl.tcilegnar.dndcharactersheet.R;
 
 public abstract class SettingsActivity extends PreferenceActivity {
@@ -22,6 +21,6 @@ public abstract class SettingsActivity extends PreferenceActivity {
     }
 
     protected void onLeaveThisActivity() {
-        overridePendingTransition(R.anim.anim_enter_from_left, R.anim.anim_exit_to_right);
+        overridePendingTransition(R.anim.enter_from_left, R.anim.exit_to_right);
     }
 }
