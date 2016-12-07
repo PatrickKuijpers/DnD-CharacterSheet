@@ -96,4 +96,9 @@ public class MainMenuActivity extends BaseActivity {
         Intent moneyActivity = new Intent(this, MoneyActivity.class);
         startActivity(moneyActivity);
     }
+
+    @Override
+    protected void onLeaveThisActivity() {
+        // Don't use an exit animation when leaving the main activity!
+    }
 }
