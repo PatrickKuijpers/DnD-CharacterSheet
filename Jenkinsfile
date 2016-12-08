@@ -4,21 +4,24 @@ node {
     def BRANCH_NAME = env.BRANCH_NAME
     echo "Using branch: ${BRANCH_NAME}"
 
+    def PARAMS = [string(name: 'BRANCH_NAME', value: BRANCH_NAME)]
+
     stage('Unittests') {
-        build job: 'DnD, Unittests', parameters: [string(name: 'BRANCH_NAME', value: BRANCH_NAME)]
+        build job: 'DnD, Unittests', parameters: PARAMS
     }
 
     if (BRANCH_NAME == 'master') {
-        stage('Auto-release stage (future)') {
-            echo "This app version can be safely released!"
+        stage('Auto-deploy (future)') {
+            echo "The app can be released now!"
+            echo "However, auto-deploy is not yet implemented... =("
         }
-    } else if (BRANCH_NAME.contains('release/')) {
-        stage('Upload HockeyApp voor alpha-test') {
-            build job: 'DnD, HockeyApp, alpha', parameters: [string(name: 'BRANCH_NAME', value: BRANCH_NAME)]
+    } else if (BRANCH_NAME.contains('release/') || BRANCH_NAME.contains('hotfix/')) {
+        stage('Upload HockeyApp (alpha-test)') {
+            build job: 'DnD, HockeyApp, alpha', parameters: PARAMS
         }
-    } else if (BRANCH_NAME == 'develop') { // Alleen develop branch uploaden naar HockeyApp?
+    } else { // Develop & alle feature branches
         stage('Upload HockeyApp') {
-            build job: 'DnD, HockeyApp, dev', parameters: [string(name: 'BRANCH_NAME', value: BRANCH_NAME)]
+            build job: 'DnD, HockeyApp, dev', parameters: PARAMS
         }
     }
 }
