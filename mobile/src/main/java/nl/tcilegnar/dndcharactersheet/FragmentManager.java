@@ -37,18 +37,18 @@ public class FragmentManager {
     private void setAnimation(FragmentTransaction transaction, Anim fragmentAnimation) {
         switch (fragmentAnimation) {
             case SLIDE_RIGHT_TO_LEFT_INCL_BACK:
-                transaction.setCustomAnimations(R.anim.anim_enter_from_right, R.anim.anim_exit_to_left, R.anim
-                        .anim_enter_from_left, R.anim.anim_exit_to_right);
+                transaction.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left, R.anim
+                        .enter_from_left, R.anim.exit_to_right);
                 break;
             case SLIDE_LEFT_TO_RIGHT_INCL_BACK:
-                transaction.setCustomAnimations(R.anim.anim_enter_from_left, R.anim.anim_exit_to_right, R.anim
-                        .anim_enter_from_right, R.anim.anim_exit_to_left);
+                transaction.setCustomAnimations(R.anim.enter_from_left, R.anim.exit_to_right, R.anim
+                        .enter_from_right, R.anim.exit_to_left);
                 break;
             case SLIDE_RIGHT_TO_LEFT:
-                transaction.setCustomAnimations(R.anim.anim_enter_from_right, R.anim.anim_exit_to_left);
+                transaction.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left);
                 break;
             case SLIDE_LEFT_TO_RIGHT:
-                transaction.setCustomAnimations(R.anim.anim_enter_from_left, R.anim.anim_exit_to_right);
+                transaction.setCustomAnimations(R.anim.enter_from_left, R.anim.exit_to_right);
                 break;
             case NO_ANIMATION:
             default:

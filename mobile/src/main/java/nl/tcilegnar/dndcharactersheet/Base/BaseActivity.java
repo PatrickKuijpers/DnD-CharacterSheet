@@ -114,7 +114,7 @@ public abstract class BaseActivity extends AppCompatActivity implements OnNaviga
     }
 
     protected void onStartNewActivity() {
-        overridePendingTransition(R.anim.anim_enter_from_right, R.anim.anim_exit_to_left);
+        overridePendingTransition(R.anim.enter_from_right, R.anim.exit_to_left);
     }
 
     @Override
@@ -134,6 +134,6 @@ public abstract class BaseActivity extends AppCompatActivity implements OnNaviga
     }
 
     protected void onLeaveThisActivity() {
-        overridePendingTransition(R.anim.anim_enter_from_left, R.anim.anim_exit_to_right);
+        overridePendingTransition(R.anim.enter_from_left, R.anim.exit_to_right);
     }
 }

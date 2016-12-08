@@ -1,12 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="setting_category_title_confirm"/>
-    <string name="setting_category_title_general">@string/title_settings_main</string>
-    <string name="setting_category_title_experience_and_level">@string/title_settings_experience</string>
-    <string name="setting_category_title_hp">@string/title_settings_hp</string>
-    <string name="setting_category_title_money">@string/title_settings_money</string>
-
-    <string name="setting_title_confirm">@string/ok</string>
     <string name="setting_title_show_hints">Hints</string>
     <string name="setting_title_play_sounds">Sounds</string>
     <string name="setting_title_experience_update_type">Change experience</string>
