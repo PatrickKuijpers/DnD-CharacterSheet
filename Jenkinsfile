@@ -1,6 +1,8 @@
 #!groovy
 
 node {
+    def AUTODEPLOY_TURNED_ON = false
+
     def BRANCH_NAME = env.BRANCH_NAME
     echo "Using branch: ${BRANCH_NAME}"
 
@@ -12,8 +14,12 @@ node {
 
     if (BRANCH_NAME == 'master') {
         stage('Auto-deploy (future)') {
-            echo "The app can be released now!"
-            echo "However, auto-deploy is not yet implemented... =("
+            if (AUTODEPLOY_TURNED_ON) {
+                build job: 'DnD, Google Play Store, release', parameters: PARAMS
+            } else {
+                echo "The app can be released now!"
+                echo "However, auto-deploy is not turned on..."
+            }
         }
     } else if (BRANCH_NAME.contains('release/') || BRANCH_NAME.contains('hotfix/')) {
         stage('Upload HockeyApp (alpha-test)') {
