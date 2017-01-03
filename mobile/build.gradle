@@ -29,13 +29,13 @@ android {
         }
         debug {
             signingConfig signingConfigs.debug
-            applicationIdSuffix ".test"
-            versionNameSuffix ".test"
-        }
-        dev {
-            initWith debug
             applicationIdSuffix ".dev"
             versionNameSuffix ".dev"
+        }
+        alpha {
+            initWith debug
+            applicationIdSuffix ".test"
+            versionNameSuffix ".test"
         }
     }
     productFlavors {
@@ -58,11 +58,6 @@ android {
     /*
     aaptOptions {
         cruncherEnabled false
-    }
-    sourceSets {
-        main {
-            jniLibs.srcDirs = ['libs']
-        }
     }
     testOptions {
         unitTests.all {
