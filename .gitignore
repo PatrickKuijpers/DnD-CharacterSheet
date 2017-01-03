@@ -1,10 +1,12 @@
+# Android gitignore. Reference:
 # https://github.com/github/gitignore/blob/master/Android.gitignore
+# ---
 
-# built application files
+# Built application files
 *.apk
 *.ap_
 
-# files for the dex VM
+# Files for the dex VM
 *.dex
 
 # Java class files
@@ -33,9 +35,7 @@ captures/
 
 # Intellij
 *.iml
-.idea/workspace.xml
-.idea/tasks.xml
-.idea/libraries
+# .idea ignores are customized
 
 # Keystore files
 *.jks
@@ -44,20 +44,19 @@ captures/
 # External native build folder generated in Android Studio 2.2 and later
 .externalNativeBuild
 
-
-
-#Custom:
+# ---
+# Custom ignores:
+# ---
 
 # Mac
 .DS_Store
 
-# .idea files
-/.idea/misc.xml
-/.idea/modules.xml
+# Intellij .idea folder
+.idea/*
+# Intellij .idea folder exceptions:
+!.idea/fileTemplates/
+!.idea/codeStyleSettings.xml
 
-# Extra .idea sinds jan 2017
-/.idea/encodings.xml
-/.idea/compiler.xml
-/.idea/vcs.xml
-/.idea/runConfigurations.xml
-/.idea/inspectionProfiles
+# ---
+# git rm --cached -r .
+# Removes all cached files to ensure there are no .gitignore files being tracked
