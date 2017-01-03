@@ -1,7 +1,7 @@
 #!groovy
 
 node {
-    def AUTODEPLOY_TURNED_ON = false
+    def AUTODEPLOY_TURNED_ON = false // TODO: Auto-deploy is nog niet volledig geconfigureerd
 
     def BRANCH_NAME = env.BRANCH_NAME
     echo "Using branch: ${BRANCH_NAME}"
