@@ -13,7 +13,7 @@ node {
     }
 
     if (BRANCH_NAME == 'master') {
-        stage('Auto-deploy (future)') {
+        stage('Release to Google Play Store (beta-test)') { // TODO: Voorlopig uploaden naar beta-test ipv direct live
             if (AUTODEPLOY_TURNED_ON) {
                 build job: 'DnD, Google Play Store, release', parameters: PARAMS
             } else {
@@ -22,11 +22,11 @@ node {
             }
         }
     } else if (BRANCH_NAME.contains('release/') || BRANCH_NAME.contains('hotfix/')) {
-        stage('Upload HockeyApp (alpha-test)') {
+        stage('Upload to HockeyApp (alpha-test)') {
             build job: 'DnD, HockeyApp, alpha', parameters: PARAMS
         }
     } else { // Develop & alle feature branches
-        stage('Upload HockeyApp') {
+        stage('Upload to HockeyApp') {
             build job: 'DnD, HockeyApp, dev', parameters: PARAMS
         }
     }
