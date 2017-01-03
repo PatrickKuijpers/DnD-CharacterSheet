@@ -54,3 +54,10 @@ captures/
 # .idea files
 /.idea/misc.xml
 /.idea/modules.xml
+
+# Extra .idea sinds jan 2017
+/.idea/encodings.xml
+/.idea/compiler.xml
+/.idea/vcs.xml
+/.idea/runConfigurations.xml
+/.idea/inspectionProfiles
