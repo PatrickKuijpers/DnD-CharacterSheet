@@ -9,7 +9,7 @@ import static junit.framework.Assert.assertTrue;
 
 @RunWith(RobolectricGradleTestRunner.class)
 @Config(constants = BuildConfig.class)
-public class AppTestVersionName {
+public class AppNameTest {
     @Test
     public void getResourceString_AppName_ShouldContainVersionNumber() {
         // Arrange
@@ -18,6 +18,6 @@ public class AppTestVersionName {
         String actualAppName = App.getResourceString(R.string.app_name);
 
         // Assert
-        assertTrue(actualAppName.contains("4.0"));
+        assertTrue(actualAppName.contains("5.0"));
     }
 }

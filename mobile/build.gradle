@@ -5,6 +5,7 @@ android {
     buildToolsVersion "23.0.2"
 
     defaultConfig {
+        applicationId "nl.tcilegnar.dndcharactersheet"
         minSdkVersion 16
         targetSdkVersion 25
         versionCode 12
@@ -40,13 +41,13 @@ android {
     }
     productFlavors {
         DnD3x5 {
-            applicationId "nl.tcilegnar.dndcharactersheet.version_three_five"
+            applicationIdSuffix ".version_three_five"
         }
         DnD4x0 {
-            applicationId "nl.tcilegnar.dndcharactersheet.version_four_zero"
+            applicationIdSuffix ".version_four_zero"
         }
         DnD5x0 {
-            applicationId "nl.tcilegnar.dndcharactersheet.version_five_zero"
+            applicationIdSuffix ".version_five_zero"
         }
     }
 
