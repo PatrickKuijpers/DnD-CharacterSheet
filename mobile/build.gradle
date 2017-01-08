@@ -1,32 +1,5 @@
-buildscript {
-    repositories {
-        mavenCentral()
-    }
-
-    dependencies {
-        classpath 'com.getkeepsafe.dexcount:dexcount-gradle-plugin:0.6.2'
-    }
-}
 apply plugin: 'com.android.application'
-
-// https://github.com/KeepSafe/dexcount-gradle-plugin/issues/140
-//def runDexcount = true
-//if (runDexcount) {
 apply plugin: 'com.getkeepsafe.dexcount'
-//}
-dexcount {
-    format = "list"
-    includeClasses = true
-    includeFieldCount = true
-    includeTotalMethodCount = true
-    orderByMethodCount = true
-    verbose = true
-    maxTreeDepth = Integer.MAX_VALUE
-    teamCityIntegration = false
-    enableForInstantRun = false
-    teamCitySlug = null
-    runOnEachAssemble = true
-}
 
 // Load keystore
 def keystorePropertiesFile = file("D:\\Keystore\\keystore.properties");
@@ -120,4 +93,18 @@ dependencies {
     testCompile 'junit:junit:4.12'
     testCompile 'org.robolectric:robolectric:3.1'
     testCompile 'org.mockito:mockito-all:1.9.5'
+}
+
+dexcount {
+    format = "list"
+    includeClasses = true
+    includeFieldCount = true
+    includeTotalMethodCount = true
+    orderByMethodCount = true
+    verbose = true
+    maxTreeDepth = Integer.MAX_VALUE
+    teamCityIntegration = false
+    enableForInstantRun = false
+    teamCitySlug = null
+    runOnEachAssemble = true
 }
