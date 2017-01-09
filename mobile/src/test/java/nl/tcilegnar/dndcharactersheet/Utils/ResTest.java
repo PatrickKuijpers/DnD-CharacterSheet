@@ -31,7 +31,7 @@ public class ResTest {
     }
 
     @Test
-    public void getResourceString_ShouldContainSameStringAsGetStringFromApplicationResources() {
+    public void getString_ShouldContainSameStringAsGetStringFromApplicationResources() {
         // Arrange
 
         // Act
@@ -43,7 +43,7 @@ public class ResTest {
     }
 
     @Test
-    public void getResourceInteger_ShouldContainSameIntegerAsGetIntegerFromApplicationResources() {
+    public void getInt_ShouldContainSameIntegerAsGetIntegerFromApplicationResources() {
         // Arrange
 
         // Act
@@ -55,7 +55,7 @@ public class ResTest {
     }
 
     @Test
-    public void getResourceInteger_ShouldContainSameDimenAsGetDimensionFromApplicationResourcesDividedByDensity() {
+    public void getDimension_ShouldContainSameDimenAsGetDimensionFromApplicationResourcesDividedByDensity() {
         // Arrange
 
         // Act
@@ -69,11 +69,11 @@ public class ResTest {
     }
 
     //    @Test
-    //    public void getResourceBoolean_ShouldContainSameBooleanAsGetBooleanFromApplicationResources() {
+    //    public void getBoolean_ShouldContainSameBooleanAsGetBooleanFromApplicationResources() {
     //        // Arrange
     //
     //        // Act
-    //        boolean bool = Res.getResourceBoolean(R.bool.some_boolean);
+    //        boolean bool = Res.getBoolean(R.bool.some_boolean);
     //
     //        // Assert
     //        boolean expectedBool = getApplicationResources().getBoolean(R.bool.some_boolean);
@@ -81,7 +81,7 @@ public class ResTest {
     //    }
 
     @Test
-    public void getResourceColor_ShouldContainSameColorAsGetColorFromApplicationContext() {
+    public void getColor_ShouldContainSameColorAsGetColorFromApplicationContext() {
         // Arrange
 
         // Act

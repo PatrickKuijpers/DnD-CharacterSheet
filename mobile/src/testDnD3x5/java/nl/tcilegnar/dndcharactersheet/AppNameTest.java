@@ -13,7 +13,7 @@ import static junit.framework.Assert.assertTrue;
 @Config(constants = BuildConfig.class)
 public class AppNameTest {
     @Test
-    public void getResourceString_AppName_ShouldContainVersionNumber() {
+    public void getString_AppName_ShouldContainVersionNumber() {
         // Arrange
 
         // Act
