@@ -11,11 +11,11 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import nl.tcilegnar.dndcharactersheet.App;
 import nl.tcilegnar.dndcharactersheet.Health.HealthState;
 import nl.tcilegnar.dndcharactersheet.Health.Hp;
 import nl.tcilegnar.dndcharactersheet.R;
 import nl.tcilegnar.dndcharactersheet.Utils.DeviceData;
+import nl.tcilegnar.dndcharactersheet.Utils.Res;
 
 public class HpIndicator extends LinearLayout {
     private final Hp hp;
@@ -78,7 +78,7 @@ public class HpIndicator extends LinearLayout {
     }
 
     private void updateTotalHp(int totalHp) {
-        String totalHpLabelText = App.getResourceString(R.string.total_hp_label);
+        String totalHpLabelText = Res.getString(R.string.total_hp_label);
         String totalHpText = totalHpLabelText + totalHp;
         totalHpValue.setText(totalHpText);
     }

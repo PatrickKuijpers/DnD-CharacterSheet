@@ -5,6 +5,8 @@ import org.junit.runner.RunWith;
 import org.robolectric.RobolectricGradleTestRunner;
 import org.robolectric.annotation.Config;
 
+import nl.tcilegnar.dndcharactersheet.Utils.Res;
+
 import static junit.framework.Assert.assertTrue;
 
 @RunWith(RobolectricGradleTestRunner.class)
@@ -15,7 +17,7 @@ public class AppNameTest {
         // Arrange
 
         // Act
-        String actualAppName = App.getResourceString(R.string.app_name);
+        String actualAppName = Res.getString(R.string.app_name);
 
         // Assert
         assertTrue(actualAppName.contains("3.5"));

@@ -9,9 +9,9 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView.OnEditorActionListener;
 
-import nl.tcilegnar.dndcharactersheet.App;
 import nl.tcilegnar.dndcharactersheet.Base.Exceptions.CustomToastException;
 import nl.tcilegnar.dndcharactersheet.R;
+import nl.tcilegnar.dndcharactersheet.Utils.Res;
 
 public class AbilityNumberEditor extends LinearLayout implements OnClickListener {
     private static final int MAX_VALUE = 99;
@@ -100,13 +100,13 @@ public class AbilityNumberEditor extends LinearLayout implements OnClickListener
 
     public class MinAbilityReachedException extends CustomToastException {
         public MinAbilityReachedException() {
-            super(App.getResourceString(R.string.min_ability_reached_exception) + MIN_VALUE);
+            super(Res.getString(R.string.min_ability_reached_exception) + MIN_VALUE);
         }
     }
 
     public class MaxAbilityReachedException extends CustomToastException {
         public MaxAbilityReachedException() {
-            super(App.getResourceString(R.string.max_ability_reached_exception) + MAX_VALUE);
+            super(Res.getString(R.string.max_ability_reached_exception) + MAX_VALUE);
         }
     }
 }

@@ -1,7 +1,6 @@
 package nl.tcilegnar.dndcharactersheet.Base.View;
 
 import android.content.Context;
-import android.content.res.Resources;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Parcelable;
@@ -17,6 +16,7 @@ import java.lang.reflect.Field;
 import nl.tcilegnar.dndcharactersheet.App;
 import nl.tcilegnar.dndcharactersheet.R;
 import nl.tcilegnar.dndcharactersheet.Base.Settings.Settings;
+import nl.tcilegnar.dndcharactersheet.Utils.Res;
 
 public abstract class BaseNumberPicker extends NumberPicker {
     public final Settings settings; // TODO public voor unittest zou niet nodig hoeven zijn?
@@ -110,7 +110,7 @@ public abstract class BaseNumberPicker extends NumberPicker {
     private void updateView(View view) {
         if (view instanceof EditText) {
             EditText editText = (EditText) view;
-            editText.setTextSize(App.getResourceDimension(getTextsizeDimenRes()));
+            editText.setTextSize(Res.getDimension(getTextsizeDimenRes()));
             //editText.setTextColor(Color.parseColor("#333333"));
         }
     }
@@ -158,7 +158,7 @@ public abstract class BaseNumberPicker extends NumberPicker {
                 try {
                     ColorDrawable colorDrawable = new ColorDrawable(color);
                     pf.set(this, colorDrawable);
-                } catch (IllegalArgumentException | Resources.NotFoundException | IllegalAccessException e) {
+                } catch (IllegalArgumentException | android.content.res.Resources.NotFoundException | IllegalAccessException e) {
                     e.printStackTrace();
                 }
                 break;

@@ -8,7 +8,7 @@ import nl.tcilegnar.dndcharactersheet.R;
 
 public class AppData {
     public static String getAppName() {
-        return App.getResourceString(R.string.app_name);
+        return Res.getString(R.string.app_name);
     }
 
     public static String getAppVersionName() {

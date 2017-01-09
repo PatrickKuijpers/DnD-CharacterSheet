@@ -7,7 +7,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 
-import nl.tcilegnar.dndcharactersheet.App;
 import nl.tcilegnar.dndcharactersheet.Base.BaseFragment;
 import nl.tcilegnar.dndcharactersheet.Money.Settings.MoneySettings;
 import nl.tcilegnar.dndcharactersheet.Money.ViewGroup.BronzeEditor;
@@ -16,6 +15,7 @@ import nl.tcilegnar.dndcharactersheet.Money.ViewGroup.PlatinumEditor;
 import nl.tcilegnar.dndcharactersheet.Money.ViewGroup.SilverEditor;
 import nl.tcilegnar.dndcharactersheet.R;
 import nl.tcilegnar.dndcharactersheet.Utils.KeyboardUtil;
+import nl.tcilegnar.dndcharactersheet.Utils.Res;
 import nl.tcilegnar.dndcharactersheet.Utils.Sound;
 
 public class MoneyEditorFragment extends BaseFragment implements OnClickListener {
@@ -77,7 +77,7 @@ public class MoneyEditorFragment extends BaseFragment implements OnClickListener
 
     @Override
     public String getTitle() {
-        return App.getResourceString(R.string.title_money_editor);
+        return Res.getString(R.string.title_money_editor);
     }
 
     @Override

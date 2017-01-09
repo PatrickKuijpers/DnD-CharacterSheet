@@ -15,6 +15,7 @@ import nl.tcilegnar.dndcharactersheet.Experience.ExperienceUpdater.ExpTooLowExce
 import nl.tcilegnar.dndcharactersheet.Experience.ViewGroup.ExperienceEditor.ExperienceUpdateListener;
 import nl.tcilegnar.dndcharactersheet.Level.ViewGroup.LevelIndicatorView;
 import nl.tcilegnar.dndcharactersheet.R;
+import nl.tcilegnar.dndcharactersheet.Utils.Res;
 
 public class ExperienceCurrentLevel extends LinearLayout implements ExperienceUpdateListener,
         ExperienceUpdatedListener {
@@ -49,7 +50,7 @@ public class ExperienceCurrentLevel extends LinearLayout implements ExperienceUp
     }
 
     private void updateProgressText() {
-        String expLabelText = App.getResourceString(R.string.experience_label);
+        String expLabelText = Res.getString(R.string.experience_label);
         String expText = expLabelText + experience.getCurrentExp();
         ((TextView) findViewById(R.id.experience_text)).setText(expText);
     }

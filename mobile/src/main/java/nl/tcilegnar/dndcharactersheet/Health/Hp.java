@@ -7,6 +7,7 @@ import nl.tcilegnar.dndcharactersheet.App;
 import nl.tcilegnar.dndcharactersheet.Base.StorageObject;
 import nl.tcilegnar.dndcharactersheet.R;
 import nl.tcilegnar.dndcharactersheet.Storage.Storage;
+import nl.tcilegnar.dndcharactersheet.Utils.Res;
 
 public class Hp extends StorageObject {
     private static final int MINIMUM_TOTAL = 1;
@@ -116,21 +117,21 @@ public class Hp extends StorageObject {
 
     public class TotalHpTooLowException extends IllegalArgumentException {
         public TotalHpTooLowException() {
-            super(App.getResourceString(R.string.total_hp_too_low_exception) + MINIMUM_TOTAL);
+            super(Res.getString(R.string.total_hp_too_low_exception) + MINIMUM_TOTAL);
             Toast.makeText(App.getContext(), getMessage(), Toast.LENGTH_LONG).show();
         }
     }
 
     public class CurrentHpTooHighException extends IllegalArgumentException {
         public CurrentHpTooHighException() {
-            super(App.getResourceString(R.string.current_hp_too_high_exception));
+            super(Res.getString(R.string.current_hp_too_high_exception));
             Toast.makeText(App.getContext(), getMessage(), Toast.LENGTH_LONG).show();
         }
     }
 
     public class TempHpTooLowException extends IllegalArgumentException {
         public TempHpTooLowException() {
-            super(App.getResourceString(R.string.temp_hp_too_low_exception) + MINIMUM_TEMP);
+            super(Res.getString(R.string.temp_hp_too_low_exception) + MINIMUM_TEMP);
             Toast.makeText(App.getContext(), getMessage(), Toast.LENGTH_LONG).show();
         }
     }

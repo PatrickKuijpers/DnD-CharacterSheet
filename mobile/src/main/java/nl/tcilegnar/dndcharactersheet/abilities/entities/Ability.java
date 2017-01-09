@@ -6,9 +6,9 @@ import android.support.annotation.DrawableRes;
 import android.support.annotation.StringRes;
 import android.support.annotation.VisibleForTesting;
 
-import nl.tcilegnar.dndcharactersheet.App;
 import nl.tcilegnar.dndcharactersheet.R;
 import nl.tcilegnar.dndcharactersheet.Storage.Storage;
+import nl.tcilegnar.dndcharactersheet.Utils.Res;
 
 import static nl.tcilegnar.dndcharactersheet.Storage.Storage.Key;
 
@@ -40,7 +40,7 @@ public enum Ability {
         this.abbreviation = getString(abbreviationRes);
         this.imageRes = imageRes;
         this.imageDescription = String.format(getString(R.string.image_description_ability), name);
-        this.color = App.getResourceColor(colorRes);
+        this.color = Res.getColor(colorRes);
     }
 
     @VisibleForTesting
@@ -81,6 +81,6 @@ public enum Ability {
     }
 
     private static String getString(@StringRes int stringRes) {
-        return App.getResourceString(stringRes);
+        return Res.getString(stringRes);
     }
 }
