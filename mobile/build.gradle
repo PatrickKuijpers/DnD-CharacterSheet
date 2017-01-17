@@ -58,6 +58,9 @@ android {
         DnD5x0 {
             applicationIdSuffix ".version_five_zero"
         }
+        Pathfinder {
+            applicationIdSuffix ".pathfinder"
+        }
     }
 
     // Voorkom dat errors van lint builds breken in Jenkins
