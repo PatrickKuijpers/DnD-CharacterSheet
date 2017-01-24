@@ -4,11 +4,7 @@
     <group android:checkableBehavior="single">
         <item android:title="@string/drawer_menu_item_1"/>
         <item android:title="@string/drawer_menu_item_2"/>
-        <!--        <item
-                    android:id="@+id/nav_char_A"
-                    android:title="Character A"/>
-                <item
-                    android:id="@+id/nav_char_B"
-                    android:title="Character B"/>-->
+        <item android:title=""/>
+        <item android:title="Characters:"/>
     </group>
 </menu>

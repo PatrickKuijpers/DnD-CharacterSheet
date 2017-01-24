@@ -14,6 +14,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 
 import nl.tcilegnar.dndcharactersheet.Base.Settings.SettingsActivity;
+import nl.tcilegnar.dndcharactersheet.CharacterList;
 import nl.tcilegnar.dndcharactersheet.FragmentManager;
 import nl.tcilegnar.dndcharactersheet.R;
 
@@ -48,6 +49,13 @@ public abstract class BaseActivity extends AppCompatActivity implements OnNaviga
     private void initNavigationView() {
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        Menu menu = navigationView.getMenu();
+        int groupId = Menu.NONE;
+        int itemId = Menu.NONE;
+        int order = Menu.NONE;
+        for (String characterName : CharacterList.INSTANCE.getCharacterNames()) {
+            menu.add(groupId, itemId, order, characterName);
+        }
     }
 
     @Override

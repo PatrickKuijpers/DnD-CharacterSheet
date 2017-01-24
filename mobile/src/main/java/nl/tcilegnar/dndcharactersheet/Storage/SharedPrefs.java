@@ -11,6 +11,8 @@ import java.util.Set;
 import nl.tcilegnar.dndcharactersheet.App;
 
 public abstract class SharedPrefs {
+    protected static final String ROOT = null;
+
     private SharedPreferences extendedSharedPrefs = App.getContext().getSharedPreferences(fileName(), Context
             .MODE_PRIVATE);
     private SharedPreferences defaultPrefs = PreferenceManager.getDefaultSharedPreferences(App.getContext());
@@ -22,10 +24,10 @@ public abstract class SharedPrefs {
         SharedPreferences tempPrefs = App.getContext().getSharedPreferences("Settings", Context.MODE_PRIVATE);
         tempPrefs.edit().clear().apply();
         // ---
-        if (fileName() != null) {
-            return extendedSharedPrefs;
-        } else {
+        if (fileName() == ROOT) {
             return defaultPrefs;
+        } else {
+            return extendedSharedPrefs;
         }
     }
 

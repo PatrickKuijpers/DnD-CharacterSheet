@@ -5,14 +5,24 @@ import nl.tcilegnar.dndcharactersheet.Level.Level;
 import nl.tcilegnar.dndcharactersheet.abilities.entities.Ability;
 
 public class Storage extends SharedPrefs {
+    private final String fileName;
+
+    public Storage() {
+        this.fileName = CharacterSettings.getInstance().loadCurrentCharacterId();
+    }
+
+    public Storage(String filename) {
+        this.fileName = filename;
+    }
+
     @Override
     protected String fileName() {
-        // Deze filelocatie nooit veranderen!
-        return "Storage";
+        return fileName;
     }
 
     public enum Key {
         // Deze enums nooit veranderen!
+        CHARACTER_NAME(0),
         CURRENT_EXP(Experience.EXP_MIN),
         CURRENT_LEVEL(Level.MIN_LEVEL),
         READY_FOR_LEVEL_CHANGE(0),
@@ -35,6 +45,17 @@ public class Storage extends SharedPrefs {
         Key(int defaultValue) {
             this.defaultValue = defaultValue;
         }
+    }
+
+    public void saveCharacterName(String value) {
+        Key key = Key.CHARACTER_NAME;
+        save(key.name(), value);
+    }
+
+    public String loadCharacterName() {
+        Key key = Key.CHARACTER_NAME;
+        String defaultValue = "My Character Name"; // TODO: generics?
+        return loadString(key.name(), defaultValue);
     }
 
     public void saveExperience(int value) {
