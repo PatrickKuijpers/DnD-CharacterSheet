@@ -22,7 +22,7 @@ import nl.tcilegnar.dndcharactersheet.Storage.CharacterSettings;
 public abstract class BaseActivity extends AppCompatActivity implements OnNavigationItemSelectedListener {
     protected final String LOGTAG = getClass().getSimpleName();
 
-    private static final int CHARACTERS_GROUP_ID = 1001;
+    private static final int CHARACTERS_GROUP_ID = 999;
 
     protected FragmentManager fragmentManager = new FragmentManager(this);
 
@@ -55,12 +55,11 @@ public abstract class BaseActivity extends AppCompatActivity implements OnNaviga
         navigationView.setNavigationItemSelectedListener(this);
         Menu menu = navigationView.getMenu();
         String currentCharacterId = CharacterSettings.getInstance().loadCurrentCharacterId();
-        int currentCharacterIndex = CharacterSettings.getCharacterIndex(currentCharacterId);
         for (String characterName : CharacterList.INSTANCE.getCharacterNames()) {
-            int itemId = CharacterSettings.getCharacterIndex(characterName);
-            MenuItem item = menu.add(CHARACTERS_GROUP_ID, itemId, Menu.NONE, characterName);
+            int itemId = Integer.valueOf(characterName);
+            MenuItem item = menu.add(CHARACTERS_GROUP_ID, itemId, Menu.NONE, "Character " + characterName);
             item.setCheckable(true);
-            if (itemId == currentCharacterIndex) {
+            if (itemId == Integer.valueOf(currentCharacterId)) {
                 item.setChecked(true);
             }
         }
@@ -75,8 +74,9 @@ public abstract class BaseActivity extends AppCompatActivity implements OnNaviga
         if (itemId == R.id.characters_header) {
             CharacterSettings.getInstance().addCharacter();
         } else if (groupId == CHARACTERS_GROUP_ID) {
-            //CharacterSettings.getInstance().removeCharacter(itemId); TODO
-            CharacterSettings.getInstance().switchCharacter(itemId);
+            String characterId = String.valueOf(itemId);
+            //CharacterSettings.getInstance().removeCharacter(characterId); TODO
+            CharacterSettings.getInstance().switchCharacter(characterId);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

@@ -1,16 +1,14 @@
 package nl.tcilegnar.dndcharactersheet.Storage;
 
-import android.support.annotation.NonNull;
-
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.Set;
 import java.util.TreeSet;
 
 public class CharacterSettings extends SharedPrefs {
-    private static final TreeSet<String> DEFAULT_CHARACTER_IDS = new TreeSet<>(Collections.reverseOrder());
-    private static final int FIRST_CHARACTER_INDEX = 1001; // Nooit wijzigen!!!
-    private static final String CHARACTER_ID_PREFIX = "character"; // Nooit wijzigen!!!
-    private static final String FIRST_CHARACTER_ID = createCharacterId(FIRST_CHARACTER_INDEX); // Nooit wijzigen!!!
+    private static final Comparator<String> CHARACTER_ID_COMPERATOR = Collections.reverseOrder();
+    private static final TreeSet<String> DEFAULT_CHARACTER_IDS = new TreeSet<>(CHARACTER_ID_COMPERATOR);
+    private static final String FIRST_CHARACTER_ID = "10001"; // Nooit wijzigen!!!
 
     private static CharacterSettings instance;
 
@@ -22,10 +20,10 @@ public class CharacterSettings extends SharedPrefs {
     }
 
     private CharacterSettings() {
-        checkFirstCharacter();
+        makeSureAnyCharacterExists();
     }
 
-    private void checkFirstCharacter() {
+    private void makeSureAnyCharacterExists() {
         boolean isFirstCharacter = loadCharacterIds().isEmpty();
         if (isFirstCharacter) {
             addCharacter(FIRST_CHARACTER_ID);
@@ -51,33 +49,21 @@ public class CharacterSettings extends SharedPrefs {
     }
 
     private String getNewCharacterId() {
-        TreeSet<String> existingCharacterIds = loadCharacterIds();
-        String lastId = existingCharacterIds.first();
-        int lastCharacterIndex = getCharacterIndex(lastId);
-        lastCharacterIndex++;
-        return createCharacterId(lastCharacterIndex);
+        int firstCharacterId = Integer.valueOf(getFirstCharacterId());
+        firstCharacterId++;
+        return String.valueOf(firstCharacterId);
     }
 
-    @NonNull // Nooit wijzigen!!!
-    private static String createCharacterId(int lastCharacterSuffix) {
-        return CHARACTER_ID_PREFIX + lastCharacterSuffix;
+    private String getFirstCharacterId() {
+        return loadCharacterIds().first();
     }
 
-    public static int getCharacterIndex(String characterId) {
-        return Integer.valueOf(characterId.substring(CHARACTER_ID_PREFIX.length()));
-    }
-
-    public void addCharacter(String newCharacterId) {
+    private void addCharacter(String newCharacterId) {
         TreeSet<String> currentCharacterIds = loadCharacterIds();
         currentCharacterIds.add(newCharacterId);
         saveCharacterIds(currentCharacterIds);
 
         switchCharacter(newCharacterId);
-    }
-
-    public void removeCharacter(int index) {
-        String characterId = createCharacterId(index);
-        removeCharacter(characterId);
     }
 
     public void removeCharacter(String characterId) {
@@ -87,13 +73,9 @@ public class CharacterSettings extends SharedPrefs {
 
         boolean isActiveCharacterRemoved = characterId.equals(loadCurrentCharacterId());
         if (isActiveCharacterRemoved) {
-            checkFirstCharacter();
-            switchCharacter(loadCharacterIds().iterator().next());
+            makeSureAnyCharacterExists();
+            switchCharacter(getFirstCharacterId());
         }
-    }
-
-    public void switchCharacter(int characterIndex) {
-        switchCharacter(createCharacterId(characterIndex));
     }
 
     public void switchCharacter(String characterId) {
@@ -102,7 +84,7 @@ public class CharacterSettings extends SharedPrefs {
 
     public TreeSet<String> loadCharacterIds() {
         Set<String> unsortedCharacterIds = loadStringSet(Key.CHARACTER_IDS.name(), DEFAULT_CHARACTER_IDS);
-        TreeSet<String> sortedCharacterIds = new TreeSet<>(Collections.reverseOrder());
+        TreeSet<String> sortedCharacterIds = new TreeSet<>(CHARACTER_ID_COMPERATOR);
         sortedCharacterIds.addAll(unsortedCharacterIds);
         return sortedCharacterIds;
     }
