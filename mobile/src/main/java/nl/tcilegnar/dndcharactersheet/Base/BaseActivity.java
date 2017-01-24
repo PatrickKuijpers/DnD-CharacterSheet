@@ -17,9 +17,13 @@ import nl.tcilegnar.dndcharactersheet.Base.Settings.SettingsActivity;
 import nl.tcilegnar.dndcharactersheet.CharacterList;
 import nl.tcilegnar.dndcharactersheet.FragmentManager;
 import nl.tcilegnar.dndcharactersheet.R;
+import nl.tcilegnar.dndcharactersheet.Storage.CharacterSettings;
 
 public abstract class BaseActivity extends AppCompatActivity implements OnNavigationItemSelectedListener {
     protected final String LOGTAG = getClass().getSimpleName();
+
+    private static final int CHARACTERS_GROUP_ID = 1001;
+
     protected FragmentManager fragmentManager = new FragmentManager(this);
 
     @Override
@@ -50,22 +54,30 @@ public abstract class BaseActivity extends AppCompatActivity implements OnNaviga
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         Menu menu = navigationView.getMenu();
-        int groupId = Menu.NONE;
-        int itemId = Menu.NONE;
-        int order = Menu.NONE;
+        String currentCharacterId = CharacterSettings.getInstance().loadCurrentCharacterId();
+        int currentCharacterIndex = CharacterSettings.getCharacterIndex(currentCharacterId);
         for (String characterName : CharacterList.INSTANCE.getCharacterNames()) {
-            menu.add(groupId, itemId, order, characterName);
+            int itemId = CharacterSettings.getCharacterIndex(characterName);
+            MenuItem item = menu.add(CHARACTERS_GROUP_ID, itemId, Menu.NONE, characterName);
+            item.setCheckable(true);
+            if (itemId == currentCharacterIndex) {
+                item.setChecked(true);
+            }
         }
     }
 
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
-        int id = item.getItemId();
+        int itemId = item.getItemId();
+        int groupId = item.getGroupId();
 
-        //        if (id == R.id.nav_char_A) {
-        //        } else if (id == R.id.nav_char_B) {
-        //        }
+        if (itemId == R.id.characters_header) {
+            CharacterSettings.getInstance().addCharacter();
+        } else if (groupId == CHARACTERS_GROUP_ID) {
+            //CharacterSettings.getInstance().removeCharacter(itemId); TODO
+            CharacterSettings.getInstance().switchCharacter(itemId);
+        }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);

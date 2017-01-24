@@ -5,6 +5,8 @@
         <item android:title="@string/drawer_menu_item_1"/>
         <item android:title="@string/drawer_menu_item_2"/>
         <item android:title=""/>
-        <item android:title="Characters:"/>
+        <item
+            android:id="@+id/characters_header"
+            android:title="Characters:"/>
     </group>
 </menu>
