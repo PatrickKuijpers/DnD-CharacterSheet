@@ -15,11 +15,12 @@ import static org.junit.Assert.assertNotNull;
 @RunWith(RobolectricGradleTestRunner.class)
 @Config(constants = BuildConfig.class)
 public class StorageTest {
+    private static final String FILENAME = "test";
     private Storage storage;
 
     @Before
     public void setUp() {
-        storage = new Storage();
+        storage = new Storage(FILENAME);
     }
 
     @Test
@@ -34,7 +35,7 @@ public class StorageTest {
     }
 
     @Test
-    public void fileName_Storage() {
+    public void fileName_IsCorrect() {
         // Arrange
 
         // Act
