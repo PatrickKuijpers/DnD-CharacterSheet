@@ -14,6 +14,7 @@ import nl.tcilegnar.dndcharactersheet.App;
 import nl.tcilegnar.dndcharactersheet.Base.BaseFragment;
 import nl.tcilegnar.dndcharactersheet.R;
 import nl.tcilegnar.dndcharactersheet.Utils.AppData;
+import nl.tcilegnar.dndcharactersheet.characters.Current;
 
 import static android.view.View.OnClickListener;
 
@@ -43,6 +44,11 @@ public class MainMenuFragment extends BaseFragment implements OnClickListener {
         super.onViewCreated(view, savedInstanceState);
         initViews(view);
         setVersionNumber(view);
+    }
+
+    @Override
+    public String getTitle() {
+        return Current.DnDCharacter().getName();
     }
 
     private void initViews(View view) {
