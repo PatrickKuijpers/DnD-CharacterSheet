@@ -7,6 +7,7 @@ import java.util.TreeSet;
 
 import nl.tcilegnar.dndcharactersheet.App;
 import nl.tcilegnar.dndcharactersheet.Storage.SharedPrefs;
+import nl.tcilegnar.dndcharactersheet.Storage.Storage;
 
 public class CharacterSettings extends SharedPrefs {
     private static final Comparator<String> CHARACTER_ID_COMPERATOR = Collections.reverseOrder();
@@ -29,7 +30,8 @@ public class CharacterSettings extends SharedPrefs {
     private void makeSureAnyCharacterExists() {
         boolean isFirstCharacter = loadCharacterIds().isEmpty();
         if (isFirstCharacter) {
-            addCharacter(FIRST_CHARACTER_ID);
+            String name = Storage.DEFAULT_CHARACTER_NAME + " " + FIRST_CHARACTER_ID;
+            addCharacter(FIRST_CHARACTER_ID, name);
         }
     }
 
@@ -47,8 +49,8 @@ public class CharacterSettings extends SharedPrefs {
         CURRENT_CHARACTER_ID
     }
 
-    public void addCharacter() {
-        addCharacter(getNewCharacterId());
+    public void addCharacter(String name) {
+        addCharacter(getNewCharacterId(), name);
     }
 
     private String getNewCharacterId() {
@@ -61,10 +63,12 @@ public class CharacterSettings extends SharedPrefs {
         return loadCharacterIds().first();
     }
 
-    private void addCharacter(String newCharacterId) {
+    private void addCharacter(String newCharacterId, String name) {
         TreeSet<String> currentCharacterIds = loadCharacterIds();
         currentCharacterIds.add(newCharacterId);
         saveCharacterIds(currentCharacterIds);
+
+        new Storage(newCharacterId).saveCharacterName(name);
 
         switchCharacter(newCharacterId);
     }

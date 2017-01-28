@@ -1,5 +1,6 @@
 package nl.tcilegnar.dndcharactersheet.Base;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -7,11 +8,14 @@ import android.support.design.widget.NavigationView.OnNavigationItemSelectedList
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.Editable;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.EditText;
 
 import nl.tcilegnar.dndcharactersheet.Base.Settings.SettingsActivity;
 import nl.tcilegnar.dndcharactersheet.FragmentManager;
@@ -77,7 +81,7 @@ public abstract class BaseActivity extends AppCompatActivity implements OnNaviga
 
         CharacterSettings charSettings = CharacterSettings.getInstance();
         if (itemId == R.id.characters_header) {
-            charSettings.addCharacter();
+            addCharacter();
         } else if (itemId == R.id.character_delete_test) {
             charSettings.removeCharacter(Current.DnDCharacter().getId()); //TODO
         } else if (groupId == CHARACTERS_GROUP_ID) {
@@ -88,6 +92,26 @@ public abstract class BaseActivity extends AppCompatActivity implements OnNaviga
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    private void addCharacter() {
+        AlertDialog.Builder alert = new AlertDialog.Builder(this);
+
+        alert.setTitle("Character name");
+        alert.setMessage("input the name of the new character");
+
+        // Set an EditText view to get user input
+        final EditText input = new EditText(this);
+        alert.setView(input);
+
+        alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int whichButton) {
+                String name = input.getText().toString();
+                CharacterSettings.getInstance().addCharacter(name);
+            }
+        });
+
+        alert.show();
     }
 
     @Override

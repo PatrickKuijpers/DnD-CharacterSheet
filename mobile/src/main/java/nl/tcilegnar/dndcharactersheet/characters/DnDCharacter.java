@@ -16,7 +16,7 @@ public class DnDCharacter {
     }
 
     public String getName() {
-        return storage.loadCharacterName() + " " + id; // TODO: temp. naam, tot deze ingevuld kan worden
+        return storage.loadCharacterName();
     }
 
     public void setName(String name) {

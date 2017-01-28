@@ -6,6 +6,8 @@ import nl.tcilegnar.dndcharactersheet.abilities.entities.Ability;
 import nl.tcilegnar.dndcharactersheet.characters.Current;
 
 public class Storage extends SharedPrefs {
+    public static final String DEFAULT_CHARACTER_NAME = "Character Name"; // TODO: generics om in Key te kunnen opslaan?
+
     private final String fileName;
 
     public Storage() {
@@ -55,8 +57,7 @@ public class Storage extends SharedPrefs {
 
     public String loadCharacterName() {
         Key key = Key.CHARACTER_NAME;
-        String defaultValue = "Character"; // TODO: generics?
-        return loadString(key.name(), defaultValue);
+        return loadString(key.name(), DEFAULT_CHARACTER_NAME);
     }
 
     public void saveExperience(int value) {
