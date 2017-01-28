@@ -1,6 +1,6 @@
 package nl.tcilegnar.dndcharactersheet.characters;
 
-import nl.tcilegnar.dndcharactersheet.Storage.CharacterSettings;
+import nl.tcilegnar.dndcharactersheet.characters.settings.CharacterSettings;
 
 public class Current extends DnDCharacter {
     private static Current currentDndCharacter;

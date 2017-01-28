@@ -1,4 +1,4 @@
-package nl.tcilegnar.dndcharactersheet.Storage;
+package nl.tcilegnar.dndcharactersheet.characters.settings;
 
 import java.util.Collections;
 import java.util.Comparator;
@@ -6,6 +6,7 @@ import java.util.Set;
 import java.util.TreeSet;
 
 import nl.tcilegnar.dndcharactersheet.App;
+import nl.tcilegnar.dndcharactersheet.Storage.SharedPrefs;
 
 public class CharacterSettings extends SharedPrefs {
     private static final Comparator<String> CHARACTER_ID_COMPERATOR = Collections.reverseOrder();

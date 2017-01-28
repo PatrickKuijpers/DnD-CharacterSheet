@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.TreeSet;
 
-import nl.tcilegnar.dndcharactersheet.Storage.CharacterSettings;
+import nl.tcilegnar.dndcharactersheet.characters.settings.CharacterSettings;
 
 public enum CharacterList {
     INSTANCE;
