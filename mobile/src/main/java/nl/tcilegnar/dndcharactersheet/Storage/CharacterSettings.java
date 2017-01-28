@@ -5,6 +5,8 @@ import java.util.Comparator;
 import java.util.Set;
 import java.util.TreeSet;
 
+import nl.tcilegnar.dndcharactersheet.App;
+
 public class CharacterSettings extends SharedPrefs {
     private static final Comparator<String> CHARACTER_ID_COMPERATOR = Collections.reverseOrder();
     private static final TreeSet<String> DEFAULT_CHARACTER_IDS = new TreeSet<>(CHARACTER_ID_COMPERATOR);
@@ -79,7 +81,10 @@ public class CharacterSettings extends SharedPrefs {
     }
 
     public void switchCharacter(String characterId) {
-        saveCurrentCharacterId(characterId);
+        if (!characterId.equals(loadCurrentCharacterId())) {
+            saveCurrentCharacterId(characterId);
+            App.restart();
+        }
     }
 
     public TreeSet<String> loadCharacterIds() {

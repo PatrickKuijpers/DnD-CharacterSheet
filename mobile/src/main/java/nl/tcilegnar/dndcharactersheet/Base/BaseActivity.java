@@ -18,6 +18,7 @@ import nl.tcilegnar.dndcharactersheet.CharacterList;
 import nl.tcilegnar.dndcharactersheet.FragmentManager;
 import nl.tcilegnar.dndcharactersheet.R;
 import nl.tcilegnar.dndcharactersheet.Storage.CharacterSettings;
+import nl.tcilegnar.dndcharactersheet.Storage.Storage;
 
 public abstract class BaseActivity extends AppCompatActivity implements OnNavigationItemSelectedListener {
     protected final String LOGTAG = getClass().getSimpleName();
@@ -57,7 +58,7 @@ public abstract class BaseActivity extends AppCompatActivity implements OnNaviga
         String currentCharacterId = CharacterSettings.getInstance().loadCurrentCharacterId();
         for (String characterName : CharacterList.INSTANCE.getCharacterNames()) {
             int itemId = Integer.valueOf(characterName);
-            MenuItem item = menu.add(CHARACTERS_GROUP_ID, itemId, Menu.NONE, "Character " + characterName);
+            MenuItem item = menu.add(CHARACTERS_GROUP_ID, itemId, Menu.NONE, characterName);
             item.setCheckable(true);
             if (itemId == Integer.valueOf(currentCharacterId)) {
                 item.setChecked(true);
@@ -105,6 +106,7 @@ public abstract class BaseActivity extends AppCompatActivity implements OnNaviga
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             startSettingsActivity();
+            new Storage().print();
             return true;
         }
 

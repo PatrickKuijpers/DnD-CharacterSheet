@@ -2,6 +2,7 @@ package nl.tcilegnar.dndcharactersheet;
 
 import android.app.Application;
 import android.content.Context;
+import android.content.Intent;
 import android.support.multidex.MultiDex;
 
 public class App extends Application {
@@ -15,6 +16,14 @@ public class App extends Application {
 
     public static Context getContext() {
         return context;
+    }
+
+    public static void restart() {
+        Context context = App.getContext();
+        Intent intent = context.getPackageManager().getLaunchIntentForPackage(context.getPackageName());
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        context.startActivity(intent);
+        System.exit(0);
     }
 
     /** stackoverflow.com/questions/37998266/android-studio-many-error-could-not-find-class-android-xxx#38666791 */
