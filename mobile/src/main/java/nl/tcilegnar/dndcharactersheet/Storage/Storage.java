@@ -56,7 +56,7 @@ public class Storage extends SharedPrefs {
 
     public String loadCharacterName() {
         Key key = Key.CHARACTER_NAME;
-        String defaultValue = "My Character Name"; // TODO: generics?
+        String defaultValue = "Character"; // TODO: generics?
         return loadString(key.name(), defaultValue);
     }
 

@@ -1,0 +1,34 @@
+package nl.tcilegnar.dndcharactersheet.characters;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.TreeSet;
+
+import nl.tcilegnar.dndcharactersheet.Storage.CharacterSettings;
+
+public enum CharacterList {
+    INSTANCE;
+
+    private List<Character> characters;
+
+    public List<Character> getCharacters() {
+        if (characters == null) {
+            characters = new ArrayList<>();
+            TreeSet<String> ids = CharacterSettings.getInstance().loadCharacterIds();
+            for (String id : ids) {
+                Character character = new Character(id);
+                characters.add(character);
+            }
+        }
+        return characters;
+    }
+
+    public List<String> getCharacterNames() {
+        ArrayList<String> characterNames = new ArrayList<>();
+        for (Character character : getCharacters()) {
+            String name = character.getName();
+            characterNames.add(name);
+        }
+        return characterNames;
+    }
+}

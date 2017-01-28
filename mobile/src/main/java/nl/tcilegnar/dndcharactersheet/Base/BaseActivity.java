@@ -14,11 +14,12 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 
 import nl.tcilegnar.dndcharactersheet.Base.Settings.SettingsActivity;
-import nl.tcilegnar.dndcharactersheet.CharacterList;
 import nl.tcilegnar.dndcharactersheet.FragmentManager;
 import nl.tcilegnar.dndcharactersheet.R;
 import nl.tcilegnar.dndcharactersheet.Storage.CharacterSettings;
 import nl.tcilegnar.dndcharactersheet.Storage.Storage;
+import nl.tcilegnar.dndcharactersheet.characters.Character;
+import nl.tcilegnar.dndcharactersheet.characters.CharacterList;
 
 public abstract class BaseActivity extends AppCompatActivity implements OnNavigationItemSelectedListener {
     protected final String LOGTAG = getClass().getSimpleName();
@@ -56,11 +57,13 @@ public abstract class BaseActivity extends AppCompatActivity implements OnNaviga
         navigationView.setNavigationItemSelectedListener(this);
         Menu menu = navigationView.getMenu();
         String currentCharacterId = CharacterSettings.getInstance().loadCurrentCharacterId();
-        for (String characterName : CharacterList.INSTANCE.getCharacterNames()) {
-            int itemId = Integer.valueOf(characterName);
-            MenuItem item = menu.add(CHARACTERS_GROUP_ID, itemId, Menu.NONE, characterName);
+        for (Character character : CharacterList.INSTANCE.getCharacters()) {
+            String characterId = character.getId();
+            int order = Menu.NONE;
+            String characterName = character.getName();
+            MenuItem item = menu.add(CHARACTERS_GROUP_ID, Integer.valueOf(characterId), order, characterName);
             item.setCheckable(true);
-            if (itemId == Integer.valueOf(currentCharacterId)) {
+            if (characterId.equals(currentCharacterId)) {
                 item.setChecked(true);
             }
         }
