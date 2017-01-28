@@ -14,12 +14,13 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 
 import nl.tcilegnar.dndcharactersheet.Base.Settings.SettingsActivity;
+import nl.tcilegnar.dndcharactersheet.characters.Current;
 import nl.tcilegnar.dndcharactersheet.FragmentManager;
 import nl.tcilegnar.dndcharactersheet.R;
 import nl.tcilegnar.dndcharactersheet.Storage.CharacterSettings;
 import nl.tcilegnar.dndcharactersheet.Storage.Storage;
-import nl.tcilegnar.dndcharactersheet.characters.Character;
 import nl.tcilegnar.dndcharactersheet.characters.CharacterList;
+import nl.tcilegnar.dndcharactersheet.characters.DnDCharacter;
 
 public abstract class BaseActivity extends AppCompatActivity implements OnNavigationItemSelectedListener {
     protected final String LOGTAG = getClass().getSimpleName();
@@ -56,14 +57,13 @@ public abstract class BaseActivity extends AppCompatActivity implements OnNaviga
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         Menu menu = navigationView.getMenu();
-        String currentCharacterId = CharacterSettings.getInstance().loadCurrentCharacterId();
-        for (Character character : CharacterList.INSTANCE.getCharacters()) {
+        for (DnDCharacter character : CharacterList.INSTANCE.getCharacters()) {
             String characterId = character.getId();
             int order = Menu.NONE;
             String characterName = character.getName();
             MenuItem item = menu.add(CHARACTERS_GROUP_ID, Integer.valueOf(characterId), order, characterName);
             item.setCheckable(true);
-            if (characterId.equals(currentCharacterId)) {
+            if (characterId.equals(Current.DnDCharacter().getId())) {
                 item.setChecked(true);
             }
         }
@@ -79,7 +79,7 @@ public abstract class BaseActivity extends AppCompatActivity implements OnNaviga
             CharacterSettings.getInstance().addCharacter();
         } else if (groupId == CHARACTERS_GROUP_ID) {
             String characterId = String.valueOf(itemId);
-            //CharacterSettings.getInstance().removeCharacter(characterId); TODO
+            //            CharacterSettings.getInstance().removeCharacter(characterId); //TODO
             CharacterSettings.getInstance().switchCharacter(characterId);
         }
 

@@ -9,14 +9,14 @@ import nl.tcilegnar.dndcharactersheet.Storage.CharacterSettings;
 public enum CharacterList {
     INSTANCE;
 
-    private List<Character> characters;
+    private List<DnDCharacter> characters;
 
-    public List<Character> getCharacters() {
+    public List<DnDCharacter> getCharacters() {
         if (characters == null) {
             characters = new ArrayList<>();
             TreeSet<String> ids = CharacterSettings.getInstance().loadCharacterIds();
             for (String id : ids) {
-                Character character = new Character(id);
+                DnDCharacter character = new DnDCharacter(id);
                 characters.add(character);
             }
         }
@@ -25,7 +25,7 @@ public enum CharacterList {
 
     public List<String> getCharacterNames() {
         ArrayList<String> characterNames = new ArrayList<>();
-        for (Character character : getCharacters()) {
+        for (DnDCharacter character : getCharacters()) {
             String name = character.getName();
             characterNames.add(name);
         }

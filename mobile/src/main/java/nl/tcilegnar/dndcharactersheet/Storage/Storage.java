@@ -2,15 +2,14 @@ package nl.tcilegnar.dndcharactersheet.Storage;
 
 import nl.tcilegnar.dndcharactersheet.Experience.Experience;
 import nl.tcilegnar.dndcharactersheet.Level.Level;
-import nl.tcilegnar.dndcharactersheet.Utils.Log;
 import nl.tcilegnar.dndcharactersheet.abilities.entities.Ability;
+import nl.tcilegnar.dndcharactersheet.characters.Current;
 
 public class Storage extends SharedPrefs {
     private final String fileName;
 
     public Storage() {
-        this(CharacterSettings.getInstance().loadCurrentCharacterId());
-        Log.d("TEST", "Storage fileName" + fileName);
+        this(Current.DnDCharacter().getId());
     }
 
     public Storage(String filename) {

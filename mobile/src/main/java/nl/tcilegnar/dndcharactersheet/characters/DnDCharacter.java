@@ -2,11 +2,11 @@ package nl.tcilegnar.dndcharactersheet.characters;
 
 import nl.tcilegnar.dndcharactersheet.Storage.Storage;
 
-public class Character {
+public class DnDCharacter {
     private final String id;
     private final Storage storage;
 
-    public Character(String id) {
+    public DnDCharacter(String id) {
         this.id = id;
         this.storage = new Storage(id);
     }
