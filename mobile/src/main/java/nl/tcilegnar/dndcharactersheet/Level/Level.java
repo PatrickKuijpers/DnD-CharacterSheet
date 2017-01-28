@@ -116,13 +116,13 @@ public class Level extends StorageObject implements ExperienceEdgeListener, Chan
         int getCurrentProjectedLevel();
     }
 
-    public class MinLevelReachedException extends CustomToastException {
+    public static class MinLevelReachedException extends CustomToastException {
         public MinLevelReachedException() {
             super(Res.getString(R.string.min_level_reached_exception) + MIN_LEVEL);
         }
     }
 
-    public class MaxLevelReachedException extends CustomToastException {
+    public static class MaxLevelReachedException extends CustomToastException {
         public MaxLevelReachedException() {
             super(Res.getString(R.string.max_level_reached_exception) + MAX_LEVEL);
         }

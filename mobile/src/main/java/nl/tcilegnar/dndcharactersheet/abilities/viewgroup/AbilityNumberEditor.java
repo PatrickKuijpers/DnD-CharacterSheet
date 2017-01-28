@@ -98,13 +98,13 @@ public class AbilityNumberEditor extends LinearLayout implements OnClickListener
         editText.setOnEditorActionListener(onEditorActionListener);
     }
 
-    public class MinAbilityReachedException extends CustomToastException {
+    public static class MinAbilityReachedException extends CustomToastException {
         public MinAbilityReachedException() {
             super(Res.getString(R.string.min_ability_reached_exception) + MIN_VALUE);
         }
     }
 
-    public class MaxAbilityReachedException extends CustomToastException {
+    public static class MaxAbilityReachedException extends CustomToastException {
         public MaxAbilityReachedException() {
             super(Res.getString(R.string.max_ability_reached_exception) + MAX_VALUE);
         }

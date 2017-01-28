@@ -119,7 +119,7 @@ public class ExperienceUpdater {
         void onExperienceMaxReached() throws MaxLevelReachedException;
     }
 
-    public class ExpTooLowException extends CustomToastException {
+    public static class ExpTooLowException extends CustomToastException {
         public ExpTooLowException() {
             super(Res.getString(R.string.exp_too_low_exception));
         }

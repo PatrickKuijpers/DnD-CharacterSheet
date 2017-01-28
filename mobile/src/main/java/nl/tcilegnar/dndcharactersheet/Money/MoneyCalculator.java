@@ -98,13 +98,13 @@ public class MoneyCalculator {
         return newPlatinum;
     }
 
-    protected class MaxMoneyReachedException extends CustomToastException {
+    protected static class MaxMoneyReachedException extends CustomToastException {
         public MaxMoneyReachedException(int newPlatinum) {
             super(String.format(Res.getString(R.string.max_money_reached_exception), newPlatinum));
         }
     }
 
-    protected class NotEnoughMoneyException extends CustomToastException {
+    protected static class NotEnoughMoneyException extends CustomToastException {
         public NotEnoughMoneyException() {
             super(Res.getString(R.string.not_enough_money_exception));
         }
