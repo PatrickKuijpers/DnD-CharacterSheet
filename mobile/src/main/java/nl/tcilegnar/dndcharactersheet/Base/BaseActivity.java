@@ -14,13 +14,13 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 
 import nl.tcilegnar.dndcharactersheet.Base.Settings.SettingsActivity;
-import nl.tcilegnar.dndcharactersheet.characters.Current;
 import nl.tcilegnar.dndcharactersheet.FragmentManager;
 import nl.tcilegnar.dndcharactersheet.R;
-import nl.tcilegnar.dndcharactersheet.characters.settings.CharacterSettings;
 import nl.tcilegnar.dndcharactersheet.Storage.Storage;
 import nl.tcilegnar.dndcharactersheet.characters.CharacterList;
+import nl.tcilegnar.dndcharactersheet.characters.Current;
 import nl.tcilegnar.dndcharactersheet.characters.DnDCharacter;
+import nl.tcilegnar.dndcharactersheet.characters.settings.CharacterSettings;
 
 public abstract class BaseActivity extends AppCompatActivity implements OnNavigationItemSelectedListener {
     protected final String LOGTAG = getClass().getSimpleName();
@@ -75,12 +75,14 @@ public abstract class BaseActivity extends AppCompatActivity implements OnNaviga
         int itemId = item.getItemId();
         int groupId = item.getGroupId();
 
+        CharacterSettings charSettings = CharacterSettings.getInstance();
         if (itemId == R.id.characters_header) {
-            CharacterSettings.getInstance().addCharacter();
+            charSettings.addCharacter();
+        } else if (itemId == R.id.character_delete_test) {
+            charSettings.removeCharacter(Current.DnDCharacter().getId()); //TODO
         } else if (groupId == CHARACTERS_GROUP_ID) {
             String characterId = String.valueOf(itemId);
-            //            CharacterSettings.getInstance().removeCharacter(characterId); //TODO
-            CharacterSettings.getInstance().switchCharacter(characterId);
+            charSettings.switchCharacter(characterId);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

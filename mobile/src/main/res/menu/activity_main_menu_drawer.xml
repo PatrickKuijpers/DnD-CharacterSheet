@@ -4,7 +4,9 @@
     <group android:checkableBehavior="single">
         <item android:title="@string/drawer_menu_item_1"/>
         <item android:title="@string/drawer_menu_item_2"/>
-        <item android:title=""/>
+        <item
+            android:id="@+id/character_delete_test"
+            android:title=""/>
         <item
             android:id="@+id/characters_header"
             android:title="Characters:"/>

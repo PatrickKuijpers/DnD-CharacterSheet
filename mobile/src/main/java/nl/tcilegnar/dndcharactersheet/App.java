@@ -19,7 +19,6 @@ public class App extends Application {
     }
 
     public static void restart() {
-        Context context = App.getContext();
         Intent intent = context.getPackageManager().getLaunchIntentForPackage(context.getPackageName());
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         context.startActivity(intent);
