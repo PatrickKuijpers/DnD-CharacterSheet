@@ -12,9 +12,6 @@ import nl.tcilegnar.dndcharactersheet.Storage.SharedPrefs;
 public abstract class Settings extends SharedPrefs {
     private List<BaseFragment> settingsChangedListeners = new ArrayList<>();
 
-    @Override
-    protected abstract String fileName();
-
     public boolean savePreferenceValue(Preference preference, Object newValue) {
         notifyListeners();
         String key = preference.getKey();

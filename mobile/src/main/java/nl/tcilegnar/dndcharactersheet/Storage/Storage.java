@@ -2,13 +2,15 @@ package nl.tcilegnar.dndcharactersheet.Storage;
 
 import nl.tcilegnar.dndcharactersheet.Experience.Experience;
 import nl.tcilegnar.dndcharactersheet.Level.Level;
+import nl.tcilegnar.dndcharactersheet.Utils.Log;
 import nl.tcilegnar.dndcharactersheet.abilities.entities.Ability;
 
 public class Storage extends SharedPrefs {
     private final String fileName;
 
     public Storage() {
-        this.fileName = CharacterSettings.getInstance().loadCurrentCharacterId();
+        this(CharacterSettings.getInstance().loadCurrentCharacterId());
+        Log.d("TEST", "Storage fileName" + fileName);
     }
 
     public Storage(String filename) {
@@ -63,7 +65,7 @@ public class Storage extends SharedPrefs {
         save(key.name(), value);
     }
 
-    public int loadExperience() {
+    public int loadExperience() { // TODO: long ipv int?
         Key key = Key.CURRENT_EXP;
         return loadInt(key.name(), key.defaultValue);
     }

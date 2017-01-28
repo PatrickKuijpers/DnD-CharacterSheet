@@ -6,29 +6,26 @@ import android.content.SharedPreferences.Editor;
 import android.preference.PreferenceManager;
 import android.support.annotation.StringRes;
 
+import java.util.Map;
 import java.util.Set;
 
 import nl.tcilegnar.dndcharactersheet.App;
+import nl.tcilegnar.dndcharactersheet.Utils.Log;
 
 public abstract class SharedPrefs {
+    private static final int MODE = Context.MODE_PRIVATE;
     protected static final String ROOT = null;
-
-    private SharedPreferences extendedSharedPrefs = App.getContext().getSharedPreferences(fileName(), Context
-            .MODE_PRIVATE);
-    private SharedPreferences defaultPrefs = PreferenceManager.getDefaultSharedPreferences(App.getContext());
 
     protected abstract String fileName();
 
     protected SharedPreferences getPrefs() {
-        // TODO (nadat iedereen geinstalleerd heeft, dit weer verwijderen)
-        SharedPreferences tempPrefs = App.getContext().getSharedPreferences("Settings", Context.MODE_PRIVATE);
-        tempPrefs.edit().clear().apply();
-        // ---
+        SharedPreferences prefs;
         if (fileName() == ROOT) {
-            return defaultPrefs;
+            prefs = PreferenceManager.getDefaultSharedPreferences(App.getContext());
         } else {
-            return extendedSharedPrefs;
+            prefs = App.getContext().getSharedPreferences(fileName(), MODE);
         }
+        return prefs;
     }
 
     private Editor prefsEdit() {
@@ -119,5 +116,31 @@ public abstract class SharedPrefs {
 
     protected String getString(@StringRes int resId) {
         return App.getContext().getString(resId);
+    }
+
+    public void print() {
+        // stackoverflow.com/questions/14580085/android-how-to-get-list-of-all-preference-xmls-for-my-app-and-read-them
+        Log.d("TEST", "--- defaultPrefs ---");
+        printPrefs(PreferenceManager.getDefaultSharedPreferences(App.getContext()).getAll());
+        Log.d("TEST", "--- extendedSharedPrefs_old ---");
+        printPrefs(App.getContext().getSharedPreferences(null, MODE).getAll());
+        Log.d("TEST", "--- 10001 ---");
+        SharedPreferences settings1 = App.getContext().getSharedPreferences("10001", MODE);
+        printPrefs(settings1.getAll());
+        Log.d("TEST", "--- 10002 ---");
+        SharedPreferences settings2 = App.getContext().getSharedPreferences("10002", MODE);
+        printPrefs(settings2.getAll());
+        Log.d("TEST", "--- 10003 ---");
+        SharedPreferences settings3 = App.getContext().getSharedPreferences("10003", MODE);
+        printPrefs(settings3.getAll());
+        Log.d("TEST", "--- ExperienceSettings ---");
+        SharedPreferences experienceSettings = App.getContext().getSharedPreferences("ExperienceSettings", MODE);
+        printPrefs(experienceSettings.getAll()); // TODO: worden ook in default prefs opgeslagen?
+    }
+
+    private void printPrefs(Map<String, ?> keys) {
+        for (Map.Entry<String, ?> entry : keys.entrySet()) {
+            Log.d("TEST", entry.getKey() + ": " + entry.getValue().toString());
+        }
     }
 }
