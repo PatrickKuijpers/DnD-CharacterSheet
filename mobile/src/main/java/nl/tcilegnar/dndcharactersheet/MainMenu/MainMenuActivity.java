@@ -7,7 +7,9 @@ import net.hockeyapp.android.UpdateManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
+import android.widget.Toast;
 
+import nl.tcilegnar.dndcharactersheet.App;
 import nl.tcilegnar.dndcharactersheet.Base.BaseActivity;
 import nl.tcilegnar.dndcharactersheet.Base.Settings.SettingsActivity;
 import nl.tcilegnar.dndcharactersheet.Experience.ExperienceActivity;
@@ -19,6 +21,7 @@ import nl.tcilegnar.dndcharactersheet.Utils.Log;
 import nl.tcilegnar.dndcharactersheet.Utils.MyBuildConfig;
 import nl.tcilegnar.dndcharactersheet.Utils.MyProperties;
 import nl.tcilegnar.dndcharactersheet.abilities.AbilitiesActivity;
+import nl.tcilegnar.dndcharactersheet.basicinfo.BasicInfoActivity;
 
 public class MainMenuActivity extends BaseActivity {
     MyBuildConfig myBuildConfig = new MyBuildConfig();
@@ -75,6 +78,29 @@ public class MainMenuActivity extends BaseActivity {
     public void onDestroy() {
         super.onDestroy();
         unregisterHockeyAppManagers();
+    }
+
+    public void onMainMenuButtonClicked(int viewId) {
+        if (viewId == R.id.main_menu_button_basic_character_info) {
+            startBasicInfo();
+        } else if (viewId == R.id.main_menu_button_level_and_experience) {
+            startLevelAndExperience();
+        } else if (viewId == R.id.main_menu_button_abilities) {
+            startAbilities();
+        } else if (viewId == R.id.main_menu_button_hp) {
+            showComingSoon();
+        } else if (viewId == R.id.main_menu_button_money) {
+            startMoney();
+        }
+    }
+
+    private void showComingSoon() {
+        Toast.makeText(App.getContext(), R.string.coming_soon, Toast.LENGTH_SHORT).show();
+    }
+
+    public void startBasicInfo() {
+        Intent basicInfoActivity = new Intent(this, BasicInfoActivity.class);
+        startActivity(basicInfoActivity);
     }
 
     public void startLevelAndExperience() {

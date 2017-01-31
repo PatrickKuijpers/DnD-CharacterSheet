@@ -8,9 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import nl.tcilegnar.dndcharactersheet.App;
 import nl.tcilegnar.dndcharactersheet.Base.BaseFragment;
 import nl.tcilegnar.dndcharactersheet.R;
 import nl.tcilegnar.dndcharactersheet.Utils.AppData;
@@ -65,21 +63,7 @@ public class MainMenuFragment extends BaseFragment implements OnClickListener {
     @Override
     public void onClick(View view) {
         int viewId = view.getId();
-        if (viewId == R.id.main_menu_button_basic_character_info) {
-            showComingSoon();
-        } else if (viewId == R.id.main_menu_button_level_and_experience) {
-            callbackMainMenu.startLevelAndExperience();
-        } else if (viewId == R.id.main_menu_button_abilities) {
-            callbackMainMenu.startAbilities();
-        } else if (viewId == R.id.main_menu_button_hp) {
-            showComingSoon();
-        } else if (viewId == R.id.main_menu_button_money) {
-            callbackMainMenu.startMoney();
-        }
-    }
-
-    private void showComingSoon() {
-        Toast.makeText(App.getContext(), R.string.coming_soon, Toast.LENGTH_SHORT).show();
+        callbackMainMenu.onMainMenuButtonClicked(viewId);
     }
 
     public void setVersionNumber(View view) {
