@@ -3,6 +3,8 @@ package nl.tcilegnar.dndcharactersheet.Base;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.NavigationView.OnNavigationItemSelectedListener;
 import android.support.v4.view.GravityCompat;
@@ -11,7 +13,6 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.text.Editable;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -25,6 +26,7 @@ import nl.tcilegnar.dndcharactersheet.characters.CharacterList;
 import nl.tcilegnar.dndcharactersheet.characters.Current;
 import nl.tcilegnar.dndcharactersheet.characters.DnDCharacter;
 import nl.tcilegnar.dndcharactersheet.characters.settings.CharacterSettings;
+import nl.tcilegnar.dndcharactersheet.enums.FragTag;
 
 public abstract class BaseActivity extends AppCompatActivity implements OnNavigationItemSelectedListener {
     protected final String LOGTAG = getClass().getSimpleName();
@@ -38,7 +40,15 @@ public abstract class BaseActivity extends AppCompatActivity implements OnNaviga
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_default);
         initToolBar();
+
+        if (savedInstanceState == null) {
+            FragTag firstFragTag = getFirstFragTag();
+            fragmentManager.addFirstFragment(firstFragTag);
+        }
     }
+
+    @NonNull
+    protected abstract FragTag getFirstFragTag();
 
     private void initToolBar() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -150,6 +160,7 @@ public abstract class BaseActivity extends AppCompatActivity implements OnNaviga
         }
     }
 
+    @Nullable
     protected abstract Class<? extends SettingsActivity> getSettingsActivityClass();
 
     @Override

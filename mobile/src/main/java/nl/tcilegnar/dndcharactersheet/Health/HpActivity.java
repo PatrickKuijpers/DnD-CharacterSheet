@@ -1,36 +1,20 @@
 package nl.tcilegnar.dndcharactersheet.Health;
 
-import android.os.Bundle;
+import android.support.annotation.NonNull;
 
 import nl.tcilegnar.dndcharactersheet.Base.BaseStorageActivity;
 import nl.tcilegnar.dndcharactersheet.Base.Settings.SettingsActivity;
 import nl.tcilegnar.dndcharactersheet.Health.Settings.HpSettingsActivity;
+import nl.tcilegnar.dndcharactersheet.enums.FragTag;
 
 public class HpActivity extends BaseStorageActivity {
+    @NonNull
+    protected FragTag getFirstFragTag() {
+        return FragTag.HP;
+    }
+
     @Override
     protected Class<? extends SettingsActivity> getSettingsActivityClass() {
         return HpSettingsActivity.class;
-    }
-
-    public enum FragTag {
-        Hp
-    }
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-        if (savedInstanceState == null) {
-            fragmentManager.addFirstFragment(getHpFragment(), FragTag.Hp.name());
-        }
-    }
-
-    public HpFragment getHpFragment() {
-        String tag = FragTag.Hp.name();
-        HpFragment hpFragment = fragmentManager.getFragment(HpFragment.class, tag);
-        if (hpFragment == null) {
-            hpFragment = new HpFragment();
-        }
-        return hpFragment;
     }
 }

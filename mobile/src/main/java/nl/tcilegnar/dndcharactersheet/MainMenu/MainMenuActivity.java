@@ -6,7 +6,7 @@ import net.hockeyapp.android.UpdateManager;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.FragmentTransaction;
+import android.support.annotation.NonNull;
 import android.widget.Toast;
 
 import nl.tcilegnar.dndcharactersheet.App;
@@ -22,9 +22,15 @@ import nl.tcilegnar.dndcharactersheet.Utils.MyBuildConfig;
 import nl.tcilegnar.dndcharactersheet.Utils.MyProperties;
 import nl.tcilegnar.dndcharactersheet.abilities.AbilitiesActivity;
 import nl.tcilegnar.dndcharactersheet.basicinfo.BasicInfoActivity;
+import nl.tcilegnar.dndcharactersheet.enums.FragTag;
 
 public class MainMenuActivity extends BaseActivity {
     MyBuildConfig myBuildConfig = new MyBuildConfig();
+
+    @NonNull
+    protected FragTag getFirstFragTag() {
+        return FragTag.MAIN_MENU;
+    }
 
     @Override
     protected Class<? extends SettingsActivity> getSettingsActivityClass() {
@@ -34,13 +40,7 @@ public class MainMenuActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         registerHockeyAppManagers();
-
-        if (savedInstanceState == null) {
-            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-            fragmentTransaction.replace(R.id.activity_content, new MainMenuFragment()).commit();
-        }
     }
 
     private void registerHockeyAppManagers() {
