@@ -45,6 +45,12 @@ public class MainMenuFragment extends BaseFragment implements OnClickListener {
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        setActivityTitle();
+    }
+
+    @Override
     public String getTitle() {
         return Current.DnDCharacter().getName();
     }

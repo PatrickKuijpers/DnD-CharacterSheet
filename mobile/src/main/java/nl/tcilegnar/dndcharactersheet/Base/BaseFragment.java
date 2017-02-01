@@ -25,14 +25,21 @@ public abstract class BaseFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        initActionBar();
+        setDrawerIcon();
+        setActivityTitle();
     }
 
-    private void initActionBar() {
+    private void setDrawerIcon() {
+        ActionBar supportActionBar = ((BaseActivity) getActivity()).getSupportActionBar();
+        if (supportActionBar != null) {
+            handleDrawerIcon(supportActionBar);
+        }
+    }
+
+    protected void setActivityTitle() {
         ActionBar supportActionBar = ((BaseActivity) getActivity()).getSupportActionBar();
         if (supportActionBar != null) {
             supportActionBar.setTitle(getTitle());
-            handleDrawerIcon(supportActionBar);
         }
     }
 
