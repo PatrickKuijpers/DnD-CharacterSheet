@@ -28,14 +28,27 @@ public class FragmentManager {
 
     public void replaceFragment(BaseFragment newFragment, boolean addToBackstack, Anim animation) {
         BaseFragment fragment = getFragment(newFragment);
+        String tag = fragment.TAG;
+
         FragmentTransaction transaction = supportFragmentManager.beginTransaction();
         setAnimation(transaction, animation);
-        String tag = fragment.TAG;
         transaction.replace(R.id.activity_content, fragment, tag);
         if (addToBackstack) {
             transaction.addToBackStack(tag);
         }
         transaction.commit();
+
+        Log.v(Log.Type.Navigation, "Fragment: " + tag + ". AddToBackstack: " + addToBackstack);
+    }
+
+    public BaseFragment getFragment(BaseFragment newFragment) {
+        BaseFragment existingFragment = getExistingFragment(newFragment);
+        return existingFragment != null ? existingFragment : newFragment;
+    }
+
+    public BaseFragment getExistingFragment(BaseFragment newFragment) {
+        Class<? extends BaseFragment> classType = newFragment.getClass();
+        return classType.cast(supportFragmentManager.findFragmentByTag(newFragment.TAG));
     }
 
     private void setAnimation(FragmentTransaction transaction, Anim fragmentAnimation) {
@@ -59,18 +72,5 @@ public class FragmentManager {
                 // Geen animatie
                 break;
         }
-    }
-
-    public BaseFragment getFragment(BaseFragment newFragment) {
-        BaseFragment returnedFragment = getExistingFragment(newFragment);
-        if (returnedFragment == null) {
-            returnedFragment = newFragment;
-        }
-        return returnedFragment;
-    }
-
-    public BaseFragment getExistingFragment(BaseFragment newFragment) {
-        Class<? extends BaseFragment> classType = newFragment.getClass();
-        return classType.cast(supportFragmentManager.findFragmentByTag(newFragment.TAG));
     }
 }
