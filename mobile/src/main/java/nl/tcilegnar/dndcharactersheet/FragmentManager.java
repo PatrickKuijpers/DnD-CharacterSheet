@@ -1,10 +1,10 @@
 package nl.tcilegnar.dndcharactersheet;
 
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 
-import nl.tcilegnar.dndcharactersheet.enums.FragTag;
+import nl.tcilegnar.dndcharactersheet.Base.BaseFragment;
+import nl.tcilegnar.dndcharactersheet.Utils.Log;
 
 public class FragmentManager {
     private final android.support.v4.app.FragmentManager supportFragmentManager;
@@ -18,19 +18,19 @@ public class FragmentManager {
         supportFragmentManager = activity.getSupportFragmentManager();
     }
 
-    public void addFirstFragment(FragTag fragTag) {
-        replaceFragment(fragTag, false, Anim.NO_ANIMATION);
+    public void addFirstFragment(BaseFragment fragment) {
+        replaceFragment(fragment, false, Anim.NO_ANIMATION);
     }
 
-    public void replaceFragment(FragTag fragTag) {
-        replaceFragment(fragTag, true, Anim.SLIDE_RIGHT_TO_LEFT_INCL_BACK);
+    public void replaceFragment(BaseFragment fragment) {
+        replaceFragment(fragment, true, Anim.SLIDE_RIGHT_TO_LEFT_INCL_BACK);
     }
 
-    public void replaceFragment(FragTag fragTag, boolean addToBackstack, Anim animation) {
-        Fragment fragment = getFragment(fragTag);
+    public void replaceFragment(BaseFragment newFragment, boolean addToBackstack, Anim animation) {
+        BaseFragment fragment = getFragment(newFragment);
         FragmentTransaction transaction = supportFragmentManager.beginTransaction();
         setAnimation(transaction, animation);
-        String tag = fragTag.tag();
+        String tag = fragment.TAG;
         transaction.replace(R.id.activity_content, fragment, tag);
         if (addToBackstack) {
             transaction.addToBackStack(tag);
@@ -61,17 +61,16 @@ public class FragmentManager {
         }
     }
 
-    public Fragment getFragment(FragTag fragTag) {
-        Fragment returnedFragment = getExistingFragment(fragTag);
+    public BaseFragment getFragment(BaseFragment newFragment) {
+        BaseFragment returnedFragment = getExistingFragment(newFragment);
         if (returnedFragment == null) {
-            returnedFragment = fragTag.get();
+            returnedFragment = newFragment;
         }
         return returnedFragment;
     }
 
-    public Fragment getExistingFragment(FragTag fragmentAndTag) {
-        Fragment newFragment = fragmentAndTag.get();
-        Class<? extends Fragment> classType = newFragment.getClass();
-        return classType.cast(supportFragmentManager.findFragmentByTag(fragmentAndTag.tag()));
+    public BaseFragment getExistingFragment(BaseFragment newFragment) {
+        Class<? extends BaseFragment> classType = newFragment.getClass();
+        return classType.cast(supportFragmentManager.findFragmentByTag(newFragment.TAG));
     }
 }

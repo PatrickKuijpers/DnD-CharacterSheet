@@ -9,6 +9,8 @@ import android.view.View;
 import nl.tcilegnar.dndcharactersheet.Base.Settings.Settings;
 
 public abstract class BaseFragment extends Fragment {
+    public final String TAG = this.getClass().getSimpleName();
+
     private boolean settingsChanged;
 
     @Override

@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import nl.tcilegnar.dndcharactersheet.App;
 import nl.tcilegnar.dndcharactersheet.Base.BaseActivity;
+import nl.tcilegnar.dndcharactersheet.Base.BaseFragment;
 import nl.tcilegnar.dndcharactersheet.Base.Settings.SettingsActivity;
 import nl.tcilegnar.dndcharactersheet.Experience.ExperienceActivity;
 import nl.tcilegnar.dndcharactersheet.Health.HpActivity;
@@ -22,14 +23,13 @@ import nl.tcilegnar.dndcharactersheet.Utils.MyBuildConfig;
 import nl.tcilegnar.dndcharactersheet.Utils.MyProperties;
 import nl.tcilegnar.dndcharactersheet.abilities.AbilitiesActivity;
 import nl.tcilegnar.dndcharactersheet.basicinfo.BasicInfoActivity;
-import nl.tcilegnar.dndcharactersheet.enums.FragTag;
 
 public class MainMenuActivity extends BaseActivity {
     MyBuildConfig myBuildConfig = new MyBuildConfig();
 
     @NonNull
-    protected FragTag getFirstFragTag() {
-        return FragTag.MAIN_MENU;
+    protected BaseFragment getFirstFragment() {
+        return new MainMenuFragment();
     }
 
     @Override

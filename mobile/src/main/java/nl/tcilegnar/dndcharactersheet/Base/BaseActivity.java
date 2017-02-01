@@ -26,7 +26,6 @@ import nl.tcilegnar.dndcharactersheet.characters.CharacterList;
 import nl.tcilegnar.dndcharactersheet.characters.Current;
 import nl.tcilegnar.dndcharactersheet.characters.DnDCharacter;
 import nl.tcilegnar.dndcharactersheet.characters.settings.CharacterSettings;
-import nl.tcilegnar.dndcharactersheet.enums.FragTag;
 
 public abstract class BaseActivity extends AppCompatActivity implements OnNavigationItemSelectedListener {
     protected final String LOGTAG = getClass().getSimpleName();
@@ -42,13 +41,13 @@ public abstract class BaseActivity extends AppCompatActivity implements OnNaviga
         initToolBar();
 
         if (savedInstanceState == null) {
-            FragTag firstFragTag = getFirstFragTag();
-            fragmentManager.addFirstFragment(firstFragTag);
+            BaseFragment firstFragment = getFirstFragment();
+            fragmentManager.addFirstFragment(firstFragment);
         }
     }
 
     @NonNull
-    protected abstract FragTag getFirstFragTag();
+    protected abstract BaseFragment getFirstFragment();
 
     private void initToolBar() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);

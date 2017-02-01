@@ -2,17 +2,17 @@ package nl.tcilegnar.dndcharactersheet.Money;
 
 import android.support.annotation.NonNull;
 
+import nl.tcilegnar.dndcharactersheet.Base.BaseFragment;
 import nl.tcilegnar.dndcharactersheet.Base.BaseStorageActivity;
 import nl.tcilegnar.dndcharactersheet.Base.Settings.SettingsActivity;
 import nl.tcilegnar.dndcharactersheet.Money.MoneyEditorFragment.MoneyChangedListener;
 import nl.tcilegnar.dndcharactersheet.Money.MoneyFragment.ChangeMoneyListener;
 import nl.tcilegnar.dndcharactersheet.Money.Settings.MoneySettingsActivity;
-import nl.tcilegnar.dndcharactersheet.enums.FragTag;
 
 public class MoneyActivity extends BaseStorageActivity implements ChangeMoneyListener, MoneyChangedListener {
     @NonNull
-    protected FragTag getFirstFragTag() {
-        return FragTag.MONEY;
+    protected BaseFragment getFirstFragment() {
+        return new MoneyFragment();
     }
 
     @Override
@@ -26,15 +26,14 @@ public class MoneyActivity extends BaseStorageActivity implements ChangeMoneyLis
     }
 
     private void startMoneyEditor(MoneyValues currentMoneyValues) {
-        FragTag moneyEditorFragTag = FragTag.MONEY_EDITOR;
-        MoneyEditorFragment moneyEditorFragment = (MoneyEditorFragment) moneyEditorFragTag.get();
+        MoneyEditorFragment moneyEditorFragment = new MoneyEditorFragment();
         moneyEditorFragment.setCurrentMoneyValues(currentMoneyValues);
-        fragmentManager.replaceFragment(moneyEditorFragTag);
+        fragmentManager.replaceFragment(moneyEditorFragment);
     }
 
     @Override
     public void onMoneyChanged(MoneyValues newMoneyValues) {
-        MoneyFragment moneyFragment = (MoneyFragment) fragmentManager.getExistingFragment(FragTag.MONEY);
+        MoneyFragment moneyFragment = (MoneyFragment) fragmentManager.getExistingFragment(new MoneyFragment());
         stopMoneyEditorAndGoBackToMoneyFragment();
         moneyFragment.changeMoney(newMoneyValues); // TODO: mogelijke bug?
     }
