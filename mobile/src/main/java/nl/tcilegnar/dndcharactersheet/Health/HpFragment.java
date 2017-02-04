@@ -3,6 +3,7 @@ package nl.tcilegnar.dndcharactersheet.Health;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
+import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,7 +36,7 @@ public class HpFragment extends BaseStorageFragment {
 
     @Override
     protected HpSettings getSettings() {
-        return HpSettings.getInstance();
+        return null; //HpSettings.getInstance();
     }
 
     @Override
@@ -61,8 +62,7 @@ public class HpFragment extends BaseStorageFragment {
         alert.setMessage("Enter new value below");
         alert.setTitle("Change " + hpType);
 
-        final EditText edittext = new EditText(getActivity());
-        edittext.setText(value);
+        final EditText edittext = getEditText(value);
         alert.setView(edittext);
 
         alert.setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -78,6 +78,14 @@ public class HpFragment extends BaseStorageFragment {
         });
 
         alert.show();
+    }
+
+    private EditText getEditText(String value) {
+        final EditText edittext = new EditText(getActivity());
+        edittext.setInputType(InputType.TYPE_NUMBER_FLAG_SIGNED);
+        edittext.setText(value);
+        edittext.setSelection(value.length());
+        return edittext;
     }
 
     private String getHpTypeToChange(int viewId) {

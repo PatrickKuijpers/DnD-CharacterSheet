@@ -22,6 +22,7 @@ import static android.view.View.OnClickListener;
 public class HpIndicator extends LinearLayout implements OnClickListener {
     private final Hp hp;
 
+    private TextView totalHpLabel;
     private TextView totalHpValue;
     private TextView currentHpValue;
     private TextView tempHpValue;
@@ -47,6 +48,7 @@ public class HpIndicator extends LinearLayout implements OnClickListener {
     }
 
     private void initViews() {
+        totalHpLabel = (TextView) findViewById(R.id.total_hp_label);
         totalHpValue = (TextView) findViewById(R.id.total_hp_value);
         currentHpValue = (TextView) findViewById(R.id.current_hp_value);
         tempHpValue = (TextView) findViewById(R.id.temp_hp_value);
@@ -54,16 +56,11 @@ public class HpIndicator extends LinearLayout implements OnClickListener {
         tempHpProgressBar = (ProgressBar) findViewById(R.id.temp_hp_progress);
         healthStateValue = (TextView) findViewById(R.id.current_health_state);
         updateHpValues();
-        updateHealthState();
+
+        totalHpLabel.setOnClickListener(this);
         totalHpValue.setOnClickListener(this);
         currentHpValue.setOnClickListener(this);
         tempHpValue.setOnClickListener(this);
-    }
-
-    private void updateHealthState() {
-        HealthState currentHealthState = hp.getCurrentHealthState();
-        healthStateValue.setText(currentHealthState.toString());
-        healthStateValue.setTextColor(ColorStateList.valueOf(currentHealthState.getColor()));
     }
 
     private void updateHpValues() {
@@ -74,6 +71,7 @@ public class HpIndicator extends LinearLayout implements OnClickListener {
         updateCurrentHp(currentHp);
         updateTempHp(tempHp);
         updateCurrentHpProgressBar(totalHp, currentHp);
+        updateHealthState();
     }
 
     private void updateTotalHp(int totalHp) {
@@ -82,6 +80,20 @@ public class HpIndicator extends LinearLayout implements OnClickListener {
 
     private void updateCurrentHp(int currentHp) {
         currentHpValue.setText(String.valueOf(currentHp));
+    }
+
+    private void updateTempHp(int tempHp) {
+        tempHpValue.setText(String.valueOf(tempHp));
+        tempHpProgressBar.setMax(5); // TODO: design van volledige HpIndicator verbeteren, dan is dit niet meer nodig
+        tempHpProgressBar.setProgress(tempHp);
+
+        if (tempHp > 0) {
+            tempHpValue.setVisibility(VISIBLE);
+            tempHpProgressBar.setVisibility(VISIBLE);
+        } else {
+            tempHpValue.setVisibility(INVISIBLE);
+            tempHpProgressBar.setVisibility(INVISIBLE);
+        }
     }
 
     private void updateCurrentHpProgressBar(int totalHp, int currentHp) {
@@ -122,18 +134,10 @@ public class HpIndicator extends LinearLayout implements OnClickListener {
         }
     }
 
-    private void updateTempHp(int tempHp) {
-        tempHpValue.setText(String.valueOf(tempHp));
-        tempHpProgressBar.setMax(5); // TODO: design van volledige HpIndicator verbeteren, dan is dit niet meer nodig
-        tempHpProgressBar.setProgress(tempHp);
-
-        if (tempHp > 0) {
-            tempHpValue.setVisibility(VISIBLE);
-            tempHpProgressBar.setVisibility(VISIBLE);
-        } else {
-            tempHpValue.setVisibility(INVISIBLE);
-            tempHpProgressBar.setVisibility(INVISIBLE);
-        }
+    private void updateHealthState() {
+        HealthState currentHealthState = hp.getCurrentHealthState();
+        healthStateValue.setText(currentHealthState.toString());
+        healthStateValue.setTextColor(ColorStateList.valueOf(currentHealthState.getColor()));
     }
 
     public Hp getHp() {
@@ -145,11 +149,21 @@ public class HpIndicator extends LinearLayout implements OnClickListener {
     }
 
     @Override
-    public void onClick(View view) {
-        int id = view.getId();
-        if (id == R.id.total_hp_value || id == R.id.current_hp_value || id == R.id.temp_hp_value) {
-            changeHpValueCall.showDialog((TextView) view);
+    public void onClick(View clickedView) {
+        int id = clickedView.getId();
+        if (id == R.id.total_hp_label || id == R.id.total_hp_value || id == R.id.current_hp_value || id == R.id
+                .temp_hp_value) {
+            TextView viewWithValueToChange = getViewWithValueToChange(clickedView, id);
+            changeHpValueCall.showDialog(viewWithValueToChange);
         }
+    }
+
+    private TextView getViewWithValueToChange(View clickedView, int id) {
+        View viewWithValueToChange = clickedView;
+        if (id == R.id.total_hp_label) {
+            viewWithValueToChange = findViewById(R.id.total_hp_value);
+        }
+        return (TextView) viewWithValueToChange;
     }
 
     public void setChangeHpValueCallback(HpFragment changeHpValueCall) {
