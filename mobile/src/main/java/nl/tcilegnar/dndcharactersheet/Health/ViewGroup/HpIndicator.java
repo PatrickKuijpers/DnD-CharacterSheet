@@ -13,11 +13,13 @@ import android.widget.TextView;
 
 import nl.tcilegnar.dndcharactersheet.Health.HealthState;
 import nl.tcilegnar.dndcharactersheet.Health.Hp;
+import nl.tcilegnar.dndcharactersheet.Health.HpFragment;
 import nl.tcilegnar.dndcharactersheet.R;
 import nl.tcilegnar.dndcharactersheet.Utils.DeviceData;
-import nl.tcilegnar.dndcharactersheet.Utils.Res;
 
-public class HpIndicator extends LinearLayout {
+import static android.view.View.OnClickListener;
+
+public class HpIndicator extends LinearLayout implements OnClickListener {
     private final Hp hp;
 
     private TextView totalHpValue;
@@ -26,6 +28,7 @@ public class HpIndicator extends LinearLayout {
     private ProgressBar currentHpProgressBar;
     private ProgressBar tempHpProgressBar;
     private TextView healthStateValue;
+    private HpFragment changeHpValueCall;
 
     public HpIndicator(Context context, AttributeSet attrs) {
         this(context, attrs, new Hp());
@@ -40,15 +43,7 @@ public class HpIndicator extends LinearLayout {
 
     private void init(Context context) {
         inflate(context, R.layout.hp_indicator, this);
-        setDummyValues();
         initViews();
-    }
-
-    @Deprecated
-    private void setDummyValues() {
-        hp.setTotal(10);
-        hp.setCurrent(7);
-        hp.setTemp(2);
     }
 
     private void initViews() {
@@ -60,6 +55,9 @@ public class HpIndicator extends LinearLayout {
         healthStateValue = (TextView) findViewById(R.id.current_health_state);
         updateHpValues();
         updateHealthState();
+        totalHpValue.setOnClickListener(this);
+        currentHpValue.setOnClickListener(this);
+        tempHpValue.setOnClickListener(this);
     }
 
     private void updateHealthState() {
@@ -73,19 +71,17 @@ public class HpIndicator extends LinearLayout {
         int currentHp = hp.getCurrent();
         int tempHp = hp.getTemp();
         updateTotalHp(totalHp);
-        updateCurrentHp(totalHp, currentHp);
+        updateCurrentHp(currentHp);
         updateTempHp(tempHp);
+        updateCurrentHpProgressBar(totalHp, currentHp);
     }
 
     private void updateTotalHp(int totalHp) {
-        String totalHpLabelText = Res.getString(R.string.total_hp_label);
-        String totalHpText = totalHpLabelText + totalHp;
-        totalHpValue.setText(totalHpText);
+        totalHpValue.setText(String.valueOf(totalHp));
     }
 
-    private void updateCurrentHp(int totalHp, int currentHp) {
+    private void updateCurrentHp(int currentHp) {
         currentHpValue.setText(String.valueOf(currentHp));
-        updateCurrentHpProgressBar(totalHp, currentHp);
     }
 
     private void updateCurrentHpProgressBar(int totalHp, int currentHp) {
@@ -132,11 +128,11 @@ public class HpIndicator extends LinearLayout {
         tempHpProgressBar.setProgress(tempHp);
 
         if (tempHp > 0) {
-            tempHpValue.setVisibility(View.VISIBLE);
-            tempHpProgressBar.setVisibility(View.VISIBLE);
+            tempHpValue.setVisibility(VISIBLE);
+            tempHpProgressBar.setVisibility(VISIBLE);
         } else {
-            tempHpValue.setVisibility(View.INVISIBLE);
-            tempHpProgressBar.setVisibility(View.INVISIBLE);
+            tempHpValue.setVisibility(INVISIBLE);
+            tempHpProgressBar.setVisibility(INVISIBLE);
         }
     }
 
@@ -146,5 +142,28 @@ public class HpIndicator extends LinearLayout {
 
     public void save() {
         hp.save();
+    }
+
+    @Override
+    public void onClick(View view) {
+        int id = view.getId();
+        if (id == R.id.total_hp_value || id == R.id.current_hp_value || id == R.id.temp_hp_value) {
+            changeHpValueCall.showDialog((TextView) view);
+        }
+    }
+
+    public void setChangeHpValueCallback(HpFragment changeHpValueCall) {
+        this.changeHpValueCall = changeHpValueCall;
+    }
+
+    public void setNewHpValue(int newValue, int viewId) {
+        if (viewId == R.id.total_hp_value) {
+            hp.setTotal(newValue);
+        } else if (viewId == R.id.current_hp_value) {
+            hp.setCurrent(newValue);
+        } else if (viewId == R.id.temp_hp_value) {
+            hp.setTemp(newValue);
+        }
+        updateHpValues();
     }
 }

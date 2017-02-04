@@ -13,12 +13,26 @@
             android:layout_weight="85"
             android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/total_hp_value"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:textSize="@dimen/textsize_very_big"/>
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/total_hp_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/total_hp_label"
+                    android:textSize="@dimen/textsize_very_big"/>
+
+                <TextView
+                    android:id="@+id/total_hp_value"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:textSize="@dimen/textsize_very_big"/>
+            </LinearLayout>
 
             <ProgressBar
                 android:id="@+id/current_hp_progress"
@@ -77,14 +91,16 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/horizontal_margin_big"
         android:gravity="center"
-        android:textSize="@dimen/textsize_big"/>
+        android:textSize="@dimen/textsize_big"
+        android:visibility="gone"/>
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="@dimen/horizontal_margin_big"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:visibility="gone">
 
         <ImageButton
             android:id="@+id/change_money_min_button"

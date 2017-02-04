@@ -88,7 +88,7 @@ public class MainMenuActivity extends BaseActivity {
         } else if (viewId == R.id.main_menu_button_abilities) {
             startAbilities();
         } else if (viewId == R.id.main_menu_button_hp) {
-            showComingSoon();
+            startHp();
         } else if (viewId == R.id.main_menu_button_money) {
             startMoney();
         }
