@@ -6,8 +6,9 @@ import java.util.Set;
 import java.util.TreeSet;
 
 import nl.tcilegnar.dndcharactersheet.App;
+import nl.tcilegnar.dndcharactersheet.Storage.BasicCharacterInfo;
 import nl.tcilegnar.dndcharactersheet.Storage.SharedPrefs;
-import nl.tcilegnar.dndcharactersheet.Storage.Storage;
+import nl.tcilegnar.dndcharactersheet.characters.DnDCharacter;
 
 public class CharacterSettings extends SharedPrefs {
     private static final Comparator<String> CHARACTER_ID_COMPERATOR = Collections.reverseOrder();
@@ -30,7 +31,7 @@ public class CharacterSettings extends SharedPrefs {
     private void makeSureAnyCharacterExists() {
         boolean isFirstCharacter = loadCharacterIds().isEmpty();
         if (isFirstCharacter) {
-            String name = Storage.DEFAULT_CHARACTER_NAME + " " + FIRST_CHARACTER_ID;
+            String name = DnDCharacter.DEFAULT_NAME + " " + FIRST_CHARACTER_ID;
             addCharacter(FIRST_CHARACTER_ID, name);
         }
     }
@@ -68,7 +69,7 @@ public class CharacterSettings extends SharedPrefs {
         currentCharacterIds.add(newCharacterId);
         saveCharacterIds(currentCharacterIds);
 
-        new Storage(newCharacterId).saveCharacterName(name);
+        new BasicCharacterInfo(newCharacterId).saveName(name);
 
         switchCharacter(newCharacterId);
     }

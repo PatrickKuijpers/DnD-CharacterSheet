@@ -23,7 +23,7 @@ import nl.tcilegnar.dndcharactersheet.FragmentManager;
 import nl.tcilegnar.dndcharactersheet.R;
 import nl.tcilegnar.dndcharactersheet.Storage.Storage;
 import nl.tcilegnar.dndcharactersheet.characters.CharacterList;
-import nl.tcilegnar.dndcharactersheet.characters.Current;
+import nl.tcilegnar.dndcharactersheet.characters.CurrentCharacter;
 import nl.tcilegnar.dndcharactersheet.characters.DnDCharacter;
 import nl.tcilegnar.dndcharactersheet.characters.settings.CharacterSettings;
 
@@ -76,7 +76,7 @@ public abstract class BaseActivity extends AppCompatActivity implements OnNaviga
             String characterName = character.getName();
             MenuItem item = menu.add(CHARACTERS_GROUP_ID, Integer.valueOf(characterId), order, characterName);
             item.setCheckable(true);
-            if (characterId.equals(Current.DnDCharacter().getId())) {
+            if (characterId.equals(CurrentCharacter.DnDCharacter().getId())) {
                 item.setChecked(true);
             }
         }
@@ -92,7 +92,7 @@ public abstract class BaseActivity extends AppCompatActivity implements OnNaviga
         if (itemId == R.id.characters_header) {
             addCharacter();
         } else if (itemId == R.id.character_delete_test) {
-            charSettings.removeCharacter(Current.DnDCharacter().getId()); //TODO
+            charSettings.removeCharacter(CurrentCharacter.DnDCharacter().getId()); //TODO
         } else if (groupId == CHARACTERS_GROUP_ID) {
             String characterId = String.valueOf(itemId);
             charSettings.switchCharacter(characterId);

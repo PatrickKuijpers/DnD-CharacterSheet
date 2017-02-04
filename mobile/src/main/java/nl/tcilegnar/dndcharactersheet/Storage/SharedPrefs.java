@@ -45,6 +45,10 @@ public abstract class SharedPrefs {
         return getPrefs().getBoolean(key, defaultValue);
     }
 
+    protected boolean loadBoolean(String key, String defaultValue) {
+        return loadBoolean(key, Boolean.valueOf(defaultValue));
+    }
+
     // Strings
     protected void save(String key, String value) {
         prefsEdit().putString(key, value).apply();
@@ -71,6 +75,10 @@ public abstract class SharedPrefs {
         return getPrefs().getInt(key, defaultValue);
     }
 
+    protected int loadInt(String key, String defaultValue) {
+        return loadInt(key, Integer.valueOf(defaultValue));
+    }
+
     // Floats
     protected void save(String key, float value) {
         prefsEdit().putFloat(key, value).apply();
@@ -84,6 +92,10 @@ public abstract class SharedPrefs {
         return getPrefs().getFloat(key, defaultValue);
     }
 
+    protected float loadFloat(String key, String defaultValue) {
+        return loadFloat(key, Float.valueOf(defaultValue));
+    }
+
     // Longs
     protected void save(String key, long value) {
         prefsEdit().putLong(key, value).apply();
@@ -95,6 +107,10 @@ public abstract class SharedPrefs {
 
     protected long loadLong(String key, long defaultValue) {
         return getPrefs().getLong(key, defaultValue);
+    }
+
+    protected long loadLong(String key, String defaultValue) {
+        return loadLong(key, Long.valueOf(defaultValue));
     }
 
     // StringSets

@@ -3,29 +3,40 @@ package nl.tcilegnar.dndcharactersheet.Storage;
 import nl.tcilegnar.dndcharactersheet.Experience.Experience;
 import nl.tcilegnar.dndcharactersheet.Level.Level;
 import nl.tcilegnar.dndcharactersheet.abilities.entities.Ability;
-import nl.tcilegnar.dndcharactersheet.characters.Current;
+import nl.tcilegnar.dndcharactersheet.characters.CurrentCharacter;
+import nl.tcilegnar.dndcharactersheet.characters.DnDCharacter;
 
 public class Storage extends SharedPrefs {
-    public static final String DEFAULT_CHARACTER_NAME = "Character Name"; // TODO: generics om in Key te kunnen opslaan?
 
-    private final String fileName;
+    protected final String characterId;
 
     public Storage() {
-        this(Current.DnDCharacter().getId());
+        this(CurrentCharacter.DnDCharacter().getId());
     }
 
-    public Storage(String filename) {
-        this.fileName = filename;
+    public Storage(String characterId) {
+        this.characterId = characterId;
     }
 
     @Override
     protected String fileName() {
-        return fileName;
+        return characterId;
     }
 
     public enum Key {
         // Deze enums nooit veranderen!
-        CHARACTER_NAME(0),
+        CHARACTER_NAME(DnDCharacter.DEFAULT_NAME),
+        RACE(DnDCharacter.DEFAULT_RACE),
+        CLASS(DnDCharacter.DEFAULT_CLASS),
+        ALIGNMENT(DnDCharacter.DEFAULT_ALIGNMENT),
+        DEITY(DnDCharacter.DEFAULT_DEITY),
+        GENDER(DnDCharacter.DEFAULT_GENDER),
+        AGE(DnDCharacter.DEFAULT_AGE),
+        HEIGHT(DnDCharacter.DEFAULT_HEIGHT),
+        WEIGHT(DnDCharacter.DEFAULT_WEIGHT),
+        HAIR(DnDCharacter.DEFAULT_HAIR),
+        EYES(DnDCharacter.DEFAULT_EYES),
+
         CURRENT_EXP(Experience.EXP_MIN),
         CURRENT_LEVEL(Level.MIN_LEVEL),
         READY_FOR_LEVEL_CHANGE(0),
@@ -43,21 +54,15 @@ public class Storage extends SharedPrefs {
         CURRENT_HP(0),
         TEMP_HP(0);
 
-        public final int defaultValue;
+        public final String defaultValue;
 
-        Key(int defaultValue) {
+        Key(String defaultValue) {
             this.defaultValue = defaultValue;
         }
-    }
 
-    public void saveCharacterName(String value) {
-        Key key = Key.CHARACTER_NAME;
-        save(key.name(), value);
-    }
-
-    public String loadCharacterName() {
-        Key key = Key.CHARACTER_NAME;
-        return loadString(key.name(), DEFAULT_CHARACTER_NAME);
+        Key(int defaultValue) {
+            this.defaultValue = String.valueOf(defaultValue);
+        }
     }
 
     public void saveExperience(int value) {

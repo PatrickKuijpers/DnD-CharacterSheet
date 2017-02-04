@@ -12,7 +12,7 @@ import android.widget.TextView;
 import nl.tcilegnar.dndcharactersheet.Base.BaseFragment;
 import nl.tcilegnar.dndcharactersheet.R;
 import nl.tcilegnar.dndcharactersheet.Utils.AppData;
-import nl.tcilegnar.dndcharactersheet.characters.Current;
+import nl.tcilegnar.dndcharactersheet.characters.CurrentCharacter;
 
 import static android.view.View.OnClickListener;
 
@@ -52,7 +52,7 @@ public class MainMenuFragment extends BaseFragment implements OnClickListener {
 
     @Override
     public String getTitle() {
-        return Current.DnDCharacter().getName();
+        return CurrentCharacter.DnDCharacter().getName();
     }
 
     private void initViews(View view) {
