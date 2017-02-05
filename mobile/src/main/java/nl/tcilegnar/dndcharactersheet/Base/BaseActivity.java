@@ -89,14 +89,13 @@ public abstract class BaseActivity extends AppCompatActivity implements OnNaviga
         int itemId = item.getItemId();
         int groupId = item.getGroupId();
 
-        CharacterSettings charSettings = CharacterSettings.getInstance();
         if (itemId == R.id.characters_header) {
             addCharacter();
         } else if (itemId == R.id.character_delete_test) {
-            charSettings.removeCharacter(CurrentCharacter.DnDCharacter().getId()); //TODO
+            deleteCharacter();
         } else if (groupId == CHARACTERS_GROUP_ID) {
             String characterId = String.valueOf(itemId);
-            charSettings.switchCharacter(characterId);
+            CharacterSettings.getInstance().switchCharacter(characterId);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -121,6 +120,26 @@ public abstract class BaseActivity extends AppCompatActivity implements OnNaviga
         });
 
         dialog.setNeutralButton(Res.getString(R.string.cancel), new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int whichButton) {
+            }
+        });
+
+        dialog.show();
+    }
+
+    private void deleteCharacter() {
+        AlertDialog.Builder dialog = new AlertDialog.Builder(this);
+
+        dialog.setTitle(Res.getString(R.string.dialog_title_delete_character));
+        dialog.setMessage(Res.getString(R.string.dialog_message_delete_character));
+
+        dialog.setPositiveButton(Res.getString(R.string.ok), new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int whichButton) {
+                CharacterSettings.getInstance().removeCharacter(CurrentCharacter.DnDCharacter().getId()); //TODO
+            }
+        });
+
+        dialog.setNegativeButton(Res.getString(R.string.cancel), new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int whichButton) {
             }
         });
