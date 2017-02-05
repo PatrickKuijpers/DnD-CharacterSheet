@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="dialog_title_new_character">Character name</string>
+    <string name="dialog_message_new_character">What is the new character\'s name?</string>
+
+    <string name="dialog_title_change_hp_values">Change %1$s</string>
+    <string name="dialog_message_change_hp_values">Enter new value below</string>
+
+    <string name="dialog_title_change_temp_ability">Temp ability</string>
+    <string name="dialog_message_change_temp_ability">How many temporary ability points to add or substract?</string>
+</resources>

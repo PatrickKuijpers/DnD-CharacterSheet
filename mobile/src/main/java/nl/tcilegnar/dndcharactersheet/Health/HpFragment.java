@@ -8,7 +8,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import nl.tcilegnar.dndcharactersheet.Base.BaseStorageFragment;
@@ -16,8 +15,6 @@ import nl.tcilegnar.dndcharactersheet.Health.Settings.HpSettings;
 import nl.tcilegnar.dndcharactersheet.Health.ViewGroup.HpIndicator;
 import nl.tcilegnar.dndcharactersheet.R;
 import nl.tcilegnar.dndcharactersheet.Utils.Res;
-
-import static android.view.ViewGroup.LayoutParams.WRAP_CONTENT;
 
 public class HpFragment extends BaseStorageFragment {
     private HpIndicator hpIndicator;
@@ -61,27 +58,26 @@ public class HpFragment extends BaseStorageFragment {
         String hpType = getHpTypeToChange(viewId);
         String value = clickedTextView.getText().toString();
 
-        final AlertDialog.Builder alert = new AlertDialog.Builder(getActivity());
-        //        new AlertDialog.Builder(mContext, R.style.MyCustomDialogTheme);
-        alert.setMessage("Enter new value below");
-        alert.setTitle("Change " + hpType);
+        AlertDialog.Builder dialog = new AlertDialog.Builder(getActivity());
+        dialog.setTitle(String.format(Res.getString(R.string.dialog_title_change_hp_values), hpType));
+        dialog.setMessage(Res.getString(R.string.dialog_message_change_hp_values));
 
         final EditText edittext = getEditText(value);
-        alert.setView(edittext);
+        dialog.setView(edittext);
 
-        alert.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+        dialog.setPositiveButton(Res.getString(R.string.ok), new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int whichButton) {
                 int newValue = Integer.valueOf(edittext.getText().toString());
                 hpIndicator.setNewHpValue(newValue, viewId);
             }
         });
 
-        alert.setNeutralButton("Cancel", new DialogInterface.OnClickListener() {
+        dialog.setNeutralButton(Res.getString(R.string.cancel), new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int whichButton) {
             }
         });
 
-        alert.show();
+        dialog.show();
     }
 
     private EditText getEditText(String value) {

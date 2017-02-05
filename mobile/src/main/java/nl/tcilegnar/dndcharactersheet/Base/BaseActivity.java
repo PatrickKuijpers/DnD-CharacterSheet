@@ -22,6 +22,7 @@ import nl.tcilegnar.dndcharactersheet.Base.Settings.SettingsActivity;
 import nl.tcilegnar.dndcharactersheet.FragmentManager;
 import nl.tcilegnar.dndcharactersheet.R;
 import nl.tcilegnar.dndcharactersheet.Storage.Storage;
+import nl.tcilegnar.dndcharactersheet.Utils.Res;
 import nl.tcilegnar.dndcharactersheet.characters.CharacterList;
 import nl.tcilegnar.dndcharactersheet.characters.CurrentCharacter;
 import nl.tcilegnar.dndcharactersheet.characters.DnDCharacter;
@@ -104,22 +105,27 @@ public abstract class BaseActivity extends AppCompatActivity implements OnNaviga
     }
 
     private void addCharacter() {
-        AlertDialog.Builder alert = new AlertDialog.Builder(this);
+        AlertDialog.Builder dialog = new AlertDialog.Builder(this);
 
-        alert.setTitle("Character name");
-        alert.setMessage("input the name of the new character");
+        dialog.setTitle(Res.getString(R.string.dialog_title_new_character));
+        dialog.setMessage(Res.getString(R.string.dialog_message_new_character));
 
-        final EditText input = new EditText(this);
-        alert.setView(input);
+        final EditText edittext = new EditText(this);
+        dialog.setView(edittext);
 
-        alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+        dialog.setPositiveButton(Res.getString(R.string.ok), new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int whichButton) {
-                String name = input.getText().toString();
+                String name = edittext.getText().toString();
                 CharacterSettings.getInstance().addCharacter(name);
             }
         });
 
-        alert.show();
+        dialog.setNeutralButton(Res.getString(R.string.cancel), new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int whichButton) {
+            }
+        });
+
+        dialog.show();
     }
 
     @Override

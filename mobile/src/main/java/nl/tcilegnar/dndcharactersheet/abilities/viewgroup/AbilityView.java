@@ -19,6 +19,7 @@ import android.widget.TextView.OnEditorActionListener;
 
 import nl.tcilegnar.dndcharactersheet.R;
 import nl.tcilegnar.dndcharactersheet.Utils.KeyboardUtil;
+import nl.tcilegnar.dndcharactersheet.Utils.Res;
 import nl.tcilegnar.dndcharactersheet.abilities.entities.Ability;
 
 public class AbilityView extends LinearLayout implements OnClickListener, OnEditorActionListener {
@@ -171,15 +172,15 @@ public class AbilityView extends LinearLayout implements OnClickListener, OnEdit
     }
 
     private void showDialog() {
-        AlertDialog.Builder alert = new AlertDialog.Builder(getContext());
+        AlertDialog.Builder dialog = new AlertDialog.Builder(getContext());
 
-        alert.setTitle("Temp ability points");
-        alert.setMessage("How many temporary ability points?");
+        dialog.setTitle(Res.getString(R.string.dialog_title_change_temp_ability));
+        dialog.setMessage(Res.getString(R.string.dialog_message_change_temp_ability));
 
         final EditText edittext = getEditText();
-        alert.setView(edittext);
+        dialog.setView(edittext);
 
-        alert.setPositiveButton("+", new DialogInterface.OnClickListener() {
+        dialog.setPositiveButton(Res.getString(R.string.plus), new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int whichButton) {
                 int inputValue = Integer.valueOf(edittext.getText().toString());
                 changeTempAbility(inputValue);
@@ -187,7 +188,7 @@ public class AbilityView extends LinearLayout implements OnClickListener, OnEdit
             }
         });
 
-        alert.setNegativeButton("-", new DialogInterface.OnClickListener() {
+        dialog.setNegativeButton(Res.getString(R.string.min), new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int whichButton) {
                 int inputValue = Integer.valueOf(edittext.getText().toString());
                 changeTempAbility(-inputValue);
@@ -195,12 +196,12 @@ public class AbilityView extends LinearLayout implements OnClickListener, OnEdit
             }
         });
 
-        alert.setNeutralButton("Cancel", new DialogInterface.OnClickListener() {
+        dialog.setNeutralButton(Res.getString(R.string.cancel), new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int whichButton) {
             }
         });
 
-        alert.show();
+        dialog.show();
     }
 
     private EditText getEditText() {
