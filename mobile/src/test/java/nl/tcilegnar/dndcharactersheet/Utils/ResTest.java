@@ -68,17 +68,17 @@ public class ResTest {
         assertEquals(expectedDimension, actualDimension);
     }
 
-    //    @Test
-    //    public void getBoolean_ShouldContainSameBooleanAsGetBooleanFromApplicationResources() {
-    //        // Arrange
-    //
-    //        // Act
-    //        boolean bool = Res.getBoolean(R.bool.some_boolean);
-    //
-    //        // Assert
-    //        boolean expectedBool = getApplicationResources().getBoolean(R.bool.some_boolean);
-    //        assertEquals(expectedBool, bool);
-    //    }
+    @Test
+    public void getBoolean_ShouldContainSameBooleanAsGetBooleanFromApplicationResources() {
+        // Arrange
+
+        // Act
+        boolean bool = Res.getBoolean(R.bool.is_portrait);
+
+        // Assert
+        boolean expectedBool = getApplicationResources().getBoolean(R.bool.is_portrait);
+        assertEquals(expectedBool, bool);
+    }
 
     @Test
     public void getColor_ShouldContainSameColorAsGetColorFromApplicationContext() {
