@@ -6,6 +6,8 @@ import android.support.annotation.DrawableRes;
 import android.support.annotation.StringRes;
 import android.support.annotation.VisibleForTesting;
 
+import java.util.Comparator;
+
 import nl.tcilegnar.dndcharactersheet.R;
 import nl.tcilegnar.dndcharactersheet.Storage.Storage;
 import nl.tcilegnar.dndcharactersheet.Utils.Res;
@@ -14,12 +16,12 @@ import static nl.tcilegnar.dndcharactersheet.Storage.Storage.Key;
 
 public enum Ability {
     STRENGTH(Key.STRENGTH, R.string.ability_str, R.string.ability_str_abbr, R.drawable.strength, R.color.str),
-    WISDOM(Key.WISDOM, R.string.ability_wis, R.string.ability_wis_abbr, R.drawable.wisdom, R.color.wis),
     DEXTERITY(Key.DEXTERITY, R.string.ability_dex, R.string.ability_dex_abbr, R.drawable.dexterity, R.color.dex),
-    INTELLIGENCE(Key.INTELLIGENCE, R.string.ability_int, R.string.ability_int_abbr, R.drawable.intelligence, R.color
-            .intl),
     CONSTITUTION(Key.CONSTITUTION, R.string.ability_con, R.string.ability_con_abbr, R.drawable.constitution, R.color
             .con),
+    WISDOM(Key.WISDOM, R.string.ability_wis, R.string.ability_wis_abbr, R.drawable.wisdom, R.color.wis),
+    INTELLIGENCE(Key.INTELLIGENCE, R.string.ability_int, R.string.ability_int_abbr, R.drawable.intelligence, R.color
+            .intl),
     CHARISMA(Key.CHARISMA, R.string.ability_cha, R.string.ability_cha_abbr, R.drawable.charisma, R.color.cha);
 
     private Storage storage = new Storage();
@@ -72,6 +74,31 @@ public enum Ability {
         return color;
     }
 
+    public int getOrderIndex() {
+        int orderIndex = 0;
+        switch (this) {
+            case STRENGTH:
+                orderIndex = Res.getInt(R.integer.order_index_str);
+                break;
+            case DEXTERITY:
+                orderIndex = Res.getInt(R.integer.order_index_dex);
+                break;
+            case CONSTITUTION:
+                orderIndex = Res.getInt(R.integer.order_index_con);
+                break;
+            case WISDOM:
+                orderIndex = Res.getInt(R.integer.order_index_wis);
+                break;
+            case INTELLIGENCE:
+                orderIndex = Res.getInt(R.integer.order_index_int);
+                break;
+            case CHARISMA:
+                orderIndex = Res.getInt(R.integer.order_index_cha);
+                break;
+        }
+        return orderIndex;
+    }
+
     public void saveValue(int value) {
         storage.saveAbility(storageKey, value);
     }
@@ -82,5 +109,12 @@ public enum Ability {
 
     private static String getString(@StringRes int stringRes) {
         return Res.getString(stringRes);
+    }
+
+    public static class OrderComparator implements Comparator<Ability> {
+        @Override
+        public int compare(Ability ability1, Ability ability2) {
+            return ability1.getOrderIndex() < ability2.getOrderIndex() ? -1 : 1;
+        }
     }
 }
