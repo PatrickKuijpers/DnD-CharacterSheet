@@ -1,12 +1,16 @@
 package nl.tcilegnar.dndcharactersheet.abilities.viewgroup;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.support.annotation.ColorInt;
 import android.support.annotation.VisibleForTesting;
+import android.support.v7.app.AlertDialog;
+import android.text.InputType;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.inputmethod.EditorInfo;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -28,6 +32,12 @@ public class AbilityView extends LinearLayout implements OnClickListener, OnEdit
     private AbilityNumberEditor abilityNumberEditor;
     private ImageButton abilitySaveButton;
 
+    private ImageView abilityIconTemp;
+    private TextView abilityValueTemp;
+    private TextView abilityModifierTemp;
+
+    private boolean isTempActivated;
+
     @VisibleForTesting
     public AbilityView(Context context, Ability ability) {
         super(context);
@@ -47,14 +57,22 @@ public class AbilityView extends LinearLayout implements OnClickListener, OnEdit
         abilityNumberEditor = (AbilityNumberEditor) findViewById(R.id.ability_editor);
         abilitySaveButton = (ImageButton) findViewById(R.id.ability_save_button);
 
+        abilityIconTemp = (ImageView) findViewById(R.id.ability_icon_temp);
+        abilityValueTemp = (TextView) findViewById(R.id.ability_value_temp);
+        abilityModifierTemp = (TextView) findViewById(R.id.ability_modifier_temp);
+
         abilityNumberEditor.setOnEditorActionListener(this);
         setOnClickListeners();
+
+        deactivateTempViews();
     }
 
     private void setOnClickListeners() {
         abilityValue.setOnClickListener(this);
         abilityModifier.setOnClickListener(this);
         abilitySaveButton.setOnClickListener(this);
+
+        abilityIconTemp.setOnClickListener(this);
     }
 
     private void initValues(Ability ability) {
@@ -94,6 +112,12 @@ public class AbilityView extends LinearLayout implements OnClickListener, OnEdit
             startEdit();
         } else if (viewId == R.id.ability_save_button) {
             finishEdit();
+        } else if (viewId == R.id.ability_icon_temp) {
+            if (isTempActivated) {
+                deactivateTempViews();
+            } else {
+                showDialog();
+            }
         }
     }
 
@@ -126,6 +150,69 @@ public class AbilityView extends LinearLayout implements OnClickListener, OnEdit
         ability.saveValue(value);
         updateValues(value);
         KeyboardUtil.hideKeyboard(abilityNumberEditor);
+    }
+
+    private void activateTempViews() {
+        isTempActivated = true;
+        abilityValueTemp.setVisibility(VISIBLE);
+        abilityModifierTemp.setVisibility(VISIBLE);
+        abilityValue.setAlpha(0.2F);
+        abilityModifier.setAlpha(0.2F);
+        abilityIconTemp.setAlpha(1F);
+    }
+
+    private void deactivateTempViews() {
+        isTempActivated = false;
+        abilityValueTemp.setVisibility(INVISIBLE);
+        abilityModifierTemp.setVisibility(INVISIBLE);
+        abilityValue.setAlpha(1F);
+        abilityModifier.setAlpha(1F);
+        abilityIconTemp.setAlpha(0.2F);
+    }
+
+    private void showDialog() {
+        AlertDialog.Builder alert = new AlertDialog.Builder(getContext());
+
+        alert.setTitle("Temp ability points");
+        alert.setMessage("How many temporary ability points?");
+
+        final EditText edittext = getEditText();
+        alert.setView(edittext);
+
+        alert.setPositiveButton("+", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int whichButton) {
+                int inputValue = Integer.valueOf(edittext.getText().toString());
+                changeTempAbility(inputValue);
+                activateTempViews();
+            }
+        });
+
+        alert.setNegativeButton("-", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int whichButton) {
+                int inputValue = Integer.valueOf(edittext.getText().toString());
+                changeTempAbility(-inputValue);
+                activateTempViews();
+            }
+        });
+
+        alert.setNeutralButton("Cancel", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int whichButton) {
+            }
+        });
+
+        alert.show();
+    }
+
+    private EditText getEditText() {
+        final EditText edittext = new EditText(getContext());
+        edittext.setInputType(InputType.TYPE_CLASS_NUMBER);
+        return edittext;
+    }
+
+    private void changeTempAbility(int inputValue) {
+        int tempAbilityValue = abilityNumberEditor.getNumberValue() + inputValue;
+        abilityValueTemp.setText(String.valueOf(tempAbilityValue));
+        abilityModifierTemp.setText(getModifierText(tempAbilityValue));
     }
 
     public Ability getAbility() {

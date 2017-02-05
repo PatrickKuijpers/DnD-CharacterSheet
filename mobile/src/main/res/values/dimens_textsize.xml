@@ -18,4 +18,5 @@
 
     <dimen name="ability_abbr_textsize">@dimen/textsize_normal</dimen>
     <dimen name="ability_value_textsize">@dimen/textsize_very_big</dimen>
+    <dimen name="ability_value_temp_textsize">@dimen/textsize_normal</dimen>
 </resources>

@@ -109,7 +109,6 @@ public abstract class BaseActivity extends AppCompatActivity implements OnNaviga
         alert.setTitle("Character name");
         alert.setMessage("input the name of the new character");
 
-        // Set an EditText view to get user input
         final EditText input = new EditText(this);
         alert.setView(input);
 

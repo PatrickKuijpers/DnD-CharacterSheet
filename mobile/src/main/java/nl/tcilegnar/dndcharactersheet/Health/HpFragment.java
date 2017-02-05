@@ -8,12 +8,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import nl.tcilegnar.dndcharactersheet.Base.BaseStorageFragment;
 import nl.tcilegnar.dndcharactersheet.Health.Settings.HpSettings;
 import nl.tcilegnar.dndcharactersheet.Health.ViewGroup.HpIndicator;
 import nl.tcilegnar.dndcharactersheet.R;
+import nl.tcilegnar.dndcharactersheet.Utils.Res;
+
+import static android.view.ViewGroup.LayoutParams.WRAP_CONTENT;
 
 public class HpFragment extends BaseStorageFragment {
     private HpIndicator hpIndicator;
@@ -82,7 +86,7 @@ public class HpFragment extends BaseStorageFragment {
 
     private EditText getEditText(String value) {
         final EditText edittext = new EditText(getActivity());
-        edittext.setInputType(InputType.TYPE_NUMBER_FLAG_SIGNED);
+        edittext.setInputType(InputType.TYPE_CLASS_NUMBER);
         edittext.setText(value);
         edittext.setSelection(value.length());
         return edittext;
