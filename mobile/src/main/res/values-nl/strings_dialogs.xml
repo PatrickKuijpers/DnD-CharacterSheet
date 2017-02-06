@@ -4,7 +4,7 @@
     <string name="dialog_message_new_character">Wat is de naam van het nieuwe character?</string>
 
     <string name="dialog_title_delete_character">Verwijder character</string>
-    <string name="dialog_message_delete_character">Weet je zeker dat je dit character wilt verwijderen? Je kunt dit niet terugdraaien!</string>
+    <string name="dialog_message_delete_character">Weet je zeker dat je \'%1$s\' wilt verwijderen? Je kunt dit niet terugdraaien!</string>
 
     <string name="dialog_title_change_hp_values">Wijzig %1$s</string>
     <string name="dialog_message_change_hp_values">Vul de nieuwe waarde hieronder in.</string>

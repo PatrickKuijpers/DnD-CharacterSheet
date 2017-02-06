@@ -11,4 +11,7 @@
 
     <string name="ok">OK</string>
     <string name="cancel">Annuleren</string>
+
+    <string name="remove_selected_character">Verwijder character</string>
+    <string name="add_character">Voeg character toe</string>
 </resources>

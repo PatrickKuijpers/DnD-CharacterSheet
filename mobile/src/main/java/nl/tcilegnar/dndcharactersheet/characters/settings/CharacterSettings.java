@@ -1,13 +1,21 @@
 package nl.tcilegnar.dndcharactersheet.characters.settings;
 
+import android.content.Context;
+import android.content.DialogInterface;
+import android.support.v7.app.AlertDialog;
+import android.widget.EditText;
+
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Set;
 import java.util.TreeSet;
 
 import nl.tcilegnar.dndcharactersheet.App;
+import nl.tcilegnar.dndcharactersheet.R;
 import nl.tcilegnar.dndcharactersheet.Storage.BasicCharacterInfo;
 import nl.tcilegnar.dndcharactersheet.Storage.SharedPrefs;
+import nl.tcilegnar.dndcharactersheet.Utils.Res;
+import nl.tcilegnar.dndcharactersheet.characters.CurrentCharacter;
 import nl.tcilegnar.dndcharactersheet.characters.DnDCharacter;
 
 public class CharacterSettings extends SharedPrefs {
@@ -31,8 +39,7 @@ public class CharacterSettings extends SharedPrefs {
     private void makeSureAnyCharacterExists() {
         boolean isFirstCharacter = loadCharacterIds().isEmpty();
         if (isFirstCharacter) {
-            String name = DnDCharacter.DEFAULT_NAME + " " + FIRST_CHARACTER_ID;
-            addCharacter(FIRST_CHARACTER_ID, name);
+            addCharacter(FIRST_CHARACTER_ID, DnDCharacter.DEFAULT_NAME);
         }
     }
 
@@ -50,7 +57,32 @@ public class CharacterSettings extends SharedPrefs {
         CURRENT_CHARACTER_ID
     }
 
-    public void addCharacter(String name) {
+    public void addCharacter(Context activityContext) {
+        AlertDialog.Builder dialog = new AlertDialog.Builder(activityContext);
+
+        dialog.setTitle(Res.getString(R.string.dialog_title_new_character));
+        dialog.setMessage(Res.getString(R.string.dialog_message_new_character));
+
+        final EditText edittext = new EditText(activityContext);
+        dialog.setView(edittext);
+
+        dialog.setPositiveButton(Res.getString(R.string.ok), new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int whichButton) {
+                String name = edittext.getText().toString();
+                addCharacter(name);
+            }
+        });
+
+        dialog.setNeutralButton(Res.getString(R.string.cancel), new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int whichButton) {
+                // TODO: mainMenuActivity.selectCurrentCharacter();
+            }
+        });
+
+        dialog.show();
+    }
+
+    private void addCharacter(String name) {
         addCharacter(getNewCharacterId(), name);
     }
 
@@ -74,7 +106,30 @@ public class CharacterSettings extends SharedPrefs {
         switchCharacter(newCharacterId);
     }
 
-    public void removeCharacter(String characterId) {
+    public void deleteCharacter(Context activityContext) {
+        final CurrentCharacter currentCharacter = CurrentCharacter.DnDCharacter();
+
+        AlertDialog.Builder dialog = new AlertDialog.Builder(activityContext);
+
+        dialog.setTitle(Res.getString(R.string.dialog_title_delete_character));
+        dialog.setMessage(String.format(Res.getString(R.string.dialog_message_delete_character), currentCharacter
+                .getName()));
+
+        dialog.setPositiveButton(Res.getString(R.string.ok), new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int whichButton) {
+                deleteCharacter(currentCharacter.getId());
+            }
+        });
+
+        dialog.setNegativeButton(Res.getString(R.string.cancel), new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int whichButton) {
+            }
+        });
+
+        dialog.show();
+    }
+
+    private void deleteCharacter(String characterId) {
         TreeSet<String> currentCharacterIds = loadCharacterIds();
         currentCharacterIds.remove(characterId);
         saveCharacterIds(currentCharacterIds);
@@ -83,13 +138,6 @@ public class CharacterSettings extends SharedPrefs {
         if (isActiveCharacterRemoved) {
             makeSureAnyCharacterExists();
             switchCharacter(getFirstCharacterId());
-        }
-    }
-
-    public void switchCharacter(String characterId) {
-        if (!characterId.equals(loadCurrentCharacterId())) {
-            saveCurrentCharacterId(characterId);
-            App.restart();
         }
     }
 
@@ -102,6 +150,13 @@ public class CharacterSettings extends SharedPrefs {
 
     private void saveCharacterIds(TreeSet<String> characterIds) {
         save(Key.CHARACTER_IDS.name(), characterIds);
+    }
+
+    public void switchCharacter(String characterId) {
+        if (!characterId.equals(loadCurrentCharacterId())) {
+            saveCurrentCharacterId(characterId);
+            App.restart();
+        }
     }
 
     public String loadCurrentCharacterId() {

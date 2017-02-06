@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <group android:checkableBehavior="single">
+    <group
+        android:id="@+id/character_group"
+        android:checkableBehavior="single">
         <item
-            android:id="@+id/character_delete_test"
-            android:title=""/>
+            android:id="@+id/character_delete"
+            android:icon="@android:drawable/ic_delete"
+            android:title="@string/remove_selected_character"/>
         <item
-            android:id="@+id/characters_header"
-            android:title="Characters:"/>
+            android:id="@+id/character_add"
+            android:icon="@android:drawable/ic_input_add"
+            android:title="@string/add_character"/>
     </group>
 </menu>

@@ -4,7 +4,7 @@
     <string name="dialog_message_new_character">What is the new character\'s name?</string>
 
     <string name="dialog_title_delete_character">Delete character</string>
-    <string name="dialog_message_delete_character">You really want to delete this character? No turning back!</string>
+    <string name="dialog_message_delete_character">Are you sure you want to delete \'%1$s\'? No turning back!</string>
 
     <string name="dialog_title_change_hp_values">Change %1$s</string>
     <string name="dialog_message_change_hp_values">Enter new value below</string>

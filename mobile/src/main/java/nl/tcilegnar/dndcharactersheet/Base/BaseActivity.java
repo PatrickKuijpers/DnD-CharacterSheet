@@ -1,6 +1,5 @@
 package nl.tcilegnar.dndcharactersheet.Base;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -10,19 +9,16 @@ import android.support.design.widget.NavigationView.OnNavigationItemSelectedList
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.widget.EditText;
 
 import nl.tcilegnar.dndcharactersheet.Base.Settings.SettingsActivity;
 import nl.tcilegnar.dndcharactersheet.FragmentManager;
 import nl.tcilegnar.dndcharactersheet.R;
 import nl.tcilegnar.dndcharactersheet.Storage.Storage;
-import nl.tcilegnar.dndcharactersheet.Utils.Res;
 import nl.tcilegnar.dndcharactersheet.characters.CharacterList;
 import nl.tcilegnar.dndcharactersheet.characters.CurrentCharacter;
 import nl.tcilegnar.dndcharactersheet.characters.DnDCharacter;
@@ -69,82 +65,41 @@ public abstract class BaseActivity extends AppCompatActivity implements OnNaviga
 
     private void initNavigationView() {
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
         Menu menu = navigationView.getMenu();
         for (DnDCharacter character : CharacterList.INSTANCE.getCharacters()) {
             String characterId = character.getId();
-            int order = Menu.NONE;
             String characterName = character.getName();
-            MenuItem item = menu.add(CHARACTERS_GROUP_ID, Integer.valueOf(characterId), order, characterName);
+            MenuItem item = menu.add(CHARACTERS_GROUP_ID, Integer.valueOf(characterId), Menu.NONE, characterName);
             item.setCheckable(true);
-            if (characterId.equals(CurrentCharacter.DnDCharacter().getId())) {
-                item.setChecked(true);
-            }
         }
+        selectCurrentCharacter();
+        navigationView.setNavigationItemSelectedListener(this);
+    }
+
+    private void selectCurrentCharacter() {
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        MenuItem menuItem = navigationView.getMenu().findItem(Integer.valueOf(CurrentCharacter.DnDCharacter().getId()));
+        menuItem.setChecked(true);
     }
 
     @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         int itemId = item.getItemId();
         int groupId = item.getGroupId();
 
-        if (itemId == R.id.characters_header) {
-            addCharacter();
-        } else if (itemId == R.id.character_delete_test) {
-            deleteCharacter();
+        CharacterSettings characterSettings = CharacterSettings.getInstance();
+        if (itemId == R.id.character_add) {
+            characterSettings.addCharacter(this);
+        } else if (itemId == R.id.character_delete) {
+            characterSettings.deleteCharacter(this);
         } else if (groupId == CHARACTERS_GROUP_ID) {
             String characterId = String.valueOf(itemId);
-            CharacterSettings.getInstance().switchCharacter(characterId);
+            characterSettings.switchCharacter(characterId);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
-    }
-
-    private void addCharacter() {
-        AlertDialog.Builder dialog = new AlertDialog.Builder(this);
-
-        dialog.setTitle(Res.getString(R.string.dialog_title_new_character));
-        dialog.setMessage(Res.getString(R.string.dialog_message_new_character));
-
-        final EditText edittext = new EditText(this);
-        dialog.setView(edittext);
-
-        dialog.setPositiveButton(Res.getString(R.string.ok), new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int whichButton) {
-                String name = edittext.getText().toString();
-                CharacterSettings.getInstance().addCharacter(name);
-            }
-        });
-
-        dialog.setNeutralButton(Res.getString(R.string.cancel), new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int whichButton) {
-            }
-        });
-
-        dialog.show();
-    }
-
-    private void deleteCharacter() {
-        AlertDialog.Builder dialog = new AlertDialog.Builder(this);
-
-        dialog.setTitle(Res.getString(R.string.dialog_title_delete_character));
-        dialog.setMessage(Res.getString(R.string.dialog_message_delete_character));
-
-        dialog.setPositiveButton(Res.getString(R.string.ok), new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int whichButton) {
-                CharacterSettings.getInstance().removeCharacter(CurrentCharacter.DnDCharacter().getId()); //TODO
-            }
-        });
-
-        dialog.setNegativeButton(Res.getString(R.string.cancel), new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int whichButton) {
-            }
-        });
-
-        dialog.show();
     }
 
     @Override
