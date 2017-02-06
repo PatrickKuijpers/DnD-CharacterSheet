@@ -90,11 +90,11 @@ public class HpFragment extends BaseStorageFragment {
 
     private String getHpTypeToChange(int viewId) {
         if (viewId == R.id.total_hp_value) {
-            return "total HP";
+            return Res.getString(R.string.total_hp);
         } else if (viewId == R.id.current_hp_value) {
-            return "current HP";
+            return Res.getString(R.string.current_hp);
         } else if (viewId == R.id.temp_hp_value) {
-            return "temp HP";
+            return Res.getString(R.string.temp_hp);
         }
         return "value";
     }

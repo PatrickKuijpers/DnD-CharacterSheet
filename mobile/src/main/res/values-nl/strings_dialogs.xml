@@ -8,6 +8,9 @@
 
     <string name="dialog_title_change_hp_values">Wijzig %1$s</string>
     <string name="dialog_message_change_hp_values">Vul de nieuwe waarde hieronder in.</string>
+    <string name="total_hp">totaal HP</string>
+    <string name="current_hp">huidig HP</string>
+    <string name="temp_hp">tijdelijke HP</string>
 
     <string name="dialog_title_change_temp_ability">Temp ability points</string>
     <string name="dialog_message_change_temp_ability">Hoeveel tijdelijke ability punten toevoegen of aftrekken?</string>
