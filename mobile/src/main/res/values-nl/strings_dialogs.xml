@@ -8,6 +8,7 @@
 
     <string name="dialog_title_change_hp_values">Wijzig %1$s</string>
     <string name="dialog_message_change_hp_values">Vul de nieuwe waarde hieronder in.</string>
+    <string name="dialog_message_change_current_hp_values">Hoeveel HP toevoegen of aftrekken?</string>
     <string name="total_hp">totaal HP</string>
     <string name="current_hp">huidig HP</string>
     <string name="temp_hp">tijdelijke HP</string>

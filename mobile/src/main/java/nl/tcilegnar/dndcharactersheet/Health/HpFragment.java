@@ -60,17 +60,38 @@ public class HpFragment extends BaseStorageFragment {
 
         AlertDialog.Builder dialog = new AlertDialog.Builder(getActivity());
         dialog.setTitle(String.format(Res.getString(R.string.dialog_title_change_hp_values), hpType));
-        dialog.setMessage(Res.getString(R.string.dialog_message_change_hp_values));
+        boolean changeCurrentHp = hpType.equals(Res.getString(R.string.current_hp));
+        if (changeCurrentHp) {
+            dialog.setMessage(Res.getString(R.string.dialog_message_change_current_hp_values));
+        } else {
+            dialog.setMessage(Res.getString(R.string.dialog_message_change_hp_values));
+        }
 
-        final EditText edittext = getEditText(value);
+        final EditText edittext = getEditText(value, changeCurrentHp);
         dialog.setView(edittext);
 
-        dialog.setPositiveButton(Res.getString(R.string.ok), new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int whichButton) {
-                int newValue = Integer.valueOf(edittext.getText().toString());
-                hpIndicator.setNewHpValue(newValue, viewId);
-            }
-        });
+        if (changeCurrentHp) {
+            dialog.setPositiveButton(Res.getString(R.string.plus), new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int whichButton) {
+                    int newValue = Integer.valueOf(edittext.getText().toString());
+                    hpIndicator.setNewHpValue(newValue, viewId);
+                }
+            });
+
+            dialog.setNegativeButton(Res.getString(R.string.min), new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int whichButton) {
+                    int newValue = Integer.valueOf(edittext.getText().toString());
+                    hpIndicator.setNewHpValue(-newValue, viewId);
+                }
+            });
+        } else {
+            dialog.setPositiveButton(Res.getString(R.string.ok), new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int whichButton) {
+                    int newValue = Integer.valueOf(edittext.getText().toString());
+                    hpIndicator.setNewHpValue(newValue, viewId);
+                }
+            });
+        }
 
         dialog.setNeutralButton(Res.getString(R.string.cancel), new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int whichButton) {
@@ -80,11 +101,13 @@ public class HpFragment extends BaseStorageFragment {
         dialog.show();
     }
 
-    private EditText getEditText(String value) {
+    private EditText getEditText(String value, boolean isCurrentHpType) {
         final EditText edittext = new EditText(getActivity());
         edittext.setInputType(InputType.TYPE_CLASS_NUMBER);
-        edittext.setText(value);
-        edittext.setSelection(value.length());
+        if (!isCurrentHpType) {
+            edittext.setText(value);
+            edittext.setSelection(value.length());
+        }
         return edittext;
     }
 

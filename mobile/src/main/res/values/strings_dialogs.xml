@@ -8,6 +8,7 @@
 
     <string name="dialog_title_change_hp_values">Change %1$s</string>
     <string name="dialog_message_change_hp_values">Enter new value below</string>
+    <string name="dialog_message_change_current_hp_values">How much HP to add or substract?</string>
     <string name="total_hp">total HP</string>
     <string name="current_hp">current HP</string>
     <string name="temp_hp">temporary HP</string>

@@ -198,7 +198,7 @@ public class HpIndicator extends LinearLayout implements OnClickListener {
         if (viewId == R.id.total_hp_value) {
             hp.setTotal(newValue);
         } else if (viewId == R.id.current_hp_value) {
-            hp.setCurrent(newValue);
+            hp.setCurrent(hp.getCurrent() + newValue);
         } else if (viewId == R.id.temp_hp_value) {
             hp.setTemp(newValue);
         }
