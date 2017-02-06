@@ -10,6 +10,7 @@
     <color name="grey_medium">#999</color>
     <color name="grey_medium_light">#bbb</color>
     <color name="grey_light">#eee</color>
+    <color name="grey_very_light">#f0f0f0</color>
     <color name="white">#fff</color>
     <color name="transparent">@android:color/transparent</color>
 
