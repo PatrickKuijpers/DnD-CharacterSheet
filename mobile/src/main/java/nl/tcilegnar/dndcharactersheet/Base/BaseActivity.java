@@ -168,7 +168,6 @@ public abstract class BaseActivity extends AppCompatActivity implements OnNaviga
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             startSettingsActivity();
-            new Storage().print();
             return true;
         }
 

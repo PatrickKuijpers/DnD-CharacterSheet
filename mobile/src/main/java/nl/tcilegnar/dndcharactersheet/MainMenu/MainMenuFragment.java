@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import nl.tcilegnar.dndcharactersheet.Base.BaseFragment;
 import nl.tcilegnar.dndcharactersheet.R;
+import nl.tcilegnar.dndcharactersheet.Storage.Storage;
 import nl.tcilegnar.dndcharactersheet.Utils.AppData;
 import nl.tcilegnar.dndcharactersheet.characters.CurrentCharacter;
 
@@ -58,6 +59,7 @@ public class MainMenuFragment extends BaseFragment implements OnClickListener {
     private void initViews(View view) {
         LinearLayout buttonsContainer = (LinearLayout) view.findViewById(R.id.main_menu_buttons_container);
         setOnClickListenersOnChildren(buttonsContainer);
+        (view.findViewById(R.id.beta_image)).setOnClickListener(this);
     }
 
     private void setOnClickListenersOnChildren(ViewGroup viewGroup) {
@@ -69,6 +71,10 @@ public class MainMenuFragment extends BaseFragment implements OnClickListener {
     @Override
     public void onClick(View view) {
         int viewId = view.getId();
+        if (viewId == R.id.beta_image) {
+            new Storage().print();
+            return;
+        }
         callbackMainMenu.onMainMenuButtonClicked(viewId);
     }
 
