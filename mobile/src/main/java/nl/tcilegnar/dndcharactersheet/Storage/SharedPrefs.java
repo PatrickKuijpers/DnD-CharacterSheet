@@ -136,20 +136,20 @@ public abstract class SharedPrefs {
 
     public void print() {
         // stackoverflow.com/questions/14580085/android-how-to-get-list-of-all-preference-xmls-for-my-app-and-read-them
-        Log.d("TEST", "--- defaultPrefs ---");
+        Log.i("TEST", "--- defaultPrefs ---");
         printPrefs(PreferenceManager.getDefaultSharedPreferences(App.getContext()).getAll());
-        Log.d("TEST", "--- extendedSharedPrefs_old ---");
+        Log.i("TEST", "--- extendedSharedPrefs_old ---");
         printPrefs(App.getContext().getSharedPreferences(null, MODE).getAll());
-        Log.d("TEST", "--- 10001 ---");
+        Log.i("TEST", "--- 10001 ---");
         SharedPreferences settings1 = App.getContext().getSharedPreferences("10001", MODE);
         printPrefs(settings1.getAll());
-        Log.d("TEST", "--- 10002 ---");
+        Log.i("TEST", "--- 10002 ---");
         SharedPreferences settings2 = App.getContext().getSharedPreferences("10002", MODE);
         printPrefs(settings2.getAll());
-        Log.d("TEST", "--- 10003 ---");
+        Log.i("TEST", "--- 10003 ---");
         SharedPreferences settings3 = App.getContext().getSharedPreferences("10003", MODE);
         printPrefs(settings3.getAll());
-        Log.d("TEST", "--- ExperienceSettings ---");
+        Log.i("TEST", "--- ExperienceSettings ---");
         SharedPreferences experienceSettings = App.getContext().getSharedPreferences("ExperienceSettings", MODE);
         printPrefs(experienceSettings.getAll()); // TODO: worden ook in default prefs opgeslagen?
     }
