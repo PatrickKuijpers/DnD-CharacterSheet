@@ -40,12 +40,20 @@ public class Storage extends SharedPrefs {
         CURRENT_EXP(Experience.EXP_MIN),
         CURRENT_LEVEL(Level.MIN_LEVEL),
         READY_FOR_LEVEL_CHANGE(0),
+
         STRENGTH(Ability.DEFAULT_VALUE),
         DEXTERITY(Ability.DEFAULT_VALUE),
         CONSTITUTION(Ability.DEFAULT_VALUE),
         WISDOM(Ability.DEFAULT_VALUE),
         INTELLIGENCE(Ability.DEFAULT_VALUE),
         CHARISMA(Ability.DEFAULT_VALUE),
+        STRENGTH_TEMP(Ability.DEFAULT_VALUE_TEMP),
+        DEXTERITY_TEMP(Ability.DEFAULT_VALUE_TEMP),
+        CONSTITUTION_TEMP(Ability.DEFAULT_VALUE_TEMP),
+        WISDOM_TEMP(Ability.DEFAULT_VALUE_TEMP),
+        INTELLIGENCE_TEMP(Ability.DEFAULT_VALUE_TEMP),
+        CHARISMA_TEMP(Ability.DEFAULT_VALUE_TEMP),
+
         PLATINUM(0),
         GOLD(0),
         SILVER(0),
@@ -105,6 +113,22 @@ public class Storage extends SharedPrefs {
 
     public int loadAbility(Key key) {
         return loadInt(key.name(), key.defaultValue);
+    }
+
+    public void saveAbilityTemp(Key key, int value) {
+        saveAbility(key, value);
+    }
+
+    public int loadAbilityTemp(Key key) {
+        return loadAbility(key);
+    }
+
+    public void saveHasAbilityTemp(Key key, int value) {
+        saveAbility(key, value);
+    }
+
+    public int loadHasAbilityTemp(Key key) {
+        return loadAbility(key);
     }
 
     public void savePlatinum(int value) {

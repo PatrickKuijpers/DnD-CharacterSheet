@@ -50,12 +50,6 @@ public class AbilityNumberEditor extends LinearLayout implements OnClickListener
         }
     }
 
-    public void validateInput() {
-        if (getValue().isEmpty()) {
-            setValue(0);
-        }
-    }
-
     public void setValue(int value) {
         try {
             validateNewValue(value);
@@ -75,10 +69,17 @@ public class AbilityNumberEditor extends LinearLayout implements OnClickListener
     }
 
     public int getNumberValue() {
+        validateInput();
         return Integer.valueOf(getValue());
     }
 
-    public String getValue() {
+    private void validateInput() {
+        if (getValue().isEmpty()) {
+            setValue(0);
+        }
+    }
+
+    private String getValue() {
         return editText.getText().toString();
     }
 

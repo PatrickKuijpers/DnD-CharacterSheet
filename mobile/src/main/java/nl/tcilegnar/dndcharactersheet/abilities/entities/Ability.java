@@ -15,18 +15,23 @@ import nl.tcilegnar.dndcharactersheet.Utils.Res;
 import static nl.tcilegnar.dndcharactersheet.Storage.Storage.Key;
 
 public enum Ability {
-    STRENGTH(Key.STRENGTH, R.string.ability_str, R.string.ability_str_abbr, R.drawable.strength, R.color.str),
-    DEXTERITY(Key.DEXTERITY, R.string.ability_dex, R.string.ability_dex_abbr, R.drawable.dexterity, R.color.dex),
-    CONSTITUTION(Key.CONSTITUTION, R.string.ability_con, R.string.ability_con_abbr, R.drawable.constitution, R.color
-            .con),
-    WISDOM(Key.WISDOM, R.string.ability_wis, R.string.ability_wis_abbr, R.drawable.wisdom, R.color.wis),
-    INTELLIGENCE(Key.INTELLIGENCE, R.string.ability_int, R.string.ability_int_abbr, R.drawable.intelligence, R.color
-            .intl),
-    CHARISMA(Key.CHARISMA, R.string.ability_cha, R.string.ability_cha_abbr, R.drawable.charisma, R.color.cha);
+    STRENGTH(Key.STRENGTH, Key.STRENGTH_TEMP, R.string.ability_str, R.string.ability_str_abbr, R.drawable.strength, R
+            .color.str),
+    DEXTERITY(Key.DEXTERITY, Key.DEXTERITY_TEMP, R.string.ability_dex, R.string.ability_dex_abbr, R.drawable
+            .dexterity, R.color.dex),
+    CONSTITUTION(Key.CONSTITUTION, Key.CONSTITUTION_TEMP, R.string.ability_con, R.string.ability_con_abbr, R.drawable
+            .constitution, R.color.con),
+    WISDOM(Key.WISDOM, Key.WISDOM_TEMP, R.string.ability_wis, R.string.ability_wis_abbr, R.drawable.wisdom, R.color
+            .wis),
+    INTELLIGENCE(Key.INTELLIGENCE, Key.INTELLIGENCE_TEMP, R.string.ability_int, R.string.ability_int_abbr, R.drawable
+            .intelligence, R.color.intl),
+    CHARISMA(Key.CHARISMA, Key.CHARISMA_TEMP, R.string.ability_cha, R.string.ability_cha_abbr, R.drawable.charisma, R
+            .color.cha);
 
     private Storage storage = new Storage();
 
     private final Key storageKey;
+    private final Key storageKeyTemp;
     private final String name;
     private final String abbreviation;
     private final int imageRes;
@@ -34,10 +39,12 @@ public enum Ability {
     private final int color;
 
     public final static int DEFAULT_VALUE = 10;
+    public final static int DEFAULT_VALUE_TEMP = 0;
 
-    Ability(Key storageKey, @StringRes int nameRes, @StringRes int abbreviationRes, @DrawableRes int imageRes,
-            @ColorRes int colorRes) {
+    Ability(Key storageKey, Key storageKeyTemp, @StringRes int nameRes, @StringRes int abbreviationRes, @DrawableRes
+            int imageRes, @ColorRes int colorRes) {
         this.storageKey = storageKey;
+        this.storageKeyTemp = storageKeyTemp;
         this.name = getString(nameRes);
         this.abbreviation = getString(abbreviationRes);
         this.imageRes = imageRes;
@@ -107,8 +114,20 @@ public enum Ability {
         return storage.loadAbility(storageKey);
     }
 
+    public void saveValueTemp(int valueTemp) {
+        storage.saveAbilityTemp(storageKeyTemp, valueTemp);
+    }
+
+    public int loadValueTemp() {
+        return storage.loadAbilityTemp(storageKeyTemp);
+    }
+
     private static String getString(@StringRes int stringRes) {
         return Res.getString(stringRes);
+    }
+
+    public boolean hasValueTemp() {
+        return loadValueTemp() != 0;
     }
 
     public static class OrderComparator implements Comparator<Ability> {

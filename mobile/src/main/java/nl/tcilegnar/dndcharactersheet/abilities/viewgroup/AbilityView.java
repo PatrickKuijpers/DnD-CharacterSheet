@@ -64,8 +64,6 @@ public class AbilityView extends LinearLayout implements OnClickListener, OnEdit
 
         abilityNumberEditor.setOnEditorActionListener(this);
         setOnClickListeners();
-
-        deactivateTempViews();
     }
 
     private void setOnClickListeners() {
@@ -81,22 +79,8 @@ public class AbilityView extends LinearLayout implements OnClickListener, OnEdit
         abilityImageview.setContentDescription(ability.getImageDescription());
         abilityAbbreviation.setText(ability.getAbbreviation());
 
-        updateValues(ability.loadValue());
-    }
-
-    private void updateValues(int value) {
-        abilityValue.setText(String.valueOf(value));
-        abilityNumberEditor.setValue(value);
-        abilityModifier.setText(getModifierText(value));
-    }
-
-    private String getModifierText(int value) {
-        int modifier = (value - 10) / 2;
-        String modifierText = String.valueOf(modifier);
-        if (modifier > 0) {
-            modifierText = "+" + modifierText;
-        }
-        return modifierText;
+        updateAbilityViews(ability.loadValue());
+        updateAbilityTempViews(ability.loadValueTemp());
     }
 
     private void setTextColor() {
@@ -115,7 +99,7 @@ public class AbilityView extends LinearLayout implements OnClickListener, OnEdit
             finishEdit();
         } else if (viewId == R.id.ability_icon_temp) {
             if (isTempActivated) {
-                deactivateTempViews();
+                updateAbilityTempValue(0);
             } else {
                 showDialog();
             }
@@ -138,37 +122,33 @@ public class AbilityView extends LinearLayout implements OnClickListener, OnEdit
     }
 
     private void finishEdit() {
-        saveAbilityValue();
+        updateAbilityValue();
         abilityValue.setVisibility(VISIBLE);
         abilityModifier.setVisibility(VISIBLE);
         abilityNumberEditor.setVisibility(INVISIBLE);
         abilitySaveButton.setVisibility(INVISIBLE);
     }
 
-    private void saveAbilityValue() {
-        abilityNumberEditor.validateInput();
+    private void updateAbilityValue() {
         int value = abilityNumberEditor.getNumberValue();
         ability.saveValue(value);
-        updateValues(value);
+        updateAbilityViews(value);
         KeyboardUtil.hideKeyboard(abilityNumberEditor);
     }
 
-    private void activateTempViews() {
-        isTempActivated = true;
-        abilityValueTemp.setVisibility(VISIBLE);
-        abilityModifierTemp.setVisibility(VISIBLE);
-        abilityValue.setAlpha(0.2F);
-        abilityModifier.setAlpha(0.2F);
-        abilityIconTemp.setAlpha(1F);
+    private void updateAbilityViews(int value) {
+        abilityValue.setText(String.valueOf(value));
+        abilityNumberEditor.setValue(value);
+        abilityModifier.setText(getModifierText(value));
     }
 
-    private void deactivateTempViews() {
-        isTempActivated = false;
-        abilityValueTemp.setVisibility(INVISIBLE);
-        abilityModifierTemp.setVisibility(INVISIBLE);
-        abilityValue.setAlpha(1F);
-        abilityModifier.setAlpha(1F);
-        abilityIconTemp.setAlpha(0.2F);
+    private String getModifierText(int value) {
+        int modifier = (value - 10) / 2;
+        String modifierText = String.valueOf(modifier);
+        if (modifier > 0) {
+            modifierText = "+" + modifierText;
+        }
+        return modifierText;
     }
 
     private void showDialog() {
@@ -183,16 +163,14 @@ public class AbilityView extends LinearLayout implements OnClickListener, OnEdit
         dialog.setPositiveButton(Res.getString(R.string.plus), new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int whichButton) {
                 int inputValue = Integer.valueOf(edittext.getText().toString());
-                changeTempAbility(inputValue);
-                activateTempViews();
+                updateAbilityTempValue(inputValue);
             }
         });
 
         dialog.setNegativeButton(Res.getString(R.string.min), new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int whichButton) {
                 int inputValue = Integer.valueOf(edittext.getText().toString());
-                changeTempAbility(-inputValue);
-                activateTempViews();
+                updateAbilityTempValue(-inputValue);
             }
         });
 
@@ -210,10 +188,38 @@ public class AbilityView extends LinearLayout implements OnClickListener, OnEdit
         return edittext;
     }
 
-    private void changeTempAbility(int inputValue) {
-        int tempAbilityValue = abilityNumberEditor.getNumberValue() + inputValue;
-        abilityValueTemp.setText(String.valueOf(tempAbilityValue));
-        abilityModifierTemp.setText(getModifierText(tempAbilityValue));
+    private void updateAbilityTempValue(int inputValue) {
+        ability.saveValueTemp(inputValue);
+        updateAbilityTempViews(inputValue);
+    }
+
+    private void updateAbilityTempViews(int tempValue) {
+        int tempAbilityValue = abilityNumberEditor.getNumberValue() + tempValue;
+        if (ability.hasValueTemp()) {
+            abilityValueTemp.setText(String.valueOf(tempAbilityValue));
+            abilityModifierTemp.setText(getModifierText(tempAbilityValue));
+            activateTempViews();
+        } else {
+            deactivateTempViews();
+        }
+    }
+
+    private void activateTempViews() {
+        isTempActivated = true;
+        abilityIconTemp.setImageResource(android.R.drawable.ic_delete);
+        abilityValueTemp.setVisibility(VISIBLE);
+        abilityModifierTemp.setVisibility(VISIBLE);
+        abilityValue.setAlpha(0.2F);
+        abilityModifier.setAlpha(0.2F);
+    }
+
+    private void deactivateTempViews() {
+        isTempActivated = false;
+        abilityIconTemp.setImageResource(R.drawable.ic_temp);
+        abilityValueTemp.setVisibility(INVISIBLE);
+        abilityModifierTemp.setVisibility(INVISIBLE);
+        abilityValue.setAlpha(1F);
+        abilityModifier.setAlpha(1F);
     }
 
     public Ability getAbility() {
