@@ -1,6 +1,7 @@
 package nl.tcilegnar.dndcharactersheet.Storage;
 
 import nl.tcilegnar.dndcharactersheet.Experience.Experience;
+import nl.tcilegnar.dndcharactersheet.Health.Hp;
 import nl.tcilegnar.dndcharactersheet.Level.Level;
 import nl.tcilegnar.dndcharactersheet.abilities.entities.Ability;
 import nl.tcilegnar.dndcharactersheet.characters.CurrentCharacter;
@@ -54,13 +55,14 @@ public class Storage extends SharedPrefs {
         INTELLIGENCE_TEMP(Ability.DEFAULT_VALUE_TEMP),
         CHARISMA_TEMP(Ability.DEFAULT_VALUE_TEMP),
 
+        TOTAL_HP(Hp.DEFAULT_TOTAL),
+        CURRENT_HP(Hp.DEFAULT_CURRENT),
+        TEMP_HP(Hp.DEFAULT_TEMP),
+
         PLATINUM(0),
         GOLD(0),
         SILVER(0),
-        BRONZE(0),
-        TOTAL_HP(0),
-        CURRENT_HP(0),
-        TEMP_HP(0);
+        BRONZE(0);
 
         public final String defaultValue;
 

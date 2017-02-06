@@ -16,6 +16,9 @@ public class Hp extends StorageObject {
     public static final int MINIMUM_CURRENT_DISABLED = 0;
     public static final int MINIMUM_CURRENT_DYING = -9;
     public static final int MINIMUM_CURRENT_DEAD = -DYING_HP;
+    public static final int DEFAULT_TOTAL = 10;
+    public static final int DEFAULT_CURRENT = 10;
+    public static final int DEFAULT_TEMP = 0;
 
     private int total = storage.loadTotalHp();
     private int current = storage.loadCurrentHp();

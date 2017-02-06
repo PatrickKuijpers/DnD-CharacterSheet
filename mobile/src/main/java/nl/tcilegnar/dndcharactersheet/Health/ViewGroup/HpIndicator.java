@@ -7,6 +7,7 @@ import android.support.annotation.ColorInt;
 import android.support.annotation.VisibleForTesting;
 import android.util.AttributeSet;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -25,9 +26,13 @@ public class HpIndicator extends LinearLayout implements OnClickListener {
     private TextView totalHpLabel;
     private TextView totalHpValue;
     private TextView currentHpValue;
-    private TextView tempHpValue;
     private ProgressBar currentHpProgressBar;
+
+    private View tempHpDummyView;
+    private TextView tempHpValue;
     private ProgressBar tempHpProgressBar;
+    private ImageView tempHpIcon;
+
     private TextView healthStateValue;
     private HpFragment changeHpValueCall;
 
@@ -51,9 +56,13 @@ public class HpIndicator extends LinearLayout implements OnClickListener {
         totalHpLabel = (TextView) findViewById(R.id.total_hp_label);
         totalHpValue = (TextView) findViewById(R.id.total_hp_value);
         currentHpValue = (TextView) findViewById(R.id.current_hp_value);
-        tempHpValue = (TextView) findViewById(R.id.temp_hp_value);
         currentHpProgressBar = (ProgressBar) findViewById(R.id.current_hp_progress);
+
+        tempHpDummyView = findViewById(R.id.total_hp_value_dummy_height);
+        tempHpValue = (TextView) findViewById(R.id.temp_hp_value);
         tempHpProgressBar = (ProgressBar) findViewById(R.id.temp_hp_progress);
+        tempHpIcon = (ImageView) findViewById(R.id.temp_hp_icon);
+
         healthStateValue = (TextView) findViewById(R.id.current_health_state);
         updateHpValues();
 
@@ -61,6 +70,7 @@ public class HpIndicator extends LinearLayout implements OnClickListener {
         totalHpValue.setOnClickListener(this);
         currentHpValue.setOnClickListener(this);
         tempHpValue.setOnClickListener(this);
+        tempHpIcon.setOnClickListener(this);
     }
 
     private void updateHpValues() {
@@ -88,12 +98,24 @@ public class HpIndicator extends LinearLayout implements OnClickListener {
         tempHpProgressBar.setProgress(tempHp);
 
         if (tempHp > 0) {
-            tempHpValue.setVisibility(VISIBLE);
-            tempHpProgressBar.setVisibility(VISIBLE);
+            showTempHpViews();
         } else {
-            tempHpValue.setVisibility(INVISIBLE);
-            tempHpProgressBar.setVisibility(INVISIBLE);
+            hideTempHpViews();
         }
+    }
+
+    private void showTempHpViews() {
+        tempHpDummyView.setVisibility(VISIBLE);
+        tempHpValue.setVisibility(VISIBLE);
+        tempHpProgressBar.setVisibility(VISIBLE);
+        tempHpIcon.setVisibility(GONE);
+    }
+
+    private void hideTempHpViews() {
+        tempHpDummyView.setVisibility(GONE);
+        tempHpValue.setVisibility(GONE);
+        tempHpProgressBar.setVisibility(GONE);
+        tempHpIcon.setVisibility(VISIBLE);
     }
 
     private void updateCurrentHpProgressBar(int totalHp, int currentHp) {
@@ -151,9 +173,9 @@ public class HpIndicator extends LinearLayout implements OnClickListener {
     @Override
     public void onClick(View clickedView) {
         int id = clickedView.getId();
+        TextView viewWithValueToChange = getViewWithValueToChange(clickedView, id);
         if (id == R.id.total_hp_label || id == R.id.total_hp_value || id == R.id.current_hp_value || id == R.id
-                .temp_hp_value) {
-            TextView viewWithValueToChange = getViewWithValueToChange(clickedView, id);
+                .temp_hp_value || id == R.id.temp_hp_icon) {
             changeHpValueCall.showDialog(viewWithValueToChange);
         }
     }
@@ -162,6 +184,8 @@ public class HpIndicator extends LinearLayout implements OnClickListener {
         View viewWithValueToChange = clickedView;
         if (id == R.id.total_hp_label) {
             viewWithValueToChange = findViewById(R.id.total_hp_value);
+        } else if (id == R.id.temp_hp_icon) {
+            viewWithValueToChange = findViewById(R.id.temp_hp_value);
         }
         return (TextView) viewWithValueToChange;
     }

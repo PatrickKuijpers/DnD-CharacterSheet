@@ -63,7 +63,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/textsize_very_big"
-                android:visibility="invisible"/>
+                android:visibility="gone"/>
 
             <ProgressBar
                 android:id="@+id/temp_hp_progress"
@@ -71,7 +71,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/horizontal_margin"
-                android:visibility="invisible"/>
+                android:visibility="gone"/>
 
             <TextView
                 android:id="@+id/temp_hp_value"
@@ -81,7 +81,15 @@
                 android:gravity="center"
                 android:textColor="@color/grey_medium"
                 android:textSize="@dimen/textsize_normal"
-                android:visibility="invisible"/>
+                android:visibility="gone"/>
+
+            <ImageView
+                android:id="@+id/temp_hp_icon"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_temp"
+                android:visibility="visible"/>
         </LinearLayout>
     </LinearLayout>
 
