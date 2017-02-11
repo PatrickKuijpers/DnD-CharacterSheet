@@ -18,9 +18,10 @@ import nl.tcilegnar.dndcharactersheet.characters.DnDCharacter;
 import static android.support.design.widget.NavigationView.OnNavigationItemSelectedListener;
 
 public enum DrawerMenu implements OnNavigationItemSelectedListener {
-    INSTANCE;
+    INSTANCE; // TODO: memory leak & elke activity start nog steeds alles opnieuw via init!
 
     private static final int CHARACTERS_GROUP_ID = 999;
+
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
     private ActionBarDrawerToggle drawerToggle;
@@ -34,6 +35,7 @@ public enum DrawerMenu implements OnNavigationItemSelectedListener {
 
         drawerToggle = new ActionBarDrawerToggle(activity, drawerLayout, toolbar, R.string
                 .content_description_navigation_drawer_open, R.string.content_description_navigation_drawer_close);
+
         drawerLayout.addDrawerListener(drawerToggle);
         syncState();
 
