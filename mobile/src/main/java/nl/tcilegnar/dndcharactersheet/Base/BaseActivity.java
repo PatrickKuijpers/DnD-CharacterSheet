@@ -15,8 +15,9 @@ import nl.tcilegnar.dndcharactersheet.Base.Settings.SettingsActivity;
 import nl.tcilegnar.dndcharactersheet.DrawerMenu;
 import nl.tcilegnar.dndcharactersheet.FragmentManager;
 import nl.tcilegnar.dndcharactersheet.R;
+import nl.tcilegnar.dndcharactersheet.characters.settings.CharacterSettings;
 
-public abstract class BaseActivity extends AppCompatActivity {
+public abstract class BaseActivity extends AppCompatActivity implements DrawerMenu.DrawerItemSelectedListener {
     protected final String LOGTAG = getClass().getSimpleName();
 
     protected FragmentManager fragmentManager = new FragmentManager(this);
@@ -31,9 +32,10 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_default);
-        initToolBar();
 
         if (savedInstanceState == null) {
+            initToolBar();
+
             BaseFragment firstFragment = getFirstFragment();
             fragmentManager.addFirstFragment(firstFragment);
         }
@@ -81,7 +83,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case android.R.id.home:
                 // TODO: werkt niet!
-                DrawerMenu.INSTANCE.onDrawerIconClicked();
+                DrawerMenu.INSTANCE.onDrawerIconClicked(this);
                 handled = true;
                 break;
             case R.id.action_settings:
@@ -133,5 +135,20 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     protected void onLeaveThisActivity() {
         overridePendingTransition(R.anim.enter_from_left, R.anim.exit_to_right);
+    }
+
+    @Override
+    public void onAddCharacter() {
+        CharacterSettings.getInstance().addCharacter(this);
+    }
+
+    @Override
+    public void onDeleteCharacter() {
+        CharacterSettings.getInstance().deleteCharacter(this);
+    }
+
+    @Override
+    public void onSwitchCharacter(String characterId) {
+        CharacterSettings.getInstance().switchCharacter(characterId);
     }
 }

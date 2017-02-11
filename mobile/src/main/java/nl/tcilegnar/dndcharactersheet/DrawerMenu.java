@@ -14,7 +14,6 @@ import nl.tcilegnar.dndcharactersheet.Base.BaseActivity;
 import nl.tcilegnar.dndcharactersheet.characters.CharacterList;
 import nl.tcilegnar.dndcharactersheet.characters.CurrentCharacter;
 import nl.tcilegnar.dndcharactersheet.characters.DnDCharacter;
-import nl.tcilegnar.dndcharactersheet.characters.settings.CharacterSettings;
 
 import static android.support.design.widget.NavigationView.OnNavigationItemSelectedListener;
 
@@ -22,13 +21,13 @@ public enum DrawerMenu implements OnNavigationItemSelectedListener {
     INSTANCE;
 
     private static final int CHARACTERS_GROUP_ID = 999;
-    private BaseActivity activity;
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
     private ActionBarDrawerToggle drawerToggle;
+    private DrawerItemSelectedListener drawerItemSelectedListener;
 
-    public void init(BaseActivity baseActivity, Toolbar toolbar) {
-        this.activity = baseActivity;
+    public void init(BaseActivity activity, Toolbar toolbar) {
+        drawerItemSelectedListener = activity;
 
         navigationView = (NavigationView) activity.findViewById(R.id.nav_view);
         drawerLayout = (DrawerLayout) activity.findViewById(R.id.drawer_layout);
@@ -36,25 +35,31 @@ public enum DrawerMenu implements OnNavigationItemSelectedListener {
         drawerToggle = new ActionBarDrawerToggle(activity, drawerLayout, toolbar, R.string
                 .content_description_navigation_drawer_open, R.string.content_description_navigation_drawer_close);
         drawerLayout.addDrawerListener(drawerToggle);
-        drawerToggle.syncState();
+        syncState();
 
-        initNavigationView();
+        initNavigationMenu();
     }
 
-    private void initNavigationView() {
+    private void initNavigationMenu() {
         Menu menu = navigationView.getMenu();
         for (DnDCharacter character : CharacterList.INSTANCE.getCharacters()) {
-            String characterId = character.getId();
-            String characterName = character.getName();
-            MenuItem item = menu.add(CHARACTERS_GROUP_ID, Integer.valueOf(characterId), Menu.NONE, characterName);
+            int menuGroupId = CHARACTERS_GROUP_ID;
+            int menuItemId = getCharacterId(character);
+            String menuItemTitle = character.getName();
+            MenuItem item = menu.add(menuGroupId, menuItemId, Menu.NONE, menuItemTitle);
             item.setCheckable(true);
         }
         selectCurrentCharacter();
         navigationView.setNavigationItemSelectedListener(this);
     }
 
+    private int getCharacterId(DnDCharacter character) {
+        return Integer.valueOf(character.getId());
+    }
+
     private void selectCurrentCharacter() {
-        MenuItem menuItem = navigationView.getMenu().findItem(Integer.valueOf(CurrentCharacter.DnDCharacter().getId()));
+        Integer drawerMenuItemId = getCharacterId(CurrentCharacter.DnDCharacter());
+        MenuItem menuItem = navigationView.getMenu().findItem(drawerMenuItemId);
         menuItem.setChecked(true);
     }
 
@@ -63,14 +68,13 @@ public enum DrawerMenu implements OnNavigationItemSelectedListener {
         int itemId = item.getItemId();
         int groupId = item.getGroupId();
 
-        CharacterSettings characterSettings = CharacterSettings.getInstance();
         if (itemId == R.id.character_add) {
-            characterSettings.addCharacter(activity);
+            drawerItemSelectedListener.onAddCharacter();
         } else if (itemId == R.id.character_delete) {
-            characterSettings.deleteCharacter(activity);
+            drawerItemSelectedListener.onDeleteCharacter();
         } else if (groupId == CHARACTERS_GROUP_ID) {
             String characterId = String.valueOf(itemId);
-            characterSettings.switchCharacter(characterId);
+            drawerItemSelectedListener.onSwitchCharacter(characterId);
         }
 
         drawerLayout.closeDrawer(GravityCompat.START);
@@ -94,7 +98,7 @@ public enum DrawerMenu implements OnNavigationItemSelectedListener {
         drawerToggle.onConfigurationChanged(newConfig);
     }
 
-    public void onDrawerIconClicked() {
+    public void onDrawerIconClicked(BaseActivity activity) {
         //if (drawerToggle.onOptionsItemSelected(item)) {
         //    return true;
         //}
@@ -110,5 +114,13 @@ public enum DrawerMenu implements OnNavigationItemSelectedListener {
             // Als de drawerLayout-icon niet enabled is, dan is deze waarschijnlijk (momenteel) een terug-knop
             activity.onBackPressed();
         }
+    }
+
+    public interface DrawerItemSelectedListener {
+        void onAddCharacter();
+
+        void onDeleteCharacter();
+
+        void onSwitchCharacter(String characterId);
     }
 }
