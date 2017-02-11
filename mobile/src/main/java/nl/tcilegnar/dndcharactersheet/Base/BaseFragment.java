@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
 import nl.tcilegnar.dndcharactersheet.Base.Settings.Settings;
@@ -30,14 +31,14 @@ public abstract class BaseFragment extends Fragment {
     }
 
     private void setDrawerIcon() {
-        ActionBar supportActionBar = ((BaseActivity) getActivity()).getSupportActionBar();
+        ActionBar supportActionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
         if (supportActionBar != null) {
             handleDrawerIcon(supportActionBar);
         }
     }
 
     protected void setActivityTitle() {
-        ActionBar supportActionBar = ((BaseActivity) getActivity()).getSupportActionBar();
+        ActionBar supportActionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
         if (supportActionBar != null) {
             supportActionBar.setTitle(getTitle());
         }
@@ -49,7 +50,7 @@ public abstract class BaseFragment extends Fragment {
 
     private void handleDrawerIcon(ActionBar supportActionBar) {
         if (shouldShowHomeAsBack()) {
-            supportActionBar.setHomeButtonEnabled(true);
+            supportActionBar.setHomeButtonEnabled(false);
             supportActionBar.setDisplayHomeAsUpEnabled(true);
         }
     }

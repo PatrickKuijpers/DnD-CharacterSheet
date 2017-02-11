@@ -1,14 +1,10 @@
 package nl.tcilegnar.dndcharactersheet.Base;
 
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.design.widget.NavigationView;
-import android.support.design.widget.NavigationView.OnNavigationItemSelectedListener;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -16,20 +12,20 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 
 import nl.tcilegnar.dndcharactersheet.Base.Settings.SettingsActivity;
+import nl.tcilegnar.dndcharactersheet.DrawerMenu;
 import nl.tcilegnar.dndcharactersheet.FragmentManager;
 import nl.tcilegnar.dndcharactersheet.R;
-import nl.tcilegnar.dndcharactersheet.Storage.Storage;
-import nl.tcilegnar.dndcharactersheet.characters.CharacterList;
-import nl.tcilegnar.dndcharactersheet.characters.CurrentCharacter;
-import nl.tcilegnar.dndcharactersheet.characters.DnDCharacter;
-import nl.tcilegnar.dndcharactersheet.characters.settings.CharacterSettings;
 
-public abstract class BaseActivity extends AppCompatActivity implements OnNavigationItemSelectedListener {
+public abstract class BaseActivity extends AppCompatActivity {
     protected final String LOGTAG = getClass().getSimpleName();
 
-    private static final int CHARACTERS_GROUP_ID = 999;
-
     protected FragmentManager fragmentManager = new FragmentManager(this);
+
+    @NonNull
+    protected abstract BaseFragment getFirstFragment();
+
+    @Nullable
+    protected abstract Class<? extends SettingsActivity> getSettingsActivityClass();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,63 +39,23 @@ public abstract class BaseActivity extends AppCompatActivity implements OnNaviga
         }
     }
 
-    @NonNull
-    protected abstract BaseFragment getFirstFragment();
-
     private void initToolBar() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        initDrawerMenu(toolbar);
-    }
-
-    private void initDrawerMenu(Toolbar toolbar) {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string
-                .content_description_navigation_drawer_open, R.string.content_description_navigation_drawer_close);
-        drawer.addDrawerListener(toggle);
-        toggle.syncState();
-
-        initNavigationView();
-    }
-
-    private void initNavigationView() {
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        Menu menu = navigationView.getMenu();
-        for (DnDCharacter character : CharacterList.INSTANCE.getCharacters()) {
-            String characterId = character.getId();
-            String characterName = character.getName();
-            MenuItem item = menu.add(CHARACTERS_GROUP_ID, Integer.valueOf(characterId), Menu.NONE, characterName);
-            item.setCheckable(true);
-        }
-        selectCurrentCharacter();
-        navigationView.setNavigationItemSelectedListener(this);
-    }
-
-    private void selectCurrentCharacter() {
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        MenuItem menuItem = navigationView.getMenu().findItem(Integer.valueOf(CurrentCharacter.DnDCharacter().getId()));
-        menuItem.setChecked(true);
+        DrawerMenu.INSTANCE.init(this, toolbar);
     }
 
     @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        int itemId = item.getItemId();
-        int groupId = item.getGroupId();
+    protected void onPostCreate(Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+        DrawerMenu.INSTANCE.syncState();
+    }
 
-        CharacterSettings characterSettings = CharacterSettings.getInstance();
-        if (itemId == R.id.character_add) {
-            characterSettings.addCharacter(this);
-        } else if (itemId == R.id.character_delete) {
-            characterSettings.deleteCharacter(this);
-        } else if (groupId == CHARACTERS_GROUP_ID) {
-            String characterId = String.valueOf(itemId);
-            characterSettings.switchCharacter(characterId);
-        }
-
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
-        return true;
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        DrawerMenu.INSTANCE.onConfigurationChanged(newConfig);
     }
 
     @Override
@@ -116,17 +72,24 @@ public abstract class BaseActivity extends AppCompatActivity implements OnNaviga
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        boolean handled = false;
+
+        // TODO: if the toolbar is added to the ActionBarDrawerToggle constructor, only then:
         // Handle action bar item clicks here. The action bar will automatically handle clicks on the Home/Up button,
         // so long as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            startSettingsActivity();
-            return true;
+        // TODO: if above not applies, then:
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                // TODO: werkt niet!
+                DrawerMenu.INSTANCE.onDrawerIconClicked();
+                handled = true;
+                break;
+            case R.id.action_settings:
+                startSettingsActivity();
+                handled = true;
+                break;
         }
-
-        return super.onOptionsItemSelected(item);
+        return handled;
     }
 
     private void startSettingsActivity() {
@@ -136,9 +99,6 @@ public abstract class BaseActivity extends AppCompatActivity implements OnNaviga
             startActivity(settingsActivity);
         }
     }
-
-    @Nullable
-    protected abstract Class<? extends SettingsActivity> getSettingsActivityClass();
 
     @Override
     public void startActivity(Intent intent) {
@@ -158,9 +118,8 @@ public abstract class BaseActivity extends AppCompatActivity implements OnNaviga
 
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
+        if (DrawerMenu.INSTANCE.closeDrawer()) {
+            return;
         } else {
             super.onBackPressed();
         }
