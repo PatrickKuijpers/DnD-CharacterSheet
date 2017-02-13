@@ -1,13 +1,17 @@
 package nl.tcilegnar.dndcharactersheet.Storage;
 
+import java.io.File;
+
 import nl.tcilegnar.dndcharactersheet.Experience.Experience;
 import nl.tcilegnar.dndcharactersheet.Health.Hp;
 import nl.tcilegnar.dndcharactersheet.Level.Level;
+import nl.tcilegnar.dndcharactersheet.Utils.Log;
 import nl.tcilegnar.dndcharactersheet.abilities.entities.Ability;
 import nl.tcilegnar.dndcharactersheet.characters.CurrentCharacter;
 import nl.tcilegnar.dndcharactersheet.characters.DnDCharacter;
 
 public class Storage extends SharedPrefs {
+    //    protected static final String FILE_NAME_PREFIX = "Character";
 
     protected final String characterId;
 
@@ -19,9 +23,38 @@ public class Storage extends SharedPrefs {
         this.characterId = characterId;
     }
 
+    public void clearAll() {
+        Log.d("SharedPrefs", "===========================");
+        Log.d("SharedPrefs", "=== clearAll from " + fileName() + " ===");
+        for (String fileName : getAllPrefFiles()) {
+            if (fileName.contains(fileName())) {
+                Log.i("SharedPrefs", "Delete " + fileName);
+
+                String prefFileName = getFileNameWithoutExtension(fileName, ".xml");
+                Storage storage = new Storage(prefFileName);
+                storage.clear();
+
+                String filePath = getPrefsDir() + "/" + fileName;
+                Log.d("SharedPrefs", "filePath " + filePath);
+                boolean isDeleted = new File(filePath).delete();
+                if (isDeleted) {
+                    Log.d("SharedPrefs", "Successfully deleted " + fileName); // TODO: werkt niet echt?
+                } else {
+                    Log.w("SharedPrefs", "Did not delete " + fileName);
+                }
+            }
+        }
+        Log.d("SharedPrefs", "=== End clearAll ===");
+        Log.d("SharedPrefs", "====================");
+    }
+
     @Override
     protected String fileName() {
-        return characterId;
+        return characterId + getFileNameSuffix();
+    }
+
+    protected String getFileNameSuffix() {
+        return "";
     }
 
     public enum Key {

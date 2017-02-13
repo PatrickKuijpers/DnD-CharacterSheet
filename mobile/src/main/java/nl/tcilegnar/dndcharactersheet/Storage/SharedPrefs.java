@@ -4,8 +4,10 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.preference.PreferenceManager;
+import android.support.annotation.NonNull;
 import android.support.annotation.StringRes;
 
+import java.io.File;
 import java.util.Map;
 import java.util.Set;
 
@@ -135,28 +137,67 @@ public abstract class SharedPrefs {
     }
 
     public void print() {
-        // stackoverflow.com/questions/14580085/android-how-to-get-list-of-all-preference-xmls-for-my-app-and-read-them
-        Log.i("TEST", "--- defaultPrefs ---");
+        Log.d("SharedPrefs", "================================");
+        Log.d("SharedPrefs", "=== Printing all preferences ===");
+        Log.d("SharedPrefs", "=== defaultPrefs ===");
         printPrefs(PreferenceManager.getDefaultSharedPreferences(App.getContext()).getAll());
-        Log.i("TEST", "--- extendedSharedPrefs_old ---");
+        Log.d("SharedPrefs", "=== extendedSharedPrefs_old ===");
         printPrefs(App.getContext().getSharedPreferences(null, MODE).getAll());
-        Log.i("TEST", "--- 10001 ---");
-        SharedPreferences settings1 = App.getContext().getSharedPreferences("10001", MODE);
-        printPrefs(settings1.getAll());
-        Log.i("TEST", "--- 10002 ---");
-        SharedPreferences settings2 = App.getContext().getSharedPreferences("10002", MODE);
-        printPrefs(settings2.getAll());
-        Log.i("TEST", "--- 10003 ---");
-        SharedPreferences settings3 = App.getContext().getSharedPreferences("10003", MODE);
-        printPrefs(settings3.getAll());
-        Log.i("TEST", "--- ExperienceSettings ---");
+
+        Log.d("SharedPrefs", "=== ExperienceSettings ===");
         SharedPreferences experienceSettings = App.getContext().getSharedPreferences("ExperienceSettings", MODE);
         printPrefs(experienceSettings.getAll()); // TODO: worden ook in default prefs opgeslagen?
+        Log.d("SharedPrefs", "! Also saved in default prefs!?!?!");
+
+        Log.d("SharedPrefs", "=== All prefs files ===");
+        for (String prefFileName : getAllPrefFiles()) {
+            if (prefFileName.contains(fileName())) {
+                Log.i("SharedPrefs", "Current character: " + prefFileName);
+                prefFileName = getFileNameWithoutExtension(prefFileName, ".xml");
+                printPrefs(App.getContext().getSharedPreferences(prefFileName, MODE).getAll());
+            } else {
+                Log.d("SharedPrefs", prefFileName);
+            }
+        }
+        Log.d("SharedPrefs", "=== End printing ===");
+        Log.d("SharedPrefs", "====================");
     }
 
-    private void printPrefs(Map<String, ?> keys) {
+    protected void printPrefs(Map<String, ?> keys) {
         for (Map.Entry<String, ?> entry : keys.entrySet()) {
-            Log.d("TEST", entry.getKey() + ": " + entry.getValue().toString());
+            Log.d("SharedPrefs", "- " + entry.getKey() + ": " + entry.getValue().toString());
         }
+    }
+
+    @NonNull
+    protected String[] getAllPrefFiles() {
+        File prefsdir = getPrefsDir();
+        if (prefsdir.exists() && prefsdir.isDirectory()) {
+            return prefsdir.list();
+        }
+        return new String[]{};
+    }
+
+    @NonNull
+    protected File getPrefsDir() {
+        return new File(App.getContext().getApplicationInfo().dataDir, "shared_prefs");
+    }
+
+    @NonNull
+    protected String getFileNameWithoutExtension(String prefFileName, String extension) {
+        int position = prefFileName.lastIndexOf(extension);
+        if (position != -1) {
+            prefFileName = prefFileName.substring(0, position);
+        } else {
+            Log.w("SharedPrefs", "Extension: " + extension + " not found");
+        }
+        return prefFileName;
+    }
+
+    protected void clear() {
+        Map<String, ?> allPrefs = getPrefs().getAll();
+        Log.d("SharedPrefs", "clearing " + fileName() + " (" + allPrefs.size() + " prefs):");
+        printPrefs(allPrefs);
+        getPrefs().edit().clear().apply();
     }
 }

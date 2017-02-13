@@ -14,6 +14,7 @@ import nl.tcilegnar.dndcharactersheet.App;
 import nl.tcilegnar.dndcharactersheet.R;
 import nl.tcilegnar.dndcharactersheet.Storage.BasicCharacterInfo;
 import nl.tcilegnar.dndcharactersheet.Storage.SharedPrefs;
+import nl.tcilegnar.dndcharactersheet.Storage.Storage;
 import nl.tcilegnar.dndcharactersheet.Utils.Res;
 import nl.tcilegnar.dndcharactersheet.characters.CurrentCharacter;
 import nl.tcilegnar.dndcharactersheet.characters.DnDCharacter;
@@ -133,6 +134,8 @@ public class CharacterSettings extends SharedPrefs {
         TreeSet<String> currentCharacterIds = loadCharacterIds();
         currentCharacterIds.remove(characterId);
         saveCharacterIds(currentCharacterIds);
+
+        new Storage(characterId).clearAll();
 
         boolean isActiveCharacterRemoved = characterId.equals(loadCurrentCharacterId());
         if (isActiveCharacterRemoved) {

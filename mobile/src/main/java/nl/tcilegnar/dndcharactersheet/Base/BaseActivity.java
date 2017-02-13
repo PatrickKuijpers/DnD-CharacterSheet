@@ -15,6 +15,7 @@ import nl.tcilegnar.dndcharactersheet.Base.Settings.SettingsActivity;
 import nl.tcilegnar.dndcharactersheet.DrawerMenu;
 import nl.tcilegnar.dndcharactersheet.FragmentManager;
 import nl.tcilegnar.dndcharactersheet.R;
+import nl.tcilegnar.dndcharactersheet.Storage.Storage;
 import nl.tcilegnar.dndcharactersheet.characters.settings.CharacterSettings;
 
 public abstract class BaseActivity extends AppCompatActivity implements DrawerMenu.DrawerItemSelectedListener {

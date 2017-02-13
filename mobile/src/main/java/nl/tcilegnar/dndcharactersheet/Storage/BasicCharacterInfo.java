@@ -1,8 +1,6 @@
 package nl.tcilegnar.dndcharactersheet.Storage;
 
 public class BasicCharacterInfo extends Storage {
-    private static final String FILE_NAME_EXTENSION = "_BasicCharacterInfo";
-
     public BasicCharacterInfo() {
         super();
     }
@@ -11,9 +9,8 @@ public class BasicCharacterInfo extends Storage {
         super(characterId);
     }
 
-    @Override
-    protected String fileName() {
-        return characterId + FILE_NAME_EXTENSION;
+    protected String getFileNameSuffix() {
+        return "_BasicCharacterInfo";
     }
 
     public void saveName(String value) {
