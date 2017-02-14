@@ -37,7 +37,6 @@ public enum DrawerMenu implements OnNavigationItemSelectedListener {
                 .content_description_navigation_drawer_open, R.string.content_description_navigation_drawer_close);
 
         drawerLayout.addDrawerListener(drawerToggle);
-        syncState();
 
         initNavigationMenu();
     }

@@ -130,9 +130,10 @@ public class AbilityView extends LinearLayout implements OnClickListener, OnEdit
     }
 
     private void updateAbilityValue() {
-        int value = abilityNumberEditor.getNumberValue();
-        ability.saveValue(value);
-        updateAbilityViews(value);
+        int newAbilityValue = abilityNumberEditor.getNumberValue();
+        ability.saveValue(newAbilityValue);
+        updateAbilityViews(newAbilityValue);
+        updateAbilityTempValue(ability.loadValueTemp());
         KeyboardUtil.hideKeyboard(abilityNumberEditor);
     }
 
@@ -162,15 +163,21 @@ public class AbilityView extends LinearLayout implements OnClickListener, OnEdit
 
         dialog.setPositiveButton(Res.getString(R.string.plus), new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int whichButton) {
-                int inputValue = Integer.valueOf(edittext.getText().toString());
-                updateAbilityTempValue(inputValue);
+                String inputString = edittext.getText().toString();
+                if (inputString.length() > 0) {
+                    int inputValue = Integer.valueOf(inputString);
+                    updateAbilityTempValue(inputValue);
+                }
             }
         });
 
         dialog.setNegativeButton(Res.getString(R.string.min), new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int whichButton) {
-                int inputValue = Integer.valueOf(edittext.getText().toString());
-                updateAbilityTempValue(-inputValue);
+                String inputString = edittext.getText().toString();
+                if (inputString.length() > 0) {
+                    int inputValue = Integer.valueOf(inputString);
+                    updateAbilityTempValue(-inputValue);
+                }
             }
         });
 
