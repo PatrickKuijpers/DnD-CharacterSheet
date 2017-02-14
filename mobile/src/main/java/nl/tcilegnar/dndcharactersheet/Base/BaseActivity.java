@@ -33,9 +33,9 @@ public abstract class BaseActivity extends AppCompatActivity implements DrawerMe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_default);
 
-        if (savedInstanceState == null) {
-            initToolBar();
+        initToolBar();
 
+        if (savedInstanceState == null) {
             BaseFragment firstFragment = getFirstFragment();
             fragmentManager.addFirstFragment(firstFragment);
         }
