@@ -73,22 +73,19 @@ public class HpFragment extends BaseStorageFragment {
         if (changeCurrentHp) {
             dialog.setPositiveButton(Res.getString(R.string.plus), new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int whichButton) {
-                    int newValue = Integer.valueOf(edittext.getText().toString());
-                    hpIndicator.setNewHpValue(newValue, viewId);
+                    hpIndicator.setNewHpValue(getInputNumber(edittext), viewId);
                 }
             });
 
             dialog.setNegativeButton(Res.getString(R.string.min), new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int whichButton) {
-                    int newValue = Integer.valueOf(edittext.getText().toString());
-                    hpIndicator.setNewHpValue(-newValue, viewId);
+                    hpIndicator.setNewHpValue(-getInputNumber(edittext), viewId);
                 }
             });
         } else {
             dialog.setPositiveButton(Res.getString(R.string.ok), new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int whichButton) {
-                    int newValue = Integer.valueOf(edittext.getText().toString());
-                    hpIndicator.setNewHpValue(newValue, viewId);
+                    hpIndicator.setNewHpValue(getInputNumber(edittext), viewId);
                 }
             });
         }
@@ -109,6 +106,15 @@ public class HpFragment extends BaseStorageFragment {
             edittext.setSelection(value.length());
         }
         return edittext;
+    }
+
+    private int getInputNumber(EditText edittext) {
+        String stringValue = edittext.getText().toString();
+        if (stringValue.length() > 0) {
+            return Integer.valueOf(stringValue);
+        } else {
+            return 0;
+        }
     }
 
     private String getHpTypeToChange(int viewId) {
