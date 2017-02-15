@@ -30,13 +30,14 @@ public class HpIndicator extends LinearLayout implements OnClickListener {
     private TextView currentHpValue;
     private ProgressBar currentHpProgressBar;
 
-    private View tempHpDummyView;
     private TextView tempHpValue;
     private ProgressBar tempHpProgressBar;
     private ImageView tempHpIcon;
 
     private TextView healthStateValue;
     private HpFragment changeHpValueCall;
+
+    private boolean isTempActivated;
 
     public enum HpType {
         TotalHp(R.string.total_hp), CurrentHp(R.string.current_hp), TempHp(R.string.temp_hp);
@@ -75,7 +76,6 @@ public class HpIndicator extends LinearLayout implements OnClickListener {
         currentHpValue = (TextView) findViewById(R.id.current_hp_value);
         currentHpProgressBar = (ProgressBar) findViewById(R.id.current_hp_progress);
 
-        tempHpDummyView = findViewById(R.id.total_hp_value_dummy_height);
         tempHpValue = (TextView) findViewById(R.id.temp_hp_value);
         tempHpProgressBar = (ProgressBar) findViewById(R.id.temp_hp_progress);
         tempHpIcon = (ImageView) findViewById(R.id.temp_hp_icon);
@@ -115,24 +115,24 @@ public class HpIndicator extends LinearLayout implements OnClickListener {
         tempHpProgressBar.setProgress(tempHp);
 
         if (tempHp > 0) {
-            showTempHpViews();
+            activateTempHpViews();
         } else {
-            hideTempHpViews();
+            deactivateTempHpViews();
         }
     }
 
-    private void showTempHpViews() {
-        tempHpDummyView.setVisibility(VISIBLE);
+    private void activateTempHpViews() {
+        isTempActivated = true;
         tempHpValue.setVisibility(VISIBLE);
         tempHpProgressBar.setVisibility(VISIBLE);
-        tempHpIcon.setVisibility(GONE);
+        tempHpIcon.setImageResource(android.R.drawable.ic_delete);
     }
 
-    private void hideTempHpViews() {
-        tempHpDummyView.setVisibility(GONE);
+    private void deactivateTempHpViews() {
+        isTempActivated = false;
         tempHpValue.setVisibility(GONE);
         tempHpProgressBar.setVisibility(GONE);
-        tempHpIcon.setVisibility(VISIBLE);
+        tempHpIcon.setImageResource(R.drawable.ic_temp);
     }
 
     private void updateCurrentHpProgressBar(int totalHp, int currentHp) {
@@ -191,11 +191,21 @@ public class HpIndicator extends LinearLayout implements OnClickListener {
         int id = clickedView.getId();
         TextView viewWithValueToChange = getViewWithValueToChange(clickedView, id);
         if (id == R.id.total_hp_label || id == R.id.total_hp_value || id == R.id.current_hp_value || id == R.id
-                .temp_hp_value || id == R.id.temp_hp_icon) {
-            String value = viewWithValueToChange.getText().toString();
-            HpType hpType = getHpTypeToChange(viewWithValueToChange.getId());
-            changeHpValueCall.showDialog(value, hpType);
+                .temp_hp_value) {
+            showDialog(viewWithValueToChange);
+        } else if (id == R.id.temp_hp_icon) {
+            if (isTempActivated) {
+                setNewHpValue(0, HpType.TempHp);
+            } else {
+                showDialog(viewWithValueToChange);
+            }
         }
+    }
+
+    private void showDialog(TextView viewWithValueToChange) {
+        String value = viewWithValueToChange.getText().toString();
+        HpType hpType = getHpTypeToChange(viewWithValueToChange.getId());
+        changeHpValueCall.showDialog(value, hpType);
     }
 
     private TextView getViewWithValueToChange(View clickedView, int id) {
