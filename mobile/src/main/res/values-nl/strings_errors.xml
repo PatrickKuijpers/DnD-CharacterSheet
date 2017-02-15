@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="unexpected_error">Onverwachte fout</string>
+
     <string name="exp_too_low_exception">Level verlagen is niet toegestaan</string>
     <string name="min_level_reached_exception">Minimum level bereikt:&#160;</string>
     <string name="max_level_reached_exception">Maximum level bereikt:&#160;</string>
@@ -13,4 +15,7 @@
 
     <string name="max_money_reached_exception">Het geld is niet toegevoegd omdat de maximum waarde is bereikt: %1$s Platinum. In een nieuwere versie van de app zal dit maximum verhoogd worden!</string>
     <string name="not_enough_money_exception">Je hebt niet genoeg geld om zo veel te betalen.</string>
+
+    <string name="total_hp_input_not_valid">De totale HP waarde moet groter zijn dan 0, maar was %1$s</string>
+    <string name="temp_hp_input_not_valid">De temp HP waarde moet groter of gelijk zijn aan 0, maar was %1$s</string>
 </resources>

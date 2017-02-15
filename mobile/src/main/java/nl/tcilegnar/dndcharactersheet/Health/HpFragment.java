@@ -8,13 +8,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.TextView;
+import android.widget.Toast;
 
+import nl.tcilegnar.dndcharactersheet.App;
 import nl.tcilegnar.dndcharactersheet.Base.BaseStorageFragment;
 import nl.tcilegnar.dndcharactersheet.Health.Settings.HpSettings;
 import nl.tcilegnar.dndcharactersheet.Health.ViewGroup.HpIndicator;
 import nl.tcilegnar.dndcharactersheet.R;
 import nl.tcilegnar.dndcharactersheet.Utils.Res;
+
+import static nl.tcilegnar.dndcharactersheet.Health.ViewGroup.HpIndicator.HpType;
 
 public class HpFragment extends BaseStorageFragment {
     private HpIndicator hpIndicator;
@@ -53,59 +56,68 @@ public class HpFragment extends BaseStorageFragment {
     protected void updateSettingsData() {
     }
 
-    public void showDialog(TextView clickedTextView) {
-        final int viewId = clickedTextView.getId();
-        String hpType = getHpTypeToChange(viewId);
-        String value = clickedTextView.getText().toString();
-
+    public void showDialog(String value, HpType hpType) {
         AlertDialog.Builder dialog = new AlertDialog.Builder(getActivity());
-        dialog.setTitle(String.format(Res.getString(R.string.dialog_title_change_hp_values), hpType));
-        boolean changeCurrentHp = hpType.equals(Res.getString(R.string.current_hp));
-        if (changeCurrentHp) {
+        setTitleAndMessage(dialog, hpType);
+
+        EditText edittext = getEditText(value, hpType);
+        dialog.setView(edittext);
+
+        setButtons(dialog, hpType, edittext);
+
+        dialog.show();
+    }
+
+    private void setTitleAndMessage(AlertDialog.Builder dialog, HpType hpType) {
+        dialog.setTitle(String.format(Res.getString(R.string.dialog_title_change_hp_values), hpType.toString()));
+        if (hpType.equals(HpType.CurrentHp)) {
             dialog.setMessage(Res.getString(R.string.dialog_message_change_current_hp_values));
         } else {
             dialog.setMessage(Res.getString(R.string.dialog_message_change_hp_values));
         }
+    }
 
-        final EditText edittext = getEditText(value, changeCurrentHp);
-        dialog.setView(edittext);
+    private EditText getEditText(String value, HpType hpType) {
+        final EditText edittext = new EditText(getActivity());
+        edittext.setInputType(InputType.TYPE_CLASS_NUMBER);
+        if (!hpType.equals(HpType.CurrentHp)) {
+            edittext.setText(value);
+            edittext.setSelection(value.length());
+        }
+        return edittext;
+    }
 
-        if (changeCurrentHp) {
-            dialog.setPositiveButton(Res.getString(R.string.plus), new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int whichButton) {
-                    hpIndicator.setNewHpValue(getInputNumber(edittext), viewId);
-                }
-            });
-
-            dialog.setNegativeButton(Res.getString(R.string.min), new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int whichButton) {
-                    hpIndicator.setNewHpValue(-getInputNumber(edittext), viewId);
-                }
-            });
-        } else {
-            dialog.setPositiveButton(Res.getString(R.string.ok), new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int whichButton) {
-                    hpIndicator.setNewHpValue(getInputNumber(edittext), viewId);
-                }
-            });
+    private void setButtons(AlertDialog.Builder dialog, final HpType hpType, final EditText edittext) {
+        switch (hpType) {
+            case TotalHp:
+            case TempHp:
+                dialog.setPositiveButton(Res.getString(R.string.ok), new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                        int newValue = getInputNumber(edittext);
+                        validateAndSetNewValue(newValue, hpType);
+                    }
+                });
+                break;
+            case CurrentHp:
+                dialog.setPositiveButton(Res.getString(R.string.plus), new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                        int newValue = getInputNumber(edittext);
+                        validateAndSetNewValue(newValue, hpType);
+                    }
+                });
+                dialog.setNegativeButton(Res.getString(R.string.min), new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                        int newValue = -getInputNumber(edittext);
+                        validateAndSetNewValue(newValue, hpType);
+                    }
+                });
+                break;
         }
 
         dialog.setNeutralButton(Res.getString(R.string.cancel), new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int whichButton) {
             }
         });
-
-        dialog.show();
-    }
-
-    private EditText getEditText(String value, boolean isCurrentHpType) {
-        final EditText edittext = new EditText(getActivity());
-        edittext.setInputType(InputType.TYPE_CLASS_NUMBER);
-        if (!isCurrentHpType) {
-            edittext.setText(value);
-            edittext.setSelection(value.length());
-        }
-        return edittext;
     }
 
     private int getInputNumber(EditText edittext) {
@@ -117,14 +129,40 @@ public class HpFragment extends BaseStorageFragment {
         }
     }
 
-    private String getHpTypeToChange(int viewId) {
-        if (viewId == R.id.total_hp_value) {
-            return Res.getString(R.string.total_hp);
-        } else if (viewId == R.id.current_hp_value) {
-            return Res.getString(R.string.current_hp);
-        } else if (viewId == R.id.temp_hp_value) {
-            return Res.getString(R.string.temp_hp);
+    private void validateAndSetNewValue(int newValue, HpType hpType) {
+        if (isValidValue(newValue, hpType)) {
+            hpIndicator.setNewHpValue(newValue, hpType);
+        } else {
+            String errorMessage = getErrorMessage(newValue, hpType);
+            if (!errorMessage.isEmpty()) {
+                Toast.makeText(App.getContext(), errorMessage, Toast.LENGTH_SHORT).show();
+            }
         }
-        return "value";
+    }
+
+    private boolean isValidValue(int newValue, HpType hpType) {
+        switch (hpType) {
+            case TotalHp:
+                return newValue > 0;
+            case CurrentHp:
+                return newValue != 0;
+            case TempHp:
+                return newValue >= 0;
+            default:
+                return false;
+        }
+    }
+
+    private String getErrorMessage(int newValue, HpType hpType) {
+        switch (hpType) {
+            case TotalHp:
+                return String.format(Res.getString(R.string.total_hp_input_not_valid), newValue);
+            case CurrentHp:
+                return "";
+            case TempHp:
+                return String.format(Res.getString(R.string.temp_hp_input_not_valid), newValue);
+            default:
+                return Res.getString(R.string.unexpected_error);
+        }
     }
 }

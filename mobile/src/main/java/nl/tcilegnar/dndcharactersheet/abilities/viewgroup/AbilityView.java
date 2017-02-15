@@ -163,13 +163,21 @@ public class AbilityView extends LinearLayout implements OnClickListener, OnEdit
 
         dialog.setPositiveButton(Res.getString(R.string.plus), new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int whichButton) {
-                updateAbilityTempValue(getInputNumber(edittext));
+                int inputNumber = getInputNumber(edittext);
+                boolean inputValidated = inputNumber > 0;
+                if (inputValidated) {
+                    updateAbilityTempValue(inputNumber);
+                }
             }
         });
 
         dialog.setNegativeButton(Res.getString(R.string.min), new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int whichButton) {
-                updateAbilityTempValue(-getInputNumber(edittext));
+                int inputNumber = getInputNumber(edittext);
+                boolean inputValidated = inputNumber > 0;
+                if (inputValidated) {
+                    updateAbilityTempValue(-inputNumber);
+                }
             }
         });
 

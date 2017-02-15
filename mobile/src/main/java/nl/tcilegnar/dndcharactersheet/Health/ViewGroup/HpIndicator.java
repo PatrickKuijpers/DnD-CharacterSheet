@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.res.ColorStateList;
 import android.graphics.PorterDuff;
 import android.support.annotation.ColorInt;
+import android.support.annotation.StringRes;
 import android.support.annotation.VisibleForTesting;
 import android.util.AttributeSet;
 import android.view.View;
@@ -17,6 +18,7 @@ import nl.tcilegnar.dndcharactersheet.Health.Hp;
 import nl.tcilegnar.dndcharactersheet.Health.HpFragment;
 import nl.tcilegnar.dndcharactersheet.R;
 import nl.tcilegnar.dndcharactersheet.Utils.DeviceData;
+import nl.tcilegnar.dndcharactersheet.Utils.Res;
 
 import static android.view.View.OnClickListener;
 
@@ -35,6 +37,21 @@ public class HpIndicator extends LinearLayout implements OnClickListener {
 
     private TextView healthStateValue;
     private HpFragment changeHpValueCall;
+
+    public enum HpType {
+        TotalHp(R.string.total_hp), CurrentHp(R.string.current_hp), TempHp(R.string.temp_hp);
+
+        private final String text;
+
+        HpType(@StringRes int resId) {
+            this.text = Res.getString(resId);
+        }
+
+        @Override
+        public String toString() {
+            return text;
+        }
+    }
 
     public HpIndicator(Context context, AttributeSet attrs) {
         this(context, attrs, new Hp());
@@ -145,12 +162,11 @@ public class HpIndicator extends LinearLayout implements OnClickListener {
         if (DeviceData.isAtLeastLollipop()) {
             currentHpProgressBar.setProgressBackgroundTintList(ColorStateList.valueOf(backgroundColor));
             currentHpProgressBar.setProgressTintList(ColorStateList.valueOf(progressColor));
-            //currentHpProgressBar.setSecondaryProgressTintList(ColorStateList.valueOf(secondaryColor));
 
             tempHpProgressBar.setProgressBackgroundTintList(ColorStateList.valueOf(backgroundColor));
             tempHpProgressBar.setProgressTintList(ColorStateList.valueOf(secondaryColor));
         } else {
-            // TODO: hoe op oudere versies mooi maken?
+            // TODO: hoe op oudere versies mooi maken? ... backgroundColor???
             currentHpProgressBar.getProgressDrawable().setColorFilter(progressColor, PorterDuff.Mode.SRC_IN);
             tempHpProgressBar.getProgressDrawable().setColorFilter(secondaryColor, PorterDuff.Mode.SRC_OUT);
         }
@@ -176,7 +192,9 @@ public class HpIndicator extends LinearLayout implements OnClickListener {
         TextView viewWithValueToChange = getViewWithValueToChange(clickedView, id);
         if (id == R.id.total_hp_label || id == R.id.total_hp_value || id == R.id.current_hp_value || id == R.id
                 .temp_hp_value || id == R.id.temp_hp_icon) {
-            changeHpValueCall.showDialog(viewWithValueToChange);
+            String value = viewWithValueToChange.getText().toString();
+            HpType hpType = getHpTypeToChange(viewWithValueToChange.getId());
+            changeHpValueCall.showDialog(value, hpType);
         }
     }
 
@@ -190,18 +208,44 @@ public class HpIndicator extends LinearLayout implements OnClickListener {
         return (TextView) viewWithValueToChange;
     }
 
+    private HpType getHpTypeToChange(int viewId) {
+        if (viewId == R.id.total_hp_value) {
+            return HpType.TotalHp;
+        } else if (viewId == R.id.current_hp_value) {
+            return HpType.CurrentHp;
+        } else if (viewId == R.id.temp_hp_value) {
+            return HpType.TempHp;
+        } else {
+            return null;
+        }
+    }
+
     public void setChangeHpValueCallback(HpFragment changeHpValueCall) {
         this.changeHpValueCall = changeHpValueCall;
     }
 
-    public void setNewHpValue(int newValue, int viewId) {
-        if (viewId == R.id.total_hp_value) {
-            hp.setTotal(newValue);
-        } else if (viewId == R.id.current_hp_value) {
-            hp.setCurrent(hp.getCurrent() + newValue);
-        } else if (viewId == R.id.temp_hp_value) {
-            hp.setTemp(newValue);
+    public void setNewHpValue(int newValue, HpType hpType) {
+        switch (hpType) {
+            case TotalHp:
+                hp.setTotal(newValue);
+                break;
+            case CurrentHp:
+                int newCurrentHp = getNewCurrentHp(newValue);
+                hp.setCurrent(newCurrentHp);
+                break;
+            case TempHp:
+                hp.setTemp(newValue);
+                break;
         }
         updateHpValues();
+    }
+
+    private int getNewCurrentHp(int newValue) {
+        int newCurrentHp = hp.getCurrent() + newValue;
+        if (newCurrentHp > hp.getTotal()) {
+            return hp.getTotal();
+        } else {
+            return newCurrentHp;
+        }
     }
 }
