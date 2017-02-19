@@ -62,7 +62,7 @@ public class StorageTest {
     @Test
     public void loadExperience_DefaultValue() {
         // Arrange
-        int defaultValue = Key.CURRENT_EXP.defaultValue;
+        int defaultValue = Integer.valueOf(Key.CURRENT_EXP.defaultValue);
 
         // Act
         int experience = storage.loadExperience();
@@ -87,7 +87,7 @@ public class StorageTest {
     @Test
     public void loadLevel_DefaultValue() {
         // Arrange
-        int defaultValue = Key.CURRENT_LEVEL.defaultValue;
+        int defaultValue = Integer.valueOf(Key.CURRENT_LEVEL.defaultValue);
 
         // Act
         int level = storage.loadLevel();
@@ -112,7 +112,7 @@ public class StorageTest {
     @Test
     public void loadReadyForLevelChange_DefaultValue() {
         // Arrange
-        int defaultValue = Key.READY_FOR_LEVEL_CHANGE.defaultValue;
+        int defaultValue = Integer.valueOf(Key.READY_FOR_LEVEL_CHANGE.defaultValue);
 
         // Act
         int readyForLevelChange = storage.loadReadyForLevelChange();
@@ -163,7 +163,7 @@ public class StorageTest {
     @Test
     public void loadPlatinum_DefaultValue() {
         // Arrange
-        int defaultValue = Key.PLATINUM.defaultValue;
+        int defaultValue = Integer.valueOf(Key.PLATINUM.defaultValue);
 
         // Act
         int platinum = storage.loadPlatinum();
@@ -188,7 +188,7 @@ public class StorageTest {
     @Test
     public void loadGold_DefaultValue() {
         // Arrange
-        int defaultValue = Key.GOLD.defaultValue;
+        int defaultValue = Integer.valueOf(Key.GOLD.defaultValue);
 
         // Act
         int gold = storage.loadGold();
@@ -213,7 +213,7 @@ public class StorageTest {
     @Test
     public void loadSilver_DefaultValue() {
         // Arrange
-        int defaultValue = Key.SILVER.defaultValue;
+        int defaultValue = Integer.valueOf(Key.SILVER.defaultValue);
 
         // Act
         int silver = storage.loadSilver();
@@ -238,7 +238,7 @@ public class StorageTest {
     @Test
     public void loadBronze_DefaultValue() {
         // Arrange
-        int defaultValue = Key.BRONZE.defaultValue;
+        int defaultValue = Integer.valueOf(Key.BRONZE.defaultValue);
 
         // Act
         int bronze = storage.loadBronze();
@@ -263,7 +263,7 @@ public class StorageTest {
     @Test
     public void loadTotalHp_DefaultValue() {
         // Arrange
-        int defaultValue = Key.TOTAL_HP.defaultValue;
+        int defaultValue = Integer.valueOf(Key.TOTAL_HP.defaultValue);
 
         // Act
         int totalHp = storage.loadTotalHp();
@@ -288,7 +288,7 @@ public class StorageTest {
     @Test
     public void loadCurrentHp_DefaultValue() {
         // Arrange
-        int defaultValue = Key.CURRENT_HP.defaultValue;
+        int defaultValue = Integer.valueOf(Key.CURRENT_HP.defaultValue);
 
         // Act
         int currentHp = storage.loadCurrentHp();
@@ -313,7 +313,7 @@ public class StorageTest {
     @Test
     public void loadTempHp_DefaultValue() {
         // Arrange
-        int defaultValue = Key.TEMP_HP.defaultValue;
+        int defaultValue = Integer.valueOf(Key.TEMP_HP.defaultValue);
 
         // Act
         int tempHp = storage.loadTempHp();

@@ -26,7 +26,7 @@ import static org.mockito.Mockito.verify;
 @RunWith(RobolectricGradleTestRunner.class)
 @Config(constants = BuildConfig.class)
 public class ExperienceUpdaterTest {
-    private static final int DEFAULT_EXP = Storage.Key.CURRENT_EXP.defaultValue;
+    private static final int DEFAULT_EXP = Integer.valueOf(Storage.Key.CURRENT_EXP.defaultValue);
     private static final int DEFAULT_EXP_MAX = 1000;
     private static final boolean IS_ALLOWED_LEVEL_DOWN = true;
     private static final boolean IS_NOT_ALLOWED_LEVEL_DOWN = false;

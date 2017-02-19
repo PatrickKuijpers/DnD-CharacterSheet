@@ -25,7 +25,7 @@ import static org.mockito.Mockito.verify;
 @RunWith(RobolectricGradleTestRunner.class)
 @Config(constants = BuildConfig.class)
 public class LevelTest {
-    private static final int DEFAULT_LEVEL = Storage.Key.CURRENT_LEVEL.defaultValue;
+    private static final int DEFAULT_LEVEL = Integer.valueOf(Storage.Key.CURRENT_LEVEL.defaultValue);
     private static Level level;
     private Storage storageMock;
     private ReadyForLevelChangeListener readyForLevelChangeListenerMock;
