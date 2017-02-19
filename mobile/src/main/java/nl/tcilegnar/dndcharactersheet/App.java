@@ -20,9 +20,11 @@ public class App extends Application {
 
     public static void restart() {
         Intent intent = context.getPackageManager().getLaunchIntentForPackage(context.getPackageName());
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        context.startActivity(intent);
-        System.exit(0);
+        if (intent != null) { //TODO Tijdelijk nullpointercheck vanwege falende unittests
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            context.startActivity(intent);
+            System.exit(0);
+        }
     }
 
     /** stackoverflow.com/questions/37998266/android-studio-many-error-could-not-find-class-android-xxx#38666791 */
