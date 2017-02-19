@@ -43,7 +43,7 @@ public class StorageTest {
 
         // Assert
         assertEquals("Als de filename veranderd is kunnen gegevens mogelijk niet meer correct worden geladen",
-                "Storage", fileName);
+                FILENAME, fileName);
     }
 
     @Test
@@ -144,7 +144,8 @@ public class StorageTest {
         int abilityValue = storage.loadAbility(expectedAbilityKey);
 
         // Assert
-        assertEquals(expectedAbilityKey.defaultValue, abilityValue);
+        int expectedValue = Integer.valueOf(expectedAbilityKey.defaultValue);
+        assertEquals(expectedValue, abilityValue);
     }
 
     @Test

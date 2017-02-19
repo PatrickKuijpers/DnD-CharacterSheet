@@ -36,12 +36,13 @@ public class AbilitiesAdapterTest {
         assertEquals(6, numberOfAbilitiesInAdapter);
     }
 
+    //TODO (test volgorde van ability items)
     @Test
     public void getItem() {
         // Arrange
 
         // Act
-        int expectedIndex = 1;
+        int expectedIndex = 0;
         Ability ability = abilitiesAdapter.getItem(expectedIndex);
 
         // Assert
