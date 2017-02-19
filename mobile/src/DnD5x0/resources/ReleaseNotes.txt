@@ -1,0 +1,4 @@
+- Er kunnen meerdere characters worden aangemaakt
+- Basic character info kan nu worden ingevuld
+- HP kan op eenvoudige wijze worden aangepast
+Let op: mogelijk moet je de app eerst opnieuw installeren voordat deze weer werkt!
