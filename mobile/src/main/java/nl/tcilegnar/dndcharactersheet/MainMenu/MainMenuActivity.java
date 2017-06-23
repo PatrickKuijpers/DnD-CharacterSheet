@@ -94,10 +94,6 @@ public class MainMenuActivity extends BaseActivity {
         }
     }
 
-    private void showComingSoon() {
-        Toast.makeText(App.getContext(), R.string.coming_soon, Toast.LENGTH_SHORT).show();
-    }
-
     public void startBasicInfo() {
         Intent basicInfoActivity = new Intent(this, BasicInfoActivity.class);
         startActivity(basicInfoActivity);
