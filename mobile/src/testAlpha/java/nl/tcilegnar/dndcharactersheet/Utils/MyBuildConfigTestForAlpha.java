@@ -11,7 +11,7 @@ import static junit.framework.TestCase.assertFalse;
 
 @RunWith(RobolectricGradleTestRunner.class)
 @Config(constants = BuildConfig.class)
-public class MyBuildConfigTestForDebug extends MyBuildConfigTest {
+public class MyBuildConfigTestForAlpha extends MyBuildConfigTest {
     @Override
     public void isProduction_DependsOnBuildType() {
         assertFalse(buildConfig.isProduction());
