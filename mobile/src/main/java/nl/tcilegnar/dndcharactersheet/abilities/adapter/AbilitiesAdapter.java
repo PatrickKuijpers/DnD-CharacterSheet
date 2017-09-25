@@ -9,7 +9,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import nl.tcilegnar.dndcharactersheet.abilities.entities.Ability;
+import nl.tcilegnar.dndcharactersheet.abilities.model.Ability;
 import nl.tcilegnar.dndcharactersheet.abilities.viewgroup.AbilityView;
 
 public class AbilitiesAdapter extends BaseAdapter {

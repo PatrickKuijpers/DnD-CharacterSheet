@@ -20,7 +20,7 @@ import android.widget.TextView.OnEditorActionListener;
 import nl.tcilegnar.dndcharactersheet.R;
 import nl.tcilegnar.dndcharactersheet.Utils.KeyboardUtil;
 import nl.tcilegnar.dndcharactersheet.Utils.Res;
-import nl.tcilegnar.dndcharactersheet.abilities.entities.Ability;
+import nl.tcilegnar.dndcharactersheet.abilities.model.Ability;
 
 public class AbilityView extends LinearLayout implements OnClickListener, OnEditorActionListener {
     private Ability ability;

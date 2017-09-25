@@ -1,4 +1,4 @@
-package nl.tcilegnar.dndcharactersheet.abilities.entities;
+package nl.tcilegnar.dndcharactersheet.abilities.model;
 
 import android.support.annotation.ColorInt;
 import android.support.annotation.ColorRes;
