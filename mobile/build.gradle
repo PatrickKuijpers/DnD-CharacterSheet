@@ -14,8 +14,8 @@ android {
         applicationId "nl.tcilegnar.dndcharactersheet"
         minSdkVersion 16    // API 4.3  JELLY_BEAN
         targetSdkVersion 25 // API 7.1  (N_MR1)
-        versionCode 12
-        versionName "0.3.4"
+        versionCode 13
+        versionName "0.4.0"
         multiDexEnabled true
     }
     signingConfigs {
