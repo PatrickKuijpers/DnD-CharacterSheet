@@ -4,12 +4,15 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
 
 import nl.tcilegnar.dndcharactersheet.Base.BaseStorageFragment;
 import nl.tcilegnar.dndcharactersheet.Base.Settings.Settings;
 import nl.tcilegnar.dndcharactersheet.R;
+import nl.tcilegnar.dndcharactersheet.skills.adapter.SkillsAdapter;
 
 public class SkillsFragment extends BaseStorageFragment {
+    private ListView skillsListView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -23,6 +26,8 @@ public class SkillsFragment extends BaseStorageFragment {
     }
 
     private void initViews(View view) {
+        skillsListView = (ListView) view.findViewById(R.id.listview_skills);
+        skillsListView.setAdapter(new SkillsAdapter(getActivity()));
     }
 
     @Override
