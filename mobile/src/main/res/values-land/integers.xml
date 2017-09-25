@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <integer name="gridview_columns_abilities">3</integer>
+
+    <integer name="order_index_str">1</integer>
+    <integer name="order_index_dex">2</integer>
+    <integer name="order_index_con">3</integer>
+    <integer name="order_index_wis">4</integer>
+    <integer name="order_index_int">5</integer>
+    <integer name="order_index_cha">6</integer>
+
+</resources>

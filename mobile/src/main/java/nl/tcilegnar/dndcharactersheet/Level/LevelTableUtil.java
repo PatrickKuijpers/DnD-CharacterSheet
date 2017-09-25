@@ -1,8 +1,8 @@
 package nl.tcilegnar.dndcharactersheet.Level;
 
-import nl.tcilegnar.dndcharactersheet.App;
 import nl.tcilegnar.dndcharactersheet.Level.entities.LevelTable;
 import nl.tcilegnar.dndcharactersheet.R;
+import nl.tcilegnar.dndcharactersheet.Utils.Res;
 
 public class LevelTableUtil {
     protected static final LevelTable[] ALL_LEVELS = LevelTable.values();
@@ -37,7 +37,7 @@ public class LevelTableUtil {
 
     protected static class NoMaxExperienceForLevelException extends IllegalArgumentException {
         protected NoMaxExperienceForLevelException(int level) {
-            super(App.getResourceString(R.string.max_level_reached_exception) + level);
+            super(Res.getString(R.string.max_level_reached_exception) + level);
         }
     }
 }

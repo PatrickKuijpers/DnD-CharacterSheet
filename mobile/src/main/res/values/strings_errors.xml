@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="unexpected_error">Unexpected error</string>
+
     <string name="exp_too_low_exception">Level down is not allowed</string>
     <string name="min_level_reached_exception">Minimum level reached:&#160;</string>
     <string name="max_level_reached_exception">Maximum level reached:&#160;</string>
@@ -13,4 +15,7 @@
 
     <string name="max_money_reached_exception">The value was not added because the maximum money value is reached: %1$s Platinum. In a newer version of the app this maximum will be increased!</string>
     <string name="not_enough_money_exception">You don\'t own enough money to pay this much.</string>
+
+    <string name="total_hp_input_not_valid">The total HP value should be higher than 0, but was %1$s</string>
+    <string name="temp_hp_input_not_valid">The temp HP value should be higher or equal to 0, but was %1$s</string>
 </resources>

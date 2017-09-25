@@ -8,12 +8,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import nl.tcilegnar.dndcharactersheet.App;
 import nl.tcilegnar.dndcharactersheet.Base.BaseFragment;
 import nl.tcilegnar.dndcharactersheet.R;
+import nl.tcilegnar.dndcharactersheet.Storage.Storage;
 import nl.tcilegnar.dndcharactersheet.Utils.AppData;
+import nl.tcilegnar.dndcharactersheet.characters.CurrentCharacter;
 
 import static android.view.View.OnClickListener;
 
@@ -45,9 +45,21 @@ public class MainMenuFragment extends BaseFragment implements OnClickListener {
         setVersionNumber(view);
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        setActivityTitle();
+    }
+
+    @Override
+    public String getTitle() {
+        return CurrentCharacter.DnDCharacter().getName();
+    }
+
     private void initViews(View view) {
         LinearLayout buttonsContainer = (LinearLayout) view.findViewById(R.id.main_menu_buttons_container);
         setOnClickListenersOnChildren(buttonsContainer);
+        (view.findViewById(R.id.beta_image)).setOnClickListener(this);
     }
 
     private void setOnClickListenersOnChildren(ViewGroup viewGroup) {
@@ -59,21 +71,11 @@ public class MainMenuFragment extends BaseFragment implements OnClickListener {
     @Override
     public void onClick(View view) {
         int viewId = view.getId();
-        if (viewId == R.id.main_menu_button_basic_character_info) {
-            showComingSoon();
-        } else if (viewId == R.id.main_menu_button_level_and_experience) {
-            callbackMainMenu.startLevelAndExperience();
-        } else if (viewId == R.id.main_menu_button_abilities) {
-            callbackMainMenu.startAbilities();
-        } else if (viewId == R.id.main_menu_button_hp) {
-            showComingSoon();
-        } else if (viewId == R.id.main_menu_button_money) {
-            callbackMainMenu.startMoney();
+        if (viewId == R.id.beta_image) {
+            new Storage().print();
+            return;
         }
-    }
-
-    private void showComingSoon() {
-        Toast.makeText(App.getContext(), R.string.coming_soon, Toast.LENGTH_SHORT).show();
+        callbackMainMenu.onMainMenuButtonClicked(viewId);
     }
 
     public void setVersionNumber(View view) {

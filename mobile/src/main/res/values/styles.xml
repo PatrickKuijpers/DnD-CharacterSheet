@@ -33,6 +33,23 @@
         <item name="android:orientation">vertical</item>
     </style>
 
+    <style name="basic_info_row">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginBottom">@dimen/vertical_margin_small</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:ellipsize">end</item>
+    </style>
+
+    <style name="info_label" parent="basic_info_row">
+        <item name="android:layout_weight">30</item>
+    </style>
+
+    <style name="info_data" parent="basic_info_row">
+        <item name="android:layout_weight">70</item>
+        <item name="android:paddingLeft">@dimen/horizontal_margin_small</item>
+    </style>
+
     <style name="money_view">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>

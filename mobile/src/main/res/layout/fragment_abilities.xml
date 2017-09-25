@@ -2,9 +2,12 @@
 <GridView xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/gridview_abilities"
     style="@style/fragment_full_screen_with_scrollview"
+    android:layout_marginBottom="@dimen/abilities_vertical_spacing"
+    android:layout_marginTop="@dimen/abilities_vertical_spacing"
     android:columnWidth="100dp"
     android:horizontalSpacing="@dimen/abilities_horizontal_spacing"
     android:numColumns="@integer/gridview_columns_abilities"
-    android:stretchMode="columnWidth"/>
+    android:stretchMode="columnWidth"
+    android:verticalSpacing="@dimen/abilities_horizontal_spacing"/>
 
     <!-- https://github.com/jess-anders/two-way-gridview -->

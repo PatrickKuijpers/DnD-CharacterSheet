@@ -8,10 +8,10 @@ public class MyBuildConfig {
     }
 
     public boolean isTest() {
-        return BuildConfig.BUILD_TYPE.equalsIgnoreCase("debug");
+        return BuildConfig.BUILD_TYPE.equalsIgnoreCase("alpha");
     }
 
     public boolean isDevelop() {
-        return BuildConfig.BUILD_TYPE.equalsIgnoreCase("dev");
+        return BuildConfig.BUILD_TYPE.equalsIgnoreCase("debug");
     }
 }

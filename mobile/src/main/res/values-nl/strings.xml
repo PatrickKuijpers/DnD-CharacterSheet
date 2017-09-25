@@ -10,7 +10,8 @@
     <string name="coming_soon">Binnenkort beschikbaar!</string>
 
     <string name="ok">OK</string>
+    <string name="cancel">Annuleren</string>
 
-    <string name="drawer_menu_item_1">Here be dragons!</string>
-    <string name="drawer_menu_item_2">En coole opties komen later&#8230;</string>
+    <string name="remove_selected_character">Verwijder character</string>
+    <string name="add_character">Voeg character toe</string>
 </resources>

@@ -16,4 +16,9 @@
     <string name="ability_wis_abbr">Wis</string>
     <string name="ability_int_abbr">Int</string>
     <string name="ability_cha_abbr">Cha</string>
+
+    <string name="alive">Alive</string>
+    <string name="disabled">Disabled</string>
+    <string name="dying">Dying</string>
+    <string name="dead">Dead</string>
 </resources>

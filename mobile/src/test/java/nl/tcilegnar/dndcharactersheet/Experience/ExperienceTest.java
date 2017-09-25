@@ -24,9 +24,10 @@ import static org.mockito.Mockito.verify;
 @RunWith(RobolectricGradleTestRunner.class)
 @Config(constants = BuildConfig.class)
 public class ExperienceTest {
-    private static final int DEFAULT_EXP = Storage.Key.CURRENT_EXP.defaultValue;
-    private static final int DEFAULT_LEVEL = Storage.Key.CURRENT_LEVEL.defaultValue;
-    private static final int DEFAULT_READY_FOR_LEVEL_CHANGE = Storage.Key.READY_FOR_LEVEL_CHANGE.defaultValue;
+    private static final int DEFAULT_EXP = Integer.valueOf(Storage.Key.CURRENT_EXP.defaultValue);
+    private static final int DEFAULT_LEVEL = Integer.valueOf(Storage.Key.CURRENT_LEVEL.defaultValue);
+    private static final int DEFAULT_READY_FOR_LEVEL_CHANGE = Integer.valueOf(Storage.Key.READY_FOR_LEVEL_CHANGE
+            .defaultValue);
     private static final int DEFAULT_CURRENT_PROJECTED_LEVEL = DEFAULT_LEVEL + DEFAULT_READY_FOR_LEVEL_CHANGE;
     private static final int DEFAULT_MAX_EXP = 0;
     private static Experience exp;

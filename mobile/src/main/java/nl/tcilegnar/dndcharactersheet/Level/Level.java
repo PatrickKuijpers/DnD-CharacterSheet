@@ -4,7 +4,6 @@ import android.support.annotation.VisibleForTesting;
 
 import java.util.ArrayList;
 
-import nl.tcilegnar.dndcharactersheet.App;
 import nl.tcilegnar.dndcharactersheet.Base.Exceptions.CustomToastException;
 import nl.tcilegnar.dndcharactersheet.Base.StorageObject;
 import nl.tcilegnar.dndcharactersheet.Experience.Experience.LevelListener;
@@ -13,6 +12,7 @@ import nl.tcilegnar.dndcharactersheet.Level.LevelUp.LevelsReadyForChange.ChangeL
 import nl.tcilegnar.dndcharactersheet.Level.entities.LevelTable;
 import nl.tcilegnar.dndcharactersheet.R;
 import nl.tcilegnar.dndcharactersheet.Storage.Storage;
+import nl.tcilegnar.dndcharactersheet.Utils.Res;
 
 public class Level extends StorageObject implements ExperienceEdgeListener, ChangeLevelListener, LevelListener {
     public static final int MIN_LEVEL = LevelTable.ONE.level;
@@ -116,15 +116,15 @@ public class Level extends StorageObject implements ExperienceEdgeListener, Chan
         int getCurrentProjectedLevel();
     }
 
-    public class MinLevelReachedException extends CustomToastException {
+    public static class MinLevelReachedException extends CustomToastException {
         public MinLevelReachedException() {
-            super(App.getResourceString(R.string.min_level_reached_exception) + MIN_LEVEL);
+            super(Res.getString(R.string.min_level_reached_exception) + MIN_LEVEL);
         }
     }
 
-    public class MaxLevelReachedException extends CustomToastException {
+    public static class MaxLevelReachedException extends CustomToastException {
         public MaxLevelReachedException() {
-            super(App.getResourceString(R.string.max_level_reached_exception) + MAX_LEVEL);
+            super(Res.getString(R.string.max_level_reached_exception) + MAX_LEVEL);
         }
     }
 }

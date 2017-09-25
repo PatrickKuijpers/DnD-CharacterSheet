@@ -7,4 +7,11 @@
 
     <item name="base_numberpicker_scale" format="float" type="integer">0.7</item>
 
+    <integer name="order_index_str">1</integer>
+    <integer name="order_index_dex">3</integer>
+    <integer name="order_index_con">5</integer>
+    <integer name="order_index_wis">2</integer>
+    <integer name="order_index_int">4</integer>
+    <integer name="order_index_cha">6</integer>
+
 </resources>

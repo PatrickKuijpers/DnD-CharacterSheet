@@ -1,8 +1,8 @@
 package nl.tcilegnar.dndcharactersheet.Money;
 
-import nl.tcilegnar.dndcharactersheet.App;
 import nl.tcilegnar.dndcharactersheet.Base.Exceptions.CustomToastException;
 import nl.tcilegnar.dndcharactersheet.R;
+import nl.tcilegnar.dndcharactersheet.Utils.Res;
 
 import static nl.tcilegnar.dndcharactersheet.Money.MoneyConstants.MAX_BRONZE_VALUE;
 import static nl.tcilegnar.dndcharactersheet.Money.MoneyConstants.MAX_GOLD_VALUE;
@@ -98,15 +98,15 @@ public class MoneyCalculator {
         return newPlatinum;
     }
 
-    protected class MaxMoneyReachedException extends CustomToastException {
+    protected static class MaxMoneyReachedException extends CustomToastException {
         public MaxMoneyReachedException(int newPlatinum) {
-            super(String.format(App.getResourceString(R.string.max_money_reached_exception), newPlatinum));
+            super(String.format(Res.getString(R.string.max_money_reached_exception), newPlatinum));
         }
     }
 
-    protected class NotEnoughMoneyException extends CustomToastException {
+    protected static class NotEnoughMoneyException extends CustomToastException {
         public NotEnoughMoneyException() {
-            super(App.getResourceString(R.string.not_enough_money_exception));
+            super(Res.getString(R.string.not_enough_money_exception));
         }
     }
 }

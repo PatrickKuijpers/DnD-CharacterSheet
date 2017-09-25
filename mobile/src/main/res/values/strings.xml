@@ -10,7 +10,8 @@
     <string name="coming_soon">Coming soon!</string>
 
     <string name="ok">OK</string>
+    <string name="cancel">cancel</string>
 
-    <string name="drawer_menu_item_1">Here be dragons!</string>
-    <string name="drawer_menu_item_2">Cool options will be added later&#8230;</string>
+    <string name="remove_selected_character">Remove character</string>
+    <string name="add_character">Add character</string>
 </resources>

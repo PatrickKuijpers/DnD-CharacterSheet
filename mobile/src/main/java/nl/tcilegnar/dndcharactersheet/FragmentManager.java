@@ -1,8 +1,10 @@
 package nl.tcilegnar.dndcharactersheet;
 
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+
+import nl.tcilegnar.dndcharactersheet.Base.BaseFragment;
+import nl.tcilegnar.dndcharactersheet.Utils.Log;
 
 public class FragmentManager {
     private final android.support.v4.app.FragmentManager supportFragmentManager;
@@ -16,15 +18,18 @@ public class FragmentManager {
         supportFragmentManager = activity.getSupportFragmentManager();
     }
 
-    public void addFirstFragment(Fragment fragment, String tag) {
-        replaceFragment(fragment, tag, false, Anim.NO_ANIMATION);
+    public void addFirstFragment(BaseFragment fragment) {
+        replaceFragment(fragment, false, Anim.NO_ANIMATION);
     }
 
-    public void replaceFragment(Fragment fragment, String tag) {
-        replaceFragment(fragment, tag, true, Anim.SLIDE_RIGHT_TO_LEFT_INCL_BACK);
+    public void replaceFragment(BaseFragment fragment) {
+        replaceFragment(fragment, true, Anim.SLIDE_RIGHT_TO_LEFT_INCL_BACK);
     }
 
-    public void replaceFragment(Fragment fragment, String tag, boolean addToBackstack, Anim animation) {
+    public void replaceFragment(BaseFragment newFragment, boolean addToBackstack, Anim animation) {
+        BaseFragment fragment = getFragment(newFragment);
+        String tag = fragment.TAG;
+
         FragmentTransaction transaction = supportFragmentManager.beginTransaction();
         setAnimation(transaction, animation);
         transaction.replace(R.id.activity_content, fragment, tag);
@@ -32,13 +37,25 @@ public class FragmentManager {
             transaction.addToBackStack(tag);
         }
         transaction.commit();
+
+        Log.v(Log.Type.Navigation, "Fragment: " + tag + ". AddToBackstack: " + addToBackstack);
+    }
+
+    public BaseFragment getFragment(BaseFragment newFragment) {
+        BaseFragment existingFragment = getExistingFragment(newFragment);
+        return existingFragment != null ? existingFragment : newFragment;
+    }
+
+    public BaseFragment getExistingFragment(BaseFragment newFragment) {
+        Class<? extends BaseFragment> classType = newFragment.getClass();
+        return classType.cast(supportFragmentManager.findFragmentByTag(newFragment.TAG));
     }
 
     private void setAnimation(FragmentTransaction transaction, Anim fragmentAnimation) {
         switch (fragmentAnimation) {
             case SLIDE_RIGHT_TO_LEFT_INCL_BACK:
-                transaction.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left, R.anim
-                        .enter_from_left, R.anim.exit_to_right);
+                transaction.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left, R.anim.enter_from_left,
+                        R.anim.exit_to_right);
                 break;
             case SLIDE_LEFT_TO_RIGHT_INCL_BACK:
                 transaction.setCustomAnimations(R.anim.enter_from_left, R.anim.exit_to_right, R.anim
@@ -55,9 +72,5 @@ public class FragmentManager {
                 // Geen animatie
                 break;
         }
-    }
-
-    public <T extends Fragment> T getFragment(Class<T> type, String tag) {
-        return type.cast(supportFragmentManager.findFragmentByTag(tag));
     }
 }

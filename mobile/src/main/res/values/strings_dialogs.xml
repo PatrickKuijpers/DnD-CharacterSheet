@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="dialog_title_new_character">New Character</string>
+    <string name="dialog_message_new_character">What is the new character\'s name?</string>
+
+    <string name="dialog_title_delete_character">Delete character</string>
+    <string name="dialog_message_delete_character">Are you sure you want to delete \'%1$s\'? No turning back!</string>
+
+    <string name="dialog_title_change_hp_values">Change %1$s</string>
+    <string name="dialog_message_change_hp_values">Enter new value below</string>
+    <string name="dialog_message_change_current_hp_values">How much HP to add or substract?</string>
+    <string name="total_hp">total HP</string>
+    <string name="current_hp">current HP</string>
+    <string name="temp_hp">temporary HP</string>
+
+    <string name="dialog_title_change_temp_ability">Temp ability</string>
+    <string name="dialog_message_change_temp_ability">How many temporary ability points to add or substract?</string>
+</resources>

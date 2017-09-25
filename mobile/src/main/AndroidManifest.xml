@@ -20,6 +20,10 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".basicinfo.BasicInfoActivity"
+            android:label="@string/title_basic_character_info"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity
             android:name=".Experience.ExperienceActivity"
             android:label="@string/title_level_and_experience"
             android:theme="@style/AppTheme.NoActionBar"/>

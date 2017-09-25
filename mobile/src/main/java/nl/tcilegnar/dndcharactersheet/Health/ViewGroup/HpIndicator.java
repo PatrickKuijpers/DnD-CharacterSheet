@@ -4,28 +4,55 @@ import android.content.Context;
 import android.content.res.ColorStateList;
 import android.graphics.PorterDuff;
 import android.support.annotation.ColorInt;
+import android.support.annotation.StringRes;
 import android.support.annotation.VisibleForTesting;
 import android.util.AttributeSet;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import nl.tcilegnar.dndcharactersheet.App;
 import nl.tcilegnar.dndcharactersheet.Health.HealthState;
 import nl.tcilegnar.dndcharactersheet.Health.Hp;
+import nl.tcilegnar.dndcharactersheet.Health.HpFragment;
 import nl.tcilegnar.dndcharactersheet.R;
 import nl.tcilegnar.dndcharactersheet.Utils.DeviceData;
+import nl.tcilegnar.dndcharactersheet.Utils.Res;
 
-public class HpIndicator extends LinearLayout {
+import static android.view.View.OnClickListener;
+
+public class HpIndicator extends LinearLayout implements OnClickListener {
     private final Hp hp;
 
+    private TextView totalHpLabel;
     private TextView totalHpValue;
     private TextView currentHpValue;
-    private TextView tempHpValue;
     private ProgressBar currentHpProgressBar;
+
+    private TextView tempHpValue;
     private ProgressBar tempHpProgressBar;
+    private ImageView tempHpIcon;
+
     private TextView healthStateValue;
+    private HpFragment changeHpValueCall;
+
+    private boolean isTempActivated;
+
+    public enum HpType {
+        TotalHp(R.string.total_hp), CurrentHp(R.string.current_hp), TempHp(R.string.temp_hp);
+
+        private final String text;
+
+        HpType(@StringRes int resId) {
+            this.text = Res.getString(resId);
+        }
+
+        @Override
+        public String toString() {
+            return text;
+        }
+    }
 
     public HpIndicator(Context context, AttributeSet attrs) {
         this(context, attrs, new Hp());
@@ -40,32 +67,27 @@ public class HpIndicator extends LinearLayout {
 
     private void init(Context context) {
         inflate(context, R.layout.hp_indicator, this);
-        setDummyValues();
         initViews();
     }
 
-    @Deprecated
-    private void setDummyValues() {
-        hp.setTotal(10);
-        hp.setCurrent(7);
-        hp.setTemp(2);
-    }
-
     private void initViews() {
+        totalHpLabel = (TextView) findViewById(R.id.total_hp_label);
         totalHpValue = (TextView) findViewById(R.id.total_hp_value);
         currentHpValue = (TextView) findViewById(R.id.current_hp_value);
-        tempHpValue = (TextView) findViewById(R.id.temp_hp_value);
         currentHpProgressBar = (ProgressBar) findViewById(R.id.current_hp_progress);
+
+        tempHpValue = (TextView) findViewById(R.id.temp_hp_value);
         tempHpProgressBar = (ProgressBar) findViewById(R.id.temp_hp_progress);
+        tempHpIcon = (ImageView) findViewById(R.id.temp_hp_icon);
+
         healthStateValue = (TextView) findViewById(R.id.current_health_state);
         updateHpValues();
-        updateHealthState();
-    }
 
-    private void updateHealthState() {
-        HealthState currentHealthState = hp.getCurrentHealthState();
-        healthStateValue.setText(currentHealthState.toString());
-        healthStateValue.setTextColor(ColorStateList.valueOf(currentHealthState.getColor()));
+        totalHpLabel.setOnClickListener(this);
+        totalHpValue.setOnClickListener(this);
+        currentHpValue.setOnClickListener(this);
+        tempHpValue.setOnClickListener(this);
+        tempHpIcon.setOnClickListener(this);
     }
 
     private void updateHpValues() {
@@ -73,19 +95,44 @@ public class HpIndicator extends LinearLayout {
         int currentHp = hp.getCurrent();
         int tempHp = hp.getTemp();
         updateTotalHp(totalHp);
-        updateCurrentHp(totalHp, currentHp);
+        updateCurrentHp(currentHp);
         updateTempHp(tempHp);
+        updateCurrentHpProgressBar(totalHp, currentHp);
+        updateHealthState();
     }
 
     private void updateTotalHp(int totalHp) {
-        String totalHpLabelText = App.getResourceString(R.string.total_hp_label);
-        String totalHpText = totalHpLabelText + totalHp;
-        totalHpValue.setText(totalHpText);
+        totalHpValue.setText(String.valueOf(totalHp));
     }
 
-    private void updateCurrentHp(int totalHp, int currentHp) {
+    private void updateCurrentHp(int currentHp) {
         currentHpValue.setText(String.valueOf(currentHp));
-        updateCurrentHpProgressBar(totalHp, currentHp);
+    }
+
+    private void updateTempHp(int tempHp) {
+        tempHpValue.setText(String.valueOf(tempHp));
+        tempHpProgressBar.setMax(5); // TODO: design van volledige HpIndicator verbeteren, dan is dit niet meer nodig
+        tempHpProgressBar.setProgress(tempHp);
+
+        if (tempHp > 0) {
+            activateTempHpViews();
+        } else {
+            deactivateTempHpViews();
+        }
+    }
+
+    private void activateTempHpViews() {
+        isTempActivated = true;
+        tempHpValue.setVisibility(VISIBLE);
+        tempHpProgressBar.setVisibility(VISIBLE);
+        tempHpIcon.setImageResource(android.R.drawable.ic_delete);
+    }
+
+    private void deactivateTempHpViews() {
+        isTempActivated = false;
+        tempHpValue.setVisibility(GONE);
+        tempHpProgressBar.setVisibility(GONE);
+        tempHpIcon.setImageResource(R.drawable.ic_temp);
     }
 
     private void updateCurrentHpProgressBar(int totalHp, int currentHp) {
@@ -115,29 +162,20 @@ public class HpIndicator extends LinearLayout {
         if (DeviceData.isAtLeastLollipop()) {
             currentHpProgressBar.setProgressBackgroundTintList(ColorStateList.valueOf(backgroundColor));
             currentHpProgressBar.setProgressTintList(ColorStateList.valueOf(progressColor));
-            //currentHpProgressBar.setSecondaryProgressTintList(ColorStateList.valueOf(secondaryColor));
 
             tempHpProgressBar.setProgressBackgroundTintList(ColorStateList.valueOf(backgroundColor));
             tempHpProgressBar.setProgressTintList(ColorStateList.valueOf(secondaryColor));
         } else {
-            // TODO: hoe op oudere versies mooi maken?
+            // TODO: hoe op oudere versies mooi maken? ... backgroundColor???
             currentHpProgressBar.getProgressDrawable().setColorFilter(progressColor, PorterDuff.Mode.SRC_IN);
             tempHpProgressBar.getProgressDrawable().setColorFilter(secondaryColor, PorterDuff.Mode.SRC_OUT);
         }
     }
 
-    private void updateTempHp(int tempHp) {
-        tempHpValue.setText(String.valueOf(tempHp));
-        tempHpProgressBar.setMax(5); // TODO: design van volledige HpIndicator verbeteren, dan is dit niet meer nodig
-        tempHpProgressBar.setProgress(tempHp);
-
-        if (tempHp > 0) {
-            tempHpValue.setVisibility(View.VISIBLE);
-            tempHpProgressBar.setVisibility(View.VISIBLE);
-        } else {
-            tempHpValue.setVisibility(View.INVISIBLE);
-            tempHpProgressBar.setVisibility(View.INVISIBLE);
-        }
+    private void updateHealthState() {
+        HealthState currentHealthState = hp.getCurrentHealthState();
+        healthStateValue.setText(currentHealthState.toString());
+        healthStateValue.setTextColor(ColorStateList.valueOf(currentHealthState.getColor()));
     }
 
     public Hp getHp() {
@@ -146,5 +184,78 @@ public class HpIndicator extends LinearLayout {
 
     public void save() {
         hp.save();
+    }
+
+    @Override
+    public void onClick(View clickedView) {
+        int id = clickedView.getId();
+        TextView viewWithValueToChange = getViewWithValueToChange(clickedView, id);
+        if (id == R.id.total_hp_label || id == R.id.total_hp_value || id == R.id.current_hp_value || id == R.id
+                .temp_hp_value) {
+            showDialog(viewWithValueToChange);
+        } else if (id == R.id.temp_hp_icon) {
+            if (isTempActivated) {
+                setNewHpValue(0, HpType.TempHp);
+            } else {
+                showDialog(viewWithValueToChange);
+            }
+        }
+    }
+
+    private void showDialog(TextView viewWithValueToChange) {
+        String value = viewWithValueToChange.getText().toString();
+        HpType hpType = getHpTypeToChange(viewWithValueToChange.getId());
+        changeHpValueCall.showDialog(value, hpType);
+    }
+
+    private TextView getViewWithValueToChange(View clickedView, int id) {
+        View viewWithValueToChange = clickedView;
+        if (id == R.id.total_hp_label) {
+            viewWithValueToChange = findViewById(R.id.total_hp_value);
+        } else if (id == R.id.temp_hp_icon) {
+            viewWithValueToChange = findViewById(R.id.temp_hp_value);
+        }
+        return (TextView) viewWithValueToChange;
+    }
+
+    private HpType getHpTypeToChange(int viewId) {
+        if (viewId == R.id.total_hp_value) {
+            return HpType.TotalHp;
+        } else if (viewId == R.id.current_hp_value) {
+            return HpType.CurrentHp;
+        } else if (viewId == R.id.temp_hp_value) {
+            return HpType.TempHp;
+        } else {
+            return null;
+        }
+    }
+
+    public void setChangeHpValueCallback(HpFragment changeHpValueCall) {
+        this.changeHpValueCall = changeHpValueCall;
+    }
+
+    public void setNewHpValue(int newValue, HpType hpType) {
+        switch (hpType) {
+            case TotalHp:
+                hp.setTotal(newValue);
+                break;
+            case CurrentHp:
+                int newCurrentHp = getNewCurrentHp(newValue);
+                hp.setCurrent(newCurrentHp);
+                break;
+            case TempHp:
+                hp.setTemp(newValue);
+                break;
+        }
+        updateHpValues();
+    }
+
+    private int getNewCurrentHp(int newValue) {
+        int newCurrentHp = hp.getCurrent() + newValue;
+        if (newCurrentHp > hp.getTotal()) {
+            return hp.getTotal();
+        } else {
+            return newCurrentHp;
+        }
     }
 }

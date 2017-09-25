@@ -1,39 +1,110 @@
 package nl.tcilegnar.dndcharactersheet.Storage;
 
+import java.io.File;
+
 import nl.tcilegnar.dndcharactersheet.Experience.Experience;
+import nl.tcilegnar.dndcharactersheet.Health.Hp;
 import nl.tcilegnar.dndcharactersheet.Level.Level;
+import nl.tcilegnar.dndcharactersheet.Utils.Log;
 import nl.tcilegnar.dndcharactersheet.abilities.entities.Ability;
+import nl.tcilegnar.dndcharactersheet.characters.CurrentCharacter;
+import nl.tcilegnar.dndcharactersheet.characters.DnDCharacter;
 
 public class Storage extends SharedPrefs {
+    //    protected static final String FILE_NAME_PREFIX = "Character";
+
+    protected final String characterId;
+
+    public Storage() {
+        this(CurrentCharacter.DnDCharacter().getId());
+    }
+
+    public Storage(String characterId) {
+        this.characterId = characterId;
+    }
+
+    public void clearAll() {
+        Log.d("SharedPrefs", "===========================");
+        Log.d("SharedPrefs", "=== clearAll from " + fileName() + " ===");
+        for (String fileName : getAllPrefFiles()) {
+            if (fileName.contains(fileName())) {
+                Log.i("SharedPrefs", "Delete " + fileName);
+
+                String prefFileName = getFileNameWithoutExtension(fileName, ".xml");
+                Storage storage = new Storage(prefFileName);
+                storage.clear();
+
+                String filePath = getPrefsDir() + "/" + fileName;
+                Log.d("SharedPrefs", "filePath " + filePath);
+                boolean isDeleted = new File(filePath).delete();
+                if (isDeleted) {
+                    Log.d("SharedPrefs", "Successfully deleted " + fileName); // TODO: werkt niet echt?
+                } else {
+                    Log.w("SharedPrefs", "Did not delete " + fileName);
+                }
+            }
+        }
+        Log.d("SharedPrefs", "=== End clearAll ===");
+        Log.d("SharedPrefs", "====================");
+    }
+
     @Override
     protected String fileName() {
-        // Deze filelocatie nooit veranderen!
-        return "Storage";
+        return characterId + getFileNameSuffix();
+    }
+
+    protected String getFileNameSuffix() {
+        return "";
     }
 
     public enum Key {
         // Deze enums nooit veranderen!
+        CHARACTER_NAME(DnDCharacter.DEFAULT_NAME),
+        RACE(DnDCharacter.DEFAULT_RACE),
+        CLASS(DnDCharacter.DEFAULT_CLASS),
+        ALIGNMENT(DnDCharacter.DEFAULT_ALIGNMENT),
+        DEITY(DnDCharacter.DEFAULT_DEITY),
+        GENDER(DnDCharacter.DEFAULT_GENDER),
+        AGE(DnDCharacter.DEFAULT_AGE),
+        HEIGHT(DnDCharacter.DEFAULT_HEIGHT),
+        WEIGHT(DnDCharacter.DEFAULT_WEIGHT),
+        HAIR(DnDCharacter.DEFAULT_HAIR),
+        EYES(DnDCharacter.DEFAULT_EYES),
+
         CURRENT_EXP(Experience.EXP_MIN),
         CURRENT_LEVEL(Level.MIN_LEVEL),
         READY_FOR_LEVEL_CHANGE(0),
+
         STRENGTH(Ability.DEFAULT_VALUE),
         DEXTERITY(Ability.DEFAULT_VALUE),
         CONSTITUTION(Ability.DEFAULT_VALUE),
         WISDOM(Ability.DEFAULT_VALUE),
         INTELLIGENCE(Ability.DEFAULT_VALUE),
         CHARISMA(Ability.DEFAULT_VALUE),
+        STRENGTH_TEMP(Ability.DEFAULT_VALUE_TEMP),
+        DEXTERITY_TEMP(Ability.DEFAULT_VALUE_TEMP),
+        CONSTITUTION_TEMP(Ability.DEFAULT_VALUE_TEMP),
+        WISDOM_TEMP(Ability.DEFAULT_VALUE_TEMP),
+        INTELLIGENCE_TEMP(Ability.DEFAULT_VALUE_TEMP),
+        CHARISMA_TEMP(Ability.DEFAULT_VALUE_TEMP),
+
+        TOTAL_HP(Hp.DEFAULT_TOTAL),
+        CURRENT_HP(Hp.DEFAULT_CURRENT),
+        TEMP_HP(Hp.DEFAULT_TEMP),
+
         PLATINUM(0),
         GOLD(0),
         SILVER(0),
-        BRONZE(0),
-        TOTAL_HP(0),
-        CURRENT_HP(0),
-        TEMP_HP(0);
+        BRONZE(0);
 
-        public final int defaultValue;
+        public final String defaultValue;
+
+        Key(String defaultValue) {
+            this.defaultValue = defaultValue;
+        }
 
         Key(int defaultValue) {
-            this.defaultValue = defaultValue;
+            this.defaultValue = String.valueOf(defaultValue);
         }
     }
 
@@ -42,7 +113,7 @@ public class Storage extends SharedPrefs {
         save(key.name(), value);
     }
 
-    public int loadExperience() {
+    public int loadExperience() { // TODO: long ipv int?
         Key key = Key.CURRENT_EXP;
         return loadInt(key.name(), key.defaultValue);
     }
@@ -77,6 +148,22 @@ public class Storage extends SharedPrefs {
 
     public int loadAbility(Key key) {
         return loadInt(key.name(), key.defaultValue);
+    }
+
+    public void saveAbilityTemp(Key key, int value) {
+        saveAbility(key, value);
+    }
+
+    public int loadAbilityTemp(Key key) {
+        return loadAbility(key);
+    }
+
+    public void saveHasAbilityTemp(Key key, int value) {
+        saveAbility(key, value);
+    }
+
+    public int loadHasAbilityTemp(Key key) {
+        return loadAbility(key);
     }
 
     public void savePlatinum(int value) {

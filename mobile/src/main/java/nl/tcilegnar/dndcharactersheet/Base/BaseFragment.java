@@ -4,11 +4,14 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
 import nl.tcilegnar.dndcharactersheet.Base.Settings.Settings;
 
 public abstract class BaseFragment extends Fragment {
+    public final String TAG = this.getClass().getSimpleName();
+
     private boolean settingsChanged;
 
     @Override
@@ -23,14 +26,21 @@ public abstract class BaseFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        initActionBar();
+        setDrawerIcon();
+        setActivityTitle();
     }
 
-    private void initActionBar() {
-        ActionBar supportActionBar = ((BaseActivity) getActivity()).getSupportActionBar();
+    private void setDrawerIcon() {
+        ActionBar supportActionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
+        if (supportActionBar != null) {
+            handleDrawerIcon(supportActionBar);
+        }
+    }
+
+    protected void setActivityTitle() {
+        ActionBar supportActionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
         if (supportActionBar != null) {
             supportActionBar.setTitle(getTitle());
-            handleDrawerIcon(supportActionBar);
         }
     }
 
@@ -40,7 +50,7 @@ public abstract class BaseFragment extends Fragment {
 
     private void handleDrawerIcon(ActionBar supportActionBar) {
         if (shouldShowHomeAsBack()) {
-            supportActionBar.setHomeButtonEnabled(true);
+            supportActionBar.setHomeButtonEnabled(false);
             supportActionBar.setDisplayHomeAsUpEnabled(true);
         }
     }

@@ -1,12 +1,10 @@
 package nl.tcilegnar.dndcharactersheet.Base;
 
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
-import android.support.design.widget.NavigationView;
-import android.support.design.widget.NavigationView.OnNavigationItemSelectedListener;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -14,59 +12,56 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 
 import nl.tcilegnar.dndcharactersheet.Base.Settings.SettingsActivity;
+import nl.tcilegnar.dndcharactersheet.DrawerMenu;
 import nl.tcilegnar.dndcharactersheet.FragmentManager;
 import nl.tcilegnar.dndcharactersheet.R;
+import nl.tcilegnar.dndcharactersheet.characters.settings.CharacterSettings;
 
-public abstract class BaseActivity extends AppCompatActivity implements OnNavigationItemSelectedListener {
+public abstract class BaseActivity extends AppCompatActivity implements DrawerMenu.DrawerItemSelectedListener {
     protected final String LOGTAG = getClass().getSimpleName();
+
     protected FragmentManager fragmentManager = new FragmentManager(this);
+
+    @NonNull
+    protected abstract BaseFragment getFirstFragment();
+
+    @Nullable
+    protected abstract Class<? extends SettingsActivity> getSettingsActivityClass();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_default);
+
         initToolBar();
+
+        if (savedInstanceState == null) {
+            BaseFragment firstFragment = getFirstFragment();
+            fragmentManager.addFirstFragment(firstFragment);
+        }
     }
 
     private void initToolBar() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        initDrawerMenu(toolbar);
-    }
-
-    private void initDrawerMenu(Toolbar toolbar) {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string
-                .content_description_navigation_drawer_open, R.string.content_description_navigation_drawer_close);
-        drawer.addDrawerListener(toggle);
-        toggle.syncState();
-
-        initNavigationView();
-    }
-
-    private void initNavigationView() {
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
+        DrawerMenu.INSTANCE.init(this, toolbar);
     }
 
     @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
-        int id = item.getItemId();
+    protected void onPostCreate(Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+        DrawerMenu.INSTANCE.syncState();
+    }
 
-        //        if (id == R.id.nav_char_A) {
-        //        } else if (id == R.id.nav_char_B) {
-        //        }
-
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
-        return true;
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        DrawerMenu.INSTANCE.onConfigurationChanged(newConfig);
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         MenuInflater menuInflater = getMenuInflater();
 
         Class<? extends SettingsActivity> settingsActivityClass = getSettingsActivityClass();
@@ -78,17 +73,24 @@ public abstract class BaseActivity extends AppCompatActivity implements OnNaviga
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        boolean handled = false;
+
+        // TODO: if the toolbar is added to the ActionBarDrawerToggle constructor, only then:
         // Handle action bar item clicks here. The action bar will automatically handle clicks on the Home/Up button,
         // so long as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            startSettingsActivity();
-            return true;
+        // TODO: if above not applies, then:
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                // TODO: werkt niet!
+                DrawerMenu.INSTANCE.onDrawerIconClicked(this);
+                handled = true;
+                break;
+            case R.id.action_settings:
+                startSettingsActivity();
+                handled = true;
+                break;
         }
-
-        return super.onOptionsItemSelected(item);
+        return handled;
     }
 
     private void startSettingsActivity() {
@@ -98,8 +100,6 @@ public abstract class BaseActivity extends AppCompatActivity implements OnNaviga
             startActivity(settingsActivity);
         }
     }
-
-    protected abstract Class<? extends SettingsActivity> getSettingsActivityClass();
 
     @Override
     public void startActivity(Intent intent) {
@@ -119,9 +119,8 @@ public abstract class BaseActivity extends AppCompatActivity implements OnNaviga
 
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
+        if (DrawerMenu.INSTANCE.closeDrawer()) {
+            return;
         } else {
             super.onBackPressed();
         }
@@ -135,5 +134,20 @@ public abstract class BaseActivity extends AppCompatActivity implements OnNaviga
 
     protected void onLeaveThisActivity() {
         overridePendingTransition(R.anim.enter_from_left, R.anim.exit_to_right);
+    }
+
+    @Override
+    public void onAddCharacter() {
+        CharacterSettings.getInstance().addCharacter(this);
+    }
+
+    @Override
+    public void onDeleteCharacter() {
+        CharacterSettings.getInstance().deleteCharacter(this);
+    }
+
+    @Override
+    public void onSwitchCharacter(String characterId) {
+        CharacterSettings.getInstance().switchCharacter(characterId);
     }
 }
