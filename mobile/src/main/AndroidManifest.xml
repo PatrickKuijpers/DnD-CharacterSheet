@@ -32,6 +32,10 @@
             android:label="@string/title_abilities"
             android:theme="@style/AppTheme.NoActionBar"/>
         <activity
+            android:name=".skills.SkillsActivity"
+            android:label="@string/title_skills"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity
             android:name=".Health.HpActivity"
             android:label="@string/title_hp"
             android:theme="@style/AppTheme.NoActionBar"/>
