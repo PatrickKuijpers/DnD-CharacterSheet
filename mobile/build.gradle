@@ -2,7 +2,7 @@ apply plugin: 'com.android.application'
 apply plugin: 'com.getkeepsafe.dexcount'
 
 // Load keystore
-def keystorePropertiesFile = file("D:\\Keystore\\keystore.properties");
+def keystorePropertiesFile = file(keystorePropertiesPath);
 def keystoreProperties = new Properties()
 keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
 
