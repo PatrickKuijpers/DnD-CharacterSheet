@@ -20,6 +20,11 @@
         android:text="@string/title_abilities"/>
 
     <Button
+        android:id="@+id/main_menu_button_skills"
+        style="@style/button_main_menu"
+        android:text="@string/title_skills"/>
+
+    <Button
         android:id="@+id/main_menu_button_hp"
         style="@style/button_main_menu"
         android:text="@string/title_hp"/>

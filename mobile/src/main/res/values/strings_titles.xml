@@ -5,6 +5,7 @@
     <string name="title_basic_character_info" translatable="false">Character info</string>
     <string name="title_level_and_experience" translatable="false">Level &amp; experience</string>
     <string name="title_abilities" translatable="false">Abilities</string>
+    <string name="title_skills" translatable="false">Skills</string>
     <string name="title_hp" translatable="false">Health</string>
     <string name="title_money" translatable="false">Money</string>
 

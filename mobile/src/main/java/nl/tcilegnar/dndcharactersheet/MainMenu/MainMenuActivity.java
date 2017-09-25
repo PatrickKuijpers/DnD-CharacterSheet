@@ -7,9 +7,7 @@ import net.hockeyapp.android.UpdateManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.widget.Toast;
 
-import nl.tcilegnar.dndcharactersheet.App;
 import nl.tcilegnar.dndcharactersheet.Base.BaseActivity;
 import nl.tcilegnar.dndcharactersheet.Base.BaseFragment;
 import nl.tcilegnar.dndcharactersheet.Base.Settings.SettingsActivity;
@@ -23,6 +21,7 @@ import nl.tcilegnar.dndcharactersheet.Utils.MyBuildConfig;
 import nl.tcilegnar.dndcharactersheet.Utils.MyProperties;
 import nl.tcilegnar.dndcharactersheet.abilities.AbilitiesActivity;
 import nl.tcilegnar.dndcharactersheet.basicinfo.BasicInfoActivity;
+import nl.tcilegnar.dndcharactersheet.skills.SkillsActivity;
 
 public class MainMenuActivity extends BaseActivity {
     MyBuildConfig myBuildConfig = new MyBuildConfig();
@@ -87,6 +86,8 @@ public class MainMenuActivity extends BaseActivity {
             startLevelAndExperience();
         } else if (viewId == R.id.main_menu_button_abilities) {
             startAbilities();
+        } else if (viewId == R.id.main_menu_button_skills) {
+            startSkills();
         } else if (viewId == R.id.main_menu_button_hp) {
             startHp();
         } else if (viewId == R.id.main_menu_button_money) {
@@ -107,6 +108,11 @@ public class MainMenuActivity extends BaseActivity {
     public void startAbilities() {
         Intent abilitiesActivity = new Intent(this, AbilitiesActivity.class);
         startActivity(abilitiesActivity);
+    }
+
+    public void startSkills() {
+        Intent skillsActivity = new Intent(this, SkillsActivity.class);
+        startActivity(skillsActivity);
     }
 
     public void startHp() {
