@@ -1,4 +1,4 @@
-package nl.tcilegnar.dndcharactersheet.abilities;
+package nl.tcilegnar.dndcharactersheet.ability;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -6,7 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.GridView;
 
-import nl.tcilegnar.dndcharactersheet.abilities.adapter.AbilitiesAdapter;
+import nl.tcilegnar.dndcharactersheet.ability.adapter.AbilitiesAdapter;
 import nl.tcilegnar.dndcharactersheet.Base.BaseStorageFragment;
 import nl.tcilegnar.dndcharactersheet.Money.Settings.MoneySettings;
 import nl.tcilegnar.dndcharactersheet.R;

@@ -19,7 +19,7 @@ import nl.tcilegnar.dndcharactersheet.R;
 import nl.tcilegnar.dndcharactersheet.Utils.Log;
 import nl.tcilegnar.dndcharactersheet.Utils.MyBuildConfig;
 import nl.tcilegnar.dndcharactersheet.Utils.MyProperties;
-import nl.tcilegnar.dndcharactersheet.abilities.AbilitiesActivity;
+import nl.tcilegnar.dndcharactersheet.ability.AbilitiesActivity;
 import nl.tcilegnar.dndcharactersheet.basicinfo.BasicInfoActivity;
 import nl.tcilegnar.dndcharactersheet.skills.SkillsActivity;
 

@@ -20,7 +20,7 @@
         android:gravity="center_horizontal"
         android:textSize="@dimen/ability_abbr_textsize"/>
 
-    <nl.tcilegnar.dndcharactersheet.abilities.viewgroup.AbilityNumberEditor
+    <nl.tcilegnar.dndcharactersheet.ability.viewgroup.AbilityNumberEditor
         android:id="@+id/ability_editor"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"

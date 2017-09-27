@@ -1,4 +1,4 @@
-package nl.tcilegnar.dndcharactersheet.abilities.model;
+package nl.tcilegnar.dndcharactersheet.ability.model;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

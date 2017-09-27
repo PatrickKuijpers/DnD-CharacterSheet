@@ -6,7 +6,7 @@ import nl.tcilegnar.dndcharactersheet.Experience.Experience;
 import nl.tcilegnar.dndcharactersheet.Health.Hp;
 import nl.tcilegnar.dndcharactersheet.Level.Level;
 import nl.tcilegnar.dndcharactersheet.Utils.Log;
-import nl.tcilegnar.dndcharactersheet.abilities.model.Ability;
+import nl.tcilegnar.dndcharactersheet.ability.model.Ability;
 import nl.tcilegnar.dndcharactersheet.characters.CurrentCharacter;
 import nl.tcilegnar.dndcharactersheet.characters.DnDCharacter;
 

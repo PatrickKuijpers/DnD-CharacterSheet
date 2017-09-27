@@ -1,4 +1,4 @@
-package nl.tcilegnar.dndcharactersheet.abilities.adapter;
+package nl.tcilegnar.dndcharactersheet.ability.adapter;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -10,8 +10,8 @@ import android.content.Context;
 
 import nl.tcilegnar.dndcharactersheet.App;
 import nl.tcilegnar.dndcharactersheet.BuildConfig;
-import nl.tcilegnar.dndcharactersheet.abilities.model.Ability;
-import nl.tcilegnar.dndcharactersheet.abilities.viewgroup.AbilityView;
+import nl.tcilegnar.dndcharactersheet.ability.model.Ability;
+import nl.tcilegnar.dndcharactersheet.ability.viewgroup.AbilityView;
 
 import static org.junit.Assert.assertEquals;
 

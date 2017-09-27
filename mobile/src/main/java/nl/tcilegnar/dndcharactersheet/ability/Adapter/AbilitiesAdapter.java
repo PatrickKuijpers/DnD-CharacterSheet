@@ -1,4 +1,4 @@
-package nl.tcilegnar.dndcharactersheet.abilities.adapter;
+package nl.tcilegnar.dndcharactersheet.ability.adapter;
 
 import android.content.Context;
 import android.view.View;
@@ -9,8 +9,8 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import nl.tcilegnar.dndcharactersheet.abilities.model.Ability;
-import nl.tcilegnar.dndcharactersheet.abilities.viewgroup.AbilityView;
+import nl.tcilegnar.dndcharactersheet.ability.model.Ability;
+import nl.tcilegnar.dndcharactersheet.ability.viewgroup.AbilityView;
 
 public class AbilitiesAdapter extends BaseAdapter {
     private final Context activityContext;

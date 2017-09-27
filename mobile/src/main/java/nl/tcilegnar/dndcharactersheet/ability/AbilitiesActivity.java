@@ -1,4 +1,4 @@
-package nl.tcilegnar.dndcharactersheet.abilities;
+package nl.tcilegnar.dndcharactersheet.ability;
 
 import android.support.annotation.NonNull;
 
